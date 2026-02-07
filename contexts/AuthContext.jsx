@@ -1,13 +1,15 @@
 import { get, getData, post } from "@/api/apiService";
 import { getStorage, removeStorage, saveStorage } from "@/helpers/token";
-import { removeOtpParamsStorage, saveOtpParamsStorage } from "@/helpers/verificationOtpParams";
+import {
+  removeOtpParamsStorage,
+  saveOtpParamsStorage,
+} from "@/helpers/verificationOtpParams";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 
 import NotificationService from "@/services/NotificationService";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useLocalization } from "./LocalizationContext";
-
 
 // Create the context with a default value of false
 export const AuthContext = createContext(null);
@@ -26,7 +28,6 @@ export const AuthProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [verificationData, setVerificationData] = useState(null);
 
-  const [status, setStatus] = useState(null);
   const [success, setSuccess] = useState(null);
   const [message, setMessage] = useState(null);
 
@@ -62,8 +63,6 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
-
-
   const removeTokenData = async () => {
     await removeStorage().then((res) => {
       if (res) {
@@ -81,12 +80,11 @@ export const AuthProvider = ({ children }) => {
       setIsMessage(false);
       setIsToken(null);
       setIsLoading(false);
-      router.push('/(z_auth)');
+      router.push("/(z_auth)");
     } catch (error) {
       setError(error);
     }
   };
-
 
   const logoutFirebase = async () => {
     console.log("logoutFirebase prvo");
@@ -105,7 +103,6 @@ export const AuthProvider = ({ children }) => {
         console.log("nema tokena");
       }
     } catch (error) {
-
       setError(error);
     }
   };
@@ -150,23 +147,21 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
-
   const verificationOTPCode = async () => {
     setIsLoading(true);
     const { email, password } = verificationData;
-    console.log("verificationOTPCode sendOTPviaLogin", email, password)
+    console.log("verificationOTPCode sendOTPviaLogin", email, password);
     try {
       const response = await getData("/users/sendOTPviaLogin", {
         params: { email },
       });
 
-      console.log("verificationOTPCode+++", response)
+      console.log("verificationOTPCode+++", response);
       if (response.status === 200) {
         await saveOtpParamsStorage(verificationData);
         setIsLoading(false);
         setIsMessage(false);
         router.push("/(tabs)/(04_settings)/otpCode");
-
       }
       if (response.status === 500) {
         setIsLoading(false);
@@ -183,48 +178,44 @@ export const AuthProvider = ({ children }) => {
   };
 
   const loginAdmin = async (email, password) => {
+    setIsLoading(true);
+    setError(null);
+
     const expoToken = await NotificationService.getFCMToken();
 
     if (!email || !password) {
+      setIsLoading(false);
       setIsMessage(true);
       setError(localization.LOGIN.error);
       return;
     }
-    setStatus(null);
-    setIsLoading(true);
-    setError(null);
     try {
-      const responseData = await post("/admin/users/login", { email, password, fcmToken: expoToken });
-      console.log("responseData", responseData)
-      if (responseData.status === 202) {
-        setIsMessage(true);
-        setError(localization.LOGIN.errorFields);
-      }
-      if (responseData.status === 606) {
-        setIsMessage(true);
-        setVerificationData({ email, password });
-        setStatus(responseData.status);
-        setMessage(localization.LOGIN.isVerified);
-      }
+      const responseData = await post("/admin/users/login", {
+        email,
+        password,
+        fcmToken: expoToken,
+      });
+      console.log("responseData", responseData);
+
       if (responseData.status === 200) {
         saveStorage(responseData.token);
         saveToken(responseData.userId, expoToken);
       }
     } catch (err) {
-      console.log("errerrerrerr", err)
-
-      // if (err.message.includes("404")) {
-      //   setIsMessage(true);
-
-      //   setError(localization.SERVER_RESPONSE.notFound);
-      // } else {
-      //   setIsMessage(true);
-
-      //   setError(localization.SERVER_RESPONSE.error);
-      // }
-      // setIsLoading(false);
-    } finally {
       setIsLoading(false);
+
+      if (err.status === 304) {
+        setIsMessage(true);
+        setError("Invalid email or password");
+      }
+      if (err.status === 400) {
+        setIsMessage(true);
+        setError("Not match password");
+      }
+      if (err.status === 500) {
+        setIsMessage(true);
+        setError(err);
+      }
     }
   };
   const saveToken = async (userId, expoToken) => {
@@ -237,30 +228,19 @@ export const AuthProvider = ({ children }) => {
         tokenExpo: expoToken,
         tokenUser: userId,
       });
-      console.log("saveToken", responseData)
       if (responseData.status === 200) {
         setIsMessage(true);
         setSuccess(localization.LOGIN.success);
-
-      } else {
-        setIsMessage(true);
-        setError(
-          `${localization.LOGIN.errorToken} ${responseData?.message || "Unknown error"}`
-        );
       }
+      setIsLoading(false);
     } catch (err) {
-      console.log("saveToken err", err)
       setIsMessage(true);
-
       setError(`${localization.LOGIN.errorToken} ${err.message || err}`);
-    } finally {
-      await getTokenData();
-
     }
   };
   const removeInitialTokenData = async () => {
     await AsyncStorage.removeItem("initialToken");
-  }
+  };
   return (
     <AuthContext.Provider
       value={{
@@ -281,7 +261,6 @@ export const AuthProvider = ({ children }) => {
         error,
         loginAdmin,
         success,
-        status,
         verificationOTPCode,
         message,
       }}

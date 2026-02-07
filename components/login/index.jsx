@@ -62,7 +62,7 @@ export default function LoginScreen() {
             placeholder="Enter your password"
           />
           <SharedButton
-            loadiing={isLoading}
+            loading={isLoading}
             onPress={handleLogin}
             text="Login"
           />
