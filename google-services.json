@@ -1,0 +1,158 @@
+{
+  "project_info": {
+    "project_number": "284831110803",
+    "project_id": "fta-barber-mob-app",
+    "storage_bucket": "fta-barber-mob-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:284831110803:android:7f9a283d71042d1062df66",
+        "android_client_info": {
+          "package_name": "com.barber.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "284831110803-cgbahsp8meoqj8hsor24uevm31q8s9dm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.barber.app",
+            "certificate_hash": "a486e18dd2edf5d5b2827561ec98726fd4c15fd3"
+          }
+        },
+        {
+          "client_id": "284831110803-plu6lqo8dqdsgcm819a15uujse19a38d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.barber.app",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "284831110803-0v5h2374cjlsfjsuhn11dbr4f3p1n0pm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBO9Cq1-NZVbwXF4GiTGQrppNkPSeHtZ2A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "284831110803-0v5h2374cjlsfjsuhn11dbr4f3p1n0pm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "284831110803-27e9klg2gkuipeb4q34ptcs300djcr7l.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.barber.app"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:284831110803:android:07d068435a1a4e1d62df66",
+        "android_client_info": {
+          "package_name": "fta.admin.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "284831110803-0v5h2374cjlsfjsuhn11dbr4f3p1n0pm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBO9Cq1-NZVbwXF4GiTGQrppNkPSeHtZ2A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "284831110803-0v5h2374cjlsfjsuhn11dbr4f3p1n0pm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "284831110803-27e9klg2gkuipeb4q34ptcs300djcr7l.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.barber.app"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:284831110803:android:b5cb19d72741521062df66",
+        "android_client_info": {
+          "package_name": "fta.barber.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "284831110803-39mhn78n4ffl1jocb8olk18rbekjr288.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fta.barber.app",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "284831110803-dd96ilkpgnmjb5lbfja9gqnccjmiqhiq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fta.barber.app",
+            "certificate_hash": "2f8f14c43315249c90ff8c3a1f31a51cbd9cf587"
+          }
+        },
+        {
+          "client_id": "284831110803-nf8pioq7aevik21n5drl427j14u8k880.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fta.barber.app",
+            "certificate_hash": "a486e18dd2edf5d5b2827561ec98726fd4c15fd3"
+          }
+        },
+        {
+          "client_id": "284831110803-0v5h2374cjlsfjsuhn11dbr4f3p1n0pm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBO9Cq1-NZVbwXF4GiTGQrppNkPSeHtZ2A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "284831110803-0v5h2374cjlsfjsuhn11dbr4f3p1n0pm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "284831110803-27e9klg2gkuipeb4q34ptcs300djcr7l.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.barber.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
