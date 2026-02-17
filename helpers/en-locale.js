@@ -40,6 +40,7 @@ export const ENG_LOCALIZATION = {
     listBarbers: "List services",
     email: "Enter email",
     phoneNumber: "Enter phone nummber",
+    seniority: "Enter seniority",
     name: "Enter name",
     errorFields: "Enter all your fields",
     add: "Barber is successfully created",

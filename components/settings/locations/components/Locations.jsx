@@ -43,6 +43,7 @@ const Locations = () => {
  
    useFocusEffect(
       useCallback(() => {
+        console.log("xxxxxxxx")
         getLocations();
       }, []),
     );
