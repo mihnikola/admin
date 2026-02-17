@@ -39,14 +39,17 @@ function useLocationBarber() {
         setIsLoading('getLocations');
         setError(null);
 
-        try {
-            const response = await get(`admin/places`);
 
+        console.log("wwwwwwwwwwwwww")
+        try {
+            const response = await get(`admin/places/`);
+            console.log("getLocations",response);
             if (response.status === 200) {
                 setLocations(response.data);
             }
 
         } catch (errorData) {
+            console.log("asjdjhasdjsa",errorData)
             setIsMessage(true);
             setError(errorData);
         } finally {
@@ -65,9 +68,7 @@ function useLocationBarber() {
         setLocationBarbersData(activeBarberData);
     };
 
-    useEffect(() => {
-        getLocations();
-    }, []);
+  
 
     const submitChanges = async (id) => {
         const employers = locationBarbersData.map((item) => {
@@ -113,7 +114,8 @@ function useLocationBarber() {
         onSelectedLocation,
         toggleBarber,
         submitChanges,
-        confirmSubmit
+        confirmSubmit,
+        getLocations
     };
 }
 

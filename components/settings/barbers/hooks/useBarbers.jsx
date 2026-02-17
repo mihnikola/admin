@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 
 const useBarbers = () => {
   const [barbersData, setBarbersData] = useState([]);
+  const [seniorityData, setSeniorityData] = useState([]);
   const [barberData, setBarberData] = useState([]);
 
   const [isLoading, setIsLoading] = useState(null);
@@ -48,8 +49,22 @@ const useBarbers = () => {
     }
   };
 
+   const fetchAllSeniority = async () => {
+    setIsLoading("get");
+    setError(null);
+    try {
+      const response = await get("/seniority");
+      if (response.status === 200) {
+        setSeniorityData(response.data);
+      }
+    } catch (err) {
+      setError(localization.BARBERS.errorFetch);
+    } finally {
+      setIsLoading(null);
+    }
+  };
+
   const addEditBarber = async (userData) => {
-    console.log("addEditBarber",userData)
     setIsLoading("addEdit");
     setError(null);
     const formData = new FormData();
@@ -58,6 +73,7 @@ const useBarbers = () => {
     }
    
     formData.append("phoneNumber", userData?.phoneNumber);
+    formData.append("seniority", userData?.seniority);
     formData.append("email", userData?.email);
     formData.append("password", userData?.password);
 
@@ -173,6 +189,8 @@ const useBarbers = () => {
     startEditing,
     getBarberHandler,
     editScreen,
+    fetchAllSeniority,
+    seniorityData
   };
 };
 

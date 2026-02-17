@@ -132,7 +132,7 @@ export const SRB_LOCALIZATION = {
     missedReservation: {
       success: "Termin je propušten",
       question: "Da li ste sigurni da želite da propustite ovu rezervaciju?",
-      yesButton: "Propusti"
+      yesButton: "Propusti",
     },
     errorDailyLimit: "Ne možete napraviti više rezervacija za ovaj dan.",
     errorWeeklyLimit: "Ne možete napraviti više rezervacija za ovu nedelju.",
@@ -149,8 +149,7 @@ export const SRB_LOCALIZATION = {
       noButton: "Ne",
       confirmMessage: "Rezervacija je uspešno odbijena",
       errorMessage: "Rezervacija ne postoji",
-      info: "Rezervacija je odbijena"
-
+      info: "Rezervacija je odbijena",
     },
     approveReservation: {
       approveButton: "Odobri",
@@ -184,6 +183,7 @@ export const SRB_LOCALIZATION = {
     question: "Da li stvarno želiš da obrišeš ovog barbera?",
     title: "Upravljanje barberima",
     listBarbers: "Lista barbera",
+    seniority: "Unesi senioritet",
     email: "Unesi email",
     phoneNumber: "Unesi broj telefona",
     name: "Unesi ime",

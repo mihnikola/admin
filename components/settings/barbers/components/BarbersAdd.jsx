@@ -1,4 +1,4 @@
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -10,6 +10,8 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { Picker } from "@react-native-picker/picker";
+
 import ImageCompress from "../../ImageCompress";
 import useBarbers from "../hooks/useBarbers";
 import Loader from "../../../../shared-components/Loader";
@@ -42,15 +44,19 @@ export default function BarbersAdd() {
     startEditing,
     addEditBarber,
     editScreen,
+    fetchAllSeniority,
+    seniorityData,
   } = useBarbers();
 
   useEffect(() => {
+    fetchAllSeniority();
     if (id) {
       getBarberHandler(id);
     }
   }, [id]);
 
   const [name, setName] = useState("");
+  const [seniority, setSeniority] = useState("");
 
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -59,6 +65,7 @@ export default function BarbersAdd() {
   const [editingId, setEditingId] = useState(null);
   const [changedImg, setChangedImg] = useState(null);
   const { company } = useCompany();
+  const [selected, setSelected] = useState("");
 
   const [isError, setIsError] = useState(null);
 
@@ -71,7 +78,7 @@ export default function BarbersAdd() {
   useEffect(() => {
     if (editScreen) {
       setName(barberData?.name);
-
+      setSelected(barberData?.seniority._id);
       setPhoneNumber(barberData?.phoneNumber);
       selectedImgHandler(barberData?.image);
       setEditingId(barberData?.id);
@@ -80,6 +87,7 @@ export default function BarbersAdd() {
 
   const resetForm = () => {
     setName("");
+    setSelected("");
     setEmail("");
     setPhoneNumber("");
     setPassword("");
@@ -97,6 +105,7 @@ export default function BarbersAdd() {
         id: editingId,
         name,
         phoneNumber,
+        seniority: selected,
         image: changedImg === imageValue ? null : changedImg,
       };
       if (updateBarber) {
@@ -108,6 +117,7 @@ export default function BarbersAdd() {
         email,
         phoneNumber,
         password,
+        seniority: selected,
         image: changedImg === imageValue ? null : changedImg,
       };
       if (newBarber?.name && newBarber?.email) {
@@ -129,6 +139,7 @@ export default function BarbersAdd() {
     return <SharedLoader isOpen={isLoading === "getBarber"} />;
   }
 
+  console.log("selected",selected)
   return (
     <View style={styles.container}>
       {<SharedCoverImage image={company?.media?.coverImageHome} />}
@@ -164,13 +175,17 @@ export default function BarbersAdd() {
             keyboardType="visible-password"
           />
         )}
-
         <TextInput
           style={styles.input}
           placeholder={localization.BARBERS.phoneNumber}
           value={phoneNumber}
           onChangeText={setPhoneNumber}
           keyboardType="phone-pad"
+        />
+        <PickerSeniority
+          data={seniorityData}
+          selected={selected}
+          setSelected={setSelected}
         />
       </View>
 
@@ -212,6 +227,16 @@ export default function BarbersAdd() {
 }
 
 const styles = StyleSheet.create({
+  containerPicker: {
+    backgroundColor: "#1e1e1e",
+    borderRadius: 12,
+    justifyContent: "center",
+    marginVertical: 5,
+  },
+  picker: {
+    height: 60,
+  },
+
   containerImage: {
     position: "absolute",
     alignContent: "center",
@@ -282,3 +307,22 @@ const styles = StyleSheet.create({
     padding: 8,
   },
 });
+
+const PickerSeniority = ({ data, selected, setSelected }) => {
+
+  return (
+    <View style={styles.containerPicker}>
+      <Picker
+        selectedValue={selected}
+        onValueChange={(itemValue) => setSelected(itemValue)}
+        style={styles.picker}
+      >
+        <Picker.Item label="Select seniority..." value={null} />
+
+        {data.map((item) => (
+          <Picker.Item key={item._id} label={item.title} value={item._id} />
+        ))}
+      </Picker>
+    </View>
+  );
+};

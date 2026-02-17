@@ -126,11 +126,17 @@ function useLocation() {
     setIsLoading("getPlaces");
     setError(null);
     try {
+
       const response = await get(`admin/places`);
+    console.log("xxxxxwwwwwwwwxxx")
+
+
+      console.log("asdjsadjsad",response);
       if (response.status === 200) {
         setLocations(response.data);
       }
     } catch (errorData) {
+      console.log("object",errorData)
       setIsMessage(true);
       setError(errorData);
     } finally {
