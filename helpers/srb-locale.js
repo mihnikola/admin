@@ -31,6 +31,7 @@ export const SRB_LOCALIZATION = {
     calendar: "Kalendar",
     location: "Lokacije",
     requirements: "Zahtevi",
+    commentLabel: "Opis tretmana:",
   },
   COMPANY: {
     error: "Greška prilikom uzimanja podataka o kompaniji...",
@@ -134,6 +135,7 @@ export const SRB_LOCALIZATION = {
       question: "Da li ste sigurni da želite da propustite ovu rezervaciju?",
       yesButton: "Propusti",
     },
+    error: "Trenutno nemate nijedan zahtev na cekanju",
     errorDailyLimit: "Ne možete napraviti više rezervacija za ovaj dan.",
     errorWeeklyLimit: "Ne možete napraviti više rezervacija za ovu nedelju.",
     errorMonthlyLimit: "Ne možete napraviti više rezervacija za ovaj mesec.",

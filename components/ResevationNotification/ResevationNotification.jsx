@@ -27,15 +27,7 @@ function ResevationNotificationScreen() {
   const { itemId, user, note, past, rating, notification, arrived } =
     useLocalSearchParams();
 
-  console.log(
-    "ResevationNotificationScreen",
-    itemId,
-    user,
-    note,
-    past,
-    rating,
-    notification,
-  );
+  console.log("ResevationNotificationScreen", itemId);
   const { company } = useCompany();
 
   const {
@@ -56,7 +48,6 @@ function ResevationNotificationScreen() {
     fetchReservationDetails(itemId);
   }, []);
 
-  console.log("reservationData", itemId);
   const [actionValue, setActionValue] = useState(null);
 
   const confirmHandler = async () => {
@@ -129,6 +120,7 @@ function ResevationNotificationScreen() {
     );
   };
 
+  console.log("WEEEEEEEEEEEEEEE",reservationData?.status, arrived)
   return (
     <View style={styles.screenContainer}>
       {!isLoading && reservationData && (

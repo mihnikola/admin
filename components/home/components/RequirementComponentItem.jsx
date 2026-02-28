@@ -6,33 +6,36 @@ import DateFormatComponent from "./DateFormatComponent";
 const RequirementComponentItem = ({ item }) => {
   const { localization } = useLocalization();
 
-  console.log("object",item)
   const goToScreen = (item) => {
     router.push({
       pathname: "/(reservation_notification)/",
       params: {
-        itemId: item?._id,
+        itemId: item?.id,
         user: item?.user?.name,
         note: item?.description,
-        requirement: true
+        requirement: true,
       },
     });
   };
 
+
+  
   return (
-    <TouchableOpacity style={styles.eventItem} onPress={() => goToScreen(item)}>
+    <TouchableOpacity
+      key={item.id}
+      style={styles.eventItem}
+      onPress={() => goToScreen(item)}
+    >
       <View style={styles.timeBlock}>
         <DateFormatComponent item={item} />
       </View>
       <View style={styles.detailsBlock}>
         <Text style={styles.eventTitle}>
-          {localization.code === "en"
-            ? item.service.name.nameEn
-            : item.service.name.nameLocal}
+          {localization.code === "en" ? item.name.nameEn : item.name.nameLocal}
         </Text>
         <Text style={styles.eventUser}>
-          {item.user.name
-            ? item.user.name
+          {item.reservation.user
+            ? item.reservation.user
             : localization.code === "en"
               ? "unknown user"
               : "nepoznati korisnik"}

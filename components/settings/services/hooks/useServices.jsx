@@ -127,7 +127,7 @@ const useServices = () => {
     setIsLoading("getService");
     setError(null);
     try {
-      const response = await get(`admin/services/${id}`);
+      const response = await get(`/admin/services/${id}`);
       if (response.status === 200) {
         setEditScreen(true);
 

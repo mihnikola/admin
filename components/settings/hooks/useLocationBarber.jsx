@@ -25,7 +25,7 @@ function useLocationBarber() {
         setIsLoading('getBarbers');
         setError(null);
         try {
-            const response = await get(`admin/places/${id}/employers`);
+            const response = await get(`/admin/places/${id}/employers`);
             if (response.status === 200) {
                 setLocationBarbersData(response.data);
             }
@@ -43,7 +43,7 @@ function useLocationBarber() {
         setError(null);
 
         try {
-            const response = await get(`admin/places`);
+            const response = await get(`/admin/places`);
 
             if (response.status === 200) {
                 setLocations(response.data);

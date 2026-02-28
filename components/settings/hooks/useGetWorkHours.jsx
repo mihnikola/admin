@@ -45,7 +45,7 @@ function useGetWorkHours() {
         setIsLoading(true);
         setError(null);
         try {
-            const response = await get("admin/times");
+            const response = await get("/admin/times");
             if (response.status === 200) {
                 const { startHour, endHour, minutes } = response.data;
                 setInitalData(response.data);

@@ -36,7 +36,7 @@ function useLocation() {
     setIsLoading("getPlaceById");
     setError(null);
     try {
-      const response = await get(`admin/places/${id}`);
+      const response = await get(`/admin/places/${id}`);
       if (response.status === 200) {
         setLocationById(response.data);
       }
@@ -127,7 +127,7 @@ function useLocation() {
     setError(null);
     try {
 
-      const response = await get(`admin/places`);
+      const response = await get(`/admin/places`);
     console.log("xxxxxwwwwwwwwxxx")
 
 

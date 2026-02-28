@@ -196,48 +196,28 @@ export const AuthProvider = ({ children }) => {
         fcmToken: expoToken,
       });
       console.log("responseData", responseData);
+      setIsMessage(true);
 
       if (responseData.status === 200) {
         saveStorage(responseData.token);
-        saveToken(responseData.userId, expoToken);
+        setSuccess(localization.LOGIN.success);
       }
     } catch (err) {
-      setIsLoading(false);
-
+      setIsMessage(true);
       if (err.status === 304) {
-        setIsMessage(true);
         setError("Invalid email or password");
       }
       if (err.status === 400) {
-        setIsMessage(true);
         setError("Not match password");
       }
       if (err.status === 500) {
-        setIsMessage(true);
         setError(err);
       }
+    } finally {
+      setIsLoading(false);
     }
   };
-  const saveToken = async (userId, expoToken) => {
-    if (!expoToken) {
-      setIsLoading(false);
-      return;
-    }
-    try {
-      const responseData = await post("/api/saveToken", {
-        tokenExpo: expoToken,
-        tokenUser: userId,
-      });
-      if (responseData.status === 200) {
-        setIsMessage(true);
-        setSuccess(localization.LOGIN.success);
-      }
-      setIsLoading(false);
-    } catch (err) {
-      setIsMessage(true);
-      setError(`${localization.LOGIN.errorToken} ${err.message || err}`);
-    }
-  };
+
   const removeInitialTokenData = async () => {
     await AsyncStorage.removeItem("initialToken");
   };

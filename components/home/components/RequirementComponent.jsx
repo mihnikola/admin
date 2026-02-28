@@ -21,9 +21,9 @@ export default function RequirementComponent() {
   const { height: screenHeight } = Dimensions.get("window");
   const containerHeight = screenHeight * 0.62;
 
-  useEffect(() => {
-    fetchRequirements();
-  }, []);
+  // useEffect(() => {
+  //   fetchRequirements();
+  // }, []);
 
   useFocusEffect(
     useCallback(() => {
@@ -33,6 +33,13 @@ export default function RequirementComponent() {
 
   if (isLoading === "fetchRequirements") {
     return <SharedLoader isOpen={isLoading === "fetchRequirements"} />;
+  }
+  if (requirements.length === 0) {
+    return (
+      <View style={styles.card}>
+        <Text style={styles.capture}>{localization.APPOINTMENTS.error}</Text>
+      </View>
+    );
   }
   console.log("requirements", requirements);
   return (
@@ -47,7 +54,7 @@ export default function RequirementComponent() {
         {isLoading !== "fetchRequirements" && (
           <FlatList
             data={requirements}
-            keyExtractor={(item) => item._id}
+            keyExtractor={(item) => item.id}
             renderItem={({ item }) => <RequirementComponentItem item={item} />}
           />
         )}
@@ -70,5 +77,16 @@ const styles = StyleSheet.create({
     color: "#fff",
     textAlign: "center",
     marginBottom: 10,
+  },
+  card: {
+    backgroundColor: "black",
+    marginVertical: 80,
+  },
+  capture: {
+    fontSize: 20,
+    textAlign: "center",
+    paddingHorizontal: 80,
+    fontWeight: "900",
+    color: "white",
   },
 });

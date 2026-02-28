@@ -1,13 +1,16 @@
 import { View, Text, StyleSheet, Image } from "react-native";
 import React from "react";
+import { useLocalization } from "@/contexts/LocalizationContext";
 
 const SharedDetailsCustomerCard = ({ user, note }) => {
   const { image, name, _id: id } = user;
+  const {localization} = useLocalization();
   return (
     <View key={id} style={styles.card}>
       {image && <Image source={{ uri: image }} style={styles.profileImage} />}
       <View style={styles.detailsContainer}>
         <Text style={styles.name}>{name}</Text>
+        {note && <Text style={styles.note}>{localization.HOME.commentLabel}</Text>}
         {note && <Text style={styles.note}>{note}</Text>}
       </View>
     </View>

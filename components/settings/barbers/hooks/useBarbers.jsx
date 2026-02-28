@@ -38,7 +38,7 @@ const useBarbers = () => {
     setIsLoading("get");
     setError(null);
     try {
-      const response = await get("admin/users/employers");
+      const response = await get("/admin/users/employers");
       if (response.status === 200) {
         setBarbersData(response.data);
       }
@@ -143,7 +143,7 @@ const useBarbers = () => {
     setIsLoading("getBarber");
     setError(null);
     try {
-      const response = await get(`admin/users/employer/${id}`);
+      const response = await get(`/admin/users/employer/${id}`);
       console.log("phoneNumber",response);
       if (response.status === 200) {
         setEditScreen(true);

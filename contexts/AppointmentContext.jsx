@@ -33,21 +33,13 @@ export const AppointmentProvider = ({ children }) => {
 
   const { isToken, getTokenData } = useAuth();
   const { localization } = useLocalization();
-  const { isLoading: isLoad, requirements, fetchRequirements } = useRequirements();
+  const {
+    isLoading: isLoad,
+    requirements,
+    fetchRequirements,
+  } = useRequirements();
 
   const [isModal, setIsModal] = useState(false);
-
-  const detailsReservation = (item) => {
-    router.push({
-      pathname: "/(reservation_notification)/",
-      params: {
-        itemId: item._id,
-        past: item?.past,
-        rating: item?.rating,
-        notification: null,
-      },
-    });
-  };
 
 
 
@@ -90,7 +82,11 @@ export const AppointmentProvider = ({ children }) => {
       });
       if (response.status === 200) {
         setIsModal(true);
-        setMessage(status === "approved" ? localization.APPOINTMENTS.approveReservation.confirmMessage : localization.APPOINTMENTS.rejectReservation.confirmMessage);
+        setMessage(
+          status === "approved"
+            ? localization.APPOINTMENTS.approveReservation.confirmMessage
+            : localization.APPOINTMENTS.rejectReservation.confirmMessage,
+        );
       }
     } catch (err) {
       setIsError(true);
@@ -99,8 +95,6 @@ export const AppointmentProvider = ({ children }) => {
       setIsLoading(false);
     }
   };
-
- 
 
   const fetchReservationDetails = async (reservationId) => {
     setIsLoading(true);
@@ -111,9 +105,13 @@ export const AppointmentProvider = ({ children }) => {
       setError(localization.APPOINTMENTS.errorId);
       return;
     }
+    const arrivedMap = {
+      0: "arrived",
+      1: "missed",
+    };
 
     try {
-      const response = await get(`admin/availabilities/${reservationId}`);
+      const response = await get(`/admin/availabilities/${reservationId}`);
       const startDateTime = convertToDayTime(response?.startDate);
       const finishedTime = addMinutesToTime(
         convertToDayTime(response?.startDate),
@@ -121,16 +119,22 @@ export const AppointmentProvider = ({ children }) => {
       );
 
       const eventDate = convertNameAndDate(response?.startDate);
-      const result = { ...response, startDateTime, finishedTime, eventDate };
+      const result = {
+        ...response,
+        startDateTime,
+        finishedTime,
+        eventDate,
+        arrived: arrivedMap[response.arrived],
+      };
       setReservationData(result);
     } catch (err) {
+      console.log("fetchReservationDetails+-+-", err);
+
       setError(localization.APPOINTMENTS.errorFetchId);
     } finally {
       setIsLoading(false);
     }
   };
-
-
 
   return (
     <AppointmentContext.Provider
@@ -138,7 +142,6 @@ export const AppointmentProvider = ({ children }) => {
         isToken,
         isLoading,
         reservations,
-        detailsReservation,
         error,
         isModal,
         setIsModal,
@@ -157,7 +160,7 @@ export const AppointmentProvider = ({ children }) => {
         IsError,
         missedReservation,
         changeStatusReservation,
-        fetchRequirements
+        fetchRequirements,
       }}
     >
       {children}

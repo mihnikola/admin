@@ -26,6 +26,7 @@ export const ENG_LOCALIZATION = {
     calendar: "Calendar",
     location: "Locations",
     requirements: "Requirements",
+    commentLabel: "Treatment description:",
   },
   BUTTONS: {
     ok: "OK",
@@ -147,11 +148,12 @@ export const ENG_LOCALIZATION = {
   },
 
   APPOINTMENTS: {
-    missedReservation:{
+    missedReservation: {
       success: "Appointment is successfully missed",
       question: "Are you sure you want to missed this reservation?",
-      yesButton: "Missed"
+      yesButton: "Missed",
     },
+    error: "You don't have any requirements",
     errorDailyLimit: "You cannot make more reservation this day",
     errorWeeklyLimit: "You cannot make more reservation this week",
     errorMonthlyLimit: "You cannot make more reservation this month",
@@ -166,7 +168,7 @@ export const ENG_LOCALIZATION = {
       noButton: "No",
       confirmMessage: "Reservation is rejected successfully",
       errorMessage: "Reservation is not exist",
-      info: "Reservation is rejected"
+      info: "Reservation is rejected",
     },
     approveReservation: {
       descReservation: "Description of tretman",

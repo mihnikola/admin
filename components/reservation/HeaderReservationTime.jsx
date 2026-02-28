@@ -2,7 +2,6 @@ import { convertDateDetails } from "@/helpers";
 import { StyleSheet, Text, View } from "react-native";
 
 const HeaderReservationTime = ({ data }) => {
-  console.log("HeaderReservationTime",data)
   if (data) {
     return (
       <View style={styles.coverContent}>

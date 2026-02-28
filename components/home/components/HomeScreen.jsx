@@ -15,6 +15,7 @@ export default function HomeScreen() {
     upcomingData,
     inProgressData,
     requirementsLength,
+    requirements,
     isLoading: isLoadingHome,
     error,
     fetchHomeInfo,
@@ -26,7 +27,6 @@ export default function HomeScreen() {
     }, []),
   );
 
-  const [modalVisible, setModalVisible] = useState(false);
   const { company, isLoading } = useCompany();
   const { localization } = useLocalization();
 
@@ -39,6 +39,8 @@ export default function HomeScreen() {
   const requirementsHandler = () => {
     router.push("/(tabs)/(01_home)/requirements");
   };
+
+  console.log("requirementsLength",requirementsLength)
 
   if (company) {
     return (

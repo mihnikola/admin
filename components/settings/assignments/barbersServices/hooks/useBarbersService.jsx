@@ -19,7 +19,7 @@ const useBarbersService = () => {
     setIsLoading("getServices");
     setError(null);
     try {
-      const response = await get(`employersServices/${id}`);
+      const response = await get(`/employersServices/${id}`);
       if (response.status === 200) {
         setServicesByBarbers(response.data.services);
       }
@@ -68,7 +68,7 @@ const useBarbersService = () => {
     setIsLoading("get");
     setError(null);
     try {
-      const response = await get("admin/users/employers");
+      const response = await get("/admin/users/employers");
       if (response.status === 200) {
         setBarbersData(response.data);
       }
@@ -85,7 +85,7 @@ const useBarbersService = () => {
     setIsLoading("getBarber");
     setError(null);
     try {
-      const response = await get(`admin/users/employer/${id}`);
+      const response = await get(`/admin/users/employer/${id}`);
       if (response.status === 200) {
         setBarberData(response.data);
       }

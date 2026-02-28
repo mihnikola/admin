@@ -4,7 +4,7 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 export default function UpcomingAppointmentCard({ data }) {
-  const { user, service, place, startDate, endDate } = data;
+  const { user, service, place, startDate, endDate, arrived } = data;
 
   const goToScreen = () => {
     router.push({
@@ -13,6 +13,7 @@ export default function UpcomingAppointmentCard({ data }) {
         itemId: data?._id,
         user: data?.user?.name,
         note: data?.description,
+        arrived: data?.arrived
       },
     });
   };

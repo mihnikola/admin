@@ -23,7 +23,7 @@ function useServiceBarber() {
         setIsLoading('getServices');
         setError(null);
         try {
-            const response = await get(`employersServices/${id}`);
+            const response = await get(`/employersServices/${id}`);
             if (response.status === 200) {
                 setBarberServicesData(response.data.services);
             }
@@ -41,7 +41,7 @@ function useServiceBarber() {
         setError(null);
 
         try {
-            const response = await get(`employersServices`);
+            const response = await get(`/employersServices`);
             if (response.status === 200) {
                 setBarbers(response.data);
             }

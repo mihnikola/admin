@@ -14,8 +14,7 @@ const useRequirements = () => {
     setError(null);
     setIsLoading("fetchRequirements");
     try {
-      const response = await get(`admin/availabilities/requirements/${isToken}`);
-
+      const response = await get(`/admin/availabilities/requirements/${isToken}`);
       if (response.status === 200) {
         setRequirements(response.data);
       }

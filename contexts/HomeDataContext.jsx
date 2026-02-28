@@ -21,18 +21,28 @@ export const HomeDataProvider = ({ children }) => {
     setIsLoading("getHomeInfo");
     setError(null);
 
-    
+    const arrivedMap = {
+      0: "arrived",
+      1: "missed",
+    };
+
     const id = new Date();
     try {
-      const response = await get(`admin/availabilities/${id}/getHomeInfo`); //fetchInProgressOne
+      const response = await get(`/admin/availabilities/${id}/getHomeInfo`); //fetchInProgressOne
+      console.log("getHomeInfo", response);
       if (response.status === 200) {
         const { currentReservation, nextReservation, pendingReservations } =
           response.data;
-
-        setUpcomingData(nextReservation);
-        setInProgressData(currentReservation);
-        setRequirementLength(pendingReservations.amount);
-        setRequirements(pendingReservations.data);
+        setRequirementLength(pendingReservations?.amount);
+        setRequirements(pendingReservations?.data);
+        setUpcomingData({
+          ...nextReservation,
+          arrived: arrivedMap[nextReservation.arrived],
+        });
+        setInProgressData({
+          ...currentReservation,
+          arrived: arrivedMap[currentReservation.arrived],
+        });
       }
     } catch (err) {
       setError(localization.PLACES.error);

@@ -5,13 +5,13 @@ const DateFormatComponent = ({ item }) => {
   return (
     <View style={styles.dateContainer}>
       <Text style={styles.captureDate}>
-        {convertToMonthName(item?.startDate)}
+        {convertToMonthName(item?.startTime)}
       </Text>
       <Text style={styles.captureDateBold}>
-        {convertToDay(item?.startDate)}
+        {convertToDay(item?.startTime)}
       </Text>
       <Text style={styles.captureDate}>
-        {convertToDayTime(item?.startDate)}
+        {convertToDayTime(item?.startTime)}
       </Text>
     </View>
   );

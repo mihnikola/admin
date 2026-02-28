@@ -57,11 +57,9 @@ function useCheckCalendar() {
         dateValue: criteria,
         token: isToken,
       });
-      setIsLoading(false);
       setEvents(response);
     } catch (err) {
       console.error("Error fetching tasks:", err);
-      setIsLoading(false);
     } finally {
       setIsLoading(false);
     }
