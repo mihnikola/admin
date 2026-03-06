@@ -12,13 +12,13 @@ const instance = axios.create({
   },
 });
 
+
 // Request interceptor to inject the token and timezone
 instance.interceptors.request.use(
   async (config) => {
     const token = await getStorage();
     const languageValue = await getLanguageValue();
     const timeZoneValue = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

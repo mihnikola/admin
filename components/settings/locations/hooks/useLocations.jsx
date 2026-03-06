@@ -51,8 +51,10 @@ function useLocation() {
     const { id } = data;
     setIsLoading("remove");
     setError(null);
+    console.log("id",id)
     try {
-      const response = await deleteRequest(`admin/places/${id}`);
+      const response = await deleteRequest(`/admin/places/${id}`);
+      console.log("object", response);
       if (response.status === 200) {
         setIsMessage(true);
         setMessage(localization.PLACES.removeSuccess);
@@ -126,17 +128,13 @@ function useLocation() {
     setIsLoading("getPlaces");
     setError(null);
     try {
-
       const response = await get(`/admin/places`);
-    console.log("xxxxxwwwwwwwwxxx")
-
-
-      console.log("asdjsadjsad",response);
+      console.log("object",response)
       if (response.status === 200) {
         setLocations(response.data);
       }
     } catch (errorData) {
-      console.log("object",errorData)
+      console.log("object", errorData);
       setIsMessage(true);
       setError(errorData);
     } finally {
@@ -148,8 +146,6 @@ function useLocation() {
     setMessage(null);
     setIsMessage(false);
   };
-
-
 
   return {
     isLoading,

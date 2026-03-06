@@ -1,11 +1,6 @@
 import { SharedButton } from "@/shared-components/SharedButton";
 import React, { useEffect, useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import { StyleSheet, Text, TextInput, View } from "react-native";
 import DateAbsentComponent from "./DateAbsentComponent";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import useAbsentHours from "./hooks/useAbsentHours";
@@ -14,7 +9,14 @@ import { FontAwesome } from "@expo/vector-icons";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 
 export default function AbsentHourManagement() {
-  const { createAbsentHours, setIsMessage, isMessage, message, error, isLoading } = useAbsentHours();
+  const {
+    createAbsentHours,
+    setIsMessage,
+    isMessage,
+    message,
+    error,
+    isLoading,
+  } = useAbsentHours();
   const [comment, setComment] = useState("");
 
   const [dateFrom, setDateFrom] = useState(new Date());
@@ -26,6 +28,7 @@ export default function AbsentHourManagement() {
   const [showToDate, setShowToDate] = useState(false);
   const [showToTime, setShowToTime] = useState(false);
   const [tempToDate, setTempToDate] = useState(new Date());
+  const [finalDateTo, setFinalDateTo] = useState();
 
   const { localization } = useLocalization();
   const { isToken } = useAuth();
@@ -50,12 +53,12 @@ export default function AbsentHourManagement() {
     setShowFromTime(false);
   };
 
-  useEffect(()=> {
-      if(tempFromDate && tempFromDate > tempToDate){
-        setDateTo(tempFromDate);
-        setTempToDate(tempFromDate);
-      }
-  },[tempFromDate])
+  useEffect(() => {
+    if (tempFromDate && tempFromDate > tempToDate) {
+      setDateTo(tempFromDate);
+      setTempToDate(tempFromDate);
+    }
+  }, [tempFromDate]);
 
   const onDateToChange = (event, selectedDate) => {
     if (event.type === "set" && selectedDate) {
@@ -68,6 +71,19 @@ export default function AbsentHourManagement() {
   };
 
   const onTimeToChange = (event, selectedTime) => {
+    console.log("onTimeToChange", tempToDate);
+    console.log("selectedTime", selectedTime);
+    const combined = new Date(
+      Date.UTC(
+        tempToDate.getUTCFullYear(),
+        tempToDate.getUTCMonth(),
+        tempToDate.getUTCDate(),
+        selectedTime.getUTCHours(),
+        selectedTime.getUTCMinutes(),
+        selectedTime.getUTCSeconds(),
+      ),
+    );
+    setFinalDateTo(combined);
     if (event.type === "set" && selectedTime) {
       const newDate = new Date(tempToDate);
       newDate.setHours(selectedTime.getHours());
@@ -76,37 +92,35 @@ export default function AbsentHourManagement() {
     }
     setShowToTime(false);
   };
-  const formatTime = (date) => {
-    const dateString = date.toISOString().split("T")[0];
-    const h = date?.getHours().toString().padStart(2, "0");
-    const m = date?.getMinutes().toString().padStart(2, "0");
-    const s = date?.getSeconds().toString().padStart(2, "0");
-
-    return `${dateString}T${h}:${m}:${s}.000Z`;
-  };
+ 
   const submitChanges = () => {
-    createAbsentHours(formatTime(dateFrom), formatTime(dateTo), comment, isToken);
+    console.log("dateFrom", dateFrom);
+    console.log("dateTo", finalDateTo);
+    // createAbsentHours(formatTime(dateFrom), formatTime(dateTo), comment, isToken);
+    createAbsentHours(dateFrom, finalDateTo, comment, isToken);
   };
 
   const resetForm = () => {
-    setComment(null);
-    setDateFrom(new Date());
-    setDateTo(new Date());
-  }
+    // setComment(null);
+    // setDateFrom(new Date());
+    // setDateTo(new Date());
+  };
   const confirmHandler = () => {
     setIsMessage(false);
     resetForm();
-  }
+  };
 
   const cancelHandler = () => {
     setIsMessage(false);
-  }
+  };
   return (
-    <View
-      style={styles.container}
-    >
-      <Text style={styles.title}>{localization.SETTINGS.ABSENTHOURS.capture}</Text>
-      <Text style={styles.subTitle}>{localization.SETTINGS.ABSENTHOURS.from}</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>
+        {localization.SETTINGS.ABSENTHOURS.capture}
+      </Text>
+      <Text style={styles.subTitle}>
+        {localization.SETTINGS.ABSENTHOURS.from}
+      </Text>
       <DateAbsentComponent
         onTimeChange={onTimeFromChange}
         onDateChange={onDateFromChange}
@@ -116,7 +130,9 @@ export default function AbsentHourManagement() {
         date={dateFrom}
         tempDate={tempFromDate}
       />
-      <Text style={styles.subTitle}>{localization.SETTINGS.ABSENTHOURS.to}</Text>
+      <Text style={styles.subTitle}>
+        {localization.SETTINGS.ABSENTHOURS.to}
+      </Text>
       <DateAbsentComponent
         onTimeChange={onTimeToChange}
         onDateChange={onDateToChange}
@@ -124,7 +140,7 @@ export default function AbsentHourManagement() {
         showDate={showToDate}
         showTime={showToTime}
         date={dateTo}
-        tempDate={tempToDate}
+        tempDate={tempFromDate}
       />
       <TextInput
         style={styles.textInput}
@@ -136,9 +152,11 @@ export default function AbsentHourManagement() {
         textAlignVertical="top"
       />
       <View style={styles.submit}>
-        <SharedButton onPress={submitChanges} loading={isLoading}
-
-          text={localization.SETTINGS.ABSENTHOURS.submit} />
+        <SharedButton
+          onPress={submitChanges}
+          loading={isLoading}
+          text={localization.SETTINGS.ABSENTHOURS.submit}
+        />
       </View>
       {isMessage && (
         <SharedMessage
@@ -168,8 +186,7 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingBottom: 40,
     backgroundColor: "#000",
-    flex: 1
-
+    flex: 1,
   },
   title: {
     fontSize: 24,
