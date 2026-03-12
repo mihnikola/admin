@@ -71,12 +71,14 @@ export default function BarbersAdd() {
 
   const selectedImgHandler = (imgData) => {
     if (imgData) {
+      console.log("imgData",imgData)
       setChangedImg(imgData);
     }
   };
 
   useEffect(() => {
     if (editScreen) {
+      console.log("barberData",barberData)
       setName(barberData?.name);
       setSelected(barberData?.seniority._id);
       setPhoneNumber(barberData?.phoneNumber);
@@ -139,7 +141,7 @@ export default function BarbersAdd() {
     return <SharedLoader isOpen={isLoading === "getBarber"} />;
   }
 
-  console.log("selected",selected)
+  console.log("selected", selected);
   return (
     <View style={styles.container}>
       {<SharedCoverImage image={company?.media?.coverImageHome} />}
@@ -164,6 +166,9 @@ export default function BarbersAdd() {
             value={email}
             onChangeText={setEmail}
             keyboardType="email-address"
+            autoCapitalize="none"
+            autoCorrect={false}
+            textContentType="emailAddress"
           />
         )}
         {!editScreen && (
@@ -172,7 +177,10 @@ export default function BarbersAdd() {
             placeholder={localization.BARBERS.password}
             value={password}
             onChangeText={setPassword}
-            keyboardType="visible-password"
+            secureTextEntry={false}
+            autoCapitalize="none"
+            autoCorrect={false}
+            textContentType="password"
           />
         )}
         <TextInput
@@ -181,6 +189,10 @@ export default function BarbersAdd() {
           value={phoneNumber}
           onChangeText={setPhoneNumber}
           keyboardType="phone-pad"
+          autoCapitalize="none"
+          autoCorrect={false}
+          textContentType="telephoneNumber"
+          autoComplete="tel"
         />
         <PickerSeniority
           data={seniorityData}
@@ -309,7 +321,6 @@ const styles = StyleSheet.create({
 });
 
 const PickerSeniority = ({ data, selected, setSelected }) => {
-
   return (
     <View style={styles.containerPicker}>
       <Picker

@@ -1,4 +1,3 @@
-
 import { getSettingsOptions } from "@/helpers/getSettingsOptions";
 import SharedCarousel from "@/shared-components/SharedCarousel";
 import { router } from "expo-router";
@@ -19,7 +18,7 @@ export default function SettingsComponent() {
   const [isLogout, setIsLogout] = useState(false);
 
   const handlePress = (route) => {
-    if (route === 'logout') {
+    if (route === "logout") {
       setIsLogout(true);
       return;
     }
@@ -27,11 +26,12 @@ export default function SettingsComponent() {
   };
   const logoutCancelHandler = () => {
     setIsLogout(false);
-  }
+  };
   const logoutConfirmHandler = () => {
-    logoutFirebase();
     setIsLogout(false);
-  }
+
+    logoutFirebase();
+  };
 
   return (
     <View style={styles.container}>
@@ -42,7 +42,6 @@ export default function SettingsComponent() {
         {settingsOptions.map((item) => (
           <SettingsItem
             key={item.id}
-            id={item.id}
             title={item.title}
             icon={item.icon}
             onPress={() => handlePress(item.route)}
@@ -57,9 +56,9 @@ export default function SettingsComponent() {
           icon={
             <FontAwesome name="question-circle-o" size={64} color="white" />
           }
-          title={localization.SERVICES.question}
-          buttonTextYes={localization.SERVICES.confirmButton}
-          buttonTextNo={localization.SERVICES.cancel}
+          title={localization.SETTINGS.LOGOUT.question}
+          buttonTextYes={localization.SETTINGS.LOGOUT.title}
+          buttonTextNo={localization.SETTINGS.LOGOUT.cancel}
         />
       )}
 

@@ -25,7 +25,6 @@ export default function AddService() {
   const { localization } = useLocalization();
   const params = useLocalSearchParams();
   const { id } = params;
-
   const {
     isLoading,
     error,
@@ -36,13 +35,14 @@ export default function AddService() {
     addEditService,
     confirmHandler,
     getServiceHandler,
-    getService,
-    editScreen,
+    getServiceData,
   } = useServices();
 
   useEffect(() => {
     if (id) {
-      getServiceHandler(id);
+      setTimeout(async () => {
+        await getServiceHandler(id);
+      }, 100);
     }
   }, [id]);
 
@@ -65,15 +65,16 @@ export default function AddService() {
   };
 
   useEffect(() => {
-    if (editScreen) {
-      setNameEn(getService?.name?.nameEn);
-      setNameLocal(getService?.name?.nameLocal);
-      setPrice(getService.price?.toString() || "");
-      setDuration(getService.duration?.toString() || "");
-      selectedImgHandler(getService?.image);
-      setEditingId(getService?.id);
+    if (getServiceData) {
+      console.log("dasjdkajsh jjjjj",getServiceData)
+      setNameEn(getServiceData?.name?.nameEn);
+      setNameLocal(getServiceData?.name?.nameLocal);
+      setPrice(getServiceData.price?.toString() || "");
+      setDuration(getServiceData.duration?.toString() || "");
+      selectedImgHandler(getServiceData?.image);
+      setEditingId(getServiceData?.id);
     }
-  }, [editScreen]);
+  }, [getServiceData]);
 
   const resetForm = () => {
     setNameEn("");
@@ -194,7 +195,7 @@ export default function AddService() {
         </TouchableOpacity>
       </View>
 
-      {editingId && (
+      {id && (
         <TouchableOpacity
           style={[styles.button, styles.cancelButton]}
           onPress={cancelEditHandler}

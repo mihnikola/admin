@@ -40,7 +40,6 @@ export default function HomeScreen() {
     router.push("/(tabs)/(01_home)/requirements");
   };
 
-console.log("inProgressData++",inProgressData)
   if (company) {
     return (
       <View style={styles.container}>

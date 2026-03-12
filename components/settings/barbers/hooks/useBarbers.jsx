@@ -96,7 +96,7 @@ const useBarbers = () => {
     if (userData?.id) {
       try {
         const response = await axios.put(
-          `${process.env.EXPO_PUBLIC_API_URL}admin/users/${userData?.id}`,
+          `${process.env.EXPO_PUBLIC_API_URL}/admin/users/${userData?.id}`,
           formData,
           {
             headers: {
@@ -117,7 +117,7 @@ const useBarbers = () => {
     } else {
       try {
         const response = await axios.post(
-          `${process.env.EXPO_PUBLIC_API_URL}admin/users`,
+          `${process.env.EXPO_PUBLIC_API_URL}/admin/users`,
           formData,
           {
             headers: {

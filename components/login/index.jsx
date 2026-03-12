@@ -5,12 +5,23 @@ import { SharedMessage } from "@/shared-components/SharedMessage";
 import { SharedPassword } from "@/shared-components/SharedPassword";
 import { FontAwesome } from "@expo/vector-icons";
 import { router } from "expo-router";
-import { Image, ScrollView, StatusBar, StyleSheet, Text, View } from "react-native";
+import {
+  Alert,
+  BackHandler,
+  Image,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import useEmail from "./../../components/login/hooks/useEmail";
 import usePassword from "./../../components/login/hooks/usePassword";
+import { useEffect } from "react";
 
 export default function LoginScreen() {
-  const { isLoading, isMessage, setIsMessage, loginAdmin, error, success } = useAuth();
+  const { isLoading, isMessage, setIsMessage, loginAdmin, error, success } =
+    useAuth();
   const { email, handleEmailChange } = useEmail();
   const { password, handlePasswordChange } = usePassword();
 
@@ -28,12 +39,38 @@ export default function LoginScreen() {
   const cancelHandler = () => {
     setIsMessage(false);
   };
+  useEffect(() => {
+    const backAction = () => {
+    
+
+      Alert.alert("Exit App", "Do you want to exit the application?", [
+        {
+          text: "Cancel",
+          onPress: () => null,
+          style: "cancel",
+        },
+        {
+          text: "Exit",
+          onPress: () => BackHandler.exitApp(),
+        },
+      ]);
+
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, []);
+
   return (
     <ScrollView style={styles.safeArea}>
       <StatusBar backgroundColor="black" barStyle="dark-content" />
 
       <View style={styles.container}>
-
         <View style={styles.imageContainer}>
           <Image
             source={require("@/assets/images/adaptive-icon.png")}
@@ -67,12 +104,11 @@ export default function LoginScreen() {
             text="Login"
           />
         </View>
-        {isMessage && (
+        {isMessage && !isLoading && (
           <SharedMessage
-            isOpen={isMessage}
+            isOpen={isMessage && !isLoading}
             onClose={!error ? confirmHandler : cancelHandler}
             onConfirm={!error ? confirmHandler : cancelHandler}
-            isLoading={isLoading}
             icon={
               <FontAwesome
                 name={error ? "close" : "check-circle-o"}
@@ -159,6 +195,6 @@ const styles = StyleSheet.create({
     width: "80%",
   },
   inputContainer: {
-    marginHorizontal: 10
-  }
+    marginHorizontal: 10,
+  },
 });

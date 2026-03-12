@@ -1,7 +1,7 @@
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { FontAwesome } from "@expo/vector-icons";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -13,12 +13,16 @@ import {
 } from "react-native";
 import useLocation from "../hooks/useLocations";
 import { SharedLoader } from "@/shared-components/SharedLoader";
+import { SharedQuestion } from "@/shared-components/SharedQuestion";
 
 export default function LocationsAddEdit() {
   const [city, setCity] = useState("");
   const [streetName, setStreetName] = useState("");
   const { localization } = useLocalization();
   const [editingId, setEditingId] = useState(null);
+  const [active, setActive] = useState(null);
+  const [isRemove, setIsRemove] = useState(false);
+  const [isUndo, setIsUndo] = useState(false);
 
   const {
     isMessage,
@@ -28,6 +32,8 @@ export default function LocationsAddEdit() {
     addEditLocation,
     confirmHandler,
     message,
+    deactivateLocation,
+    activateLocation,
   } = useLocation();
 
   const submitHandler = () => {
@@ -57,7 +63,9 @@ export default function LocationsAddEdit() {
 
   useEffect(() => {
     if (id) {
-      getLocationById(id);
+      setTimeout(async () => {
+        await getLocationById(id);
+      }, 50);
     }
   }, [id]);
 
@@ -65,9 +73,33 @@ export default function LocationsAddEdit() {
     if (locationById) {
       setCity(locationById.city);
       setStreetName(locationById?.address);
+      setActive(locationById?.active);
       setEditingId(id);
     }
   }, [locationById]);
+
+  const removeCancelHandler = () => {
+    setIsRemove(false);
+  };
+  const removeHandler = () => {
+    setIsRemove(true);
+  };
+  const removeConfirmHandler = async (id) => {
+    setIsRemove(false);
+    await deactivateLocation(id);
+  };
+
+  const undoHandler = () => {
+    setIsUndo(true);
+  };
+  const undoCancelHandler = () => {
+    setIsUndo(false);
+  };
+  const undoConfirmlHandler = async (id) => {
+    setIsUndo(false);
+    await activateLocation(id);
+
+  };
 
   if (isLoading === "getPlaceById") {
     return <SharedLoader isOpen={isLoading === "getPlaceById"} />;
@@ -104,6 +136,29 @@ export default function LocationsAddEdit() {
             </Text>
           )}
         </TouchableOpacity>
+
+        {editingId && active === 1 && (
+          <TouchableOpacity style={styles.buttonRmv} onPress={removeHandler}>
+            {isLoading === "remove" && (
+              <ActivityIndicator size={20} color="#fff" />
+            )}
+            {isLoading !== "remove" && (
+              <Text style={styles.buttonText}>
+                {localization.PLACES.removeBtn}
+              </Text>
+            )}
+          </TouchableOpacity>
+        )}
+        {editingId && active === 0 && (
+          <TouchableOpacity style={styles.buttonUndo} onPress={undoHandler}>
+            {isLoading === "activate" && (
+              <ActivityIndicator size={20} color="#fff" />
+            )}
+            {isLoading !== "activate" && (
+              <Text style={styles.buttonText}>{localization.PLACES.undo}</Text>
+            )}
+          </TouchableOpacity>
+        )}
       </View>
       {isMessage && (
         <SharedMessage
@@ -113,6 +168,32 @@ export default function LocationsAddEdit() {
           onConfirm={confirmHandler}
           buttonText="Ok"
           title={message}
+        />
+      )}
+      {isRemove && (
+        <SharedQuestion
+          isOpen={isRemove}
+          onClose={removeCancelHandler}
+          onLogOut={() => removeConfirmHandler(id)}
+          icon={
+            <FontAwesome name="question-circle-o" size={64} color="white" />
+          }
+          title={localization.PLACES.question}
+          buttonTextYes={localization.PLACES.confirmButton}
+          buttonTextNo={localization.PLACES.cancel}
+        />
+      )}
+      {isUndo && (
+        <SharedQuestion
+          isOpen={isUndo}
+          onClose={undoCancelHandler}
+          onLogOut={() => undoConfirmlHandler(id)}
+          icon={
+            <FontAwesome name="question-circle-o" size={64} color="white" />
+          }
+          title={localization.PLACES.questionActivate}
+          buttonTextYes={localization.PLACES.undo}
+          buttonTextNo={localization.PLACES.cancel}
         />
       )}
     </View>
@@ -158,6 +239,24 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "rgb(0, 0, 0)",
+    padding: 12,
+    borderRadius: 8,
+    alignItems: "center",
+    borderColor: "white",
+    borderWidth: 1,
+    margin: 20,
+  },
+  buttonRmv: {
+    backgroundColor: "rgb(129, 29, 29)",
+    padding: 12,
+    borderRadius: 8,
+    alignItems: "center",
+    borderColor: "white",
+    borderWidth: 1,
+    margin: 20,
+  },
+  buttonUndo: {
+    backgroundColor: "rgb(23, 77, 12)",
     padding: 12,
     borderRadius: 8,
     alignItems: "center",

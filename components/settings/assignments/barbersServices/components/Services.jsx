@@ -18,19 +18,21 @@ import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
 import Loader from "@/shared-components/Loader";
-import ServiceItem from './ServiceItem';
+import ServiceItem from "./ServiceItem";
 import BarberItem from "./BarberItem";
 
 export default function Services() {
-
   const { height: screenHeight } = Dimensions.get("window");
   const containerHeight = screenHeight * 0.55;
   const { localization } = useLocalization();
   const { id, name, image, phoneNumber } = useLocalSearchParams();
 
   const itemData = {
-    id, name, image, phoneNumber: phoneNumber || ""
-  }
+    id,
+    name,
+    image,
+    phoneNumber: phoneNumber || "",
+  };
   const {
     isLoading,
     error,
@@ -56,14 +58,15 @@ export default function Services() {
 
   useEffect(() => {
     if (id) {
-      getServicesById(id);
+      setTimeout(async () => {
+        await getServicesById(id);
+      }, 100);
     }
   }, [id]);
 
   if (isLoading === "getServices") {
     return <SharedLoader isOpen={isLoading === "getServices"} />;
   }
-
 
   return (
     <View style={styles.container}>
@@ -75,7 +78,8 @@ export default function Services() {
           <FlatList
             data={servicesByBarbers}
             keyExtractor={(item) => item._id}
-            renderItem={({ item }) => (<ServiceItem item={item} toggleService={toggleService} />
+            renderItem={({ item }) => (
+              <ServiceItem item={item} toggleService={toggleService} />
             )}
           />
         )}
@@ -118,7 +122,6 @@ export default function Services() {
           title={isError}
         />
       )}
-
     </View>
   );
 }

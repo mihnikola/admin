@@ -19,10 +19,12 @@ function useLocationBarber() {
         router.push({ pathname: "/(tabs)/(03_settings)/barbersLocations", params: { id: item.id, address: item.address } })
     };
     const getBarbersById = async (id) => {
+        console.log("xxxgetBarbersByIdxx")
         setIsLoading('getBarbers');
         setError(null);
         try {
             const response = await get(`/admin/places/${id}/employers`);
+            console.log("getBarbersById",response);
             if (response.status === 200) {
                 setLocationBarbersData(response.data);
             }
@@ -40,10 +42,8 @@ function useLocationBarber() {
         setError(null);
 
 
-        console.log("wwwwwwwwwwwwww")
         try {
             const response = await get(`/admin/places`);
-            console.log("getLocations",response);
             if (response.status === 200) {
                 setLocations(response.data);
             }

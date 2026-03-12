@@ -49,7 +49,6 @@ const DateComponent = () => {
               style={styles.calendar}
               theme={calendarTheme}
               onVisibleMonthsChange={(months) => {
-                console.log("xxxxxxxxxxx",months[0]?.dateString);
                 setSelectedDate(false);
                 setCheckMonth(months[0]?.dateString);
               }}

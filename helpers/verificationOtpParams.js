@@ -16,10 +16,3 @@ export const saveOtpParamsStorage = async (value) => {
   }
 };
 
-export const removeOtpParamsStorage = async () => {
-  try {
-    return await AsyncStorage.removeItem("otpParams");
-  } catch (e) {
-    // saving error
-  }
-};

@@ -1,13 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
-type Props = {
-  title: string;
-  icon: any;
-  onPress: () => void;
-};
-
-export default function SettingsItem({ title, icon, onPress }: Props) {
+export default function SettingsItem({ title, icon, onPress }) {
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
       <Ionicons name={icon} size={24} color="#fff" />

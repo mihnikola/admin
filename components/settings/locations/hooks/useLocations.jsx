@@ -17,18 +17,16 @@ function useLocation() {
     await getLocations();
   };
 
-  const undoHandler = () => {};
-
   const addServiceRouter = () => {
     router.push("/(tabs)/(03_settings)/addLocation");
   };
   const addLocationRouter = () => {
     router.push("/(tabs)/(03_settings)/addLocation");
   };
-  const startEditing = (item) => {
+  const startEditing = (id) => {
     router.push({
       pathname: "/(tabs)/(03_settings)/addLocation",
-      params: { id: item.id },
+      params: { id },
     });
   };
 
@@ -41,23 +39,23 @@ function useLocation() {
         setLocationById(response.data);
       }
     } catch (errorData) {
+      console.log("object", errorData);
       setIsMessage(true);
       setError(errorData);
     } finally {
       setIsLoading(null);
     }
   };
-  const deactivateLocation = async (data) => {
-    const { id } = data;
+  const deactivateLocation = async (id) => {
     setIsLoading("remove");
     setError(null);
-    console.log("id",id)
     try {
       const response = await deleteRequest(`/admin/places/${id}`);
-      console.log("object", response);
+
       if (response.status === 200) {
         setIsMessage(true);
         setMessage(localization.PLACES.removeSuccess);
+        await getLocationById(id);
       }
     } catch (errorData) {
       console.log("errorData+++", errorData);
@@ -68,13 +66,30 @@ function useLocation() {
       setIsLoading(null);
     }
   };
+  const activateLocation = async (id) => {
+    setIsLoading("activate");
+    setError(null);
+    try {
+      const response = await put(`/admin/places/${id}/activate`);
+      if (response.status === 200) {
+        setIsMessage(true);
+        setMessage(localization.PLACES.undoSuccess);
+        await getLocationById(id);
+      }
+    } catch (errorData) {
+      console.log("errorData+++", errorData);
 
+      setIsMessage(true);
+      setError(errorData);
+    } finally {
+      setIsLoading(null);
+    }
+  };
   const submitChanges = async (address) => {
     setIsLoading("post");
     setError(null);
     try {
       const response = await post(`places`, { address });
-      console.log("response", response);
       if (response.status === 200) {
         setIsMessage(true);
         setMessage(localization.SETTINGS.EMPLOYERSPLACES.success);
@@ -129,7 +144,6 @@ function useLocation() {
     setError(null);
     try {
       const response = await get(`/admin/places`);
-      console.log("object",response)
       if (response.status === 200) {
         setLocations(response.data);
       }
@@ -162,7 +176,7 @@ function useLocation() {
     addLocationRouter,
     startEditing,
     deactivateLocation,
-    undoHandler,
+    activateLocation,
     getLocationById,
     locationById,
     addEditLocation,

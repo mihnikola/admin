@@ -30,7 +30,7 @@ const SharedCard = ({ item }) => {
       </View>
       <View style={styles.detailsBlock}>
         <Text style={styles.eventTitle}>
-          {localization.code === "en" ? item.name.nameEn : item.name.nameLocal}
+          {localization.code === "en" ? item?.name?.nameEn : item?.name?.nameLocal}
         </Text>
         <Text style={styles.eventUser}>
           {item.reservation.user

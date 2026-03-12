@@ -1,104 +1,96 @@
-import * as FileSystem from 'expo-file-system/legacy';
-import * as ImageManipulator from 'expo-image-manipulator';
-import * as ImagePicker from 'expo-image-picker';
-import { useCallback, useEffect, useState } from 'react';
-import { Alert } from 'react-native';
+import { useState, useCallback, useEffect } from "react";
+import * as ImagePicker from "expo-image-picker";
+import * as ImageManipulator from "expo-image-manipulator";
+import * as FileSystem from "expo-file-system/legacy";
+import { Alert } from "react-native";
 
 const MAX_FILE_SIZE = 1 * 1024 * 1024; // 1MB
+const MAX_WIDTH = 1000;
 
-const usePickImage = (imageValue = null) => {
-  const [selectedImageUri, setSelectedImageUri] = useState(imageValue);
-  const [uploading, setUploading] = useState(false);
-  const [statusMessage, setStatusMessage] = useState('');
-
+const usePickImage = (initialImageUri) => {
+  const [selectedImageUri, setSelectedImageUri] = useState(null);
   useEffect(() => {
-    setSelectedImageUri(imageValue);
-  }, [imageValue])
+    setSelectedImageUri(initialImageUri);
+  }, [initialImageUri]);
+  const [uploading, setUploading] = useState(false);
+  const [statusMessage, setStatusMessage] = useState("");
 
-
-
-  const pickImage = useCallback(async () => {
+  const compressImageUntilUnder1MB = async (uri) => {
     setUploading(true);
 
+    let quality = 0.9;
+    let finalUri = uri;
+    const MAX_ATTEMPTS = 10;
+    let attempts = 0;
+
+    while (quality > 0.1 && attempts < MAX_ATTEMPTS) {
+      // @ts-ignore: deprecated manipulateAsync
+      const result = await ImageManipulator.manipulateAsync(
+        finalUri,
+        [{ resize: { width: MAX_WIDTH } }],
+        { compress: quality, format: ImageManipulator.SaveFormat.JPEG },
+      );
+
+      const fileInfo = await FileSystem.getInfoAsync(result.uri);
+
+      finalUri = result.uri;
+      if (fileInfo.size <= MAX_FILE_SIZE) break;
+
+      quality -= 0.1;
+      attempts += 1;
+    }
+
+    return finalUri;
+  };
+
+  const pickImage = useCallback(async () => {
     try {
       const { status } =
         await ImagePicker.requestMediaLibraryPermissionsAsync();
-
-      if (status !== 'granted') {
+      if (status !== "granted") {
         Alert.alert(
-          'Permission required',
-          'Please grant access to media library.'
+          "Permission required",
+          "Please grant access to media library.",
         );
         return;
       }
 
       const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ['images'], // works across all Expo versions
+        mediaTypes: ["images"],
         allowsEditing: true,
         quality: 1,
+        copyToCacheDirectory: true, // ✅ ovo automatski pravi file:// kopiju za standalone build
       });
 
       if (result.canceled) {
-        setStatusMessage('Image selection cancelled.');
+        setStatusMessage("Image selection cancelled.");
         return;
       }
 
-      const originalUri = result.assets[0].uri;
+      let imageUri = result.assets[0].uri;
 
-      // Resize once
-      const resized = await ImageManipulator.manipulateAsync(
-        originalUri,
-        [{ resize: { width: 1000 } }],
-        { compress: 1, format: ImageManipulator.SaveFormat.JPEG }
-      );
+      // compress + resize ako je potrebno
+      const compressedUri = await compressImageUntilUnder1MB(imageUri);
 
-      let quality = 0.9;
-      let finalUri = resized.uri;
-
-      // Compress until under 1MB (best effort)
-      while (quality > 0.1) {
-        const compressed = await ImageManipulator.manipulateAsync(
-          resized.uri,
-          [],
-          { compress: quality, format: ImageManipulator.SaveFormat.JPEG }
-        );
-
-        const info = await FileSystem.getInfoAsync(compressed.uri);
-
-        if (info.size && info.size <= MAX_FILE_SIZE) {
-          finalUri = compressed.uri;
-          break;
-        }
-
-        finalUri = compressed.uri;
-        quality -= 0.1;
-      }
-
-      const finalInfo = await FileSystem.getInfoAsync(finalUri);
-
-      if (finalInfo.size && finalInfo.size > MAX_FILE_SIZE) {
+      const compressedInfo = await FileSystem.getInfoAsync(compressedUri);
+      if (compressedInfo.size > MAX_FILE_SIZE) {
         Alert.alert(
-          'Warning',
-          "Couldn't compress below 1MB. Best effort applied."
+          "Warning",
+          "Couldn't compress below 1MB. Best effort applied.",
         );
       }
 
-      setSelectedImageUri(finalUri);
-      setStatusMessage('');
+      setSelectedImageUri(compressedUri);
+      setStatusMessage("");
     } catch (error) {
-      console.error('Error picking image:', error);
-      setStatusMessage('Failed to pick image.');
+      console.error("Error picking image:", error);
+      setStatusMessage("Failed to pick image.");
     } finally {
       setUploading(false);
     }
   }, []);
 
-  return {
-    pickImage,
-    selectedImageUri,
-    uploading,
-    statusMessage,
-  };
+  return { pickImage, selectedImageUri, uploading, statusMessage };
 };
 
 export default usePickImage;

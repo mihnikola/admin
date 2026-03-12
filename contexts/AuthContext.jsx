@@ -1,9 +1,6 @@
 import { get, getData, post } from "@/api/apiService";
 import { getStorage, removeStorage, saveStorage } from "@/helpers/token";
-import {
-  removeOtpParamsStorage,
-  saveOtpParamsStorage,
-} from "@/helpers/verificationOtpParams";
+import { saveOtpParamsStorage } from "@/helpers/verificationOtpParams";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 
@@ -22,7 +19,7 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   const [initialToken, setInitialToken] = useState(null);
   const [isToken, setIsToken] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [isMessage, setIsMessage] = useState(false);
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
@@ -54,6 +51,7 @@ export const AuthProvider = ({ children }) => {
   const getTokenData = async () => {
     setIsLoading(true);
     await getStorage().then((res) => {
+      console.log("res", res);
       if (res) {
         setIsToken(res);
       } else {
@@ -87,23 +85,22 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logoutFirebase = async () => {
-    console.log("logoutFirebase prvo");
+    await getTokenData();
     setIsLoading(true);
-    await removeOtpParamsStorage();
     try {
       if (isToken) {
-        console.log("logoutFirebase++ pre poziva");
-
-        const response = await post("admin/users/logout", { token: isToken });
-        console.log("logoutFirebase++", response);
+        console.log("logoutFirebase++ pre poziva", isToken);
+        const response = await post("/admin/users/logout", { token: isToken });
         if (response.status === 200) {
           logoutHandler();
         }
       } else {
-        console.log("nema tokena");
+        router.push("/(z_auth)");
       }
     } catch (error) {
       setError(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -201,6 +198,7 @@ export const AuthProvider = ({ children }) => {
       if (responseData.status === 200) {
         saveStorage(responseData.token);
         setSuccess(localization.LOGIN.success);
+        getTokenData();
       }
     } catch (err) {
       setIsMessage(true);

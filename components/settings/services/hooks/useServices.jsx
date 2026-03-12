@@ -6,14 +6,13 @@ import { useEffect, useState } from "react";
 
 const useServices = () => {
   const [serviceData, setServicesData] = useState([]);
-  const [getService, setGetService] = useState([]);
+  const [getServiceData, setGetServiceData] = useState([]);
 
   const [isLoading, setIsLoading] = useState(null);
   const [error, setError] = useState(null);
   const { localization } = useLocalization();
   const [isMessage, setIsMessage] = useState(false);
   const [message, setMessage] = useState(null);
-  const [editScreen, setEditScreen] = useState(false);
 
   const removeService = async (service) => {
     console.log("service", service);
@@ -80,7 +79,7 @@ const useServices = () => {
     if (userData?.id) {
       try {
         const response = await axios.put(
-          `${process.env.EXPO_PUBLIC_API_URL}admin/services/${userData?.id}`,
+          `${process.env.EXPO_PUBLIC_API_URL}/admin/services/${userData?.id}`,
           formData,
           {
             headers: {
@@ -101,7 +100,7 @@ const useServices = () => {
     } else {
       try {
         const response = await axios.post(
-          `${process.env.EXPO_PUBLIC_API_URL}admin/services`,
+          `${process.env.EXPO_PUBLIC_API_URL}/admin/services`,
           formData,
           {
             headers: {
@@ -127,11 +126,13 @@ const useServices = () => {
     setIsLoading("getService");
     setError(null);
     try {
-      const response = await get(`/admin/services/${id}`);
-      if (response.status === 200) {
-        setEditScreen(true);
+    console.log("dksajhdjksaghjasgdhjasgdjhas hey ey e",id)
 
-        setGetService(response.data);
+      const response = await get(`/admin/services/${id}`);
+    console.log("dksajhdjksaghjasgdhjasgdjhas",response)
+
+      if (response.status === 200) {
+        setGetServiceData(response.data);
       }
     } catch (err) {
       setError(localization.SERVICES.errorFetch);
@@ -170,8 +171,7 @@ const useServices = () => {
     confirmHandler,
     startEditing,
     getServiceHandler,
-    getService,
-    editScreen
+    getServiceData,
   };
 };
 
