@@ -20,7 +20,6 @@ const useBarbersService = () => {
     setError(null);
     try {
       const response = await get(`/employersServices/${id}`);
-      console.log("res",response);
       if (response.status === 200) {
         setServicesByBarbers(response.data.services);
       }

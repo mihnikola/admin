@@ -51,7 +51,6 @@ export const AuthProvider = ({ children }) => {
   const getTokenData = async () => {
     setIsLoading(true);
     await getStorage().then((res) => {
-      console.log("res", res);
       if (res) {
         setIsToken(res);
       } else {

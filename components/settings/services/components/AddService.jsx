@@ -20,6 +20,7 @@ import { SharedLoader } from "@/shared-components/SharedLoader";
 import { useCompany } from "@/contexts/CompanyContext";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import { router, useLocalSearchParams } from "expo-router";
+import ServiceInput from "./ServiceInput";
 
 export default function AddService() {
   const { localization } = useLocalization();
@@ -36,6 +37,7 @@ export default function AddService() {
     confirmHandler,
     getServiceHandler,
     getServiceData,
+    removeService
   } = useServices();
 
   useEffect(() => {
@@ -54,7 +56,6 @@ export default function AddService() {
   const [imageValue, setImageValue] = useState("");
   const [editingId, setEditingId] = useState(null);
   const [changedImg, setChangedImg] = useState(null);
-  const { company } = useCompany();
 
   const [isError, setIsError] = useState(null);
 
@@ -66,7 +67,7 @@ export default function AddService() {
 
   useEffect(() => {
     if (getServiceData) {
-      console.log("dasjdkajsh jjjjj",getServiceData)
+      console.log("dasjdkajsh jjjjj", getServiceData);
       setNameEn(getServiceData?.name?.nameEn);
       setNameLocal(getServiceData?.name?.nameLocal);
       setPrice(getServiceData.price?.toString() || "");
@@ -87,6 +88,21 @@ export default function AddService() {
   const cancelEditHandler = () => {
     router.back();
     resetForm();
+  };
+
+  const [removeItem, setRemoveItem] = useState(null);
+  const [isRemove, setIsRemove] = useState(null);
+
+  const removeQuestion = (item) => {
+    setIsRemove(true);
+    setRemoveItem(item);
+  };
+  const removeCancelHandler = () => {
+    setIsRemove(false);
+  };
+  const removeConfirmHandler = () => {
+    setIsRemove(false);
+    removeService(removeItem);
   };
 
   const addService = () => {
@@ -136,9 +152,11 @@ export default function AddService() {
     return <SharedLoader isOpen={isLoading === "getService"} />;
   }
 
+  if (isLoading === "remove") {
+    return <SharedLoader isOpen={isLoading === "remove"} />;
+  }
   return (
     <View style={styles.container}>
-      {<SharedCoverImage image={company?.media?.coverImageHome} />}
       <View style={styles.containerImage}>
         <ImageCompress
           handlePickImage={selectedImgHandler}
@@ -148,39 +166,67 @@ export default function AddService() {
 
       <View style={{ flex: 3, marginTop: 20 }}>
         {/* ovo ti je za lokalni jezik - srpski nameLocal */}
+        <ServiceInput
+          icon="scissors"
+          label={localization.SERVICES.serviceNameSr}
+          value={nameLocal}
+          onChangeText={setNameLocal}
+        />
+
+        <ServiceInput
+          icon="scissors"
+          label={localization.SERVICES.serviceNameEn}
+          value={nameEn}
+          onChangeText={setNameEn}
+        />
+        {/* 
         <TextInput
           style={styles.input}
           placeholder={localization.SERVICES.serviceNameSr}
           value={nameLocal}
           onChangeText={setNameLocal}
-        />
+        /> */}
         {/* ovo ti je za lokalni jezik - engleski nameEn */}
 
-        <TextInput
+        {/* <TextInput
           style={styles.input}
           placeholder={localization.SERVICES.serviceNameEn}
           value={nameEn}
           onChangeText={setNameEn}
-        />
+        /> */}
 
-        <TextInput
+        {/* <TextInput
           style={styles.input}
           placeholder={localization.SERVICES.servicePrice}
           value={price}
           onChangeText={setPrice}
           keyboardType="numeric"
-        />
+        /> */}
 
-        <TextInput
+        <ServiceInput
+          icon="money"
+          label={localization.SERVICES.servicePrice}
+          value={price}
+          onChangeText={setPrice}
+          keyboardType="numeric"
+        />
+        <ServiceInput
+          icon="history"
+          label={localization.SERVICES.serviceDuration}
+          value={duration}
+          onChangeText={setDuration}
+          keyboardType="numeric"
+        />
+        {/* <TextInput
           style={styles.input}
           placeholder={localization.SERVICES.serviceDuration}
           value={duration}
           onChangeText={setDuration}
           keyboardType="numeric"
-        />
+        /> */}
       </View>
 
-      <View style={{ flex: 1 }}>
+      <View style={[styles.btnContainer, id && styles.btnGap]}>
         <TouchableOpacity style={styles.button} onPress={addService}>
           {isLoading === "addEdit" && (
             <ActivityIndicator size={20} color="#fff" />
@@ -193,16 +239,23 @@ export default function AddService() {
             </Text>
           )}
         </TouchableOpacity>
+        {id && (
+          <TouchableOpacity
+            style={styles.buttonRmv}
+            onPress={() => removeQuestion(id)}
+          >
+            {isLoading === "remove" && (
+              <ActivityIndicator size={20} color="#fff" />
+            )}
+            {isLoading !== "remove" && (
+              <Text style={styles.buttonText}>
+                {localization.SERVICES.removeBtn}
+              </Text>
+            )}
+          </TouchableOpacity>
+        )}
       </View>
 
-      {id && (
-        <TouchableOpacity
-          style={[styles.button, styles.cancelButton]}
-          onPress={cancelEditHandler}
-        >
-          <Text style={styles.buttonText}>{localization.SERVICES.cancel}</Text>
-        </TouchableOpacity>
-      )}
       {isMessage && (
         <SharedMessage
           isOpen={isMessage}
@@ -213,22 +266,44 @@ export default function AddService() {
           title={message}
         />
       )}
+      {isRemove && (
+        <SharedQuestion
+          isOpen={isRemove}
+          onClose={removeCancelHandler}
+          onLogOut={removeConfirmHandler}
+          icon={
+            <FontAwesome name="question-circle-o" size={64} color="white" />
+          }
+          title={localization.SERVICES.question}
+          buttonTextYes={localization.SERVICES.confirmButton}
+          buttonTextNo={localization.SERVICES.cancel}
+        />
+      )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   containerImage: {
-    position: "absolute",
     alignContent: "center",
     alignItems: "center",
     alignSelf: "center",
     paddingTop: 20,
   },
+  btnContainer: {},
+  btnGap: { gap: 20 },
+  buttonRmv: {
+    backgroundColor: "rgb(129, 29, 29)",
+    padding: 12,
+    borderRadius: 8,
+    alignItems: "center",
+    borderColor: "white",
+    borderWidth: 1,
+  },
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: "#121212",
+    backgroundColor: "#000000",
   },
   title: {
     fontSize: 22,

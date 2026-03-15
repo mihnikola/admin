@@ -66,7 +66,7 @@ export default function Barbers() {
   return (
     <View style={styles.container}>
       {id && <LocationItem item={itemData} id={id} />}
-      <Text style={styles.subTitle}>{localization.SERVICES.listServices}</Text>
+      <Text style={styles.subTitle}>{localization.BARBERS.listBarbers}</Text>
       <View style={{ maxHeight: containerHeight }}>
         {isLoading === "getBarbers" && (
           <View style={styles.loadingContainer}>

@@ -1,18 +1,13 @@
-import { FontAwesome, Ionicons } from "@expo/vector-icons";
-import React, { useEffect, useState } from "react";
+import { FontAwesome } from "@expo/vector-icons";
+import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
-  FlatList,
-  Image,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
-import { Picker } from "@react-native-picker/picker";
-
-import ImageCompress from "../../ImageCompress";
 import useBarbers from "../hooks/useBarbers";
 import Loader from "../../../../shared-components/Loader";
 import { useLocalization } from "@/contexts/LocalizationContext";
@@ -22,12 +17,15 @@ import { SharedLoader } from "@/shared-components/SharedLoader";
 import { useCompany } from "@/contexts/CompanyContext";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import { router, useLocalSearchParams } from "expo-router";
+import ImageCompress from "../../ImageCompress";
+import BarbersSeniority from "./BarbersSeniority";
+import BarbersInput from "./BarbersInput";
+import BarberSeniorityComponent from "./BarbersSeniorityInput";
 
 export default function BarbersAdd() {
   const { localization } = useLocalization();
   const params = useLocalSearchParams();
   const { id } = params;
-  console.log("startEditing", params);
 
   const {
     isLoading,
@@ -37,26 +35,15 @@ export default function BarbersAdd() {
     setMessage,
     message,
     barberData,
-    barbersData,
     removeBarber,
     confirmHandler,
     getBarberHandler,
-    startEditing,
     addEditBarber,
-    editScreen,
     fetchAllSeniority,
     seniorityData,
   } = useBarbers();
 
-  useEffect(() => {
-    fetchAllSeniority();
-    if (id) {
-      getBarberHandler(id);
-    }
-  }, [id]);
-
   const [name, setName] = useState("");
-  const [seniority, setSeniority] = useState("");
 
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -65,27 +52,36 @@ export default function BarbersAdd() {
   const [editingId, setEditingId] = useState(null);
   const [changedImg, setChangedImg] = useState(null);
   const { company } = useCompany();
-  const [selected, setSelected] = useState("");
+  const [selected, setSelected] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const [isError, setIsError] = useState(null);
 
   const selectedImgHandler = (imgData) => {
     if (imgData) {
-      console.log("imgData",imgData)
       setChangedImg(imgData);
     }
   };
+  useEffect(() => {
+    setTimeout(async () => {
+      await fetchAllSeniority();
+    }, 100);
+    if (id) {
+      setTimeout(async () => {
+        await getBarberHandler(id);
+      }, 100);
+    }
+  }, [id]);
 
   useEffect(() => {
-    if (editScreen) {
-      console.log("barberData",barberData)
+    if (barberData) {
       setName(barberData?.name);
-      setSelected(barberData?.seniority._id);
+      setSelected(barberData?.seniority);
       setPhoneNumber(barberData?.phoneNumber);
       selectedImgHandler(barberData?.image);
       setEditingId(barberData?.id);
     }
-  }, [editScreen]);
+  }, [barberData]);
 
   const resetForm = () => {
     setName("");
@@ -97,8 +93,8 @@ export default function BarbersAdd() {
     setChangedImg(null);
   };
   const cancelEditHandler = () => {
-    router.back();
     resetForm();
+    router.back();
   };
 
   const addBarber = () => {
@@ -137,71 +133,101 @@ export default function BarbersAdd() {
     confirmHandler();
   };
 
+  const modalHandler = () => {
+    setModalVisible(true);
+  };
+  const handleLocationSelect = (data) => {
+    const senioritetyData = [...seniorityData];
+    let activeSenioritet;
+    senioritetyData.map((item) => {
+      if (item._id === data._id) {
+        activeSenioritet = data;
+      }
+    });
+
+    setSelected(activeSenioritet);
+  };
+
+  const [removeItem, setRemoveItem] = useState(null);
+  const [isRemove, setIsRemove] = useState(null);
+
+  const removeQuestion = (item) => {
+    setIsRemove(true);
+    setRemoveItem(item);
+  };
+  const removeCancelHandler = () => {
+    setIsRemove(false);
+  };
+  const removeConfirmHandler = () => {
+    setIsRemove(false);
+    removeBarber(removeItem);
+  };
   if (isLoading === "getBarber") {
     return <SharedLoader isOpen={isLoading === "getBarber"} />;
   }
-
-  console.log("selected", selected);
+  if (modalVisible && !isLoading) {
+    return (
+      <BarbersSeniority
+        seniorityData={seniorityData}
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        selected={selected}
+        handleLocationSelect={handleLocationSelect}
+      />
+    );
+  }
   return (
     <View style={styles.container}>
-      {<SharedCoverImage image={company?.media?.coverImageHome} />}
-      <View style={styles.containerImage}>
-        <ImageCompress
-          handlePickImage={selectedImgHandler}
-          imageValue={changedImg}
-        />
-      </View>
+      {changedImg !== undefined && (
+        <View style={styles.containerImage}>
+          <ImageCompress
+            handlePickImage={selectedImgHandler}
+            imageValue={changedImg}
+          />
+        </View>
+      )}
 
       <View style={{ flex: 3, marginTop: 20 }}>
-        <TextInput
-          style={styles.input}
-          placeholder={localization.BARBERS.name}
+        <BarbersInput
+          icon="user"
+          label={localization.BARBERS.name}
           value={name}
           onChangeText={setName}
         />
-        {!editScreen && (
-          <TextInput
-            style={styles.input}
-            placeholder={localization.BARBERS.email}
+
+        {!id && (
+          <BarbersInput
+            icon="at"
+            label={localization.BARBERS.email}
             value={email}
             onChangeText={setEmail}
             keyboardType="email-address"
-            autoCapitalize="none"
-            autoCorrect={false}
-            textContentType="emailAddress"
           />
         )}
-        {!editScreen && (
-          <TextInput
-            style={styles.input}
-            placeholder={localization.BARBERS.password}
+        {!id && (
+          <BarbersInput
+            icon="lock"
+            label={localization.BARBERS.password}
             value={password}
             onChangeText={setPassword}
-            secureTextEntry={false}
-            autoCapitalize="none"
-            autoCorrect={false}
             textContentType="password"
           />
         )}
-        <TextInput
-          style={styles.input}
-          placeholder={localization.BARBERS.phoneNumber}
+        <BarbersInput
+          icon="phone"
+          label="Telefon"
           value={phoneNumber}
           onChangeText={setPhoneNumber}
           keyboardType="phone-pad"
-          autoCapitalize="none"
-          autoCorrect={false}
-          textContentType="telephoneNumber"
-          autoComplete="tel"
         />
-        <PickerSeniority
-          data={seniorityData}
-          selected={selected}
-          setSelected={setSelected}
+        <BarberSeniorityComponent
+          modalHandler={modalHandler}
+          label="Senioritet"
+          selected={selected?.title}
         />
       </View>
 
-      <View style={{ flex: 1 }}>
+      <View style={[styles.btnContainer, editingId && styles.btnGap]}>
         <TouchableOpacity style={styles.button} onPress={addBarber}>
           {isLoading === "addEdit" && (
             <ActivityIndicator size={20} color="#fff" />
@@ -214,16 +240,24 @@ export default function BarbersAdd() {
             </Text>
           )}
         </TouchableOpacity>
+        {editingId && (
+          <TouchableOpacity
+            style={styles.buttonRmv}
+            onPress={() => removeQuestion(id)}
+          >
+            {isLoading === "remove" && (
+              <ActivityIndicator size={20} color="#fff" />
+            )}
+            {isLoading !== "remove" && (
+              <Text style={styles.buttonText}>
+                {localization.BARBERS.removeBtn}
+              </Text>
+            )}
+          </TouchableOpacity>
+        )}
       </View>
 
-      {editingId && (
-        <TouchableOpacity
-          style={[styles.button, styles.cancelButton]}
-          onPress={cancelEditHandler}
-        >
-          <Text style={styles.buttonText}>{localization.BARBERS.cancel}</Text>
-        </TouchableOpacity>
-      )}
+
       {isMessage && (
         <SharedMessage
           isOpen={isMessage}
@@ -234,6 +268,19 @@ export default function BarbersAdd() {
           title={message}
         />
       )}
+      {isRemove && (
+        <SharedQuestion
+          isOpen={isRemove}
+          onClose={removeCancelHandler}
+          onLogOut={removeConfirmHandler}
+          icon={
+            <FontAwesome name="question-circle-o" size={64} color="white" />
+          }
+          title={localization.BARBERS.question}
+          buttonTextYes={localization.BARBERS.confirmButton}
+          buttonTextNo={localization.BARBERS.cancel}
+        />
+      )}
     </View>
   );
 }
@@ -242,15 +289,29 @@ const styles = StyleSheet.create({
   containerPicker: {
     backgroundColor: "#1e1e1e",
     borderRadius: 12,
-    justifyContent: "center",
     marginVertical: 5,
+    padding: 10,
+  },
+  btnContainer: {},
+  btnGap: { gap: 20 },
+  buttonRmv: {
+    backgroundColor: "rgb(129, 29, 29)",
+    padding: 12,
+    borderRadius: 8,
+    alignItems: "center",
+    borderColor: "white",
+    borderWidth: 1,
   },
   picker: {
     height: 60,
   },
+  editHint: {
+    fontSize: 12,
+    color: "#aaa",
+    padding: 8,
+  },
 
   containerImage: {
-    position: "absolute",
     alignContent: "center",
     alignItems: "center",
     alignSelf: "center",
@@ -259,7 +320,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: "#121212",
+    backgroundColor: "#000000",
   },
   title: {
     fontSize: 22,
@@ -319,21 +380,3 @@ const styles = StyleSheet.create({
     padding: 8,
   },
 });
-
-const PickerSeniority = ({ data, selected, setSelected }) => {
-  return (
-    <View style={styles.containerPicker}>
-      <Picker
-        selectedValue={selected}
-        onValueChange={(itemValue) => setSelected(itemValue)}
-        style={styles.picker}
-      >
-        <Picker.Item label="Select seniority..." value={null} />
-
-        {data.map((item) => (
-          <Picker.Item key={item._id} label={item.title} value={item._id} />
-        ))}
-      </Picker>
-    </View>
-  );
-};

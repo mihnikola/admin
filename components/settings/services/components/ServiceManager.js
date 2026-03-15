@@ -36,21 +36,7 @@ export default function ServiceManager() {
     startEditing,
   } = useServices();
 
-  const [removeItem, setRemoveItem] = useState(null);
   const [isError, setIsError] = useState(null);
-  const [isRemove, setIsRemove] = useState(null);
-
-  const removeQuestion = (item) => {
-    setIsRemove(true);
-    setRemoveItem(item);
-  };
-  const removeCancelHandler = () => {
-    setIsRemove(false);
-  };
-  const removeConfirmHandler = () => {
-    setIsRemove(false);
-    removeService(removeItem);
-  };
 
   const cancelHandler = () => {
     setIsError(null);
@@ -65,9 +51,6 @@ export default function ServiceManager() {
     }, []),
   );
 
-  if (isLoading === "remove") {
-    return <SharedLoader isOpen={isLoading === "remove"} />;
-  }
   return (
     <View style={styles.container}>
       <Text style={styles.subTitle}>{localization.SERVICES.listServices}</Text>
@@ -78,17 +61,13 @@ export default function ServiceManager() {
           data={serviceData}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <View style={styles.serviceItem}>
+            <TouchableOpacity style={styles.serviceItem} onPress={() => startEditing(item)}>
               <View>
                 <Image source={{ uri: item.image }} style={styles.image} />
               </View>
               <View style={{ width: "52%", marginLeft: 10 }}>
                 <View>
-                  <Text style={styles.serviceText}>
-                    {localization.code === "en"
-                      ? item.name.nameEn
-                      : item.name.nameLocal}
-                  </Text>
+                  <Text style={styles.serviceText}>{item.name}</Text>
                 </View>
                 <View>
                   <Text style={styles.serviceText}>{item.price} RSD</Text>
@@ -98,19 +77,13 @@ export default function ServiceManager() {
                 </View>
               </View>
               <View style={{ flexDirection: "row" }}>
-                <TouchableOpacity onPress={() => startEditing(item)}>
+                <View>
                   <Text style={styles.editHint}>
                     <FontAwesome name="edit" size={24} color="white" />
                   </Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity onPress={() => removeQuestion(item)}>
-                  <Text style={styles.editHint}>
-                    <FontAwesome name="trash" size={24} color="white" />
-                  </Text>
-                </TouchableOpacity>
+                </View>
               </View>
-            </View>
+            </TouchableOpacity>
           )}
         />
       )}
@@ -135,19 +108,7 @@ export default function ServiceManager() {
           title={isError}
         />
       )}
-      {isRemove && (
-        <SharedQuestion
-          isOpen={isRemove}
-          onClose={removeCancelHandler}
-          onLogOut={removeConfirmHandler}
-          icon={
-            <FontAwesome name="question-circle-o" size={64} color="white" />
-          }
-          title={localization.SERVICES.question}
-          buttonTextYes={localization.SERVICES.confirmButton}
-          buttonTextNo={localization.SERVICES.cancel}
-        />
-      )}
+     
     </View>
   );
 }
@@ -156,7 +117,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: "#121212",
+    backgroundColor: "#000000",
   },
   title: {
     fontSize: 22,
@@ -199,9 +160,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   serviceItem: {
-    backgroundColor: "#2a2a2a",
+    backgroundColor: "#000000",
     flexDirection: "row",
     justifyContent: "space-between",
+    borderWidth: 1,
+
+    borderColor: "white",
     padding: 20,
     borderRadius: 8,
     marginBottom: 10,

@@ -7,17 +7,15 @@ import { useEffect, useState } from "react";
 const useBarbers = () => {
   const [barbersData, setBarbersData] = useState([]);
   const [seniorityData, setSeniorityData] = useState([]);
-  const [barberData, setBarberData] = useState([]);
+  const [barberData, setBarberData] = useState(null);
 
   const [isLoading, setIsLoading] = useState(null);
   const [error, setError] = useState(null);
   const { localization } = useLocalization();
   const [isMessage, setIsMessage] = useState(false);
   const [message, setMessage] = useState(null);
-  const [editScreen, setEditScreen] = useState(false);
 
-  const removeBarber = async (barber) => {
-    const { _id:id } = barber;
+  const removeBarber = async (id) => {
     setIsLoading("remove");
 
     setError(null);
@@ -73,7 +71,7 @@ const useBarbers = () => {
     }
    
     formData.append("phoneNumber", userData?.phoneNumber);
-    formData.append("seniority", userData?.seniority);
+    formData.append("seniority", userData?.seniority?._id);
     formData.append("email", userData?.email);
     formData.append("password", userData?.password);
 
@@ -138,15 +136,63 @@ const useBarbers = () => {
       }
     }
   };
+//   const addEditBarber = async (userData) => {
+//   setIsLoading("addEdit");
+//   setError(null);
+
+//   try {
+//     let formData = new FormData();
+
+//     // Dodavanje tekstualnih polja
+//     if (userData?.name) formData.append("name", userData.name);
+//     if (userData?.phoneNumber) formData.append("phoneNumber", userData.phoneNumber);
+//     if (userData?.seniority) formData.append("seniority", userData.seniority._id);
+//     if (userData?.email) formData.append("email", userData.email);
+//     if (userData?.password) formData.append("password", userData.password);
+
+//     // Dodavanje slike preko helper-a
+//     if (userData?.image) {
+//       const imageFormData = await createImageFormData(userData.image, "image");
+//       // FormData iz helper-a može imati samo jedno polje, dodajemo ga u glavni formData
+//       if (imageFormData) {
+//         imageFormData.forEach((value, key) => formData.append(key, value));
+//       }
+//     }
+
+//     // PUT ili POST zavisno od toga da li editujemo
+//     const url = userData?.id
+//       ? `${process.env.EXPO_PUBLIC_API_URL}/admin/users/${userData.id}`
+//       : `${process.env.EXPO_PUBLIC_API_URL}/admin/users`;
+//     const method = userData?.id ? "put" : "post";
+
+//     const response = await axios({
+//       url,
+//       method,
+//       data: formData,
+//       headers: { "Content-Type": "multipart/form-data" },
+//     });
+
+//     console.log("response",response)
+//     if ((method === "post" && response.status === 201) || (method === "put" && response.status === 200)) {
+//       setIsMessage(true);
+//       setMessage(userData?.id ? localization.BARBERS.edit : localization.BARBERS.add);
+//     }
+//   } catch (err) {
+//     console.log("Upload error", err);
+//     setError(localization.BARBERS.errorFetch);
+//     setIsMessage(true);
+//   } finally {
+//     setIsLoading(null);
+//   }
+// };
 
   const getBarberHandler = async (id) => {
     setIsLoading("getBarber");
     setError(null);
     try {
       const response = await get(`/admin/users/employer/${id}`);
-      console.log("phoneNumber",response);
+      console.log("setBarberData",response);
       if (response.status === 200) {
-        setEditScreen(true);
 
         setBarberData(response.data);
       }
@@ -188,7 +234,6 @@ const useBarbers = () => {
     confirmHandler,
     startEditing,
     getBarberHandler,
-    editScreen,
     fetchAllSeniority,
     seniorityData
   };

@@ -38,7 +38,7 @@ export const ENG_LOCALIZATION = {
     saveChanges: "Save changes",
     confirmButton: "Ok",
     title: "Manage barbers",
-    listBarbers: "List services",
+    listBarbers: "List barbers",
     email: "Enter email",
     phoneNumber: "Enter phone nummber",
     seniority: "Enter seniority",
@@ -50,6 +50,7 @@ export const ENG_LOCALIZATION = {
     password: "Enter password",
     submit: "Add barber",
     cancel: "Cancel",
+    removeBtn: "Deactivate account"
   },
   COMPANY: {
     error: "Error while fetching company data...",
@@ -123,6 +124,7 @@ export const ENG_LOCALIZATION = {
     success: "Your appointment is successfully booked!",
   },
   SERVICES: {
+    removeBtn:"Deactivate service",
     title: "Pricing & Services",
     errorFetch: "An unexpected error occurred while fetching services.",
     successMsg: "Services are successfully defines",

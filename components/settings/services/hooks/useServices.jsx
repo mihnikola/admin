@@ -14,9 +14,8 @@ const useServices = () => {
   const [isMessage, setIsMessage] = useState(false);
   const [message, setMessage] = useState(null);
 
-  const removeService = async (service) => {
-    console.log("service", service);
-    const { id } = service;
+  const removeService = async (id) => {
+
     setIsLoading("remove");
     setError(null);
     try {

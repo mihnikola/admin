@@ -23,7 +23,7 @@ const Locations = () => {
     confirmSubmit,
   } = useLocationBarber();
   const { height: screenHeight } = Dimensions.get("window");
-  const containerHeight = screenHeight * 0.7;
+  const containerHeight = screenHeight * 1;
 
   useEffect(() => {
     getLocations();

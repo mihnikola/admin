@@ -30,8 +30,13 @@ export default function ImageCompress({ imageValue, handlePickImage }) {
 
       {selectedImageUri && (
         <View style={styles.imageWrapper}>
-          <Image source={{ uri: selectedImageUri }} style={styles.image} />
-
+          {/* <Image source={{ uri: selectedImageUri }} style={styles.image} /> */}
+          <Image
+            source={{ uri: selectedImageUri }}
+            style={styles.profileImage}
+            onError={() => console.log("Ne može da učita sliku")}
+            // defaultSource={require("./placeholder.png")}
+          />
           <TouchableOpacity
             onPress={pickImage}
             disabled={uploading}
@@ -54,19 +59,27 @@ const styles = StyleSheet.create({
   },
 
   imageWrapper: {
-    flexDirection: "row",
-    alignItems: "flex-end",
+    alignSelf: "center",
   },
-
-  image: {
+  profileImage: {
     width: 150,
     height: 150,
-    resizeMode: "cover",
+    borderRadius: 60,
+    borderWidth: 3,
+    borderColor: "#fff",
   },
 
   editButton: {
-    backgroundColor: "rgba(0,0,0,0.6)",
-    borderRadius: 30,
-    padding: 6,
+    position: "absolute",
+    bottom: 0,
+    right: 0,
+    backgroundColor: "#1e1e1e",
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 2,
+    borderColor: "#fff",
   },
 });

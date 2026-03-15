@@ -2,10 +2,39 @@ import { useState, useCallback, useEffect } from "react";
 import * as ImagePicker from "expo-image-picker";
 import * as ImageManipulator from "expo-image-manipulator";
 import * as FileSystem from "expo-file-system/legacy";
-import { Alert } from "react-native";
+import { Alert, Platform } from "react-native";
 
 const MAX_FILE_SIZE = 1 * 1024 * 1024; // 1MB
 const MAX_WIDTH = 1000;
+
+export const createImageFormData = async (imageUri, fieldName) => {
+  if (!imageUri) return null;
+
+  // Kompresija i konverzija na jpg ako nije
+  const manipResult = await ImageManipulator.manipulateAsync(
+    imageUri,
+    [], // možeš dodati resize, rotate itd.
+    { compress: 0.8, format: ImageManipulator.SaveFormat.JPEG }
+  );
+
+  const filename = manipResult.uri.split("/").pop();
+  const match = /\.(\w+)$/.exec(filename ?? "");
+  const type = match ? `image/${match[1]}` : "image";
+
+  const uri =
+    Platform.OS === "android"
+      ? manipResult.uri.replace("file://", "")
+      : manipResult.uri;
+
+  const formData = new FormData();
+  formData.append(fieldName, {
+    uri,
+    name: filename,
+    type,
+  });
+
+  return formData;
+};
 
 const usePickImage = (initialImageUri) => {
   const [selectedImageUri, setSelectedImageUri] = useState(null);

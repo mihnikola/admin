@@ -40,9 +40,11 @@ const ServiceItem = ({ item, toggleService }) => {
 const styles = StyleSheet.create({
 
     serviceItem: {
-        backgroundColor: "#2a2a2a",
+        backgroundColor: "#000",
         flexDirection: "row",
         justifyContent: "space-between",
+        borderWidth: 1,
+        borderColor: '#fff',
         padding: 20,
         borderRadius: 8,
         marginBottom: 10,

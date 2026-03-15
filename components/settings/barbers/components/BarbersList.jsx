@@ -21,7 +21,6 @@ import FloatingButton from "../../FloatingButton";
 import { router, useFocusEffect } from "expo-router";
 
 export default function BarbersList() {
-  console.log("KUDASHDJAGSYHDJ")
   const { localization } = useLocalization();
   const {
     isLoading,
@@ -31,27 +30,12 @@ export default function BarbersList() {
     setMessage,
     message,
     barbersData,
-    removeBarber,
     confirmHandler,
     fetchAllBarbers,
     startEditing,
   } = useBarbers();
 
-  const [removeItem, setRemoveItem] = useState(null);
   const [isError, setIsError] = useState(null);
-  const [isRemove, setIsRemove] = useState(null);
-
-  const removeQuestion = (item) => {
-    setIsRemove(true);
-    setRemoveItem(item);
-  };
-  const removeCancelHandler = () => {
-    setIsRemove(false);
-  };
-  const removeConfirmHandler = () => {
-    setIsRemove(false);
-    removeBarber(removeItem);
-  };
 
   const cancelHandler = () => {
     setIsError(null);
@@ -66,9 +50,6 @@ export default function BarbersList() {
     }, []),
   );
 
-  if (isLoading === "remove") {
-    return <SharedLoader isOpen={isLoading === "remove"} />;
-  }
   return (
     <View style={styles.container}>
       <Text style={styles.subTitle}>{localization.BARBERS.listBarbers}</Text>
@@ -79,7 +60,10 @@ export default function BarbersList() {
           data={barbersData}
           keyExtractor={(item) => item._id}
           renderItem={({ item }) => (
-            <View style={styles.barberItem}>
+            <TouchableOpacity
+              onPress={() => startEditing(item)}
+              style={styles.barberItem}
+            >
               <View>
                 <Image source={{ uri: item.image }} style={styles.image} />
               </View>
@@ -87,26 +71,22 @@ export default function BarbersList() {
                 <View>
                   <Text style={styles.serviceText}>{item.name}</Text>
                 </View>
-                {item.phoneNumber && (
+                {item?.seniority?.title && (
                   <View>
-                    <Text style={styles.serviceText}>{item.phoneNumber}</Text>
+                    <Text style={styles.serviceText}>
+                      {item?.seniority?.title}
+                    </Text>
                   </View>
                 )}
               </View>
               <View style={{ flexDirection: "row" }}>
-                <TouchableOpacity onPress={() => startEditing(item)}>
+                <View>
                   <Text style={styles.editHint}>
                     <FontAwesome name="edit" size={24} color="white" />
                   </Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity onPress={() => removeQuestion(item)}>
-                  <Text style={styles.editHint}>
-                    <FontAwesome name="trash" size={24} color="white" />
-                  </Text>
-                </TouchableOpacity>
+                </View>
               </View>
-            </View>
+            </TouchableOpacity>
           )}
         />
       )}
@@ -131,19 +111,6 @@ export default function BarbersList() {
           title={isError}
         />
       )}
-      {isRemove && (
-        <SharedQuestion
-          isOpen={isRemove}
-          onClose={removeCancelHandler}
-          onLogOut={removeConfirmHandler}
-          icon={
-            <FontAwesome name="question-circle-o" size={64} color="white" />
-          }
-          title={localization.BARBERS.question}
-          buttonTextYes={localization.BARBERS.confirmButton}
-          buttonTextNo={localization.BARBERS.cancel}
-        />
-      )}
     </View>
   );
 }
@@ -152,7 +119,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: "#121212",
+    backgroundColor: "#000000",
   },
   title: {
     fontSize: 22,
@@ -195,12 +162,14 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   barberItem: {
-    backgroundColor: "#2a2a2a",
+    backgroundColor: "#000000",
     flexDirection: "row",
     justifyContent: "space-between",
     padding: 20,
     borderRadius: 8,
     marginBottom: 10,
+    borderWidth: 1,
+    borderColor: 'white',
   },
   serviceText: {
     color: "#fff",

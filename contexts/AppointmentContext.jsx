@@ -54,11 +54,13 @@ export const AppointmentProvider = ({ children }) => {
     }
     try {
       const response = await put(`admin/availabilities/${id}/missed`);
+      console.log("admin/availabilities/${id}/missed",response)
       if (response.status === 202) {
         setIsModal(true);
         setMessage(localization.APPOINTMENTS.missedReservation.success);
       }
     } catch (err) {
+      console.log("errerrerr",err)
       setIsError(true);
 
       setError(err);

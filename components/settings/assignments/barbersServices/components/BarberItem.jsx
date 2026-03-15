@@ -24,9 +24,9 @@ export default function BarberItem({ id, item, assignmentHandler }) {
                 <View>
                     <Text style={styles.barberText}>{item.name}</Text>
                 </View>
-                {item.phoneNumber && (
+                {item.seniority && (
                     <View>
-                        <Text style={styles.barberText}>{item.phoneNumber}</Text>
+                        <Text style={styles.barberText}>{item.seniority.title}</Text>
                     </View>
                 )}
             </View>
@@ -41,9 +41,11 @@ const styles = StyleSheet.create({
         height: 60,
     },
     barberItem: {
-        backgroundColor: "#2a2a2a",
+        backgroundColor: "#000000",
         flexDirection: "row",
         justifyContent: "space-between",
+        borderWidth: 1,
+        borderColor: "white",
         padding: 20,
         borderRadius: 8,
         marginBottom: 10,

@@ -88,6 +88,7 @@ export const SRB_LOCALIZATION = {
     close: "Zatvori",
   },
   SERVICES: {
+    removeBtn: "Deaktiviraj uslugu",
     title: "Cenovnik & Usluge",
     errorFetch: "Greška prilikom uzimanja podataka o servisima...",
     successMsg: "Servisi su uspešno dodeljeni zaposlenom",
@@ -201,6 +202,7 @@ export const SRB_LOCALIZATION = {
     submit: "Dodaj barbera",
     cancel: "Odustani",
     saveChanges: "Sačuvaj promene",
+    removeBtn: "Deaktiviraj nalog",
   },
   SETTINGS: {
     EMPLOYERSPLACES: {
