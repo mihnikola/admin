@@ -20,7 +20,7 @@ import usePassword from "./../../components/login/hooks/usePassword";
 import { useEffect } from "react";
 
 export default function LoginScreen() {
-  const { isLoading, isMessage, setIsMessage, loginAdmin, error, success } =
+  const { isLoading, loadingLogin, isMessage, setIsMessage, loginAdmin, error, success } =
     useAuth();
   const { email, handleEmailChange } = useEmail();
   const { password, handlePasswordChange } = usePassword();
@@ -99,14 +99,14 @@ export default function LoginScreen() {
             placeholder="Enter your password"
           />
           <SharedButton
-            loading={isLoading}
+            loading={loadingLogin === 'login'}
             onPress={handleLogin}
             text="Login"
           />
         </View>
-        {isMessage && !isLoading && (
+        {isMessage  && (
           <SharedMessage
-            isOpen={isMessage && !isLoading}
+            isOpen={isMessage}
             onClose={!error ? confirmHandler : cancelHandler}
             onConfirm={!error ? confirmHandler : cancelHandler}
             icon={

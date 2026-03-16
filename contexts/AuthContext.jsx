@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }) => {
   const [isMessage, setIsMessage] = useState(false);
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
-  const [verificationData, setVerificationData] = useState(null);
+  const [loadingLogin, setLoadingLogin] = useState(null);
 
   const [success, setSuccess] = useState(null);
   const [message, setMessage] = useState(null);
@@ -84,7 +84,6 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logoutFirebase = async () => {
-    await getTokenData();
     setIsLoading(true);
     try {
       if (isToken) {
@@ -143,44 +142,16 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
-  const verificationOTPCode = async () => {
-    setIsLoading(true);
-    const { email, password } = verificationData;
-    console.log("verificationOTPCode sendOTPviaLogin", email, password);
-    try {
-      const response = await getData("/users/sendOTPviaLogin", {
-        params: { email },
-      });
 
-      console.log("verificationOTPCode+++", response);
-      if (response.status === 200) {
-        await saveOtpParamsStorage(verificationData);
-        setIsLoading(false);
-        setIsMessage(false);
-        router.push("/(tabs)/(04_settings)/otpCode");
-      }
-      if (response.status === 500) {
-        setIsLoading(false);
-        setError(response.message);
-      }
-      if (response.status === 404) {
-        setIsLoading(false);
-        setError(response.message);
-      }
-    } catch (err) {
-      setIsLoading(false);
-      setError(localization.SERVER_RESPONSE.error);
-    }
-  };
 
   const loginAdmin = async (email, password) => {
-    setIsLoading(true);
+    setLoadingLogin('login');
     setError(null);
 
     const expoToken = await NotificationService.getFCMToken();
 
     if (!email || !password) {
-      setIsLoading(false);
+      setLoadingLogin(null);
       setIsMessage(true);
       setError(localization.LOGIN.error);
       return;
@@ -202,16 +173,16 @@ export const AuthProvider = ({ children }) => {
     } catch (err) {
       setIsMessage(true);
       if (err.status === 304) {
-        setError("Invalid email or password");
+        setError(localization.LOGIN.errorFields);
       }
       if (err.status === 400) {
-        setError("Not match password");
+        setError(localization.LOGIN.errorPass);
       }
       if (err.status === 500) {
         setError(err);
       }
     } finally {
-      setIsLoading(false);
+      setLoadingLogin(null);
     }
   };
 
@@ -238,8 +209,8 @@ export const AuthProvider = ({ children }) => {
         error,
         loginAdmin,
         success,
-        verificationOTPCode,
         message,
+        loadingLogin
       }}
     >
       {children}
