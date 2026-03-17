@@ -19,7 +19,7 @@ export const getSettingsOptions = (localization: any) => [
     icon: "duplicate-outline",
     route: "/(tabs)/(03_settings)/serviceManager",
   },
-    {
+  {
     id: "2236213213x",
     title: localization.BARBERS.title,
     icon: "duplicate-outline",
@@ -48,6 +48,12 @@ export const getSettingsOptions = (localization: any) => [
     title: localization.SETTINGS.WORKHOURS.title,
     icon: "stopwatch-outline",
     route: "/(tabs)/(03_settings)/timeManagement",
+  },
+  {
+    id: "xcasdqwe232sewdssd",
+    title: localization.SETTINGS.NOTIFICATIONSTATUS.title,
+    icon: "shuffle-sharp",
+    route: "/(tabs)/(03_settings)/notificationConfirmation",
   },
   {
     id: "15148",

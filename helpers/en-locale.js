@@ -257,7 +257,10 @@ export const ENG_LOCALIZATION = {
       title: "Locations & Barbers",
       footerBottom: "All rights reserved ©",
     },
-
+    NOTIFICATIONSTATUS:{
+      title:"Status reservation confirmation",
+      capture:"Type confirmation"
+    },
     WORKHOURS: {
       title: "Work hours management",
       capture: "Set work hours limitation",
