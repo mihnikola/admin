@@ -18,6 +18,7 @@ export default function ClientsScreen() {
   const { clients, fetchAllClients } = useGetClients();
   const { localization } = useLocalization();
 
+
   const filteredClients = clients.filter((client) =>
     client.name.toLowerCase().includes(search.toLowerCase())
   );
@@ -50,9 +51,13 @@ export default function ClientsScreen() {
             <Text style={styles.phone}>{item.phoneNumber}</Text>
           )}
           <Text style={styles.details}>
-            {localization.CLIENTS.finished} <Text style={styles.done}>{item.approvedCount}</Text>
+            {localization.CLIENTS.finished} <Text style={styles.done}>{item.completedCount}</Text>
+
+          </Text>
+          <Text style={styles.details}>
             {localization.CLIENTS.missed} <Text style={styles.missed}>{item.skippedCount}</Text>
           </Text>
+
           <Text style={styles.income}>
             {localization.CLIENTS.total} {item.totalRevenue.toFixed(2)} RSD
           </Text>

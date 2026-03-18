@@ -260,7 +260,12 @@ export const SRB_LOCALIZATION = {
       title: "Lokacije i barberi",
       footerBottom: "All rights reserved ©",
     },
+    NOTIFICATIONSTATUS: {
+      title: "Status odobravanja rezervacija",
+      capture:"Tip odobravanja"
+    },
     WORKHOURS: {
+
       title: "Upravljanje radnim vremenom",
       capture: "Podešavanje radnog vremena",
       subCapture: "Minute se biraju u intervalima od 10 minuta",

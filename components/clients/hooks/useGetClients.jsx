@@ -12,6 +12,7 @@ const useGetClients = () => {
 
   const fetchAllClients = async () => {
     setError(null);
+    
     try {
       const response = await get("/admin/users");
       if (response.status === 200) {
