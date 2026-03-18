@@ -301,6 +301,12 @@ export const SRB_LOCALIZATION = {
       imageError: "Greška u toku postavljanja slike",
     },
   },
+  EXIT: {
+    label: "Izlaz",
+    question: "Da li želite da izađete iz aplikacije?",
+    cancel: "Otkaži",
+    confirm: "Izađi",
+  },
   LOGIN: {
     title: "Prijava",
     description: "Molimo Vas da unesete podatke",

@@ -50,7 +50,7 @@ export const ENG_LOCALIZATION = {
     password: "Enter password",
     submit: "Add barber",
     cancel: "Cancel",
-    removeBtn: "Deactivate account"
+    removeBtn: "Deactivate account",
   },
   COMPANY: {
     error: "Error while fetching company data...",
@@ -124,7 +124,7 @@ export const ENG_LOCALIZATION = {
     success: "Your appointment is successfully booked!",
   },
   SERVICES: {
-    removeBtn:"Deactivate service",
+    removeBtn: "Deactivate service",
     title: "Pricing & Services",
     errorFetch: "An unexpected error occurred while fetching services.",
     successMsg: "Services are successfully defines",
@@ -288,6 +288,12 @@ export const ENG_LOCALIZATION = {
       label: "Error while changing user",
       imageError: "Upload failed",
     },
+  },
+  EXIT: {
+    label: "Exit App",
+    question: "Do you want to exit the application?",
+    cancel: "Cancel",
+    confirm: "Exit",
   },
   LOGIN: {
     title: "Let's get you Login!",

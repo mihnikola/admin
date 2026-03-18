@@ -18,10 +18,18 @@ import {
 import useEmail from "./../../components/login/hooks/useEmail";
 import usePassword from "./../../components/login/hooks/usePassword";
 import { useEffect } from "react";
+import { useLocalization } from "@/contexts/LocalizationContext";
 
 export default function LoginScreen() {
-  const { isLoading, loadingLogin, isMessage, setIsMessage, loginAdmin, error, success } =
-    useAuth();
+  const { localization } = useLocalization();
+  const {
+    loadingLogin,
+    isMessage,
+    setIsMessage,
+    loginAdmin,
+    error,
+    success,
+  } = useAuth();
   const { email, handleEmailChange } = useEmail();
   const { password, handlePasswordChange } = usePassword();
 
@@ -41,16 +49,14 @@ export default function LoginScreen() {
   };
   useEffect(() => {
     const backAction = () => {
-    
-
-      Alert.alert("Exit App", "Do you want to exit the application?", [
+      Alert.alert(localization.EXIT.label, localization.EXIT.question, [
         {
-          text: "Cancel",
+          text: localization.EXIT.cancel,
           onPress: () => null,
           style: "cancel",
         },
         {
-          text: "Exit",
+          text: localization.EXIT.confirm,
           onPress: () => BackHandler.exitApp(),
         },
       ]);
@@ -78,33 +84,33 @@ export default function LoginScreen() {
           />
         </View>
         <View style={styles.captureContainer}>
-          <Text style={styles.mainTitle}>Lets get you Login!</Text>
-          <Text style={styles.subtitle}>Enter your information below</Text>
+          <Text style={styles.mainTitle}>{localization.LOGIN.title}</Text>
+          <Text style={styles.subtitle}>{localization.LOGIN.description}</Text>
         </View>
         <View style={styles.inputContainer}>
           <SharedInput
-            label="Email Address"
+            label={localization.EMAIL.label}
             value={email}
             onChangeText={handleEmailChange}
-            placeholder="Enter your email"
+            placeholder={localization.EMAIL.placeholder}
             keyboardType="email-address"
             autoCapitalize="none"
             style={styles.input}
           />
 
           <SharedPassword
-            label="Password"
+            label={localization.PASSWORD.label}
             value={password}
             onChangeText={handlePasswordChange}
-            placeholder="Enter your password"
+            placeholder={localization.PASSWORD.placeholder}
           />
           <SharedButton
-            loading={loadingLogin === 'login'}
+            loading={loadingLogin === "login"}
             onPress={handleLogin}
-            text="Login"
+            text={localization.LOGIN.submitBtn}
           />
         </View>
-        {isMessage  && (
+        {isMessage && (
           <SharedMessage
             isOpen={isMessage}
             onClose={!error ? confirmHandler : cancelHandler}
@@ -117,7 +123,7 @@ export default function LoginScreen() {
               />
             }
             title={error || success}
-            buttonText={"OK"}
+            buttonText="OK"
           />
         )}
       </View>
