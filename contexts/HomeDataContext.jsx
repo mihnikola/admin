@@ -17,32 +17,36 @@ export const HomeDataProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(null);
   const [error, setError] = useState(null);
 
+  const ARRIVED_STATUS_MAP = {
+    0: "arrived",
+    1: "missed",
+  };
+
+  const formatReservation = (res) => {
+    if (!res) return null;
+    return {
+      ...res,
+      arrived: ARRIVED_STATUS_MAP[res.arrived] ?? "unknown" // 'unknown' kao fallback
+    };
+  };
   const fetchHomeInfo = async () => {
     setIsLoading("getHomeInfo");
     setError(null);
 
-    const arrivedMap = {
-      0: "arrived",
-      1: "missed",
-    };
+
 
     const id = new Date();
     try {
       const response = await get(`/admin/availabilities/${id}/getHomeInfo`); //fetchInProgressOne
 
-      if (response.status === 200) {
+      if (response?.status === 200) {
         const { currentReservation, nextReservation, pendingReservations } =
           response.data;
-        setRequirementLength(pendingReservations?.amount);
-        setRequirements(pendingReservations?.data);
-        setUpcomingData({
-          ...nextReservation,
-          arrived: arrivedMap[nextReservation.arrived],
-        });
-        setInProgressData({
-          ...currentReservation,
-          arrived: arrivedMap[currentReservation.arrived],
-        });
+        setRequirementLength(pendingReservations?.amount ?? 0);
+        setRequirements(pendingReservations?.data ?? []);
+
+        setUpcomingData(formatReservation(nextReservation));
+        setInProgressData(formatReservation(currentReservation));
       }
     } catch (err) {
       setError(localization.PLACES.error);

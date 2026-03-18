@@ -14,6 +14,7 @@ function useLocation() {
 
   const confirmHandler = async () => {
     setIsMessage(false);
+    router.back();
     await getLocations();
   };
 
@@ -55,7 +56,6 @@ function useLocation() {
       if (response.status === 200) {
         setIsMessage(true);
         setMessage(localization.PLACES.removeSuccess);
-        await getLocationById(id);
       }
     } catch (errorData) {
       console.log("errorData+++", errorData);
@@ -74,7 +74,6 @@ function useLocation() {
       if (response.status === 200) {
         setIsMessage(true);
         setMessage(localization.PLACES.undoSuccess);
-        await getLocationById(id);
       }
     } catch (errorData) {
       console.log("errorData+++", errorData);
@@ -116,6 +115,7 @@ function useLocation() {
           setMessage(localization.PLACES.edit);
         }
       } catch (err) {
+        console.log("addEditLocation",err)
         setError(localization.PLACES.errorFetch);
         setIsMessage(true);
       } finally {
@@ -132,7 +132,6 @@ function useLocation() {
       } catch (err) {
         console.log("errrr", err);
         setError(localization.PLACES.errorFetch);
-        setIsMessage(true);
       } finally {
         setIsLoading(null);
       }

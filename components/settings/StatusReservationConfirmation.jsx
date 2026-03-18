@@ -14,10 +14,11 @@ import {
 import useStatusNotification from './hooks/useStatusNotification';
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { router } from "expo-router";
+import Loader from "@/shared-components/Loader";
 
 const StatusReservationConfirmation = () => {
     const { localization } = useLocalization();
-    const { notificationStatuses, changeStatusNotification, patchStatusNotification } = useStatusNotification();
+    const { notificationStatuses, changeStatusNotification, patchStatusNotification, isLoading } = useStatusNotification();
 
     const { company } = useCompany();
 
@@ -29,6 +30,8 @@ const StatusReservationConfirmation = () => {
                 image={company?.media?.coverImageSettings}
                 title={localization.SETTINGS.NOTIFICATIONSTATUS.capture}
             />
+
+            {isLoading && <Loader />}
             <FlatList
                 data={notificationStatuses}
                 keyExtractor={(item) => item._id}
