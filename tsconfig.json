@@ -13,5 +13,5 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-, "shared-hooks/useFetchLocations.jsx", "shared-components/SharedCoverImage.jsx", "components/settings/AbsentHourManagement.jsx", "components/settings/AssignLocationScree.jsx", "components/settings/AssignServicesScreen.jsx", "components/home/components/UpcomingAppointmentCard.jsx", "components/settings/LocationComponent.jsx", "shared-components/SharedCard.jsx", "components/home/components/DateComponent.jsx", "components/home/components/HomeImage.jsx", "components/home/components/HomeScreen.jsx", "components/home/components/MenuServices.jsx"  ]
+, "shared-hooks/useFetchLocations.jsx", "shared-components/SharedCoverImage.jsx", "components/settings/AbsentHourManagement.jsx", "components/settings/AssignLocationScree.jsx", "components/settings/AssignServicesScreen.jsx", "components/home/components/UpcomingAppointmentCard.jsx", "components/settings/LocationComponent.jsx", "shared-components/SharedCard.jsx", "components/home/components/DateComponent.jsx", "components/home/components/HomeImage.jsx", "components/home/components/HomeScreen.jsx", "components/home/components/MenuServices.jsx", "components/settings/WorkHourManagement.jsx"  ]
 }

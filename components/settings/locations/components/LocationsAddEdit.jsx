@@ -14,6 +14,10 @@ import {
 import useLocation from "../hooks/useLocations";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
+import GooglePlace from "./GooglePlace";
+import BarbersInput from "../../barbers/components/BarbersInput";
+import LocationInput from "./LocationInput";
+import TimeSettingsScreen from "../../WorkHourManagement";
 
 export default function LocationsAddEdit() {
   const [city, setCity] = useState("");
@@ -23,6 +27,7 @@ export default function LocationsAddEdit() {
   const [active, setActive] = useState(null);
   const [isRemove, setIsRemove] = useState(false);
   const [isUndo, setIsUndo] = useState(false);
+  const [place, setPlace] = useState(null);
 
   const {
     isMessage,
@@ -36,7 +41,7 @@ export default function LocationsAddEdit() {
     activateLocation,
   } = useLocation();
 
-  const submitHandler = () => {
+  const submitHandler = (data) => {
     if (editingId) {
       const updateLocationData = {
         id: editingId,
@@ -52,7 +57,8 @@ export default function LocationsAddEdit() {
         streetName,
       };
       if (addData) {
-        addEditLocation(addData);
+        console.log("addData",addData,data)
+        // addEditLocation(addData);
       } else {
         setIsError(localization.PLACES.errorFields);
       }
@@ -98,33 +104,49 @@ export default function LocationsAddEdit() {
   const undoConfirmlHandler = async (id) => {
     setIsUndo(false);
     await activateLocation(id);
-
   };
 
   if (isLoading === "getPlaceById") {
     return <SharedLoader isOpen={isLoading === "getPlaceById"} />;
   }
 
+  // slicno kao todo list
+  // input polje
+  // lista unetih lokacija sa delete ikonicom i edit ikonicom
+  // kad se klikne na edit nestaje sa liste i prebacuje se u input polje
+  // kad bude bila lista lokacija na submit se salje lista iz state-a array
+
   return (
     <View style={styles.container}>
-      <View style={{ flex: 3, margin: 20, gap: 10 }}>
-        <TextInput
-          style={styles.input}
-          placeholder={localization.PLACES.addStreetName}
-          value={streetName}
-          onChangeText={setStreetName}
+      <View style={{ flex: 1, margin: 10, gap: 10 }}>
+        <GooglePlace
+          onSelect={({ city, street, lat, lng }) => {
+            setCity(city);
+            setStreetName(street);
+            setPlace({ lat, lng });
+            console.log(city, street, lat, lng);
+          }}
         />
 
-        <TextInput
-          style={styles.input}
-          placeholder={localization.PLACES.addCityName}
-          value={city}
-          onChangeText={setCity}
-        />
+        {streetName && (
+          <LocationInput
+            icon="map"
+            label={localization.PLACES.addStreetName}
+            placeholder={streetName}
+          />
+        )}
+        {city && (
+          <LocationInput
+            icon="map"
+            label={localization.PLACES.addCityName}
+            placeholder={city}
+          />
+        )}
       </View>
+      {city && streetName && <TimeSettingsScreen submitEverything={submitHandler} />}
 
-      <View style={{ flex: 1 }}>
-        <TouchableOpacity style={styles.button} onPress={submitHandler}>
+      {/* <View style={{ flex: 0.3 }}> */}
+        {/* <TouchableOpacity style={styles.button} onPress={submitHandler}>
           {isLoading === "addEdit" && (
             <ActivityIndicator size={20} color="#fff" />
           )}
@@ -135,9 +157,9 @@ export default function LocationsAddEdit() {
                 : localization.PLACES.addLocation}
             </Text>
           )}
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
-        {editingId && active === 1 && (
+        {/* {editingId && active === 1 && (
           <TouchableOpacity style={styles.buttonRmv} onPress={removeHandler}>
             {isLoading === "remove" && (
               <ActivityIndicator size={20} color="#fff" />
@@ -159,7 +181,7 @@ export default function LocationsAddEdit() {
             )}
           </TouchableOpacity>
         )}
-      </View>
+      </View> */}
       {isMessage && (
         <SharedMessage
           isOpen={isMessage}
@@ -231,7 +253,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   input: {
-    backgroundColor: "#1e1e1e",
+    backgroundColor: "#c7c7c7",
     color: "#fff",
     padding: 10,
     marginBottom: 10,

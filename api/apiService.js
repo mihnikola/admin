@@ -17,7 +17,6 @@ const instance = axios.create({
 instance.interceptors.request.use(
   async (config) => {
     const token = await getStorage();
-    console.log("token",token)
     const languageValue = await getLanguageValue();
     const timeZoneValue = Intl.DateTimeFormat().resolvedOptions().timeZone;
     if (token) {

@@ -15,7 +15,7 @@ import useGetWorhHours from "./hooks/useGetWorkHours";
 import { FontAwesome } from "@expo/vector-icons";
 import { useLocalization } from "@/contexts/LocalizationContext";
 
-export default function TimeSettingsScreen() {
+export default function TimeSettingsScreen({ submitEverything }) {
   const { localization } = useLocalization();
   const {
     getTimes,
@@ -29,7 +29,7 @@ export default function TimeSettingsScreen() {
     createWorkTimeAndSlots,
     setIsMessage,
     options,
-    initialData
+    initialData,
   } = useGetWorhHours();
   const [selected, setSelected] = useState(null);
   const [isError, setIsError] = useState(false);
@@ -85,30 +85,49 @@ export default function TimeSettingsScreen() {
     return `${h}:${m}`;
   };
 
-
   if (isLoading) {
     return <SharedLoader isOpen={isLoading} />;
   }
 
   const submitHandler = () => {
-   
-    if (formatTime(fromTime) === startWorkTime && formatTime(toTime) === endWorkTime && minutesValue === selected) { setIsError(true); return; }
-    createWorkTimeAndSlots(formatTime(fromTime), formatTime(toTime), selected);
+    if (
+      formatTime(fromTime) === startWorkTime &&
+      formatTime(toTime) === endWorkTime &&
+      minutesValue === selected
+    ) {
+      setIsError(true);
+      return;
+    }
+    // createWorkTimeAndSlots(formatTime(fromTime), formatTime(toTime), selected);
+    const data = {
+      open: formatTime(fromTime),
+      close: formatTime(toTime),
+      minutes: selected,
+    };
+    submitEverything(data);
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{localization.SETTINGS.WORKHOURS.capture}</Text>
-      <Text style={styles.subtitle}>{localization.SETTINGS.WORKHOURS.subCapture}</Text>
+      {/* <Text style={styles.title}>{localization.SETTINGS.WORKHOURS.capture}</Text>
+      <Text style={styles.subtitle}>{localization.SETTINGS.WORKHOURS.subCapture}</Text> */}
       <View style={styles.containerData}>
         <View style={styles.row}>
-          <Text style={styles.label}>{localization.SETTINGS.WORKHOURS.from}</Text>
+          <Text style={styles.label}>
+            {localization.SETTINGS.WORKHOURS.from}
+          </Text>
           <TouchableOpacity
             onPress={() => setShowFromPicker(true)}
             style={styles.timeButton}
           >
-            {fromTime && <Text style={styles.timeText}>{formatTime(fromTime)}</Text>}
-            {!fromTime && <Text style={styles.timeText}>{localization.SETTINGS.WORKHOURS.startTimePlaceHolder}</Text>}
+            {fromTime && (
+              <Text style={styles.timeText}>{formatTime(fromTime)}</Text>
+            )}
+            {!fromTime && (
+              <Text style={styles.timeText}>
+                {localization.SETTINGS.WORKHOURS.startTimePlaceHolder}
+              </Text>
+            )}
           </TouchableOpacity>
         </View>
 
@@ -118,8 +137,14 @@ export default function TimeSettingsScreen() {
             onPress={() => setShowToPicker(true)}
             style={styles.timeButton}
           >
-            {toTime && <Text style={styles.timeText}>{formatTime(toTime)}</Text>}
-            {!toTime && <Text style={styles.timeText}>{localization.SETTINGS.WORKHOURS.endTimePlaceHolder}</Text>}
+            {toTime && (
+              <Text style={styles.timeText}>{formatTime(toTime)}</Text>
+            )}
+            {!toTime && (
+              <Text style={styles.timeText}>
+                {localization.SETTINGS.WORKHOURS.endTimePlaceHolder}
+              </Text>
+            )}
           </TouchableOpacity>
         </View>
       </View>
@@ -149,7 +174,7 @@ export default function TimeSettingsScreen() {
         onValueChange={setSelected}
         placeholder={selected || localization.SETTINGS.WORKHOURS.gap}
       />
-      {fromTime && toTime &&
+      {/* {fromTime && toTime && (
         <View style={{ marginTop: 40, gap: 10 }}>
           <View>
             <Text
@@ -160,17 +185,27 @@ export default function TimeSettingsScreen() {
                 fontWeight: "bold",
               }}
             >
-              {localization.SETTINGS.WORKHOURS.choosenWH}  {formatTime(fromTime)} - {formatTime(toTime)}
+              {localization.SETTINGS.WORKHOURS.choosenWH} {formatTime(fromTime)}{" "}
+              - {formatTime(toTime)}
             </Text>
           </View>
           <View>
             {selected ? (
-              <Text style={styles.selectedText}>{localization.SETTINGS.WORKHOURS.chooseGap} {selected} {localization.SETTINGS.WORKHOURS.minutes}</Text>
+              <Text style={styles.selectedText}>
+                {localization.SETTINGS.WORKHOURS.chooseGap} {selected}{" "}
+                {localization.SETTINGS.WORKHOURS.minutes}
+              </Text>
             ) : null}
           </View>
         </View>
-      }
-      {isMessage &&
+      )} */}
+      <View style={{ flex: 0.9 }}>
+        <SharedButton
+          onPress={submitHandler}
+          text={localization.SETTINGS.WORKHOURS.submit}
+        />
+      </View>
+      {isMessage && (
         <SharedMessage
           isOpen={isMessage}
           onConfirm={() => setIsMessage(false)}
@@ -184,23 +219,18 @@ export default function TimeSettingsScreen() {
           title={message}
           buttonText="Ok"
         />
-      }
-      {isError &&
+      )}
+      {isError && (
         <SharedMessage
           isOpen={isError}
           onConfirm={() => setIsError(false)}
           icon={
-            <FontAwesome
-              name={isError && "close"}
-              size={64}
-              color="white"
-            />
+            <FontAwesome name={isError && "close"} size={64} color="white" />
           }
           title={message}
           buttonText="Ok"
         />
-      }
-      <SharedButton onPress={submitHandler} text={localization.SETTINGS.WORKHOURS.submit} />
+      )}
     </View>
   );
 }
@@ -208,10 +238,8 @@ export default function TimeSettingsScreen() {
 const styles = StyleSheet.create({
   containerData: {
     flex: 1,
-
   },
   container: {
-    padding: 20,
     flex: 1,
     backgroundColor: "#000",
   },
@@ -240,13 +268,12 @@ const styles = StyleSheet.create({
     color: "white",
   },
   timeButton: {
-    flex: 1,
     borderWidth: 1,
-    borderColor: "#ffffffff",
+    borderColor: "rgb(0, 0, 0)",
     borderRadius: 8,
-    paddingVertical: 12,
-    paddingHorizontal: 10,
-    backgroundColor: "#3f3f3fff",
+    paddingVertical: 5,
+    paddingHorizontal: 20,
+    backgroundColor: "rgb(51, 40, 40)",
     fontWeight: "bold",
   },
   timeText: {

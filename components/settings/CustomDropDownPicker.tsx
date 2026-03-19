@@ -75,14 +75,15 @@ const CustomDropDownPicker = ({
 
 const styles = StyleSheet.create({
   modalContainer: {
-    flex: 1
+    flex: .4
   },
   dropdownButton: {
     borderWidth: 1,
     borderColor: "#ffffffff",
-    paddingVertical: 12,
+    paddingVertical: 5,
     borderRadius: 8,
     backgroundColor: "#272727ff",
+    margin:1
   },
   dropdownButtonText: {
     textAlign: "center",
