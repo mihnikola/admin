@@ -1,3 +1,4 @@
+import { FontAwesome } from "@expo/vector-icons";
 import { useState } from "react";
 import {
   FlatList,
@@ -75,15 +76,16 @@ const CustomDropDownPicker = ({
 
 const styles = StyleSheet.create({
   modalContainer: {
-    flex: .4
+    flex: 1,
   },
   dropdownButton: {
-    borderWidth: 1,
-    borderColor: "#ffffffff",
-    paddingVertical: 5,
+    paddingVertical: 10,
     borderRadius: 8,
     backgroundColor: "#272727ff",
-    margin:1
+    justifyContent: "center",
+    flexDirection:"row",
+    alignContent: "center",
+    alignItems:"center",
   },
   dropdownButtonText: {
     textAlign: "center",

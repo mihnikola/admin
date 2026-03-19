@@ -90,28 +90,33 @@ export default function GooglePlace({ onSelect }) {
     // const { city, street } = extractAddress(details);
     const [street, city] = details.vicinity.split(",");
     const location = details.geometry.location;
+
+    console.log("details+++",details);
     // Pass data back to parent
     onSelect({
       city,
       street,
       lat: location.lat,
       lng: location.lng,
+      place_id: item.place_id,
       fullDetails: details,
     });
 
     // Clear query and results
-    setQuery(null);
+    setQuery("");
     setResults([]);
 
   };
 
   // Debounce user input
   useEffect(() => {
-    const delayDebounce = setTimeout(() => {
-      searchPlaces(query);
-    }, 300);
+    if (query !== "") {
+      const delayDebounce = setTimeout(() => {
+        searchPlaces(query);
+      }, 300);
+      return () => clearTimeout(delayDebounce);
+    }
 
-    return () => clearTimeout(delayDebounce);
   }, [query]);
 
   return (

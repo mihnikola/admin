@@ -15,7 +15,8 @@ import useGetWorhHours from "./hooks/useGetWorkHours";
 import { FontAwesome } from "@expo/vector-icons";
 import { useLocalization } from "@/contexts/LocalizationContext";
 
-export default function TimeSettingsScreen({ submitEverything }) {
+export default function TimeSettingsScreen({ minutes, workHours, active, id, submitEverything }) {
+
   const { localization } = useLocalization();
   const {
     getTimes,
@@ -31,17 +32,21 @@ export default function TimeSettingsScreen({ submitEverything }) {
     options,
     initialData,
   } = useGetWorhHours();
-  const [selected, setSelected] = useState(null);
+
+  const [selected, setSelected] = useState(10);
   const [isError, setIsError] = useState(false);
+  const [isRemove, setIsRemove] = useState(false);
+  const [isUndo, setIsUndo] = useState(false);
 
   useEffect(() => {
     getTimes();
   }, []);
+
   useEffect(() => {
-    if (minutesValue) {
-      setSelected(minutesValue);
+    if (minutesValue || minutes) {
+      setSelected(minutes || minutesValue);
     }
-  }, [minutesValue]);
+  }, [minutesValue,minutes]);
 
   useEffect(() => {
     if (startWorkTime) {
@@ -63,8 +68,78 @@ export default function TimeSettingsScreen({ submitEverything }) {
     }
   }, [minutesValue]);
 
-  const [fromTime, setFromTime] = useState(null);
-  const [toTime, setToTime] = useState(null);
+  const now = new Date();
+
+  const removeCancelHandler = () => {
+    setIsRemove(false);
+  };
+  const removeHandler = () => {
+    setIsRemove(true);
+  };
+  const removeConfirmHandler = async (id) => {
+    setIsRemove(false);
+    await deactivateLocation(id);
+  };
+
+  const undoHandler = () => {
+    setIsUndo(true);
+  };
+  const undoCancelHandler = () => {
+    setIsUndo(false);
+  };
+  const undoConfirmlHandler = async (id) => {
+    setIsUndo(false);
+    await activateLocation(id);
+  };
+
+  const finishedDate = (data) => {
+    const now = new Date();
+
+    let hour = 17;
+    let min = 0;
+
+    if (data) {
+      const [h, m] = data.split(":");
+      hour = parseInt(h, 10);
+      min = parseInt(m, 10);
+    }
+
+    return new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate(),
+      hour,
+      min,
+      0
+    );
+  };
+
+    const startDate = (data) => {
+    const now = new Date();
+
+    let hour = 9;
+    let min = 0;
+
+    if (data) {
+      const [h, m] = data.split(":");
+      hour = parseInt(h, 10);
+      min = parseInt(m, 10);
+    }
+
+    return new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate(),
+      hour,
+      min,
+      0
+    );
+  };
+
+
+  const [toTime, setToTime] = useState(finishedDate(workHours?.end));
+  const [fromTime, setFromTime] = useState(startDate(workHours?.start));
+
   const [showFromPicker, setShowFromPicker] = useState(false);
   const [showToPicker, setShowToPicker] = useState(false);
 
@@ -84,6 +159,8 @@ export default function TimeSettingsScreen({ submitEverything }) {
     const m = date?.getMinutes().toString().padStart(2, "0");
     return `${h}:${m}`;
   };
+
+  console.log("toTime", workHours)
 
   if (isLoading) {
     return <SharedLoader isOpen={isLoading} />;
@@ -109,10 +186,11 @@ export default function TimeSettingsScreen({ submitEverything }) {
 
   return (
     <View style={styles.container}>
-      {/* <Text style={styles.title}>{localization.SETTINGS.WORKHOURS.capture}</Text>
-      <Text style={styles.subtitle}>{localization.SETTINGS.WORKHOURS.subCapture}</Text> */}
+      <Text style={styles.title}>{localization.SETTINGS.WORKHOURS.capture}</Text>
       <View style={styles.containerData}>
         <View style={styles.row}>
+          <FontAwesome name="clock-o" size={24} color="grey" />
+
           <Text style={styles.label}>
             {localization.SETTINGS.WORKHOURS.from}
           </Text>
@@ -132,6 +210,7 @@ export default function TimeSettingsScreen({ submitEverything }) {
         </View>
 
         <View style={styles.row}>
+          <FontAwesome name="clock-o" size={24} color="grey" />
           <Text style={styles.label}>{localization.SETTINGS.WORKHOURS.to}</Text>
           <TouchableOpacity
             onPress={() => setShowToPicker(true)}
@@ -167,6 +246,7 @@ export default function TimeSettingsScreen({ submitEverything }) {
           onChange={onChangeTo}
         />
       )}
+      {!id && <Text style={styles.subtitle}>{localization.SETTINGS.WORKHOURS.subCapture}</Text>}
 
       <CustomDropDownPicker
         options={options}
@@ -174,37 +254,64 @@ export default function TimeSettingsScreen({ submitEverything }) {
         onValueChange={setSelected}
         placeholder={selected || localization.SETTINGS.WORKHOURS.gap}
       />
-      {/* {fromTime && toTime && (
-        <View style={{ marginTop: 40, gap: 10 }}>
-          <View>
-            <Text
-              style={{
-                fontSize: 16,
-                color: "white",
-                textAlign: "center",
-                fontWeight: "bold",
-              }}
-            >
-              {localization.SETTINGS.WORKHOURS.choosenWH} {formatTime(fromTime)}{" "}
-              - {formatTime(toTime)}
-            </Text>
-          </View>
-          <View>
-            {selected ? (
-              <Text style={styles.selectedText}>
-                {localization.SETTINGS.WORKHOURS.chooseGap} {selected}{" "}
-                {localization.SETTINGS.WORKHOURS.minutes}
-              </Text>
-            ) : null}
-          </View>
-        </View>
-      )} */}
-      <View style={{ flex: 0.9 }}>
+      <View style={{ flex: !id ? 1 : 2 }}>
         <SharedButton
           onPress={submitHandler}
           text={localization.SETTINGS.WORKHOURS.submit}
         />
+        {id && active === 1 && (
+          <TouchableOpacity style={styles.buttonRmv} onPress={removeHandler}>
+            {isLoading === "remove" && (
+              <ActivityIndicator size={20} color="#fff" />
+            )}
+            {isLoading !== "remove" && (
+              <Text style={styles.buttonText}>
+                {localization.PLACES.removeBtn}
+              </Text>
+            )}
+          </TouchableOpacity>
+        )}
+        {id && active === 0 && (
+          <TouchableOpacity style={styles.buttonUndo} onPress={undoHandler}>
+            {isLoading === "activate" && (
+              <ActivityIndicator size={20} color="#fff" />
+            )}
+            {isLoading !== "activate" && (
+              <Text style={styles.buttonText}>{localization.PLACES.undo}</Text>
+            )}
+          </TouchableOpacity>
+        )}
       </View>
+
+
+
+
+      {isRemove && (
+        <SharedQuestion
+          isOpen={isRemove}
+          onClose={removeCancelHandler}
+          onLogOut={() => removeConfirmHandler(id)}
+          icon={
+            <FontAwesome name="question-circle-o" size={64} color="white" />
+          }
+          title={localization.PLACES.question}
+          buttonTextYes={localization.PLACES.confirmButton}
+          buttonTextNo={localization.PLACES.cancel}
+        />
+      )}
+      {isUndo && (
+        <SharedQuestion
+          isOpen={isUndo}
+          onClose={undoCancelHandler}
+          onLogOut={() => undoConfirmlHandler(id)}
+          icon={
+            <FontAwesome name="question-circle-o" size={64} color="white" />
+          }
+          title={localization.PLACES.questionActivate}
+          buttonTextYes={localization.PLACES.undo}
+          buttonTextNo={localization.PLACES.cancel}
+        />
+      )}
       {isMessage && (
         <SharedMessage
           isOpen={isMessage}
@@ -240,8 +347,15 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   container: {
-    flex: 1,
+    flex: 2,
     backgroundColor: "#000",
+    marginHorizontal: 10
+
+  },
+  buttonText: {
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 18
   },
   title: {
     fontSize: 22,
@@ -253,14 +367,15 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 18,
     fontWeight: "400",
-    marginBottom: 20,
     textAlign: "center",
     color: "#919191",
+
   },
   row: {
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 20,
+    gap: 10
   },
   label: {
     fontSize: 18,
@@ -273,7 +388,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingVertical: 5,
     paddingHorizontal: 20,
-    backgroundColor: "rgb(51, 40, 40)",
+    backgroundColor: "rgb(48, 48, 48)",
     fontWeight: "bold",
   },
   timeText: {
@@ -287,5 +402,21 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: "center",
     color: "white",
+  },
+  buttonRmv: {
+    backgroundColor: "rgb(129, 29, 29)",
+    padding: 12,
+    borderRadius: 8,
+    alignItems: "center",
+    borderColor: "white",
+    borderWidth: 1,
+  },
+  buttonUndo: {
+    backgroundColor: "rgb(23, 77, 12)",
+    padding: 12,
+    borderRadius: 8,
+    alignItems: "center",
+    borderColor: "white",
+    borderWidth: 1,
   },
 });

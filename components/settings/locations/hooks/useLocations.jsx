@@ -102,39 +102,26 @@ function useLocation() {
   };
   const addEditLocation = async (data) => {
     const { id } = data;
-    const { streetName, city } = data;
+
     setIsLoading("addEdit");
-    if (id) {
-      try {
-        const response = await put(`admin/places/${id}`, {
-          address: streetName,
-          city,
-        });
-        if (response.status === 200) {
-          setIsMessage(true);
-          setMessage(localization.PLACES.edit);
-        }
-      } catch (err) {
-        console.log("addEditLocation",err)
-        setError(localization.PLACES.errorFetch);
+    const url = id
+      ? `admin/places/${id}`
+      : `admin/places`;
+    const method = id ? put : post;
+
+    try {
+      const response = await method(url, { data });
+      
+      if (response.status === 200 || response.status === 201) {
         setIsMessage(true);
-      } finally {
-        setIsLoading(null);
+        setMessage(id ? localization.PLACES.edit : localization.PLACES.add);
       }
-    } else {
-      const address = [streetName, city].join(", ");
-      try {
-        const response = await post(`admin/places`, { address });
-        if (response.status === 201) {
-          setIsMessage(true);
-          setMessage(localization.PLACES.add);
-        }
-      } catch (err) {
-        console.log("errrr", err);
-        setError(localization.PLACES.errorFetch);
-      } finally {
-        setIsLoading(null);
-      }
+    } catch (err) {
+      console.log("jj",err);
+      setError(localization.PLACES.errorFetch);
+      setIsMessage(true);
+    } finally {
+      setIsLoading(null);
     }
   };
 

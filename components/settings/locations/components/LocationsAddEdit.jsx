@@ -22,12 +22,16 @@ import TimeSettingsScreen from "../../WorkHourManagement";
 export default function LocationsAddEdit() {
   const [city, setCity] = useState("");
   const [streetName, setStreetName] = useState("");
+  const [lat, setLat] = useState("");
+  const [lng, setLng] = useState("");
   const { localization } = useLocalization();
   const [editingId, setEditingId] = useState(null);
   const [active, setActive] = useState(null);
-  const [isRemove, setIsRemove] = useState(false);
-  const [isUndo, setIsUndo] = useState(false);
+
   const [place, setPlace] = useState(null);
+  const [placeId, setPlaceId] = useState(null);
+  const [workHours, setWorkHours] = useState(null);
+  const [slotDuration, setSlotDuration] = useState(null);
 
   const {
     isMessage,
@@ -47,6 +51,10 @@ export default function LocationsAddEdit() {
         id: editingId,
         city,
         streetName,
+        lat,
+        lng,
+        ...data,
+        placeId
       };
       if (updateLocationData) {
         addEditLocation(updateLocationData);
@@ -55,10 +63,13 @@ export default function LocationsAddEdit() {
       const addData = {
         city,
         streetName,
+        lat,
+        lng,
+        ...data,
+        placeId
       };
       if (addData) {
-        console.log("addData",addData,data)
-        // addEditLocation(addData);
+        addEditLocation(addData);
       } else {
         setIsError(localization.PLACES.errorFields);
       }
@@ -77,34 +88,16 @@ export default function LocationsAddEdit() {
 
   useEffect(() => {
     if (locationById) {
-      setCity(locationById.city);
+      setWorkHours(locationById);
+      console.log("locationById", locationById)
       setStreetName(locationById?.address);
-      setActive(locationById?.active);
+      setSlotDuration(locationById?.slotDuration);
+      setActive(locationById?.active || null);
+
       setEditingId(id);
     }
   }, [locationById]);
 
-  const removeCancelHandler = () => {
-    setIsRemove(false);
-  };
-  const removeHandler = () => {
-    setIsRemove(true);
-  };
-  const removeConfirmHandler = async (id) => {
-    setIsRemove(false);
-    await deactivateLocation(id);
-  };
-
-  const undoHandler = () => {
-    setIsUndo(true);
-  };
-  const undoCancelHandler = () => {
-    setIsUndo(false);
-  };
-  const undoConfirmlHandler = async (id) => {
-    setIsUndo(false);
-    await activateLocation(id);
-  };
 
   if (isLoading === "getPlaceById") {
     return <SharedLoader isOpen={isLoading === "getPlaceById"} />;
@@ -120,10 +113,13 @@ export default function LocationsAddEdit() {
     <View style={styles.container}>
       <View style={{ flex: 1, margin: 10, gap: 10 }}>
         <GooglePlace
-          onSelect={({ city, street, lat, lng }) => {
+          onSelect={({ city, street, lat, lng, place_id }) => {
             setCity(city);
             setStreetName(street);
             setPlace({ lat, lng });
+            setLat(lat);
+            setLng(lng);
+            setPlaceId(place_id);
             console.log(city, street, lat, lng);
           }}
         />
@@ -143,45 +139,8 @@ export default function LocationsAddEdit() {
           />
         )}
       </View>
-      {city && streetName && <TimeSettingsScreen submitEverything={submitHandler} />}
+      {streetName && <TimeSettingsScreen workHours={workHours?.workingHours} minutes={slotDuration} active={active} id={id} submitEverything={submitHandler} />}
 
-      {/* <View style={{ flex: 0.3 }}> */}
-        {/* <TouchableOpacity style={styles.button} onPress={submitHandler}>
-          {isLoading === "addEdit" && (
-            <ActivityIndicator size={20} color="#fff" />
-          )}
-          {isLoading !== "addEdit" && (
-            <Text style={styles.buttonText}>
-              {editingId
-                ? localization.PLACES.saveChanges
-                : localization.PLACES.addLocation}
-            </Text>
-          )}
-        </TouchableOpacity> */}
-
-        {/* {editingId && active === 1 && (
-          <TouchableOpacity style={styles.buttonRmv} onPress={removeHandler}>
-            {isLoading === "remove" && (
-              <ActivityIndicator size={20} color="#fff" />
-            )}
-            {isLoading !== "remove" && (
-              <Text style={styles.buttonText}>
-                {localization.PLACES.removeBtn}
-              </Text>
-            )}
-          </TouchableOpacity>
-        )}
-        {editingId && active === 0 && (
-          <TouchableOpacity style={styles.buttonUndo} onPress={undoHandler}>
-            {isLoading === "activate" && (
-              <ActivityIndicator size={20} color="#fff" />
-            )}
-            {isLoading !== "activate" && (
-              <Text style={styles.buttonText}>{localization.PLACES.undo}</Text>
-            )}
-          </TouchableOpacity>
-        )}
-      </View> */}
       {isMessage && (
         <SharedMessage
           isOpen={isMessage}
@@ -192,32 +151,7 @@ export default function LocationsAddEdit() {
           title={message}
         />
       )}
-      {isRemove && (
-        <SharedQuestion
-          isOpen={isRemove}
-          onClose={removeCancelHandler}
-          onLogOut={() => removeConfirmHandler(id)}
-          icon={
-            <FontAwesome name="question-circle-o" size={64} color="white" />
-          }
-          title={localization.PLACES.question}
-          buttonTextYes={localization.PLACES.confirmButton}
-          buttonTextNo={localization.PLACES.cancel}
-        />
-      )}
-      {isUndo && (
-        <SharedQuestion
-          isOpen={isUndo}
-          onClose={undoCancelHandler}
-          onLogOut={() => undoConfirmlHandler(id)}
-          icon={
-            <FontAwesome name="question-circle-o" size={64} color="white" />
-          }
-          title={localization.PLACES.questionActivate}
-          buttonTextYes={localization.PLACES.undo}
-          buttonTextNo={localization.PLACES.cancel}
-        />
-      )}
+
     </View>
   );
 }
@@ -268,31 +202,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     margin: 20,
   },
-  buttonRmv: {
-    backgroundColor: "rgb(129, 29, 29)",
-    padding: 12,
-    borderRadius: 8,
-    alignItems: "center",
-    borderColor: "white",
-    borderWidth: 1,
-    margin: 20,
-  },
-  buttonUndo: {
-    backgroundColor: "rgb(23, 77, 12)",
-    padding: 12,
-    borderRadius: 8,
-    alignItems: "center",
-    borderColor: "white",
-    borderWidth: 1,
-    margin: 20,
-  },
+
   cancelButton: {
     backgroundColor: "#525252",
   },
-  buttonText: {
-    color: "#fff",
-    fontWeight: "bold",
-  },
+
   serviceItem: {
     backgroundColor: "#2a2a2a",
     flexDirection: "row",
