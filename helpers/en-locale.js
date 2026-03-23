@@ -83,16 +83,19 @@ export const ENG_LOCALIZATION = {
   },
   PLACES: {
     errorFields: "Fill in all input fields",
-    removeSuccess: "Location is successfully deactivated",
+    deactivatedSuccess: "Location is successfully deactivated",
+    deletedSuccess: "Location is successfully deleted",
     undoSuccess: "Location is successfully activated",
-    question: "Are you sure you want to deactivate this location?",
+    deleteQuestion: "Are you sure you want to delete location?",
+    deactivateQuestion: "Are you sure you want to deactivate location?",
     questionActivate: "Are you sure you want to activate this location?",
     confirmButton: "Ok",
     add: "Location is successfully created",
     edit: "Location is successfully updated",
     cancel: "Cancel",
     undo: "Activate",
-    removeBtn: "Deactivate",
+    deactivateBtn: "Deactivate",
+    deleteBtn: "Delete",
     saveChanges: "Save changes",
     addStreetName: "Street",
     addStreetNumber: "Enter street number",
@@ -102,10 +105,10 @@ export const ENG_LOCALIZATION = {
     streetNumber: "Enter street number",
     city: "Enter city name",
     listLocations: "List locations",
-    title: "Choose location",
+    title: "Locations",
     error: "Error while fetching locations...",
     close: "Close",
-    search:"Search location..."
+    search: "Enter address"
 
   },
   DATE: {
@@ -259,9 +262,9 @@ export const ENG_LOCALIZATION = {
       title: "Locations & Barbers",
       footerBottom: "All rights reserved ©",
     },
-    NOTIFICATIONSTATUS:{
-      title:"Status reservation confirmation",
-      capture:"Type confirmation"
+    NOTIFICATIONSTATUS: {
+      title: "Status reservation confirmation",
+      capture: "Type confirmation"
     },
     WORKHOURS: {
       title: "Work hours management",

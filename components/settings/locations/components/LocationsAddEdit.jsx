@@ -1,21 +1,15 @@
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { FontAwesome } from "@expo/vector-icons";
-import { router, useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import {
-  ActivityIndicator,
   StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
   View,
 } from "react-native";
 import useLocation from "../hooks/useLocations";
 import { SharedLoader } from "@/shared-components/SharedLoader";
-import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import GooglePlace from "./GooglePlace";
-import BarbersInput from "../../barbers/components/BarbersInput";
 import LocationInput from "./LocationInput";
 import TimeSettingsScreen from "../../WorkHourManagement";
 
@@ -43,6 +37,7 @@ export default function LocationsAddEdit() {
     message,
     deactivateLocation,
     activateLocation,
+    deleteLocation
   } = useLocation();
 
   const submitHandler = (data) => {
@@ -89,11 +84,9 @@ export default function LocationsAddEdit() {
   useEffect(() => {
     if (locationById) {
       setWorkHours(locationById);
-      console.log("locationById", locationById)
       setStreetName(locationById?.address);
       setSlotDuration(locationById?.slotDuration);
-      setActive(locationById?.active || null);
-
+      setActive(locationById?.active);
       setEditingId(id);
     }
   }, [locationById]);
@@ -103,11 +96,6 @@ export default function LocationsAddEdit() {
     return <SharedLoader isOpen={isLoading === "getPlaceById"} />;
   }
 
-  // slicno kao todo list
-  // input polje
-  // lista unetih lokacija sa delete ikonicom i edit ikonicom
-  // kad se klikne na edit nestaje sa liste i prebacuje se u input polje
-  // kad bude bila lista lokacija na submit se salje lista iz state-a array
 
   return (
     <View style={styles.container}>
@@ -120,7 +108,6 @@ export default function LocationsAddEdit() {
             setLat(lat);
             setLng(lng);
             setPlaceId(place_id);
-            console.log(city, street, lat, lng);
           }}
         />
 
@@ -139,7 +126,7 @@ export default function LocationsAddEdit() {
           />
         )}
       </View>
-      {streetName && <TimeSettingsScreen workHours={workHours?.workingHours} minutes={slotDuration} active={active} id={id} submitEverything={submitHandler} />}
+      {streetName && <TimeSettingsScreen activateLocation={activateLocation} isLoading={isLoading} deleteLocation={deleteLocation} deactivate={deactivateLocation} workHours={workHours?.workingHours} minutes={slotDuration} active={active} id={id} submitEverything={submitHandler} />}
 
       {isMessage && (
         <SharedMessage
@@ -167,7 +154,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: "#121212",
+    backgroundColor: "#000000",
   },
   title: {
     fontSize: 22,

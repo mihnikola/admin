@@ -19,13 +19,13 @@ function useGetWorkHours() {
     const [startWorkTime, setStartWorkTime] = useState(null);
     const [endWorkTime, setEndWorkTime] = useState(null);
     const [minutesValue, setMinutesValue] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(null);
     const [error, setError] = useState(null);
     const [isMessage, setIsMessage] = useState(false);
     const [message, setMessage] = useState(null);
 
     const createWorkTimeAndSlots = async (startHour, endHour, minutes) => {
-        setIsLoading(true);
+        setIsLoading('post');
         setError(null);
         try {
             const response = await post("admin/times", { startHour, minutes, endHour });
@@ -37,12 +37,12 @@ function useGetWorkHours() {
             setIsMessage(true);
             setError(errorData);
         } finally {
-            setIsLoading(false);
+            setIsLoading(null);
 
         }
     }
     const getTimes = async () => {
-        setIsLoading(true);
+        setIsLoading('get');
         setError(null);
         try {
             const response = await get("/admin/times");
@@ -56,7 +56,7 @@ function useGetWorkHours() {
         } catch (err) {
             setError(err.message);
         } finally {
-            setIsLoading(false);
+            setIsLoading(null);
 
         }
     }

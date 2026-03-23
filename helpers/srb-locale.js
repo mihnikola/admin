@@ -64,16 +64,21 @@ export const SRB_LOCALIZATION = {
   },
   PLACES: {
     errorFields: "Popuni sva polja",
-    removeSuccess: "Lokacija je uspešno deaktivirana.",
+    deactivatedSuccess: "Lokacija je uspešno deaktivirana.",
+    deletedSuccess: "Lokacija je uspešno obrisana.",
     undoSuccess: "Lokacija je uspešno aktivirana.",
+    deactivateQuestion: "Da li želite da deaktivirate ili obrišete lokaciju?",
+    deleteBtn: "Obriši",
     question: "Da li ste sigurni da želite da deaktivirate lokaciju?",
     questionActivate: "Da li ste sigurni da želite da aktivirate lokaciju?",
+    deleteQuestion: "Da li ste sigurni da želite da obrišete lokaciju?",
     confirmButton: "Ok",
     undo: "Aktiviraj",
     add: "Lokacija je uspešno kreirana",
     edit: "Lokacija je uspešno ažurirana",
     cancel: "Odustani",
-    removeBtn: "Deaktiviraj",
+    deactivateBtn: "Deaktiviraj",
+    deleteBtn: "Obriši",
     saveChanges: "Sačuvaj promene",
     addStreetName: "Ulica",
     addStreetNumber: "Unesi broj ulice",
@@ -83,10 +88,10 @@ export const SRB_LOCALIZATION = {
     streetNumber: "Unesi broj ulice",
     city: "Unesi ime grada",
     listLocations: "Lista lokacija",
-    title: "Odaberi lokaciju",
+    title: "Lokacije",
     error: "Greška prilikom preuzimanja lokacija...",
     close: "Zatvori",
-    search:"Pretrazi lokaciju..."
+    search: "Unesite adresu"
   },
   SERVICES: {
     removeBtn: "Deaktiviraj uslugu",
@@ -263,7 +268,7 @@ export const SRB_LOCALIZATION = {
     },
     NOTIFICATIONSTATUS: {
       title: "Status odobravanja rezervacija",
-      capture:"Tip odobravanja"
+      capture: "Tip odobravanja"
     },
     WORKHOURS: {
 

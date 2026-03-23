@@ -4,6 +4,7 @@ import { SharedMessage } from "@/shared-components/SharedMessage";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import React, { useEffect, useState } from "react";
 import {
+  ActivityIndicator,
   Platform,
   StyleSheet,
   Text,
@@ -14,28 +15,27 @@ import CustomDropDownPicker from "./CustomDropDownPicker";
 import useGetWorhHours from "./hooks/useGetWorkHours";
 import { FontAwesome } from "@expo/vector-icons";
 import { useLocalization } from "@/contexts/LocalizationContext";
+import { SharedQuestion } from '../../shared-components/SharedQuestion'
 
-export default function TimeSettingsScreen({ minutes, workHours, active, id, submitEverything }) {
+export default function TimeSettingsScreen({ isLoading, deactivate, deleteLocation, activateLocation, minutes, workHours, active, id, submitEverything }) {
 
   const { localization } = useLocalization();
   const {
     getTimes,
     startWorkTime,
     endWorkTime,
-    isLoading,
     error,
     minutesValue,
     message,
     isMessage,
-    createWorkTimeAndSlots,
     setIsMessage,
     options,
-    initialData,
   } = useGetWorhHours();
 
   const [selected, setSelected] = useState(10);
   const [isError, setIsError] = useState(false);
   const [isRemove, setIsRemove] = useState(false);
+  const [isDeactivate, setIsDeactivate] = useState(false);
   const [isUndo, setIsUndo] = useState(false);
 
   useEffect(() => {
@@ -46,7 +46,7 @@ export default function TimeSettingsScreen({ minutes, workHours, active, id, sub
     if (minutesValue || minutes) {
       setSelected(minutes || minutesValue);
     }
-  }, [minutesValue,minutes]);
+  }, [minutesValue, minutes]);
 
   useEffect(() => {
     if (startWorkTime) {
@@ -73,12 +73,23 @@ export default function TimeSettingsScreen({ minutes, workHours, active, id, sub
   const removeCancelHandler = () => {
     setIsRemove(false);
   };
+  const deactivateCancelHandler = () => {
+    setIsDeactivate(false);
+
+  }
+
+  const deactivateConfirmHandler = async (id) => {
+    setIsDeactivate(false);
+    await deactivate(id);
+
+  }
+
   const removeHandler = () => {
     setIsRemove(true);
   };
   const removeConfirmHandler = async (id) => {
     setIsRemove(false);
-    await deactivateLocation(id);
+    await deleteLocation(id);
   };
 
   const undoHandler = () => {
@@ -91,6 +102,10 @@ export default function TimeSettingsScreen({ minutes, workHours, active, id, sub
     setIsUndo(false);
     await activateLocation(id);
   };
+
+  const deactiveHandler = () => {
+    setIsDeactivate(true);
+  }
 
   const finishedDate = (data) => {
     const now = new Date();
@@ -114,7 +129,7 @@ export default function TimeSettingsScreen({ minutes, workHours, active, id, sub
     );
   };
 
-    const startDate = (data) => {
+  const startDate = (data) => {
     const now = new Date();
 
     let hour = 9;
@@ -160,10 +175,9 @@ export default function TimeSettingsScreen({ minutes, workHours, active, id, sub
     return `${h}:${m}`;
   };
 
-  console.log("toTime", workHours)
 
-  if (isLoading) {
-    return <SharedLoader isOpen={isLoading} />;
+  if (isLoading === 'get') {
+    return <SharedLoader isOpen={isLoading === 'get'} />;
   }
 
   const submitHandler = () => {
@@ -175,7 +189,6 @@ export default function TimeSettingsScreen({ minutes, workHours, active, id, sub
       setIsError(true);
       return;
     }
-    // createWorkTimeAndSlots(formatTime(fromTime), formatTime(toTime), selected);
     const data = {
       open: formatTime(fromTime),
       close: formatTime(toTime),
@@ -246,7 +259,7 @@ export default function TimeSettingsScreen({ minutes, workHours, active, id, sub
           onChange={onChangeTo}
         />
       )}
-      {!id && <Text style={styles.subtitle}>{localization.SETTINGS.WORKHOURS.subCapture}</Text>}
+      <Text style={styles.subtitle}>{localization.SETTINGS.WORKHOURS.subCapture}</Text>
 
       <CustomDropDownPicker
         options={options}
@@ -254,22 +267,37 @@ export default function TimeSettingsScreen({ minutes, workHours, active, id, sub
         onValueChange={setSelected}
         placeholder={selected || localization.SETTINGS.WORKHOURS.gap}
       />
-      <View style={{ flex: !id ? 1 : 2 }}>
+
+      <View style={{ flex: !id ? 0.5 : 2 }}>
         <SharedButton
+          loading={isLoading === 'addEdit'}
           onPress={submitHandler}
           text={localization.SETTINGS.WORKHOURS.submit}
+          margin
         />
         {id && active === 1 && (
-          <TouchableOpacity style={styles.buttonRmv} onPress={removeHandler}>
-            {isLoading === "remove" && (
-              <ActivityIndicator size={20} color="#fff" />
-            )}
-            {isLoading !== "remove" && (
-              <Text style={styles.buttonText}>
-                {localization.PLACES.removeBtn}
-              </Text>
-            )}
-          </TouchableOpacity>
+          <View style={{ gap: 10 }}>
+            <TouchableOpacity style={styles.buttonRmv} onPress={removeHandler}>
+              {isLoading === "remove" && (
+                <ActivityIndicator size={20} color="#fff" />
+              )}
+              {isLoading !== "remove" && (
+                <Text style={styles.buttonText}>
+                  {localization.PLACES.deleteBtn}
+                </Text>
+              )}
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttonDeactive} onPress={deactiveHandler}>
+              {isLoading === "deactivate" && (
+                <ActivityIndicator size={20} color="#fff" />
+              )}
+              {isLoading !== "deactivate" && (
+                <Text style={styles.buttonText}>
+                  {localization.PLACES.deactivateBtn}
+                </Text>
+              )}
+            </TouchableOpacity>
+          </View>
         )}
         {id && active === 0 && (
           <TouchableOpacity style={styles.buttonUndo} onPress={undoHandler}>
@@ -294,8 +322,21 @@ export default function TimeSettingsScreen({ minutes, workHours, active, id, sub
           icon={
             <FontAwesome name="question-circle-o" size={64} color="white" />
           }
-          title={localization.PLACES.question}
-          buttonTextYes={localization.PLACES.confirmButton}
+          title={localization.PLACES.deleteQuestion}
+          buttonTextYes={localization.PLACES.deleteBtn}
+          buttonTextNo={localization.PLACES.cancel}
+        />
+      )}
+      {isDeactivate && (
+        <SharedQuestion
+          isOpen={isDeactivate}
+          onClose={deactivateCancelHandler}
+          onLogOut={() => deactivateConfirmHandler(id)}
+          icon={
+            <FontAwesome name="question-circle-o" size={64} color="white" />
+          }
+          title={localization.PLACES.deactivateQuestion}
+          buttonTextYes={localization.PLACES.deactivateBtn}
           buttonTextNo={localization.PLACES.cancel}
         />
       )}
@@ -369,6 +410,7 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     textAlign: "center",
     color: "#919191",
+    marginVertical: 15
 
   },
   row: {
@@ -411,8 +453,16 @@ const styles = StyleSheet.create({
     borderColor: "white",
     borderWidth: 1,
   },
+  buttonDeactive: {
+    backgroundColor: "rgb(179, 172, 172)",
+    padding: 12,
+    borderRadius: 8,
+    alignItems: "center",
+    borderColor: "white",
+    borderWidth: 1,
+  },
   buttonUndo: {
-    backgroundColor: "rgb(23, 77, 12)",
+    backgroundColor: "rgb(148, 148, 148)",
     padding: 12,
     borderRadius: 8,
     alignItems: "center",

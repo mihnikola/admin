@@ -5,7 +5,7 @@ import { ActivityIndicator, StyleSheet, Text, TouchableOpacity } from "react-nat
 export function SharedButton(props: any) {
   return (
     <TouchableOpacity
-      style={[styles.btn, props.disabled && styles.btnDisabled]}
+      style={[styles.btn, props.margin && styles.noMargin, props.disabled && styles.btnDisabled]}
       disabled={props.loading || props.disabled}
       onPress={props.onPress}
     >
@@ -45,4 +45,9 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 30,
   },
+  noMargin: {
+    marginTop: 0,
+    marginBottom: 10,
+  }
 });
+

@@ -18,6 +18,27 @@ function useLocation() {
     await getLocations();
   };
 
+  const deleteLocation = async (id) => {
+    setIsLoading("remove");
+    setError(null);
+    try {
+      const response = await deleteRequest(`/admin/places/${id}`);
+
+      if (response.status === 200) {
+        setIsMessage(true);
+        setMessage(localization.PLACES.deletedSuccess);
+      }
+    } catch (errorData) {
+
+      setIsMessage(true);
+      setError(errorData);
+    } finally {
+      setIsLoading(null);
+    }
+
+
+  };
+
   const addServiceRouter = () => {
     router.push("/(tabs)/(03_settings)/addLocation");
   };
@@ -40,7 +61,6 @@ function useLocation() {
         setLocationById(response.data);
       }
     } catch (errorData) {
-      console.log("object", errorData);
       setIsMessage(true);
       setError(errorData);
     } finally {
@@ -48,17 +68,16 @@ function useLocation() {
     }
   };
   const deactivateLocation = async (id) => {
-    setIsLoading("remove");
+    setIsLoading("deactivate");
     setError(null);
     try {
-      const response = await deleteRequest(`/admin/places/${id}`);
+      const response = await put(`/admin/places/${id}/deactivate`);
 
       if (response.status === 200) {
         setIsMessage(true);
-        setMessage(localization.PLACES.removeSuccess);
+        setMessage(localization.PLACES.deactivatedSuccess);
       }
     } catch (errorData) {
-      console.log("errorData+++", errorData);
 
       setIsMessage(true);
       setError(errorData);
@@ -76,7 +95,6 @@ function useLocation() {
         setMessage(localization.PLACES.undoSuccess);
       }
     } catch (errorData) {
-      console.log("errorData+++", errorData);
 
       setIsMessage(true);
       setError(errorData);
@@ -111,13 +129,12 @@ function useLocation() {
 
     try {
       const response = await method(url, { data });
-      
+
       if (response.status === 200 || response.status === 201) {
         setIsMessage(true);
         setMessage(id ? localization.PLACES.edit : localization.PLACES.add);
       }
     } catch (err) {
-      console.log("jj",err);
       setError(localization.PLACES.errorFetch);
       setIsMessage(true);
     } finally {
@@ -134,7 +151,6 @@ function useLocation() {
         setLocations(response.data);
       }
     } catch (errorData) {
-      console.log("object", errorData);
       setIsMessage(true);
       setError(errorData);
     } finally {
@@ -166,6 +182,7 @@ function useLocation() {
     getLocationById,
     locationById,
     addEditLocation,
+    deleteLocation
   };
 }
 
