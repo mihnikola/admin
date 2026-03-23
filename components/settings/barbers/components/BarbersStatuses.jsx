@@ -8,18 +8,17 @@ import {
   View,
 } from "react-native";
 
-function BarbersSeniority({
-  seniorityData,
+function BarbersStatuses({
+  statuses,
   modalVisible,
   setModalVisible,
-  handleLocationSelect,
+  handleStatusSelect,
   selected,
 }) {
   const onConfirm = () => {
     setModalVisible(false);
   };
 
-  console.log("dataxxxxxxxxxxx", seniorityData);
   return (
     <Modal
       animationType="fade"
@@ -29,21 +28,21 @@ function BarbersSeniority({
     >
       <View style={styles.overlay}>
         <View style={styles.modalContent}>
-          <Text style={styles.modalTitle}>Senioritetetii</Text>
+          <Text style={styles.modalTitle}>Tipovi odobravanja</Text>
           <ScrollView style={{ maxHeight: 300 }}>
-            {seniorityData?.map((item) => {
+            {statuses?.map((item) => {
               return (
                 <TouchableOpacity
                   key={item._id}
                   style={styles.item}
-                  onPress={() => handleLocationSelect(item)}
+                  onPress={() => handleStatusSelect(item)}
                 >
                   <Text
                     ellipsizeMode="tail"
                     numberOfLines={1}
                     style={styles.itemSubtitle}
                   >
-                    {item.title}
+                    {item.name.nameLocal}
                   </Text>
                   {selected && (
                     <FontAwesome
@@ -120,4 +119,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BarbersSeniority;
+export default BarbersStatuses;

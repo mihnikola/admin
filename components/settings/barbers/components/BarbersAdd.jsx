@@ -2,6 +2,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -21,6 +22,8 @@ import ImageCompress from "../../ImageCompress";
 import BarbersSeniority from "./BarbersSeniority";
 import BarbersInput from "./BarbersInput";
 import BarberSeniorityComponent from "./BarbersSeniorityInput";
+import BarbersStatusCheck from "./BarbersStatusCheck";
+import BarbersStatuses from "./BarbersStatuses";
 
 export default function BarbersAdd() {
   const { localization } = useLocalization();
@@ -41,7 +44,11 @@ export default function BarbersAdd() {
     addEditBarber,
     fetchAllSeniority,
     seniorityData,
+    statuses,
+    fetchAllStatusChecking
   } = useBarbers();
+
+
 
   const [name, setName] = useState("");
 
@@ -53,6 +60,8 @@ export default function BarbersAdd() {
   const [changedImg, setChangedImg] = useState(null);
   const { company } = useCompany();
   const [selected, setSelected] = useState(null);
+  const [selectedStatus, setSelectedStatus] = useState(null);
+  const [statusChecking, setStatusChecking] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
 
   const [isError, setIsError] = useState(null);
@@ -65,6 +74,7 @@ export default function BarbersAdd() {
   useEffect(() => {
     setTimeout(async () => {
       await fetchAllSeniority();
+      await fetchAllStatusChecking();
     }, 100);
     if (id) {
       setTimeout(async () => {
@@ -77,6 +87,7 @@ export default function BarbersAdd() {
     if (barberData) {
       setName(barberData?.name);
       setSelected(barberData?.seniority);
+      // setSelectedStatus(barberData?.seniority); moras GET da uradis by id
       setPhoneNumber(barberData?.phoneNumber);
       selectedImgHandler(barberData?.image);
       setEditingId(barberData?.id);
@@ -86,6 +97,7 @@ export default function BarbersAdd() {
   const resetForm = () => {
     setName("");
     setSelected("");
+    setSelectedStatus(null);
     setEmail("");
     setPhoneNumber("");
     setPassword("");
@@ -105,6 +117,7 @@ export default function BarbersAdd() {
         phoneNumber,
         seniority: selected,
         image: changedImg === imageValue ? null : changedImg,
+        statusCheck: selectedStatus?._id
       };
       if (updateBarber) {
         addEditBarber(updateBarber);
@@ -117,6 +130,8 @@ export default function BarbersAdd() {
         password,
         seniority: selected,
         image: changedImg === imageValue ? null : changedImg,
+        statusCheck: selectedStatus?._id
+
       };
       if (newBarber?.name && newBarber?.email) {
         addEditBarber(newBarber);
@@ -148,6 +163,21 @@ export default function BarbersAdd() {
     setSelected(activeSenioritet);
   };
 
+  const handleStatusNotificationSelect = (data) => {
+    const statusData = [...statuses];
+    let activeStatus;
+    statusData.map((item) => {
+      if (item._id === data._id) {
+        activeStatus = data;
+      }
+    });
+
+    setSelectedStatus(activeStatus);
+  }
+
+
+  console.log("selectedStatus", selectedStatus)
+
   const [removeItem, setRemoveItem] = useState(null);
   const [isRemove, setIsRemove] = useState(null);
 
@@ -162,6 +192,9 @@ export default function BarbersAdd() {
     setIsRemove(false);
     removeBarber(removeItem);
   };
+  const modalStatusHandler = () => {
+    setStatusChecking(true);
+  }
   if (isLoading === "getBarber") {
     return <SharedLoader isOpen={isLoading === "getBarber"} />;
   }
@@ -176,8 +209,21 @@ export default function BarbersAdd() {
       />
     );
   }
+  if (statusChecking && !isLoading) {
+    return (
+      <BarbersStatuses
+        statuses={statuses}
+        modalVisible={statusChecking}
+        setModalVisible={setStatusChecking}
+        selected={selectedStatus}
+        handleStatusSelect={handleStatusNotificationSelect}
+      />
+    );
+  }
+
   return (
     <View style={styles.container}>
+
       {changedImg !== undefined && (
         <View style={styles.containerImage}>
           <ImageCompress
@@ -186,47 +232,52 @@ export default function BarbersAdd() {
           />
         </View>
       )}
-
-      <View style={{ flex: 3, marginTop: 20 }}>
-        <BarbersInput
-          icon="user"
-          label={localization.BARBERS.name}
-          value={name}
-          onChangeText={setName}
-        />
-
-        {!id && (
+      <ScrollView>
+        <View style={{ flex: 3, marginTop: 20 }}>
           <BarbersInput
-            icon="at"
-            label={localization.BARBERS.email}
-            value={email}
-            onChangeText={setEmail}
-            keyboardType="email-address"
+            icon="user"
+            label={localization.BARBERS.name}
+            value={name}
+            onChangeText={setName}
           />
-        )}
-        {!id && (
-          <BarbersInput
-            icon="lock"
-            label={localization.BARBERS.password}
-            value={password}
-            onChangeText={setPassword}
-            textContentType="password"
-          />
-        )}
-        <BarbersInput
-          icon="phone"
-          label="Telefon"
-          value={phoneNumber}
-          onChangeText={setPhoneNumber}
-          keyboardType="phone-pad"
-        />
-        <BarberSeniorityComponent
-          modalHandler={modalHandler}
-          label="Senioritet"
-          selected={selected?.title}
-        />
-      </View>
 
+          {!id && (
+            <BarbersInput
+              icon="at"
+              label={localization.BARBERS.email}
+              value={email}
+              onChangeText={setEmail}
+              keyboardType="email-address"
+            />
+          )}
+          {!id && (
+            <BarbersInput
+              icon="lock"
+              label={localization.BARBERS.password}
+              value={password}
+              onChangeText={setPassword}
+              textContentType="password"
+            />
+          )}
+          <BarbersInput
+            icon="phone"
+            label="Telefon"
+            value={phoneNumber}
+            onChangeText={setPhoneNumber}
+            keyboardType="phone-pad"
+          />
+          <BarbersStatusCheck
+            modalHandler={modalStatusHandler}
+            label="Status odobravanja"
+            selected={localization.code === 'sr' ? selectedStatus?.name.nameLocal : selectedStatus?.name.nameEn}
+          />
+          <BarberSeniorityComponent
+            modalHandler={modalHandler}
+            label="Senioritet"
+            selected={selected?.title}
+          />
+        </View>
+      </ScrollView>
       <View style={[styles.btnContainer, editingId && styles.btnGap]}>
         <TouchableOpacity style={styles.button} onPress={addBarber}>
           {isLoading === "addEdit" && (

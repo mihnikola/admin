@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 const useBarbers = () => {
   const [barbersData, setBarbersData] = useState([]);
   const [seniorityData, setSeniorityData] = useState([]);
+  const [statuses, setStatuses] = useState([]);
   const [barberData, setBarberData] = useState(null);
 
   const [isLoading, setIsLoading] = useState(null);
@@ -62,6 +63,21 @@ const useBarbers = () => {
     }
   };
 
+  const fetchAllStatusChecking = async () => {
+    setIsLoading("getStatuses");
+    setError(null);
+    try {
+      const response = await get("/statusNotification");
+      if (response.status === 200) {
+        setStatuses(response.data);
+      }
+    } catch (err) {
+      setError(localization.BARBERS.errorFetch);
+    } finally {
+      setIsLoading(null);
+    }
+  };
+
   const addEditBarber = async (userData) => {
     setIsLoading("addEdit");
     setError(null);
@@ -74,6 +90,7 @@ const useBarbers = () => {
     formData.append("seniority", userData?.seniority?._id);
     formData.append("email", userData?.email);
     formData.append("password", userData?.password);
+    formData.append("statusCheck", userData?.statusCheck);
 
     if (userData?.image) {
       const filename = userData?.image.split("/").pop();
@@ -217,6 +234,7 @@ const useBarbers = () => {
 
   useEffect(() => {
     fetchAllBarbers();
+    
   }, []);
 
   return {
@@ -235,7 +253,9 @@ const useBarbers = () => {
     startEditing,
     getBarberHandler,
     fetchAllSeniority,
-    seniorityData
+    seniorityData,
+    fetchAllStatusChecking,
+    statuses
   };
 };
 
