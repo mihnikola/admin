@@ -217,7 +217,7 @@ export default function TimeSettingsScreen({ data, city, streetName, isLoading, 
     console.log("locationByIdxs", dataData);
     console.log("streetName", streetName);
     console.log("city", city);
-    // submitEverything(data);
+    submitEverything(data);
   };
   console.log("disabledBtn", disabledBtn)
   return (
