@@ -133,27 +133,27 @@ function useLocation() {
     const { id } = data;
 
     if (!verificationData(data)) { return; }
-    console.log("xxxxxxxxxxxxx", locationById);
+   
 
-    // setIsLoading("addEdit");
-    // const url = id
-    //   ? `admin/places/${id}`
-    //   : `admin/places`;
-    // const method = id ? put : post;
+    setIsLoading("addEdit");
+    const url = id
+      ? `admin/places/${id}`
+      : `admin/places`;
+    const method = id ? put : post;
 
-    // try {
-    //   const response = await method(url, { data });
+    try {
+      const response = await method(url, { data });
 
-    //   if (response.status === 200 || response.status === 201) {
-    //     setIsMessage(true);
-    //     setMessage(id ? localization.PLACES.edit : localization.PLACES.add);
-    //   }
-    // } catch (err) {
-    //   setError(localization.PLACES.errorFetch);
-    //   setIsMessage(true);
-    // } finally {
-    //   setIsLoading(null);
-    // }
+      if (response.status === 200 || response.status === 201) {
+        setIsMessage(true);
+        setMessage(id ? localization.PLACES.edit : localization.PLACES.add);
+      }
+    } catch (err) {
+      setError(localization.PLACES.errorFetch);
+      setIsMessage(true);
+    } finally {
+      setIsLoading(null);
+    }
   };
 
   const getLocations = async () => {
