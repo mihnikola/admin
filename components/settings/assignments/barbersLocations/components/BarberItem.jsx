@@ -14,7 +14,7 @@ export default function BarberItem({ id, item, toggleBarber }) {
       <View>
         <Image source={{ uri: item.image }} style={styles.image} />
       </View>
-      <View style={{ width: "70%", marginLeft: 10 }}>
+      <View style={[styles.barberPositionDeatils, item.flag === 'T' && styles.right]}>
         <View>
           <Text style={styles.barberText}>{item.name}</Text>
         </View>
@@ -24,7 +24,7 @@ export default function BarberItem({ id, item, toggleBarber }) {
           </View>
         )}
       </View>
-      <View>
+      <View style={styles.centerCheckMark}>
         <FontAwesome
           name={item.flag === "T" && "check-circle-o"}
           size={28}
@@ -39,6 +39,17 @@ const styles = StyleSheet.create({
   image: {
     width: 60,
     height: 60,
+  },
+  centerCheckMark: {
+    alignItems: "center",
+    alignSelf: "center"
+  },
+  barberPositionDeatils: {
+    width: "70%", marginLeft: 10
+  },
+  right: {
+    width: "70%",
+    marginLeft: 20
   },
   barberItem: {
     backgroundColor: "#000000",

@@ -87,7 +87,7 @@ export default function BarbersAdd() {
     if (barberData) {
       setName(barberData?.name);
       setSelected(barberData?.seniority);
-      // setSelectedStatus(barberData?.seniority); moras GET da uradis by id
+      setSelectedStatus(barberData?.statusCheck); 
       setPhoneNumber(barberData?.phoneNumber);
       selectedImgHandler(barberData?.image);
       setEditingId(barberData?.id);

@@ -118,28 +118,42 @@ function useLocation() {
       setIsLoading(null);
     }
   };
+
+
+  const verificationData = (data) => {
+    if (data.close === locationById.workingHours.end &&
+      data.open === locationById.workingHours.start &&
+      data.streetName === locationById.address &&
+      data.minutes === locationById.slotDuration) {
+      return false;
+    }
+    return true;
+  }
   const addEditLocation = async (data) => {
     const { id } = data;
 
-    setIsLoading("addEdit");
-    const url = id
-      ? `admin/places/${id}`
-      : `admin/places`;
-    const method = id ? put : post;
+    if (!verificationData(data)) { return; }
+    console.log("xxxxxxxxxxxxx", locationById);
 
-    try {
-      const response = await method(url, { data });
+    // setIsLoading("addEdit");
+    // const url = id
+    //   ? `admin/places/${id}`
+    //   : `admin/places`;
+    // const method = id ? put : post;
 
-      if (response.status === 200 || response.status === 201) {
-        setIsMessage(true);
-        setMessage(id ? localization.PLACES.edit : localization.PLACES.add);
-      }
-    } catch (err) {
-      setError(localization.PLACES.errorFetch);
-      setIsMessage(true);
-    } finally {
-      setIsLoading(null);
-    }
+    // try {
+    //   const response = await method(url, { data });
+
+    //   if (response.status === 200 || response.status === 201) {
+    //     setIsMessage(true);
+    //     setMessage(id ? localization.PLACES.edit : localization.PLACES.add);
+    //   }
+    // } catch (err) {
+    //   setError(localization.PLACES.errorFetch);
+    //   setIsMessage(true);
+    // } finally {
+    //   setIsLoading(null);
+    // }
   };
 
   const getLocations = async () => {

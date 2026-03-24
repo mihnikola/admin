@@ -20,11 +20,7 @@ export function SharedButton(props: any) {
 };
 
 const styles = StyleSheet.create({
-  btnTextDisabled: {
-    color: "#3f3f3fff",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
+
   btnText: {
     color: "#fff",
     fontSize: 18,
@@ -32,8 +28,12 @@ const styles = StyleSheet.create({
   },
   btnDisabled: {
     borderColor: "grey",
-    backgroundColor: "#8b8b8bff",
-    color: '#3f3f3fff'
+    backgroundColor: "rgb(82, 81, 81)",
+  },
+  btnTextDisabled: {
+    color: "rgb(32, 32, 32)",
+    fontSize: 18,
+    fontWeight: "bold",
   },
   btn: {
     backgroundColor: "#1C1C1E",

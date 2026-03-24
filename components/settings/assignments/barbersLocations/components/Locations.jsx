@@ -6,21 +6,11 @@ import LocationItem from "./LocationItem";
 import { useEffect } from "react";
 const Locations = () => {
   const { localization } = useLocalization();
-  console.log(".................");
   const {
     getLocations,
     onSelectedLocation,
     isLoading,
-    error,
-    isMessage,
-    message,
-    setIsMessage,
-    locationBarbersData,
     locations,
-    toggleBarber,
-    submitChanges,
-    selectedLocation,
-    confirmSubmit,
   } = useLocationBarber();
   const { height: screenHeight } = Dimensions.get("window");
   const containerHeight = screenHeight * 1;
@@ -44,7 +34,6 @@ const Locations = () => {
                     key={item.id}
                     item={item}
                     onSelectedLocation={onSelectedLocation}
-                    selectedLocation={selectedLocation}
                   />
                 ))}
             </ScrollView>

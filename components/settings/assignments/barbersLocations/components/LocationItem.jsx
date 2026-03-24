@@ -1,7 +1,6 @@
-import { FontAwesome } from "@expo/vector-icons";
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
 
-const LocationItem = ({ item, onSelectedLocation, selectedLocation }) => {
+const LocationItem = ({ item, onSelectedLocation }) => {
   const onSelectedHandler = (item) => {
     onSelectedLocation(item);
   };
@@ -13,11 +12,7 @@ const LocationItem = ({ item, onSelectedLocation, selectedLocation }) => {
       onPress={() => onSelectedHandler(item)}
     >
       <Text style={styles.address}>{item.address}</Text>
-      <FontAwesome
-        name={item.id === selectedLocation?.id && "check-circle-o"}
-        size={28}
-        color="white"
-      />
+     
     </TouchableOpacity>
   );
 };
@@ -37,7 +32,8 @@ const styles = StyleSheet.create({
   },
   item: {
     padding: 5,
-    marginVertical: 9,
+    marginHorizontal: 2,
+    marginVertical: 10,
     borderRadius: 20,
     flexDirection: "row",
     alignItems: "center",

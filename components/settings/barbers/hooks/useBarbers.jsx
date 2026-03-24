@@ -208,9 +208,7 @@ const useBarbers = () => {
     setError(null);
     try {
       const response = await get(`/admin/users/employer/${id}`);
-      console.log("setBarberData",response);
       if (response.status === 200) {
-
         setBarberData(response.data);
       }
     } catch (err) {

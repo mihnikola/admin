@@ -23,26 +23,17 @@ import BarberItem from "./BarberItem";
 
 export default function Barbers() {
   const { height: screenHeight } = Dimensions.get("window");
-  const containerHeight = screenHeight * 0.62;
+  const containerHeight = screenHeight * 0.6;
   const { localization } = useLocalization();
   const { id, address } = useLocalSearchParams();
-  const itemData = {
-    id,
-    address,
-  };
+
   const {
     isLoading,
-    error,
     isMessage,
-    setIsMessage,
-    setMessage,
     message,
     locationBarbersData,
-    removeService,
     confirmSubmit,
     getBarbersById,
-    startEditing,
-    servicesByBarbers,
     toggleBarber,
     submitChanges,
   } = useLocationBarber();
@@ -54,8 +45,6 @@ export default function Barbers() {
   };
 
   useEffect(() => {
-            console.log("xxxxxxxxxxqqwewqwq",id)
-
     if (id) {
       setTimeout(async () => {
         await getBarbersById(id);
@@ -64,64 +53,74 @@ export default function Barbers() {
   }, [id]);
 
   return (
-    <View style={styles.container}>
-      {id && <LocationItem item={itemData} id={id} />}
-      <Text style={styles.subTitle}>{localization.BARBERS.listBarbers}</Text>
-      <View style={{ maxHeight: containerHeight }}>
-        {isLoading === "getBarbers" && (
-          <View style={styles.loadingContainer}>
-            <Loader />
-          </View>
-        )}
-        {isLoading !== "getBarbers" && (
-          <FlatList
-            data={locationBarbersData}
-            keyExtractor={(item) => item._id}
-            renderItem={({ item }) => (
-              <BarberItem item={item} toggleBarber={toggleBarber} />
-            )}
-          />
-        )}
-      </View>
-      {isLoading !== "getBarbers" && (
+    <>
+
+      <View style={styles.container}>
+        {id && <Text style={styles.address}>{address}</Text>}
+
+        <Text style={styles.subTitle}>
+          {localization.BARBERS.listBarbers}
+        </Text>
+
         <View style={{ flex: 1 }}>
+          {isLoading === "getBarbers" ? (
+            <View style={styles.loadingContainer}>
+              <Loader />
+            </View>
+          ) : (
+            <FlatList
+              data={locationBarbersData}
+              keyExtractor={(item) => item._id}
+              renderItem={({ item }) => (
+                <BarberItem item={item} toggleBarber={toggleBarber} />
+              )}
+              contentContainerStyle={{ paddingBottom: 20 }}
+            />
+          )}
+        </View>
+
+        {isLoading !== "getBarbers" && (
           <TouchableOpacity
             style={styles.button}
             onPress={() => submitChanges(id)}
           >
-            {isLoading === "post" && (
+            {isLoading === "post" ? (
               <ActivityIndicator size={20} color="#fff" />
-            )}
-            {isLoading !== "post" && (
+            ) : (
               <Text style={styles.buttonText}>
                 {localization.SERVICES.saveChanges}
               </Text>
             )}
           </TouchableOpacity>
-        </View>
-      )}
+        )}
+      </View>
 
-      {isMessage && (
-        <SharedMessage
-          isOpen={isMessage}
-          icon={<FontAwesome name="check-circle-o" size={64} color="white" />}
-          onClose={confirmSubmit}
-          onConfirm={confirmSubmit}
-          buttonText="Ok"
-          title={message}
-        />
-      )}
-      {isError?.length > 0 && (
-        <SharedMessage
-          isOpen={isError?.length > 0}
-          icon={<FontAwesome name="close" size={64} color="white" />}
-          onClose={cancelHandler}
-          onConfirm={cancelHandler}
-          buttonText="Ok"
-          title={isError}
-        />
-      )}
-    </View>
+      {
+        isMessage && (
+          <SharedMessage
+            isOpen={isMessage}
+            icon={<FontAwesome name="check-circle-o" size={64} color="white" />}
+            onClose={confirmSubmit}
+            onConfirm={confirmSubmit}
+            buttonText="Ok"
+            title={message}
+          />
+        )
+      }
+      {
+        isError?.length > 0 && (
+          <SharedMessage
+            isOpen={isError?.length > 0}
+            icon={<FontAwesome name="close" size={64} color="white" />}
+            onClose={cancelHandler}
+            onConfirm={cancelHandler}
+            buttonText="Ok"
+            title={isError}
+          />
+        )
+      }
+    </>
+
   );
 }
 
@@ -131,14 +130,22 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    padding: 10,
-    backgroundColor: "#121212",
+    marginHorizontal: 20,
+    backgroundColor: "#000000",
   },
   title: {
     fontSize: 22,
     fontWeight: "bold",
     color: "#fff",
     marginBottom: 10,
+  },
+  address: {
+    marginHorizontal: 2,
+    fontSize: 20,
+    marginVertical: 10,
+    alignItems: "center",
+    justifyContent: "space-between",
+    color: "white",
   },
 
   subTitle: {

@@ -1,6 +1,6 @@
-import { post, get } from "@/api/apiService";
+import { put, get } from "@/api/apiService";
 import { useLocalization } from "@/contexts/LocalizationContext";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 function useStatusNotification() {
     const { localization } = useLocalization();
 
@@ -9,21 +9,16 @@ function useStatusNotification() {
     const [isMessage, setIsMessage] = useState(false);
     const [message, setMessage] = useState(null);
     const [notificationStatuses, setNotificationStatuses] = useState([]);
+    const [notificationData, setNotificationData] = useState(null);
 
+    const changeStatusNotification = (item) => {
+        setNotificationData(item);
+    }
 
-
-    const statusEmployerNotifications = [
-        {
-            employerId: "Milojkov Id",
-            statusNotificationId: 1,
-        },
-        {
-            employerId: "Ljiljanin Id",
-            statusNotificationId: 2,
-        }
-    ];
-
-
+    const confirmHandler = async () => {
+        setIsMessage(false);
+        await getAllNotificationStatuses();
+    }
 
     const getAllNotificationStatuses = async () => {
         setIsLoading('get');
@@ -36,75 +31,58 @@ function useStatusNotification() {
             setIsMessage(true);
             setError(errorData);
         } finally {
-            setIsLoading(false);
+            setIsLoading(null);
         }
     }
 
 
-    const patchStatusNotification = async (from, to, comment, token) => {
-        //ovde mi treba izmena status notification 
-
-        setIsLoading(true);
+    const patchStatusNotification = async () => {
+        setIsLoading('patch');
         setError(null);
 
-        console.log("from, to, comment, token", from, to, comment, token)
         try {
-            const response = await post("admin/availabilities", {
-                startDate: from,
-                endDate: to,
-                token,
-                description: comment,
+            const date = new Date().toDateString();
+            const response = await put(`statusNotification/${date}/statusCheck`, {
+                statusId: notificationData?._id,
             });
-
-            console.log("vresponse", response)
             setIsMessage(true);
-
             if (response.status === 201) {
-                setMessage(localization.SETTINGS.ABSENTHOURS.success);
+                setMessage(localization.SETTINGS.NOTIFICATIONSTATUS.submitChanges);
             }
         } catch (errorData) {
             setIsMessage(true);
             setError(errorData);
         } finally {
-            setIsLoading(false);
+            setIsLoading(null);
         }
     };
-
-    const changeStatusNotification = (data) => {
-        //menja se status
-        // const oldStatus = [...getAllStatus];
-
-        // const result = oldStatus.map((item) => {
-        //     if (item.id === data.id) {
-        //         return {
-        //             ...item,
-        //             active: 1
-        //         }
-        //     } else {
-        //         return {
-        //             ...item, active: 0
-        //         }
-        //     }
-        // });
-
-
-        // setGetAllStatus(result);
-
+    const getEmployerCheck = async () => {
+        setIsLoading('get');
+        try {
+            const response = await get("statusNotification/getEmployerCheck");
+            if (response.status === 200) {
+                setNotificationData(response.data.statusCheck);
+            }
+        } catch (errorData) {
+            setIsMessage(true);
+            setError(errorData);
+        } finally {
+            setIsLoading(null);
+        }
     }
-
-    useEffect(() => {
-        getAllNotificationStatuses();
-    }, []);
-
     return {
         notificationStatuses,
         isLoading,
         error,
         isMessage,
         message,
+        confirmHandler,
         setIsMessage,
         changeStatusNotification,
-        patchStatusNotification
+        notificationData,
+        patchStatusNotification,
+        getEmployerCheck,
+        getAllNotificationStatuses
     };
 }
 
