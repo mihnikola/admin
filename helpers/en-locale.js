@@ -111,7 +111,8 @@ export const ENG_LOCALIZATION = {
     title: "Locations",
     error: "Error while fetching locations...",
     close: "Close",
-    search: "Enter address"
+    search: "Enter address",
+    notFound:"No location data"
 
   },
   DATE: {

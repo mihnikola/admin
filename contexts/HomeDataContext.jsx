@@ -38,7 +38,7 @@ export const HomeDataProvider = ({ children }) => {
     const id = new Date();
     try {
       const response = await get(`/admin/availabilities/${id}/getHomeInfo`); //fetchInProgressOne
-
+      console.log("essxx",response);
       if (response?.status === 200) {
         const { currentReservation, nextReservation, pendingReservations } =
           response.data;

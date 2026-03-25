@@ -10,8 +10,7 @@ import {
 } from "react-native";
 import { CalendarList } from "react-native-calendars";
 import EventTimelineList from "../../EventTimeLineList";
-import Loader from "@/shared-components/Loader";
-import { SharedLoader } from "@/shared-components/SharedLoader";
+
 
 const DateComponent = () => {
   const today = new Date();

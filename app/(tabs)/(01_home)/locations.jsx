@@ -31,7 +31,7 @@ const Locations = () => {
             <SharedCoverImage image={company?.media?.coverImageAppointments} />
             {!isLoading && <SharedTitle title={localization.PLACES.title} />}
             {isLoading && <Loader />}
-            {!isLoading && (
+            {!isLoading && locationsData?.length > 0 && (
                 <View style={styles.contentContainer}>
                     {locationsData?.map((item) => (
                         <SharedItemLocation
@@ -40,6 +40,11 @@ const Locations = () => {
                             redirectHandler={redirectHandler}
                         />
                     ))}
+                </View>
+            )}
+            {!isLoading && locationsData?.length === 0 && (
+                <View style={styles.contentContainer}>
+                    <Text style={styles.capture}>{localization.PLACES.notFound}</Text>
                 </View>
             )}
             {!isLoading && error && (
@@ -59,6 +64,12 @@ const styles = StyleSheet.create({
         height: 200,
         opacity: 0.2,
     },
+    capture: {
+        fontSize: 20,
+        textAlign: "center",
+        padding: 20,
+        color: "white",
+    },
 
     contentContainer: {
         marginTop: 10,
@@ -72,12 +83,7 @@ const styles = StyleSheet.create({
         position: "absolute",
         marginHorizontal: 15, // Side padding for the list
     },
-    capture: {
-        fontSize: 32,
-        color: "white",
-        fontWeight: "500",
-        paddingVertical: 130,
-    },
+
 
     container: {
         flex: 1,

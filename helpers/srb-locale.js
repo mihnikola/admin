@@ -91,7 +91,9 @@ export const SRB_LOCALIZATION = {
     title: "Lokacije",
     error: "Greška prilikom preuzimanja lokacija...",
     close: "Zatvori",
-    search: "Unesite adresu"
+    search: "Unesite adresu",
+    notFound: "Nema podataka za lokacije"
+
   },
   SERVICES: {
     removeBtn: "Deaktiviraj uslugu",
