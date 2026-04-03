@@ -91,7 +91,8 @@ export const SRB_LOCALIZATION = {
     title: "Lokacije",
     error: "Greška prilikom preuzimanja lokacija...",
     close: "Zatvori",
-    search: "Unesite adresu"
+    search: "Unesite adresu",
+    notFound: "Nema dostupnih lokacija",
   },
   SERVICES: {
     removeBtn: "Deaktiviraj uslugu",
@@ -268,10 +269,9 @@ export const SRB_LOCALIZATION = {
     },
     NOTIFICATIONSTATUS: {
       title: "Status odobravanja rezervacija",
-      capture: "Tip odobravanja"
+      capture: "Tip odobravanja",
     },
     WORKHOURS: {
-
       title: "Upravljanje radnim vremenom",
       capture: "Podešavanje radnog vremena",
       subCapture: "Termini su dostupni na svakih 10 minuta",

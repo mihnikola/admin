@@ -50,10 +50,12 @@ export default function GooglePlace({ onSelect }) {
   // Fetch place details (lat/lng, address components)
   const getPlaceDetails = async (placeId) => {
     try {
+      const fields = "geometry,vicinity,address_components,name";
       const res = await fetch(
-        `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&key=${apiKey}`,
+        `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=${fields}&key=${apiKey}`,
       );
       const data = await res.json();
+
       if (data.status === "OK") {
         //ovde ce da trpa niz lokacija
         return data.result;
@@ -91,7 +93,7 @@ export default function GooglePlace({ onSelect }) {
     const [street, city] = details.vicinity.split(",");
     const location = details.geometry.location;
 
-    console.log("details+++",details);
+    console.log("details+++", details);
     // Pass data back to parent
     onSelect({
       city,
@@ -105,7 +107,6 @@ export default function GooglePlace({ onSelect }) {
     // Clear query and results
     setQuery("");
     setResults([]);
-
   };
 
   // Debounce user input
@@ -116,7 +117,6 @@ export default function GooglePlace({ onSelect }) {
       }, 300);
       return () => clearTimeout(delayDebounce);
     }
-
   }, [query]);
 
   return (

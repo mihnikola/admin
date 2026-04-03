@@ -13,11 +13,6 @@ const LocationItem = ({ item, onSelectedLocation, selectedLocation }) => {
       onPress={() => onSelectedHandler(item)}
     >
       <Text style={styles.address}>{item.address}</Text>
-      <FontAwesome
-        name={item.id === selectedLocation?.id && "check-circle-o"}
-        size={28}
-        color="white"
-      />
     </TouchableOpacity>
   );
 };

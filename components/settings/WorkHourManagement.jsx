@@ -15,10 +15,19 @@ import CustomDropDownPicker from "./CustomDropDownPicker";
 import useGetWorhHours from "./hooks/useGetWorkHours";
 import { FontAwesome } from "@expo/vector-icons";
 import { useLocalization } from "@/contexts/LocalizationContext";
-import { SharedQuestion } from '../../shared-components/SharedQuestion'
+import { SharedQuestion } from "../../shared-components/SharedQuestion";
 
-export default function TimeSettingsScreen({ isLoading, deactivate, deleteLocation, activateLocation, minutes, workHours, active, id, submitEverything }) {
-
+export default function TimeSettingsScreen({
+  isLoading,
+  deactivate,
+  deleteLocation,
+  activateLocation,
+  minutes,
+  workHours,
+  active,
+  id,
+  submitEverything,
+}) {
   const { localization } = useLocalization();
   const {
     getTimes,
@@ -75,14 +84,12 @@ export default function TimeSettingsScreen({ isLoading, deactivate, deleteLocati
   };
   const deactivateCancelHandler = () => {
     setIsDeactivate(false);
-
-  }
+  };
 
   const deactivateConfirmHandler = async (id) => {
     setIsDeactivate(false);
     await deactivate(id);
-
-  }
+  };
 
   const removeHandler = () => {
     setIsRemove(true);
@@ -105,7 +112,7 @@ export default function TimeSettingsScreen({ isLoading, deactivate, deleteLocati
 
   const deactiveHandler = () => {
     setIsDeactivate(true);
-  }
+  };
 
   const finishedDate = (data) => {
     const now = new Date();
@@ -125,7 +132,7 @@ export default function TimeSettingsScreen({ isLoading, deactivate, deleteLocati
       now.getDate(),
       hour,
       min,
-      0
+      0,
     );
   };
 
@@ -147,10 +154,9 @@ export default function TimeSettingsScreen({ isLoading, deactivate, deleteLocati
       now.getDate(),
       hour,
       min,
-      0
+      0,
     );
   };
-
 
   const [toTime, setToTime] = useState(finishedDate(workHours?.end));
   const [fromTime, setFromTime] = useState(startDate(workHours?.start));
@@ -175,9 +181,8 @@ export default function TimeSettingsScreen({ isLoading, deactivate, deleteLocati
     return `${h}:${m}`;
   };
 
-
-  if (isLoading === 'get') {
-    return <SharedLoader isOpen={isLoading === 'get'} />;
+  if (isLoading === "get") {
+    return <SharedLoader isOpen={isLoading === "get"} />;
   }
 
   const submitHandler = () => {
@@ -199,7 +204,9 @@ export default function TimeSettingsScreen({ isLoading, deactivate, deleteLocati
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{localization.SETTINGS.WORKHOURS.capture}</Text>
+      <Text style={styles.title}>
+        {localization.SETTINGS.WORKHOURS.capture}
+      </Text>
       <View style={styles.containerData}>
         <View style={styles.row}>
           <FontAwesome name="clock-o" size={24} color="grey" />
@@ -259,7 +266,9 @@ export default function TimeSettingsScreen({ isLoading, deactivate, deleteLocati
           onChange={onChangeTo}
         />
       )}
-      <Text style={styles.subtitle}>{localization.SETTINGS.WORKHOURS.subCapture}</Text>
+      <Text style={styles.subtitle}>
+        {localization.SETTINGS.WORKHOURS.subCapture}
+      </Text>
 
       <CustomDropDownPicker
         options={options}
@@ -270,7 +279,7 @@ export default function TimeSettingsScreen({ isLoading, deactivate, deleteLocati
 
       <View style={{ flex: !id ? 0.5 : 2 }}>
         <SharedButton
-          loading={isLoading === 'addEdit'}
+          loading={isLoading === "addEdit"}
           onPress={submitHandler}
           text={localization.SETTINGS.WORKHOURS.submit}
           margin
@@ -287,7 +296,10 @@ export default function TimeSettingsScreen({ isLoading, deactivate, deleteLocati
                 </Text>
               )}
             </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonDeactive} onPress={deactiveHandler}>
+            <TouchableOpacity
+              style={styles.buttonDeactive}
+              onPress={deactiveHandler}
+            >
               {isLoading === "deactivate" && (
                 <ActivityIndicator size={20} color="#fff" />
               )}
@@ -300,19 +312,30 @@ export default function TimeSettingsScreen({ isLoading, deactivate, deleteLocati
           </View>
         )}
         {id && active === 0 && (
-          <TouchableOpacity style={styles.buttonUndo} onPress={undoHandler}>
-            {isLoading === "activate" && (
-              <ActivityIndicator size={20} color="#fff" />
-            )}
-            {isLoading !== "activate" && (
-              <Text style={styles.buttonText}>{localization.PLACES.undo}</Text>
-            )}
-          </TouchableOpacity>
+          <View style={{ gap: 10 }}>
+            <TouchableOpacity style={styles.buttonRmv} onPress={removeHandler}>
+              {isLoading === "remove" && (
+                <ActivityIndicator size={20} color="#fff" />
+              )}
+              {isLoading !== "remove" && (
+                <Text style={styles.buttonText}>
+                  {localization.PLACES.deleteBtn}
+                </Text>
+              )}
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttonUndo} onPress={undoHandler}>
+              {isLoading === "activate" && (
+                <ActivityIndicator size={20} color="#fff" />
+              )}
+              {isLoading !== "activate" && (
+                <Text style={styles.buttonText}>
+                  {localization.PLACES.undo}
+                </Text>
+              )}
+            </TouchableOpacity>
+          </View>
         )}
       </View>
-
-
-
 
       {isRemove && (
         <SharedQuestion
@@ -390,13 +413,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 2,
     backgroundColor: "#000",
-    marginHorizontal: 10
-
+    marginHorizontal: 10,
   },
   buttonText: {
     color: "#fff",
     fontWeight: "bold",
-    fontSize: 18
+    fontSize: 18,
   },
   title: {
     fontSize: 22,
@@ -410,14 +432,13 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     textAlign: "center",
     color: "#919191",
-    marginVertical: 15
-
+    marginVertical: 15,
   },
   row: {
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 20,
-    gap: 10
+    gap: 10,
   },
   label: {
     fontSize: 18,

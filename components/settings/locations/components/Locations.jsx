@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View, Dimensions, TextInput } from "react-native";
+import { StyleSheet, Text, View, TextInput, FlatList } from "react-native";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import Loader from "@/shared-components/Loader";
 import LocationItem from "./LocationItem";
@@ -20,11 +20,8 @@ const Locations = () => {
   } = useLocation();
 
   const filteredLocations = locations.filter((location) =>
-    location.address.toLowerCase().includes(search.toLowerCase())
+    location.address.toLowerCase().includes(search.toLowerCase()),
   );
-
-  const { height: screenHeight } = Dimensions.get("window");
-  const containerHeight = screenHeight * 0.7;
 
   useFocusEffect(
     useCallback(() => {
@@ -34,57 +31,67 @@ const Locations = () => {
 
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.container}>
-        <Text style={styles.title}>{localization.PLACES.title}</Text>
-        <TextInput
-          style={styles.searchInput}
-          placeholder={localization.CLIENTS.search}
-          value={search}
-          onChangeText={setSearch}
-          placeholderTextColor="white"
+      <Text style={styles.title}>{localization.PLACES.title}</Text>
+
+      <TextInput
+        style={styles.searchInput}
+        placeholder={localization.CLIENTS.search}
+        value={search}
+        onChangeText={setSearch}
+        placeholderTextColor="white"
+      />
+
+      {isLoading === "getPlaces" ? (
+        <Loader />
+      ) : (
+        <FlatList
+          data={filteredLocations}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => (
+            <LocationItem item={item} startEditing={startEditing} />
+          )}
+          contentContainerStyle={{ padding: 20 }}
+          showsVerticalScrollIndicator={false}
+          ListEmptyComponent={
+            <Text style={styles.notFound}>{localization.PLACES.notFound}</Text>
+          }
         />
-        <View style={styles.content}>
-          <View style={{ maxHeight: containerHeight }}>
-            {isLoading === "getPlaces" && (
-              <Loader isOpen={isLoading === "getPlaces"} />
-            )}
-            <ScrollView>
-              {isLoading !== "getPlaces" &&
-                filteredLocations.map((item) => (
-                  <LocationItem
-                    key={item.id}
-                    item={item}
-                    startEditing={startEditing}
-                  />
-                ))}
-            </ScrollView>
-          </View>
-        </View>
-      </ScrollView>
+      )}
+
       <FloatingButton onPress={addLocationRouter} />
     </View>
   );
 };
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#000",
+  },
   content: {
     padding: 20,
   },
+  notFound: {
+    color: "white",
+    textAlign: "center",
+    fontSize: 20,
+    marginTop: 20,
+  },
+  contentData: {
+    flex: 1,
+  },
   searchInput: {
-    backgroundColor: "#222",
+    backgroundColor: "#3f3f3f",
     borderRadius: 8,
     padding: 14,
     marginHorizontal: 20,
     fontSize: 18,
-    color: "white"
+    color: "#fff",
   },
-  container: {
-    flex: 1,
-    backgroundColor: "black",
-  },
+
   title: {
     fontSize: 18,
     fontWeight: "600",
-    color: "white",
+    color: "#fff",
     marginBottom: 10,
     textAlign: "center",
   },

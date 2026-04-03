@@ -54,8 +54,6 @@ export default function Barbers() {
   };
 
   useEffect(() => {
-            console.log("xxxxxxxxxxqqwewqwq",id)
-
     if (id) {
       setTimeout(async () => {
         await getBarbersById(id);
@@ -63,9 +61,14 @@ export default function Barbers() {
     }
   }, [id]);
 
+
   return (
     <View style={styles.container}>
-      {id && <LocationItem item={itemData} id={id} />}
+      {itemData.id && (
+        <View key={itemData.id} style={styles.itemContent}>
+          <Text style={styles.address}>{itemData.address}</Text>
+        </View>
+      )}
       <Text style={styles.subTitle}>{localization.BARBERS.listBarbers}</Text>
       <View style={{ maxHeight: containerHeight }}>
         {isLoading === "getBarbers" && (
@@ -129,10 +132,20 @@ const styles = StyleSheet.create({
   loadingContainer: {
     paddingTop: 40,
   },
+  itemContent: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  address: {
+    color: "#fff",
+    fontSize: 17,
+    paddingHorizontal: 10,
+  },
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: "#121212",
+    backgroundColor: "#000",
   },
   title: {
     fontSize: 22,

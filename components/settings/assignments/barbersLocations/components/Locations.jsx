@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View, Dimensions } from "react-native";
+import { StyleSheet, Text, View, FlatList } from "react-native";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import useLocationBarber from "./../hooks/useLocationBarber";
 import Loader from "@/shared-components/Loader";
@@ -6,64 +6,57 @@ import LocationItem from "./LocationItem";
 import { useEffect } from "react";
 const Locations = () => {
   const { localization } = useLocalization();
-  console.log(".................");
   const {
     getLocations,
     onSelectedLocation,
     isLoading,
-    error,
-    isMessage,
-    message,
-    setIsMessage,
-    locationBarbersData,
     locations,
-    toggleBarber,
-    submitChanges,
     selectedLocation,
-    confirmSubmit,
   } = useLocationBarber();
-  const { height: screenHeight } = Dimensions.get("window");
-  const containerHeight = screenHeight * 1;
 
   useEffect(() => {
     getLocations();
   }, []);
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.scrollContainer}>
-        <View style={styles.content}>
-          <Text style={styles.title}>{localization.PLACES.title}</Text>
-          <View style={{ maxHeight: containerHeight }}>
-            {isLoading === "getLocations" && (
-              <Loader isOpen={isLoading === "getLocations"} />
-            )}
-            <ScrollView>
-              {isLoading !== "getLocations" &&
-                locations.map((item) => (
-                  <LocationItem
-                    key={item.id}
-                    item={item}
-                    onSelectedLocation={onSelectedLocation}
-                    selectedLocation={selectedLocation}
-                  />
-                ))}
-            </ScrollView>
-          </View>
-        </View>
-      </ScrollView>
+      <Text style={styles.title}>{localization.PLACES.title}</Text>
+      <View style={{ flex: 1 }}>
+        {isLoading === "getLocations" && (
+          <Loader isOpen={isLoading === "getLocations"} />
+        )}
+
+        <FlatList
+          data={locations}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => (
+            <LocationItem
+              item={item}
+              onSelectedLocation={onSelectedLocation}
+              selectedLocation={selectedLocation}
+            />
+          )}
+          contentContainerStyle={{ paddingHorizontal: 20 }}
+          showsVerticalScrollIndicator
+          ListEmptyComponent={
+            <Text style={styles.notFound}>{localization.PLACES.notFound}</Text>
+          }
+        />
+      </View>
     </View>
   );
 };
 const styles = StyleSheet.create({
-  content: {
-    padding: 20,
+
+  notFound: {
+    color: "white",
+    textAlign: "center",
+    fontSize: 20,
+    marginTop: 20,
   },
-  scrollContainer: {
-    flex: 1,
-  },
+
   container: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: "#000",
   },
   title: {
     fontSize: 18,
@@ -72,9 +65,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     textAlign: "center",
   },
-  btn: {
-    paddingBottom: 5,
-    marginHorizontal: 20,
-  },
+
 });
 export default Locations;
