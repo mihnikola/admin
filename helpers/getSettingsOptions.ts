@@ -44,12 +44,6 @@ export const getSettingsOptions = (localization: any) => [
     route: "/(tabs)/(03_settings)/locationManagement",
   },
   {
-    id: "2122",
-    title: localization.SETTINGS.WORKHOURS.title,
-    icon: "stopwatch-outline",
-    route: "/(tabs)/(03_settings)/timeManagement",
-  },
-  {
     id: "xcasdqwe232sewdssd",
     title: localization.SETTINGS.NOTIFICATIONSTATUS.title,
     icon: "shuffle-sharp",

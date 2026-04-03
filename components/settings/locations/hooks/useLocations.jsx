@@ -118,8 +118,22 @@ function useLocation() {
       setIsLoading(null);
     }
   };
+
+
+  const verificationData = (data) => {
+    if (data.close === locationById.workingHours.end &&
+      data.open === locationById.workingHours.start &&
+      data.streetName === locationById.address &&
+      data.minutes === locationById.slotDuration) {
+      return false;
+    }
+    return true;
+  }
   const addEditLocation = async (data) => {
     const { id } = data;
+
+    if (!verificationData(data)) { return; }
+   
 
     setIsLoading("addEdit");
     const url = id

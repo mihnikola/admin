@@ -1,7 +1,6 @@
-import { FontAwesome } from "@expo/vector-icons";
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
 
-const LocationItem = ({ item, onSelectedLocation, selectedLocation }) => {
+const LocationItem = ({ item, onSelectedLocation }) => {
   const onSelectedHandler = (item) => {
     onSelectedLocation(item);
   };
@@ -32,7 +31,8 @@ const styles = StyleSheet.create({
   },
   item: {
     padding: 5,
-    marginVertical: 9,
+    marginHorizontal: 2,
+    marginVertical: 10,
     borderRadius: 20,
     flexDirection: "row",
     alignItems: "center",

@@ -41,8 +41,8 @@ const Locations = () => {
             <Text style={styles.notFound}>{localization.PLACES.notFound}</Text>
           }
         />
-      </View>
-    </View>
+ </View>
+ </View>
   );
 };
 const styles = StyleSheet.create({

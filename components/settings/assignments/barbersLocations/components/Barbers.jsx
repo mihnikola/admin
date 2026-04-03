@@ -1,11 +1,9 @@
 import { FontAwesome } from "@expo/vector-icons";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   Dimensions,
   FlatList,
-  Image,
-  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -14,35 +12,23 @@ import {
 import useLocationBarber from "./../hooks/useLocationBarber";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { SharedMessage } from "@/shared-components/SharedMessage";
-import { SharedQuestion } from "@/shared-components/SharedQuestion";
-import { SharedLoader } from "@/shared-components/SharedLoader";
-import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import Loader from "@/shared-components/Loader";
-import LocationItem from "./LocationItem";
 import BarberItem from "./BarberItem";
 
 export default function Barbers() {
   const { height: screenHeight } = Dimensions.get("window");
-  const containerHeight = screenHeight * 0.62;
+  const containerHeight = screenHeight * 0.6;
   const { localization } = useLocalization();
   const { id, address } = useLocalSearchParams();
-  const itemData = {
-    id,
-    address,
-  };
+
   const {
     isLoading,
-    error,
     isMessage,
-    setIsMessage,
-    setMessage,
     message,
     locationBarbersData,
-    removeService,
     confirmSubmit,
     getBarbersById,
-    startEditing,
-    servicesByBarbers,
     toggleBarber,
     submitChanges,
   } = useLocationBarber();
@@ -60,7 +46,6 @@ export default function Barbers() {
       }, 100);
     }
   }, [id]);
-
 
   return (
     <View style={styles.container}>
@@ -86,23 +71,32 @@ export default function Barbers() {
           />
         )}
       </View>
-      {isLoading !== "getBarbers" && (
-        <View style={{ flex: 1 }}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => submitChanges(id)}
-          >
-            {isLoading === "post" && (
-              <ActivityIndicator size={20} color="#fff" />
+      <View style={{ flex: 1 }}>
+        {isLoading === "getBarbers" ? (
+          <View style={styles.loadingContainer}>
+            <Loader />
+          </View>
+        ) : (
+          <FlatList
+            data={locationBarbersData}
+            keyExtractor={(item) => item._id}
+            renderItem={({ item }) => (
+              <BarberItem item={item} toggleBarber={toggleBarber} />
             )}
-            {isLoading !== "post" && (
-              <Text style={styles.buttonText}>
-                {localization.SERVICES.saveChanges}
-              </Text>
-            )}
-          </TouchableOpacity>
-        </View>
-      )}
+            contentContainerStyle={{ paddingBottom: 20 }}
+          />
+        )}
+      </View>
+
+      <TouchableOpacity style={styles.button} onPress={() => submitChanges(id)}>
+        {isLoading === "post" ? (
+          <ActivityIndicator size={20} color="#fff" />
+        ) : (
+          <Text style={styles.buttonText}>
+            {localization.SERVICES.saveChanges}
+          </Text>
+        )}
+      </TouchableOpacity>
 
       {isMessage && (
         <SharedMessage
@@ -152,6 +146,14 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#fff",
     marginBottom: 10,
+  },
+  address: {
+    marginHorizontal: 2,
+    fontSize: 20,
+    marginVertical: 10,
+    alignItems: "center",
+    justifyContent: "space-between",
+    color: "white",
   },
 
   subTitle: {

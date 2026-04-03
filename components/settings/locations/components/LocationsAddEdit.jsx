@@ -22,7 +22,6 @@ export default function LocationsAddEdit() {
   const [editingId, setEditingId] = useState(null);
   const [active, setActive] = useState(null);
 
-  const [place, setPlace] = useState(null);
   const [placeId, setPlaceId] = useState(null);
   const [workHours, setWorkHours] = useState(null);
   const [slotDuration, setSlotDuration] = useState(null);
@@ -104,7 +103,6 @@ export default function LocationsAddEdit() {
           onSelect={({ city, street, lat, lng, place_id }) => {
             setCity(city);
             setStreetName(street);
-            setPlace({ lat, lng });
             setLat(lat);
             setLng(lng);
             setPlaceId(place_id);
@@ -126,7 +124,21 @@ export default function LocationsAddEdit() {
           />
         )}
       </View>
-      {streetName && <TimeSettingsScreen activateLocation={activateLocation} isLoading={isLoading} deleteLocation={deleteLocation} deactivate={deactivateLocation} workHours={workHours?.workingHours} minutes={slotDuration} active={active} id={id} submitEverything={submitHandler} />}
+      {streetName && <TimeSettingsScreen
+        data={locationById}
+        city={city}
+        streetName={streetName}
+        activateLocation={activateLocation}
+        isLoading={isLoading}
+        deleteLocation={deleteLocation}
+        deactivate={deactivateLocation}
+        workHours={workHours?.workingHours}
+        minutes={slotDuration}
+        active={active}
+        id={id}
+        submitEverything={submitHandler}
+      />
+      }
 
       {isMessage && (
         <SharedMessage

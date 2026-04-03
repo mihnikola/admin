@@ -17,7 +17,6 @@ const useFetchLocations = () => {
 
     try {
       const response = await get("/places");
-      console.log("object",response)
       if (response.status === 200) {
         setIsLoading(false);
         const { data } = response;

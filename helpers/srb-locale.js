@@ -270,6 +270,11 @@ export const SRB_LOCALIZATION = {
     NOTIFICATIONSTATUS: {
       title: "Status odobravanja rezervacija",
       capture: "Tip odobravanja",
+<<<<<<< HEAD
+=======
+      saveChanges: "Sačuvaj promene",
+      submitChanges: "Tip odobravanja je uspešno promenjen."
+>>>>>>> 71e53e7fd52c206d2f6ea8b5a9b62f20d37145fd
     },
     WORKHOURS: {
       title: "Upravljanje radnim vremenom",

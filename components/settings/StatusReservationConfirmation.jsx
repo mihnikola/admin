@@ -14,24 +14,50 @@ import {
 import useStatusNotification from './hooks/useStatusNotification';
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { router } from "expo-router";
-import Loader from "@/shared-components/Loader";
+import { SharedLoader } from "@/shared-components/SharedLoader";
+import { SharedMessage } from "@/shared-components/SharedMessage";
+import { useEffect } from "react";
 
 const StatusReservationConfirmation = () => {
     const { localization } = useLocalization();
-    const { notificationStatuses, changeStatusNotification, patchStatusNotification, isLoading } = useStatusNotification();
+    const {
+        notificationStatuses,
+        changeStatusNotification,
+        patchStatusNotification,
+        isMessage,
+        confirmHandler,
+        isLoading,
+        notificationData,
+        error,
+        message,
+        getAllNotificationStatuses,
+        getEmployerCheck
+    } = useStatusNotification();
+
+
 
     const { company } = useCompany();
 
+    useEffect(() => {
+        setTimeout(async () => {
+            await getAllNotificationStatuses();
+            await getEmployerCheck();
+        }, 20);
+    }, []);
+
+
+    if (isLoading === 'get') {
+        return <SharedLoader isLoading={isLoading === 'get'} />
+    }
+
     return (
         <View style={styles.container}>
-            <StatusBar backgroundColor="black" barStyle="dark-content" />
             <SharedBackButton onPress={router.back} />
             <SharedTabHeader
                 image={company?.media?.coverImageSettings}
                 title={localization.SETTINGS.NOTIFICATIONSTATUS.capture}
             />
 
-            {isLoading && <Loader />}
             <FlatList
                 data={notificationStatuses}
                 keyExtractor={(item) => item._id}
@@ -44,7 +70,7 @@ const StatusReservationConfirmation = () => {
                             {localization.code === "en" ? item.name.nameEn : item.name.nameLocal}
                         </Text>
                         <FontAwesome
-                            name={"check-circle-o"}
+                            name={item._id === notificationData?._id && "check-circle-o"}
                             size={28}
                             color="white"
                         />
@@ -53,17 +79,36 @@ const StatusReservationConfirmation = () => {
             />
 
 
-            <SharedButton
-                // loading={loadingLogin === 'login'}
-                onPress={patchStatusNotification}
-                text="Posalji promene"
-            />
+            <View style={{ marginHorizontal: 20 }}>
+                <SharedButton
+                    loading={isLoading === 'patch'}
+                    onPress={patchStatusNotification}
+                    text={localization.SETTINGS.NOTIFICATIONSTATUS.saveChanges}
+                />
+            </View>
+            {isMessage && (
+                <SharedMessage
+                    isOpen={isMessage}
+                    onClose={confirmHandler}
+                    onConfirm={confirmHandler}
+                    icon={
+                        <FontAwesome
+                            name={error ? "close" : "check-circle-o"}
+                            size={64}
+                            color="white"
+                        />
+                    }
+                    title={error || message}
+                    buttonText="OK"
+                />
+            )}
         </View>
     );
 };
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        marginTop: 10,
         backgroundColor: "black",
     },
     captureContainer: {
@@ -92,7 +137,7 @@ const styles = StyleSheet.create({
 
     languageItem: {
         padding: 20,
-        marginHorizontal: 10,
+        marginHorizontal: 20,
         marginVertical: 10,
         borderRadius: 20,
         flexDirection: "row",

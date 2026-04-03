@@ -45,7 +45,6 @@ export default function TimeSettingsScreen({
   const [isError, setIsError] = useState(false);
   const [isRemove, setIsRemove] = useState(false);
   const [isDeactivate, setIsDeactivate] = useState(false);
-  const [isUndo, setIsUndo] = useState(false);
 
   useEffect(() => {
     getTimes();
@@ -157,12 +156,63 @@ export default function TimeSettingsScreen({
       0,
     );
   };
-
   const [toTime, setToTime] = useState(finishedDate(workHours?.end));
   const [fromTime, setFromTime] = useState(startDate(workHours?.start));
-
   const [showFromPicker, setShowFromPicker] = useState(false);
   const [showToPicker, setShowToPicker] = useState(false);
+  const [isUndo, setIsUndo] = useState(false);
+  const [disabledBtn, setDisabledBtn] = useState(false);
+
+  const verificationData = () => {
+    if (
+      data.address == streetName &&
+      data.workingHours.start == formatTime(fromTime) &&
+      data.workingHours.end == formatTime(toTime) &&
+      data.slotDuration == selected
+    ) {
+      setDisabledBtn(true);
+    } else {
+      setDisabledBtn(false);
+    }
+  };
+
+  useEffect(() => {
+    getTimes();
+  }, []);
+
+  useEffect(() => {
+    verificationData();
+  }, [selected, fromTime, toTime, streetName]);
+
+  console.log("selected", selected);
+
+  useEffect(() => {
+    if (minutesValue || minutes) {
+      console.log("wwwwwwwww", minutes, minutesValue);
+      setSelected(minutes || minutesValue);
+    }
+  }, [minutesValue, minutes]);
+
+  useEffect(() => {
+    if (startWorkTime) {
+      const [h, s] = startWorkTime.split(":").map(Number);
+      setFromTime(new Date(0, 0, 0, h, s));
+    }
+  }, [startWorkTime]);
+
+  useEffect(() => {
+    if (endWorkTime) {
+      const [h, s] = endWorkTime.split(":").map(Number);
+      setToTime(new Date(0, 0, 0, h, s));
+    }
+  }, [endWorkTime]);
+
+  useEffect(() => {
+    if (minutesValue) {
+      console.log("wqweqweqwe");
+      setSelected(minutesValue);
+    }
+  }, [minutesValue]);
 
   const onChangeFrom = (event, selectedDate) => {
     setShowFromPicker(Platform.OS === "ios");
@@ -194,14 +244,18 @@ export default function TimeSettingsScreen({
       setIsError(true);
       return;
     }
-    const data = {
+    const dataData = {
       open: formatTime(fromTime),
       close: formatTime(toTime),
       minutes: selected,
     };
+    console.log("locationById", data);
+    console.log("locationByIdxs", dataData);
+    console.log("streetName", streetName);
+    console.log("city", city);
     submitEverything(data);
   };
-
+  console.log("disabledBtn", disabledBtn);
   return (
     <View style={styles.container}>
       <Text style={styles.title}>

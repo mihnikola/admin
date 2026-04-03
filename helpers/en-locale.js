@@ -80,7 +80,10 @@ export const ENG_LOCALIZATION = {
     approved: "Approved",
     rejected: "Rejected",
     reservation: "Treatman is missed",
+
+
   },
+
   PLACES: {
     errorFields: "Fill in all input fields",
     deactivatedSuccess: "Location is successfully deactivated",
@@ -109,7 +112,7 @@ export const ENG_LOCALIZATION = {
     error: "Error while fetching locations...",
     close: "Close",
     search: "Enter address",
-    notFound:"Location not found"
+    notFound:"Locations not found"
 
   },
   DATE: {
@@ -265,7 +268,9 @@ export const ENG_LOCALIZATION = {
     },
     NOTIFICATIONSTATUS: {
       title: "Status reservation confirmation",
-      capture: "Type confirmation"
+      capture: "Type confirmation",
+      saveChanges: "Save changes",
+      submitChanges: "Type confirmation is successfully changed."
     },
     WORKHOURS: {
       title: "Work hours management",
