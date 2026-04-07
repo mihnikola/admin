@@ -1,10 +1,12 @@
 import { ExpoConfig, ConfigContext } from "@expo/config";
 
+const APP_VERSION = '1.0.0'
+
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   name: "fta-barber-admin-app",
   slug: "fta-barber-admin-app",
-  version: "1.0.0",
+  version: APP_VERSION,
   orientation: "portrait",
   icon: "./assets/images/admin.png",
   scheme: "adminbarberdemo",
@@ -50,4 +52,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     API_KEY_MAP: "AIzaSyD5_HYUYyAb5m7n4bih0WSKyQCYsBOAK9w",
   },
   owner: "fusion-tech-agency",
+  updates: {
+    "url": "https://u.expo.dev/fcd5681e-4fac-41b4-9334-d272ee972954"
+  },
+  runtimeVersion: APP_VERSION
 });
