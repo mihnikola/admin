@@ -144,11 +144,13 @@ export const SRB_LOCALIZATION = {
     mark: "Ocena",
   },
   APPOINTMENTS: {
+    completed:"Termin je uspešno završen",
     missedReservation: {
       success: "Termin je propušten",
       question: "Da li ste sigurni da želite da propustite ovu rezervaciju?",
       yesButton: "Propusti",
     },
+    cancelBtn:"Otkaži termin",
     error: "Trenutno nemate nijedan zahtev na cekanju",
     errorDailyLimit: "Ne možete napraviti više rezervacija za ovaj dan.",
     errorWeeklyLimit: "Ne možete napraviti više rezervacija za ovu nedelju.",

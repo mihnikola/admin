@@ -6,7 +6,6 @@ import { useLocalization } from "@/contexts/LocalizationContext";
 
 const SharedDetailsServiceCard = (props) => {
   const { data } = props;
-  console.log("data",data)
   const { id, image, name, duration, price } = data;
   const { localization } = useLocalization();
   

@@ -82,9 +82,14 @@ export const convertTimeHandler = (time) => {
   const date = new Date(time);
   const get = convertToBelgradeDateTimeStamp(date);
   return `${get("hour")}:${get("minute")}`;
-
 };
-
+export const convertNowDateTimestamp = (value) => {
+  const date = new Date(value);
+  const get = convertToBelgradeDateTimeStamp(date);
+  return new Date(
+    `${get("year")}-${get("month")}-${get("day")}T${get("hour")}:${get("minute")}:${get("second")}Z`,
+  );
+};
 export function getCurrentUTCOffset() {
   const now = new Date();
 
@@ -281,28 +286,43 @@ export const convertReadFullDateTime = (item) => {
 };
 export const convertReadDateTime = (startTime) => {
   const dateValue = new Date();
-  const get = convertToBelgradeDateTimeStamp(dateValue);
-  const currentDateTimestamp = `${get("year")}-${get("month")}-${get("day")}T${get("hour")}:${get("minute")}:${get("second")}Z`;
-  return getTodayOrTommorow(startTime, currentDateTimestamp);
+  return getTodayOrTommorow(startTime, dateValue);
 };
 
-const getTodayOrTommorow = (x,y) => {
+const getTodayOrTommorow = (x, y) => {
   const { localization } = useLocalization();
 
-  const criteriaDate = new Date(x);
-  const currentDate = new Date(y);
+const criteriaDate = new Date(x);
+const currentDate = new Date(y);
 
-  const diffMs = criteriaDate.getTime() - currentDate.getTime();
+// uklanjamo vreme
+const startOfToday = new Date(currentDate);
+startOfToday.setHours(0, 0, 0, 0);
 
-  if (diffMs <= 0) return "Error not valid dateTime";
+const startOfCriteria = new Date(criteriaDate);
+startOfCriteria.setHours(0, 0, 0, 0);
 
-  const diffHours = diffMs / (1000 * 60 * 60);
+// razlika u danima
+const diffDays = Math.floor(
+  (startOfCriteria - startOfToday) / (1000 * 60 * 60 * 24)
+);
+  console.log("currentDate",currentDate)
+  console.log("criteriaDate",criteriaDate)
+if (criteriaDate < currentDate)  return `${localization.HOME.today} ${convertTimeHandler(criteriaDate)}h`;
 
-  if (diffHours < 24) return `${localization.HOME.today} ${convertTimeHandler(criteriaDate)}`;
-  if (diffHours < 48) return `${localization.HOME.tomorrow} ${convertTimeHandler(criteriaDate)}`;
-  return `${convertReadFullDateTime(x)}`;
 
-}
+if (diffDays === 0)
+  return `${localization.HOME.today} ${convertTimeHandler(criteriaDate)}h`;
+
+if (diffDays === 1)
+  return `${localization.HOME.tomorrow} ${convertTimeHandler(criteriaDate)}h`;
+
+if (diffDays === 2)
+return `${convertReadFullDateTime(x)}h`;
+
+
+
+};
 
 export function convertToMonthName(dateString) {
   // Convert the string to a Date object

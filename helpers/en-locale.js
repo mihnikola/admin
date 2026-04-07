@@ -29,8 +29,8 @@ export const ENG_LOCALIZATION = {
     commentLabel: "Treatment description:",
     upcoming: "Upcoming",
     inProgress: "inProgress",
-    today:"Today at ",
-    tomorrow:"Tomorrow at " ,
+    today: "Today at ",
+    tomorrow: "Tomorrow at ",
   },
   BUTTONS: {
     ok: "OK",
@@ -83,8 +83,6 @@ export const ENG_LOCALIZATION = {
     approved: "Approved",
     rejected: "Rejected",
     reservation: "Treatman is missed",
-
-
   },
 
   PLACES: {
@@ -115,8 +113,7 @@ export const ENG_LOCALIZATION = {
     error: "Error while fetching locations...",
     close: "Close",
     search: "Enter address",
-    notFound:"Locations not found"
-
+    notFound: "Locations not found",
   },
   DATE: {
     title: "Choose date",
@@ -166,11 +163,13 @@ export const ENG_LOCALIZATION = {
   },
 
   APPOINTMENTS: {
+    completed: "Appointment completed successfully",
     missedReservation: {
       success: "Appointment is successfully missed",
       question: "Are you sure you want to missed this reservation?",
       yesButton: "Missed",
     },
+    cancelBtn: "Cancel appointment",
     error: "You don't have any requirements",
     errorDailyLimit: "You cannot make more reservation this day",
     errorWeeklyLimit: "You cannot make more reservation this week",
@@ -273,7 +272,7 @@ export const ENG_LOCALIZATION = {
       title: "Status reservation confirmation",
       capture: "Type confirmation",
       saveChanges: "Save changes",
-      submitChanges: "Type confirmation is successfully changed."
+      submitChanges: "Type confirmation is successfully changed.",
     },
     WORKHOURS: {
       title: "Work hours management",

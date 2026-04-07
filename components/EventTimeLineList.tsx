@@ -8,7 +8,6 @@ import {
 import SharedCard from "@/shared-components/SharedCard";
 
 const EventTimelineList = ({ events, isLoading, error }) => {
-  console.log("events",events);
   if (error) {
     return (
       <View style={styles.messageContainer}>

@@ -114,7 +114,6 @@ export const AppointmentProvider = ({ children }) => {
 
     try {
       const response = await get(`/admin/availabilities/${reservationId}`);
-      console.log("/admin/je l to ovo/",response)
       const startDateTime = convertTimeHandler(response?.startDate);
       const finishedTime = addMinutesToTime(
         convertTimeHandler(response?.startDate),

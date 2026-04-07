@@ -19,7 +19,6 @@ function BarbersSeniority({
     setModalVisible(false);
   };
 
-  console.log("dataxxxxxxxxxxx", seniorityData);
   return (
     <Modal
       animationType="fade"

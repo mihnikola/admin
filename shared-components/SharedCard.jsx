@@ -6,6 +6,7 @@ import { convertTimeHandler } from "../helpers";
 
 const SharedCard = ({ item }) => {
   const { localization } = useLocalization();
+  console.log("item", item);
 
   const goToScreen = (item) => {
     router.push({
@@ -14,9 +15,19 @@ const SharedCard = ({ item }) => {
         itemId: item?.id,
         user: item?.reservation?.user,
         note: item?.reservation?.note,
-        arrived: item?.arrived
+        arrived: item?.arrived,
       },
     });
+  };
+
+  const finishReservation = () => {
+    const now = new Date();
+    const startDate = new Date(item.startTime);
+
+    if (now > startDate) {
+      return true;
+    }
+    return false;
   };
 
   return (
@@ -26,11 +37,15 @@ const SharedCard = ({ item }) => {
       onPress={() => goToScreen(item)}
     >
       <View style={styles.timeBlock}>
-        <Text style={styles.startTime}>{convertTimeHandler(item.startTime)}</Text>
+        <Text style={styles.startTime}>
+          {convertTimeHandler(item.startTime)}
+        </Text>
       </View>
       <View style={styles.detailsBlock}>
         <Text style={styles.eventTitle}>
-          {localization.code === "en" ? item?.name?.nameEn : item?.name?.nameLocal}
+          {localization.code === "en"
+            ? item?.name?.nameEn
+            : item?.name?.nameLocal}
         </Text>
         <Text style={styles.eventUser}>
           {item.reservation.user
@@ -42,7 +57,8 @@ const SharedCard = ({ item }) => {
         {item.arrived === "arrived" ? (
           <Text style={styles.eventStatus}>
             {item.status === "pending" && localization.STATUS.pending}
-            {item.status === "approved" && localization.STATUS.approved}
+            {item.status === "approved" && !finishReservation() && localization.STATUS.approved}
+            {item.status === "approved" && finishReservation() && localization.STATUS.completed}
             {item.status === "rejected" && localization.STATUS.rejected}
           </Text>
         ) : (
@@ -56,8 +72,11 @@ const SharedCard = ({ item }) => {
           {item.status === "pending" && (
             <FontAwesome size={25} color="white" name="clock-o" />
           )}
-          {item.status === "approved" && (
+          {item.status === "approved" && finishReservation() && (
             <FontAwesome size={25} color="white" name="check-circle-o" />
+          )}
+           {item.status === "approved" && !finishReservation() && (
+            <FontAwesome size={25} color="white" name="thumbs-up" />
           )}
           {item.status === "rejected" && (
             <FontAwesome size={25} color="white" name="close" />
