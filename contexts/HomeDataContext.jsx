@@ -2,6 +2,7 @@
 import { createContext, useContext, useState } from "react";
 import { useLocalization } from "./LocalizationContext";
 import { get } from "@/api/apiService";
+import { convertTimeHandler } from "../helpers";
 
 const HomeDataContext = createContext(null);
 export const useHomeData = () => {
@@ -26,6 +27,7 @@ export const HomeDataProvider = ({ children }) => {
     if (!res) return null;
     return {
       ...res,
+    
       arrived: ARRIVED_STATUS_MAP[res.arrived] ?? "unknown" // 'unknown' kao fallback
     };
   };
@@ -38,10 +40,12 @@ export const HomeDataProvider = ({ children }) => {
     const id = new Date();
     try {
       const response = await get(`/admin/availabilities/${id}/getHomeInfo`); //fetchInProgressOne
-      console.log("essxx",response);
+
       if (response?.status === 200) {
         const { currentReservation, nextReservation, pendingReservations } =
           response.data;
+
+
         setRequirementLength(pendingReservations?.amount ?? 0);
         setRequirements(pendingReservations?.data ?? []);
 

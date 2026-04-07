@@ -27,6 +27,10 @@ export const ENG_LOCALIZATION = {
     location: "Locations",
     requirements: "Requirements",
     commentLabel: "Treatment description:",
+    upcoming: "Upcoming",
+    inProgress: "inProgress",
+    today:"Today at ",
+    tomorrow:"Tomorrow at " ,
   },
   BUTTONS: {
     ok: "OK",

@@ -1,6 +1,14 @@
 import { useLocalization } from "@/contexts/LocalizationContext";
-import { dayNamesRs, dayNamesShortRs } from "@/helpers/locale-calendar-rs";
-import { dayNamesShortEng, dayNamesEng } from "@/helpers/locale-calendar-en";
+import {
+  dayNamesRs,
+  dayNamesShortRs,
+  monthNamesRs,
+} from "@/helpers/locale-calendar-rs";
+import {
+  dayNamesShortEng,
+  dayNamesEng,
+  monthNamesEng,
+} from "@/helpers/locale-calendar-en";
 export function addMinutesToTime(inputTime, minutesToAdd) {
   // Parsiraj ulazno vreme (format je hh:mm)
   // const [day, tttt] = inputTime?.split("T");
@@ -32,7 +40,6 @@ export const calendarTheme = {
   textDisabledColor: "#A9A9A9", // siva za prošle datume
 };
 
-
 export function convertDayInitalValue(data) {
   const dataValue = data.split(",")[0];
   const [day, month, year] = dataValue.split("/");
@@ -41,9 +48,9 @@ export function convertDayInitalValue(data) {
 }
 
 export function structureData(response) {
-  const startDateTime = convertToDayTime(response?.startDate);
+  const startDateTime = convertTimeHandler(response?.startDate);
   const finishedTime = addMinutesToTime(
-    convertToDayTime(response?.startDate),
+    convertTimeHandler(response?.startDate),
     response?.service?.duration,
   );
   const eventDate = convertDate(response?.startDate);
@@ -56,16 +63,28 @@ export function structureData(response) {
     finishedTime,
   };
 }
-export function convertToDayTime(dateString) {
-  // Convert the string to a Date object
-  const [date, time] = dateString.split("T");
-  const [hours, minutes] = time.split(":");
 
-  const formattedMinutes = minutes.length === 1 ? "0" + minutes : minutes;
-  const formattedHours = hours.length === 1 ? "0" + hours : hours;
+const convertToBelgradeDateTimeStamp = (date) => {
+  const belgrade = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Europe/Belgrade",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+  }).formatToParts(date);
+  return (type) => belgrade.find((p) => p.type === type).value;
+};
 
-  return `${formattedHours}:${formattedMinutes}`;
-}
+export const convertTimeHandler = (time) => {
+  const date = new Date(time);
+  const get = convertToBelgradeDateTimeStamp(date);
+  return `${get("hour")}:${get("minute")}`;
+
+};
+
 export function getCurrentUTCOffset() {
   const now = new Date();
 
@@ -236,26 +255,54 @@ export const convertAmPmTo24HourFormat = (dateTimeAmPmString) => {
   };
 };
 
-export const convertReadDate = (item) => {
+export const convertReadFullDateTime = (item) => {
   const date = new Date(item);
   const { localization } = useLocalization();
   let weekdays = [];
+  let months = [];
   if (localization.code === "en") {
     weekdays = dayNamesEng;
+    months = monthNamesEng;
   } else {
     weekdays = dayNamesRs;
+    months = monthNamesRs;
   }
   const dayOfWeek = weekdays[date.getDay()];
+  const monthName = months[date.getMonth()];
 
-  // Format the date to day-month-year
-  const day = String(date.getDate()).padStart(2, "0");
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const year = date.getFullYear();
-
-  // Combine everything into the desired format
-  return `${dayOfWeek} ${day}-${month}-${year}`;
+  const day = date.getDate();
+  const time = item.split("T")[1];
+  const [hour, minuts] = time.split(":");
+  if (localization.code === "en") {
+    return `${dayOfWeek} ${day}.${monthName} at ${hour}:${minuts}`;
+  } else {
+    return `${dayOfWeek} ${day}.${monthName} u ${hour}:${minuts}`;
+  }
+};
+export const convertReadDateTime = (startTime) => {
+  const dateValue = new Date();
+  const get = convertToBelgradeDateTimeStamp(dateValue);
+  const currentDateTimestamp = `${get("year")}-${get("month")}-${get("day")}T${get("hour")}:${get("minute")}:${get("second")}Z`;
+  return getTodayOrTommorow(startTime, currentDateTimestamp);
 };
 
+const getTodayOrTommorow = (x,y) => {
+  const { localization } = useLocalization();
+
+  const criteriaDate = new Date(x);
+  const currentDate = new Date(y);
+
+  const diffMs = criteriaDate.getTime() - currentDate.getTime();
+
+  if (diffMs <= 0) return "Error not valid dateTime";
+
+  const diffHours = diffMs / (1000 * 60 * 60);
+
+  if (diffHours < 24) return `${localization.HOME.today} ${convertTimeHandler(criteriaDate)}`;
+  if (diffHours < 48) return `${localization.HOME.tomorrow} ${convertTimeHandler(criteriaDate)}`;
+  return `${convertReadFullDateTime(x)}`;
+
+}
 
 export function convertToMonthName(dateString) {
   // Convert the string to a Date object
@@ -278,4 +325,3 @@ export function convertToDay(dateString) {
 
   return day; // Output: January
 }
-

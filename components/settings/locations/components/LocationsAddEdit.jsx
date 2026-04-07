@@ -95,6 +95,8 @@ export default function LocationsAddEdit() {
     return <SharedLoader isOpen={isLoading === "getPlaceById"} />;
   }
 
+  console.log("workHours",workHours);
+  console.log("locationById",locationById);
 
   return (
     <View style={styles.container}>

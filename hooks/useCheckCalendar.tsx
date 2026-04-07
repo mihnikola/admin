@@ -1,6 +1,6 @@
 import { getData } from "@/api/apiService";
 import { useAuth } from "@/contexts/AuthContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function useCheckCalendar() {
   const [checkDates, setCheckDates] = useState();
@@ -65,6 +65,7 @@ function useCheckCalendar() {
     }
   };
   const handleDayPress = (day) => {
+    console.log("handleDayPress", day);
     const clickedDate = new Date(day);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -75,12 +76,61 @@ function useCheckCalendar() {
     } else {
       console.log("Kliknut budući/današnji dan:", day?.dateString);
     }
-    const cleanedDates = removeSelectedProps(checkDates);
+    let cleanedDates = removeSelectedProps(checkDates);
     cleanedDates[day?.dateString] = {
       ...cleanedDates[day?.dateString],
       selected: true,
       selectedColor: "#ffffffff",
     };
+    console.log("cleanedDates", cleanedDates);
+    setCheckDates(cleanedDates);
+    getReservations(day?.dateString);
+  };
+  const createMonthObject = (date = new Date()) => {
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const today = date.toLocaleDateString("sv-SE");
+
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const result = {};
+
+    for (let day = 1; day <= daysInMonth; day++) {
+      const key = `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+
+      result[key] = {
+        marked: false,
+        dotColor: "#000000",
+      };
+
+      if (key === today) {
+        
+        result[key] = {
+          marked: true,
+          dotColor: "white",
+          selected: true,
+          selectedColor: "#fff",
+        };
+      }
+    }
+
+    return result;
+  };
+
+  const initialHandleDayPress = (day) => {
+    console.log("handleDayPress", day);
+    const clickedDate = new Date(day);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const isPast = clickedDate < today;
+    if (isPast) {
+      console.log("Kliknut prošli dan:", day);
+    } else {
+      console.log("Kliknut budući/današnji dan:", day?.dateString);
+    }
+
+    let cleanedDates = createMonthObject();
+    console.log("cleanedDates",cleanedDates)
     setCheckDates(cleanedDates);
     getReservations(day?.dateString);
   };
@@ -108,6 +158,20 @@ function useCheckCalendar() {
       setIsLoading(false);
     }
   };
+  const nowValue = new Date();
+
+  const formatDate = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+
+    return { dateString: `${year}-${month}-${day}` };
+  };
+  useEffect(() => {
+    const result = formatDate(nowValue);
+    setSelectedDate(true);
+    initialHandleDayPress(result);
+  }, []);
 
   return {
     isLoading,

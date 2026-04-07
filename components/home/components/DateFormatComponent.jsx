@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import { convertToDay, convertToDayTime, convertToMonthName } from "./../../../helpers";
+import { convertTimeHandler, convertToDay, convertToMonthName } from "./../../../helpers";
 
 const DateFormatComponent = ({ item }) => {
   return (
@@ -11,7 +11,7 @@ const DateFormatComponent = ({ item }) => {
         {convertToDay(item?.startTime)}
       </Text>
       <Text style={styles.captureDate}>
-        {convertToDayTime(item?.startTime)}
+        {convertTimeHandler(item?.startTime)}
       </Text>
     </View>
   );

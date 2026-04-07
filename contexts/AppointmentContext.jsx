@@ -7,10 +7,10 @@ import { get, post, put } from "@/api/apiService";
 import {
   addMinutesToTime,
   convertNameAndDate,
-  convertToDayTime,
 } from "@/helpers";
 
 import useRequirements from "@/components/home/hooks/useRequirements";
+import { convertTimeHandler } from "../helpers";
 
 const AppointmentContext = createContext(null);
 export const useAppointment = () => {
@@ -114,9 +114,10 @@ export const AppointmentProvider = ({ children }) => {
 
     try {
       const response = await get(`/admin/availabilities/${reservationId}`);
-      const startDateTime = convertToDayTime(response?.startDate);
+      console.log("/admin/je l to ovo/",response)
+      const startDateTime = convertTimeHandler(response?.startDate);
       const finishedTime = addMinutesToTime(
-        convertToDayTime(response?.startDate),
+        convertTimeHandler(response?.startDate),
         response?.service?.duration,
       );
 

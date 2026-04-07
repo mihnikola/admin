@@ -2,7 +2,6 @@ import { FontAwesome } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
-  Dimensions,
   FlatList,
   StyleSheet,
   Text,
@@ -17,11 +16,13 @@ import Loader from "@/shared-components/Loader";
 import BarberItem from "./BarberItem";
 
 export default function Barbers() {
-  const { height: screenHeight } = Dimensions.get("window");
-  const containerHeight = screenHeight * 0.6;
   const { localization } = useLocalization();
   const { id, address } = useLocalSearchParams();
 
+  const itemData = {
+    id,
+    address,
+  };
   const {
     isLoading,
     isMessage,
@@ -55,22 +56,7 @@ export default function Barbers() {
         </View>
       )}
       <Text style={styles.subTitle}>{localization.BARBERS.listBarbers}</Text>
-      <View style={{ maxHeight: containerHeight }}>
-        {isLoading === "getBarbers" && (
-          <View style={styles.loadingContainer}>
-            <Loader />
-          </View>
-        )}
-        {isLoading !== "getBarbers" && (
-          <FlatList
-            data={locationBarbersData}
-            keyExtractor={(item) => item._id}
-            renderItem={({ item }) => (
-              <BarberItem item={item} toggleBarber={toggleBarber} />
-            )}
-          />
-        )}
-      </View>
+    
       <View style={{ flex: 1 }}>
         {isLoading === "getBarbers" ? (
           <View style={styles.loadingContainer}>

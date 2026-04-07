@@ -11,7 +11,6 @@ import {
 import { CalendarList } from "react-native-calendars";
 import EventTimelineList from "../../EventTimeLineList";
 
-
 const DateComponent = () => {
   const today = new Date();
   const localDateString = today.toLocaleDateString("sv-SE");
@@ -25,10 +24,26 @@ const DateComponent = () => {
     selectedDate,
     setSelectedDate,
   } = useCheckCalendar();
-  const [checkMonth, setCheckMonth] = useState();
+  const [checkMonth, setCheckMonth] = useState(null);
+  const [calendarHight, setCalendarHeight] = useState(null);
 
+  const getWeeksInMonth = (dateString) => {
+    const date = new Date(dateString);
+
+    const firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
+    const daysInMonth = new Date(
+      date.getFullYear(),
+      date.getMonth() + 1,
+      0,
+    ).getDate();
+
+    return Math.ceil((firstDay + daysInMonth) / 7) * 50 + 50;
+  };
   useEffect(() => {
+    console.log("xxxxxxxxxxx");
     getDates(checkMonth || localDateString);
+
+    setCalendarHeight(getWeeksInMonth(checkMonth));
   }, [checkMonth]);
 
   const onDayPressHandler = (date) => {
@@ -40,71 +55,67 @@ const DateComponent = () => {
     return (
       <View style={styles.container}>
         <StatusBar backgroundColor="black" barStyle="dark-content" />
-        <View style={styles.calendarContainer}>
-      
-            <CalendarList
-              key="s"
-              calendarHeight={200}
-              style={styles.calendar}
-              theme={calendarTheme}
-              onVisibleMonthsChange={(months) => {
-                setSelectedDate(false);
-                setCheckMonth(months[0]?.dateString);
-              }}
-              current={localDateString}
-              minDate={localDateString}
-              horizontal
-              pagingEnabled
-              markedDates={checkDates}
-              dayComponent={({ date, state }) => {
-                const dateStr = date?.dateString;
-                const isPast =
-                  new Date(dateStr) < new Date().setHours(0, 0, 0, 0);
-                const isSelected = checkDates?.[dateStr]?.selected;
+        <View style={[styles.calendarContainer, { height: calendarHight }]}>
+          <CalendarList
+            key="s"
+            style={styles.calendar}
+            theme={calendarTheme}
+            onVisibleMonthsChange={(months) => {
+              setSelectedDate(false);
+              setCheckMonth(months[0]?.dateString);
+            }}
+            current={localDateString}
+            minDate={localDateString}
+            horizontal
+            pagingEnabled
+            markedDates={checkDates}
+            dayComponent={({ date, state }) => {
+              const dateStr = date?.dateString;
+              const isPast =
+                new Date(dateStr) < new Date().setHours(0, 0, 0, 0);
+              const isSelected = checkDates?.[dateStr]?.selected;
 
-                return (
-                  <TouchableOpacity onPress={() => onDayPressHandler(date)}>
-                    <View
+              return (
+                <TouchableOpacity onPress={() => onDayPressHandler(date)}>
+                  <View
+                    style={{
+                      borderRadius: 20,
+                      backgroundColor: isSelected ? "#b6cdd7ff" : "transparent",
+                    }}
+                  >
+                    <Text
                       style={{
-                        padding: 6,
-                        borderRadius: 20,
-                        backgroundColor: isSelected
-                          ? "#b6cdd7ff"
-                          : "transparent",
+                        color: isPast
+                          ? "#999"
+                          : isSelected
+                            ? "#fff"
+                            : "#dfdfdfff",
+                        textAlign: "center",
+                        fontWeight: "500",
+                        paddingHorizontal: 8,
                       }}
                     >
-                      <Text
+                      {date.day}
+                    </Text>
+                    {checkDates?.[dateStr]?.marked && (
+                      <View
                         style={{
-                          color: isPast
-                            ? "#999"
-                            : isSelected
-                              ? "#fff"
-                              : "#dfdfdfff",
-                          textAlign: "center",
-                          fontWeight: "500",
+                          width: 5,
+                          height: 5,
+                          borderRadius: 2.5,
+                          backgroundColor: isPast ? "#999" : "white",
+                          alignSelf: "center",
+                          marginTop: 2,
                         }}
-                      >
-                        {date.day}
-                      </Text>
-                      {checkDates?.[dateStr]?.marked && (
-                        <View
-                          style={{
-                            width: 5,
-                            height: 5,
-                            borderRadius: 2.5,
-                            backgroundColor: isPast ? "#999" : "white",
-                            alignSelf: "center",
-                            marginTop: 2,
-                          }}
-                        />
-                      )}
-                    </View>
-                  </TouchableOpacity>
-                );
-              }}
-            />
+                      />
+                    )}
+                  </View>
+                </TouchableOpacity>
+              );
+            }}
+          />
         </View>
-        
+
         <View style={styles.timesAndDetails}>
           <EventTimelineList
             events={selectedDate ? events : []}
@@ -141,11 +152,11 @@ const styles = StyleSheet.create({
   },
   calendarContainer: {
     backgroundColor: "black",
-    height: 320,
-    overflow: "hidden",
+    // alignSelf: "flex-start",
+
+    // height: 320
   },
   calendar: {
-    paddingTop: 0,
     borderWidth: 1,
     borderColor: "gray",
     display: "flex",

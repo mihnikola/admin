@@ -27,7 +27,6 @@ function ResevationNotificationScreen() {
   const { itemId, user, note, past, rating, notification, arrived } =
     useLocalSearchParams();
 
-  console.log("ResevationNotificationScreen", itemId);
   const { company } = useCompany();
 
   const {
@@ -120,7 +119,6 @@ function ResevationNotificationScreen() {
     );
   };
 
-  console.log("WEEEEEEEEEEEEEEE",reservationData?.status, arrived)
   return (
     <View style={styles.screenContainer}>
       {!isLoading && reservationData && (

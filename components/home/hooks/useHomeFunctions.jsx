@@ -19,8 +19,10 @@ const useHomeFunctions = () => {
     const id = new Date();
     try {
       const response = await get(`/admin/availabilities/${id}/getHomeInfo`); //fetchInProgressOne
+
       if (response.status === 200) {
         const { currentReservation, nextReservation, pendingReservations } =  response.data;
+
 
         setUpcomingData(nextReservation);
         setInProgressData(currentReservation);

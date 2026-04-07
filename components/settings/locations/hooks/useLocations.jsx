@@ -57,6 +57,7 @@ function useLocation() {
     setError(null);
     try {
       const response = await get(`/admin/places/${id}`);
+      console.log("rexxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",response);
       if (response.status === 200) {
         setLocationById(response.data);
       }
@@ -121,10 +122,12 @@ function useLocation() {
 
 
   const verificationData = (data) => {
-    if (data.close === locationById.workingHours.end &&
-      data.open === locationById.workingHours.start &&
-      data.streetName === locationById.address &&
-      data.minutes === locationById.slotDuration) {
+    console.log("verificationData",data);
+
+    if (data?.close === locationById?.workingHours?.end &&
+      data?.open === locationById?.workingHours?.start &&
+      data?.streetName === locationById?.address &&
+      data?.minutes === locationById?.slotDuration) {
       return false;
     }
     return true;

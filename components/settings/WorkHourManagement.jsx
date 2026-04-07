@@ -27,6 +27,9 @@ export default function TimeSettingsScreen({
   active,
   id,
   submitEverything,
+  streetName,
+  data,
+  city
 }) {
   const { localization } = useLocalization();
   const {
@@ -165,7 +168,7 @@ export default function TimeSettingsScreen({
 
   const verificationData = () => {
     if (
-      data.address == streetName &&
+      data?.address == streetName &&
       data.workingHours.start == formatTime(fromTime) &&
       data.workingHours.end == formatTime(toTime) &&
       data.slotDuration == selected
@@ -253,7 +256,7 @@ export default function TimeSettingsScreen({
     console.log("locationByIdxs", dataData);
     console.log("streetName", streetName);
     console.log("city", city);
-    submitEverything(data);
+    submitEverything(dataData);
   };
   console.log("disabledBtn", disabledBtn);
   return (

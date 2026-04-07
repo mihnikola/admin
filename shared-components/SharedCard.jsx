@@ -2,11 +2,11 @@ import { useLocalization } from "@/contexts/LocalizationContext";
 import { FontAwesome } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { convertTimeHandler } from "../helpers";
 
 const SharedCard = ({ item }) => {
   const { localization } = useLocalization();
 
-  console.log("itemxxx", item);
   const goToScreen = (item) => {
     router.push({
       pathname: "/(reservation_notification)/",
@@ -26,7 +26,7 @@ const SharedCard = ({ item }) => {
       onPress={() => goToScreen(item)}
     >
       <View style={styles.timeBlock}>
-        <Text style={styles.startTime}>{item.startTime}</Text>
+        <Text style={styles.startTime}>{convertTimeHandler(item.startTime)}</Text>
       </View>
       <View style={styles.detailsBlock}>
         <Text style={styles.eventTitle}>

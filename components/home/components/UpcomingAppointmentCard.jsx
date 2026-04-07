@@ -1,11 +1,13 @@
-import { convertReadDate } from "@/helpers";
+import { convertReadDateTime } from "@/helpers";
 import { router } from "expo-router";
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { useLocalization } from "@/contexts/LocalizationContext";
 
 export default function UpcomingAppointmentCard({ data }) {
   const { user, service, place, startDate, endDate, arrived } = data;
 
+    const { localization } = useLocalization();
   const goToScreen = () => {
     router.push({
       pathname: "/(reservation_notification)/",
@@ -26,13 +28,13 @@ export default function UpcomingAppointmentCard({ data }) {
       <View style={styles.header}>
         <Text style={styles.title}>{user?.name}</Text>
         <View style={[styles.badge, styles.upcoming]}>
-          <Text style={styles.badgeText}>Upcoming</Text>
+          <Text style={styles.badgeText}>{localization.HOME.upcoming}</Text>
         </View>
       </View>
 
-      <Text style={styles.datetime}>{convertReadDate(startDate)}</Text>
+      <Text style={styles.datetime}>{convertReadDateTime(startDate)}</Text>
 
-      {place?.address && <Text style={styles.location}>{place?.address}</Text>}
+      {/* {place?.address && <Text style={styles.location}>{place?.address}</Text>} */}
     </TouchableOpacity>
   );
 }

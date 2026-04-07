@@ -1,10 +1,12 @@
-import { convertReadDate } from "@/helpers";
 import { router } from "expo-router";
-import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { useLocalization } from "@/contexts/LocalizationContext";
+import { convertReadDateTime } from "../../../helpers";
 
 export default function InProgressAppointmentCard({ data }) {
   const { user, service, place, startDate, endDate, arrived } = data;
+  const { localization } = useLocalization();
+
   const goToScreen = () => {
     router.push({
       pathname: "/(reservation_notification)/",
@@ -12,10 +14,11 @@ export default function InProgressAppointmentCard({ data }) {
         itemId: data?._id,
         user: data?.user?.name,
         note: data?.description,
-        arrived: data?.arrived
+        arrived: data?.arrived,
       },
     });
   };
+
   return (
     <TouchableOpacity
       activeOpacity={0.8}
@@ -25,13 +28,13 @@ export default function InProgressAppointmentCard({ data }) {
       <View style={styles.header}>
         <Text style={styles.title}>{user?.name}</Text>
         <View style={[styles.badge, styles.inProgress]}>
-          <Text style={styles.badgeText}>inProgress</Text>
+          <Text style={styles.badgeText}>{localization.HOME.inProgress}</Text>
         </View>
       </View>
 
-      <Text style={styles.datetime}>{convertReadDate(startDate)}</Text>
+      <Text style={styles.datetime}>{convertReadDateTime(startDate)}</Text>
 
-      {place?.address && <Text style={styles.location}>{place?.address}</Text>}
+      {/* {place?.address && <Text style={styles.location}>{place?.address}</Text>} */}
     </TouchableOpacity>
   );
 }
