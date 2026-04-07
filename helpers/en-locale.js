@@ -73,7 +73,6 @@ export const ENG_LOCALIZATION = {
     cancel: "Cancel",
     notAvailable: "Not available",
     deactivate: "User deactivated successfully.",
-    error: "Error",
     errorInfo: "This device doesn't support calling.",
     errorCall: "Error while dialing up...",
   },
