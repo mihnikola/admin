@@ -164,7 +164,7 @@ function ResevationNotificationScreen() {
           </View>
         </ScrollView>
       )}
-      {!isLoading && reservationData && startEndDate() === 'cancelled' && (
+      {!isLoading && reservationData && reservationData?.status !== 2 && startEndDate() === 'cancelled' && (
         <View style={styles.bottomButtonRejected}>
           <SharedButtonCancel
             onPress={() => modalReservationHandler("rejected")}

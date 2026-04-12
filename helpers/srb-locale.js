@@ -34,8 +34,8 @@ export const SRB_LOCALIZATION = {
     commentLabel: "Opis tretmana:",
     upcoming: "Nadolazeći",
     inProgress: "Trenutno u toku",
-    today:"Danas u ",
-    tomorrow:"Sutra u ",
+    today: "Danas u ",
+    tomorrow: "Sutra u ",
   },
   COMPANY: {
     error: "Greška prilikom uzimanja podataka o kompaniji...",
@@ -144,13 +144,13 @@ export const SRB_LOCALIZATION = {
     mark: "Ocena",
   },
   APPOINTMENTS: {
-    completed:"Termin je uspešno završen",
+    completed: "Termin je uspešno završen",
     missedReservation: {
       success: "Termin je propušten",
       question: "Da li ste sigurni da želite da propustite ovu rezervaciju?",
       yesButton: "Propusti",
     },
-    cancelBtn:"Otkaži termin",
+    cancelBtn: "Otkaži termin",
     error: "Trenutno nemate nijedan zahtev na cekanju",
     errorDailyLimit: "Ne možete napraviti više rezervacija za ovaj dan.",
     errorWeeklyLimit: "Ne možete napraviti više rezervacija za ovu nedelju.",
@@ -220,7 +220,21 @@ export const SRB_LOCALIZATION = {
       success: "Zaposleni su uspešno dodeljeni na datu lokaciju",
       submit: "Sačuvaj",
     },
+    deactivateLocation: "Deaktiviraj lokaciju",
     clickHere: "Prijavite se ovde",
+    removeBarber: "Ukloni zaposlenog",
+    removeLocation: "Ukloni lokaciju",
+    infoPrimary: "Uklanjanje zaposlenog vrši se izborom datuma u kalendaru.",
+    infoSecondary: "Izaberite datum od kog zaposleni prestaje sa radom.",
+    dateLabel: "Datum prestanka rada:",
+    dateLabelStart: "Datum ponovnog rada:",
+    infoPrimaryLocation:
+      "Uklanjanje lokacije vrši se izborom datuma u kalendaru.",
+    infoSecondaryLocation: "Izaberite datum od kog lokacije prestaje sa radom.",
+    infoPrimaryDeactivateLocation:
+      "Deaktiviranje lokacije vrši se izborom datuma u kalendaru od kad prestaje i od kad kreće ponovo sa radom.",
+    infoSecondaryDeactivateLocation:
+      "Izaberite datum od kog lokacije ponovo počinje sa radom.",
     changeLanguage: {
       capture: "Promeni jezik",
       filterCapture: "Pretrazi jezike",

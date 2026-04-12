@@ -17,6 +17,7 @@ const Locations = () => {
   useEffect(() => {
     getLocations();
   }, []);
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{localization.PLACES.title}</Text>
@@ -24,29 +25,31 @@ const Locations = () => {
         {isLoading === "getLocations" && (
           <Loader isOpen={isLoading === "getLocations"} />
         )}
-
-        <FlatList
-          data={locations}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <LocationItem
-              item={item}
-              onSelectedLocation={onSelectedLocation}
-              selectedLocation={selectedLocation}
-            />
-          )}
-          contentContainerStyle={{ paddingHorizontal: 20 }}
-          showsVerticalScrollIndicator
-          ListEmptyComponent={
-            <Text style={styles.notFound}>{localization.PLACES.notFound}</Text>
-          }
-        />
- </View>
- </View>
+        {!isLoading && (
+          <FlatList
+            data={locations}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => (
+              <LocationItem
+                item={item}
+                onSelectedLocation={onSelectedLocation}
+                selectedLocation={selectedLocation}
+              />
+            )}
+            contentContainerStyle={{ paddingHorizontal: 20 }}
+            showsVerticalScrollIndicator
+            ListEmptyComponent={
+              <Text style={styles.notFound}>
+                {localization.PLACES.notFound}
+              </Text>
+            }
+          />
+        )}
+      </View>
+    </View>
   );
 };
 const styles = StyleSheet.create({
-
   notFound: {
     color: "white",
     textAlign: "center",
@@ -65,6 +68,5 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     textAlign: "center",
   },
-
 });
 export default Locations;
