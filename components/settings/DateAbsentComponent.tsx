@@ -55,6 +55,15 @@ const styles = StyleSheet.create({
     color: "#fff",
     textAlign: "center",
   },
+    button: {
+    backgroundColor: "rgb(0, 0, 0)",
+    padding: 12,
+    borderRadius: 8,
+    alignItems: "center",
+    borderColor: "white",
+    borderWidth: 1,
+    marginTop: 5,
+  },
 });
 
 export default DateAbsentComponent;

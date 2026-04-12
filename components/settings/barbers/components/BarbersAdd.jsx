@@ -45,10 +45,8 @@ export default function BarbersAdd() {
     fetchAllSeniority,
     seniorityData,
     statuses,
-    fetchAllStatusChecking
+    fetchAllStatusChecking,
   } = useBarbers();
-
-
 
   const [name, setName] = useState("");
 
@@ -87,7 +85,7 @@ export default function BarbersAdd() {
     if (barberData) {
       setName(barberData?.name);
       setSelected(barberData?.seniority);
-      setSelectedStatus(barberData?.statusCheck); 
+      setSelectedStatus(barberData?.statusCheck);
       setPhoneNumber(barberData?.phoneNumber);
       selectedImgHandler(barberData?.image);
       setEditingId(barberData?.id);
@@ -117,7 +115,7 @@ export default function BarbersAdd() {
         phoneNumber,
         seniority: selected,
         image: changedImg === imageValue ? null : changedImg,
-        statusCheck: selectedStatus?._id
+        statusCheck: selectedStatus?._id,
       };
       if (updateBarber) {
         addEditBarber(updateBarber);
@@ -130,8 +128,7 @@ export default function BarbersAdd() {
         password,
         seniority: selected,
         image: changedImg === imageValue ? null : changedImg,
-        statusCheck: selectedStatus?._id
-
+        statusCheck: selectedStatus?._id,
       };
       if (newBarber?.name && newBarber?.email) {
         addEditBarber(newBarber);
@@ -173,28 +170,30 @@ export default function BarbersAdd() {
     });
 
     setSelectedStatus(activeStatus);
-  }
+  };
 
+  // const [removeItem, setRemoveItem] = useState(null);
+  // const [isRemove, setIsRemove] = useState(null);
 
-  console.log("selectedStatus", selectedStatus)
+  const removeQuestion = (id) => {
+    router.push({
+      pathname: "/(tabs)/(03_settings)/removeBarber",
+      params: { id },
+    });
 
-  const [removeItem, setRemoveItem] = useState(null);
-  const [isRemove, setIsRemove] = useState(null);
-
-  const removeQuestion = (item) => {
-    setIsRemove(true);
-    setRemoveItem(item);
+    //   setIsRemove(true);
+    //   setRemoveItem(item);
   };
   const removeCancelHandler = () => {
-    setIsRemove(false);
+    // setIsRemove(false);
   };
   const removeConfirmHandler = () => {
-    setIsRemove(false);
+    // setIsRemove(false);
     removeBarber(removeItem);
   };
   const modalStatusHandler = () => {
     setStatusChecking(true);
-  }
+  };
   if (isLoading === "getBarber") {
     return <SharedLoader isOpen={isLoading === "getBarber"} />;
   }
@@ -223,7 +222,6 @@ export default function BarbersAdd() {
 
   return (
     <View style={styles.container}>
-
       {changedImg !== undefined && (
         <View style={styles.containerImage}>
           <ImageCompress
@@ -269,7 +267,11 @@ export default function BarbersAdd() {
           <BarbersStatusCheck
             modalHandler={modalStatusHandler}
             label="Status odobravanja"
-            selected={localization.code === 'sr' ? selectedStatus?.name.nameLocal : selectedStatus?.name.nameEn}
+            selected={
+              localization.code === "sr"
+                ? selectedStatus?.name.nameLocal
+                : selectedStatus?.name.nameEn
+            }
           />
           <BarberSeniorityComponent
             modalHandler={modalHandler}
@@ -308,7 +310,6 @@ export default function BarbersAdd() {
         )}
       </View>
 
-
       {isMessage && (
         <SharedMessage
           isOpen={isMessage}
@@ -319,7 +320,7 @@ export default function BarbersAdd() {
           title={message}
         />
       )}
-      {isRemove && (
+      {/* {isRemove && (
         <SharedQuestion
           isOpen={isRemove}
           onClose={removeCancelHandler}
@@ -331,7 +332,7 @@ export default function BarbersAdd() {
           buttonTextYes={localization.BARBERS.confirmButton}
           buttonTextNo={localization.BARBERS.cancel}
         />
-      )}
+      )} */}
     </View>
   );
 }

@@ -218,6 +218,21 @@ export const ENG_LOCALIZATION = {
       submit: "Save",
     },
     clickHere: "Click here to Log in",
+    removeBarber: "Delete a barber",
+    removeLocation: "Delete a location",
+    deactivateLocation: "Deactivate a location",
+    infoPrimary: "Remove an employee by selecting a date in the calendar.",
+    infoSecondary: "Choose the date when the employee will stop working.",
+    dateLabel: "End date:",
+    dateLabelStart: "Select resume date: ",
+    infoPrimaryLocation:
+      "Remove an location by selecting a date in the calendar.",
+    infoSecondaryLocation:
+      "Choose the date when the location will stop working.",
+    infoPrimaryDeactivateLocation:
+      "Deactivate the location by selecting the dates when it stops operating and when it starts working again.",
+    infoSecondaryDeactivateLocation:
+      "Choose the date when the location starts operating again.",
     changeLanguage: {
       capture: "Change language",
       filterCapture: "Filter languages",
@@ -226,7 +241,6 @@ export const ENG_LOCALIZATION = {
         srb: "Serbian",
       },
     },
-
     LOGOUT: {
       title: "Logout",
       question: "Are you sure you want to sign out from application?",

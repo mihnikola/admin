@@ -16,6 +16,7 @@ import useGetWorhHours from "./hooks/useGetWorkHours";
 import { FontAwesome } from "@expo/vector-icons";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { SharedQuestion } from "../../shared-components/SharedQuestion";
+import { router } from "expo-router";
 
 export default function TimeSettingsScreen({
   isLoading,
@@ -29,7 +30,7 @@ export default function TimeSettingsScreen({
   submitEverything,
   streetName,
   data,
-  city
+  city,
 }) {
   const { localization } = useLocalization();
   const {
@@ -46,8 +47,8 @@ export default function TimeSettingsScreen({
 
   const [selected, setSelected] = useState(10);
   const [isError, setIsError] = useState(false);
-  const [isRemove, setIsRemove] = useState(false);
-  const [isDeactivate, setIsDeactivate] = useState(false);
+  // const [isRemove, setIsRemove] = useState(false);
+  // const [isDeactivate, setIsDeactivate] = useState(false);
 
   useEffect(() => {
     getTimes();
@@ -79,27 +80,31 @@ export default function TimeSettingsScreen({
     }
   }, [minutesValue]);
 
-  const now = new Date();
+  // const now = new Date();
 
-  const removeCancelHandler = () => {
-    setIsRemove(false);
-  };
-  const deactivateCancelHandler = () => {
-    setIsDeactivate(false);
-  };
+  // const removeCancelHandler = () => {
+  //   setIsRemove(false);
+  // };
+  // const deactivateCancelHandler = () => {
+  //   setIsDeactivate(false);
+  // };
 
-  const deactivateConfirmHandler = async (id) => {
-    setIsDeactivate(false);
-    await deactivate(id);
-  };
+  // const deactivateConfirmHandler = async (id) => {
+  //   setIsDeactivate(false);
+  //   await deactivate(id);
+  // };
 
   const removeHandler = () => {
-    setIsRemove(true);
+    // setIsRemove(true);
+    router.push({
+      pathname: "/(tabs)/(03_settings)/removeLocation",
+      params: { id, type: "delete" },
+    });
   };
-  const removeConfirmHandler = async (id) => {
-    setIsRemove(false);
-    await deleteLocation(id);
-  };
+  // const removeConfirmHandler = async (id) => {
+  //   setIsRemove(false);
+  //   await deleteLocation(id);
+  // };
 
   const undoHandler = () => {
     setIsUndo(true);
@@ -113,7 +118,10 @@ export default function TimeSettingsScreen({
   };
 
   const deactiveHandler = () => {
-    setIsDeactivate(true);
+    router.push({
+      pathname: "/(tabs)/(03_settings)/removeLocation",
+      params: { id, type: "deactivate" },
+    });
   };
 
   const finishedDate = (data) => {
@@ -394,7 +402,7 @@ export default function TimeSettingsScreen({
         )}
       </View>
 
-      {isRemove && (
+      {/* {isRemove && (
         <SharedQuestion
           isOpen={isRemove}
           onClose={removeCancelHandler}
@@ -419,7 +427,7 @@ export default function TimeSettingsScreen({
           buttonTextYes={localization.PLACES.deactivateBtn}
           buttonTextNo={localization.PLACES.cancel}
         />
-      )}
+      )} */}
       {isUndo && (
         <SharedQuestion
           isOpen={isUndo}

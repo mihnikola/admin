@@ -1,4 +1,4 @@
-import { get, delete as deleteRequest } from "@/api/apiService";
+import { get, delete as deleteRequest, put } from "@/api/apiService";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import axios from "axios";
 import { router } from "expo-router";
@@ -16,16 +16,18 @@ const useBarbers = () => {
   const [isMessage, setIsMessage] = useState(false);
   const [message, setMessage] = useState(null);
 
-  const removeBarber = async (id) => {
+  const removeBarber = async (data) => {
+    const { id, firedDate } = data;
     setIsLoading("remove");
-
+    console.log("removeBarber",data)
     setError(null);
     try {
-      const response = await deleteRequest(`admin/users/${id}`);
+      const response = await put(`admin/users/${id}/softDelete`, { firedDate });
+      console.log("response",response)
       setIsMessage(true);
       setMessage(localization.BARBERS.delete);
     } catch (err) {
-      console.log("errorrr",err)
+      console.log("errorrr", err);
 
       setError(localization.BARBERS.errorFetch);
     } finally {
@@ -48,7 +50,7 @@ const useBarbers = () => {
     }
   };
 
-   const fetchAllSeniority = async () => {
+  const fetchAllSeniority = async () => {
     setIsLoading("get");
     setError(null);
     try {
@@ -85,7 +87,7 @@ const useBarbers = () => {
     if (userData?.name) {
       formData.append("name", userData?.name);
     }
-   
+
     formData.append("phoneNumber", userData?.phoneNumber);
     formData.append("seniority", userData?.seniority?._id);
     formData.append("email", userData?.email);
@@ -153,55 +155,55 @@ const useBarbers = () => {
       }
     }
   };
-//   const addEditBarber = async (userData) => {
-//   setIsLoading("addEdit");
-//   setError(null);
+  //   const addEditBarber = async (userData) => {
+  //   setIsLoading("addEdit");
+  //   setError(null);
 
-//   try {
-//     let formData = new FormData();
+  //   try {
+  //     let formData = new FormData();
 
-//     // Dodavanje tekstualnih polja
-//     if (userData?.name) formData.append("name", userData.name);
-//     if (userData?.phoneNumber) formData.append("phoneNumber", userData.phoneNumber);
-//     if (userData?.seniority) formData.append("seniority", userData.seniority._id);
-//     if (userData?.email) formData.append("email", userData.email);
-//     if (userData?.password) formData.append("password", userData.password);
+  //     // Dodavanje tekstualnih polja
+  //     if (userData?.name) formData.append("name", userData.name);
+  //     if (userData?.phoneNumber) formData.append("phoneNumber", userData.phoneNumber);
+  //     if (userData?.seniority) formData.append("seniority", userData.seniority._id);
+  //     if (userData?.email) formData.append("email", userData.email);
+  //     if (userData?.password) formData.append("password", userData.password);
 
-//     // Dodavanje slike preko helper-a
-//     if (userData?.image) {
-//       const imageFormData = await createImageFormData(userData.image, "image");
-//       // FormData iz helper-a može imati samo jedno polje, dodajemo ga u glavni formData
-//       if (imageFormData) {
-//         imageFormData.forEach((value, key) => formData.append(key, value));
-//       }
-//     }
+  //     // Dodavanje slike preko helper-a
+  //     if (userData?.image) {
+  //       const imageFormData = await createImageFormData(userData.image, "image");
+  //       // FormData iz helper-a može imati samo jedno polje, dodajemo ga u glavni formData
+  //       if (imageFormData) {
+  //         imageFormData.forEach((value, key) => formData.append(key, value));
+  //       }
+  //     }
 
-//     // PUT ili POST zavisno od toga da li editujemo
-//     const url = userData?.id
-//       ? `${process.env.EXPO_PUBLIC_API_URL}/admin/users/${userData.id}`
-//       : `${process.env.EXPO_PUBLIC_API_URL}/admin/users`;
-//     const method = userData?.id ? "put" : "post";
+  //     // PUT ili POST zavisno od toga da li editujemo
+  //     const url = userData?.id
+  //       ? `${process.env.EXPO_PUBLIC_API_URL}/admin/users/${userData.id}`
+  //       : `${process.env.EXPO_PUBLIC_API_URL}/admin/users`;
+  //     const method = userData?.id ? "put" : "post";
 
-//     const response = await axios({
-//       url,
-//       method,
-//       data: formData,
-//       headers: { "Content-Type": "multipart/form-data" },
-//     });
+  //     const response = await axios({
+  //       url,
+  //       method,
+  //       data: formData,
+  //       headers: { "Content-Type": "multipart/form-data" },
+  //     });
 
-//     console.log("response",response)
-//     if ((method === "post" && response.status === 201) || (method === "put" && response.status === 200)) {
-//       setIsMessage(true);
-//       setMessage(userData?.id ? localization.BARBERS.edit : localization.BARBERS.add);
-//     }
-//   } catch (err) {
-//     console.log("Upload error", err);
-//     setError(localization.BARBERS.errorFetch);
-//     setIsMessage(true);
-//   } finally {
-//     setIsLoading(null);
-//   }
-// };
+  //     console.log("response",response)
+  //     if ((method === "post" && response.status === 201) || (method === "put" && response.status === 200)) {
+  //       setIsMessage(true);
+  //       setMessage(userData?.id ? localization.BARBERS.edit : localization.BARBERS.add);
+  //     }
+  //   } catch (err) {
+  //     console.log("Upload error", err);
+  //     setError(localization.BARBERS.errorFetch);
+  //     setIsMessage(true);
+  //   } finally {
+  //     setIsLoading(null);
+  //   }
+  // };
 
   const getBarberHandler = async (id) => {
     setIsLoading("getBarber");
@@ -232,7 +234,6 @@ const useBarbers = () => {
 
   useEffect(() => {
     fetchAllBarbers();
-    
   }, []);
 
   return {
@@ -253,7 +254,7 @@ const useBarbers = () => {
     fetchAllSeniority,
     seniorityData,
     fetchAllStatusChecking,
-    statuses
+    statuses,
   };
 };
 
