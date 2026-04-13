@@ -9,7 +9,7 @@ export const SRB_LOCALIZATION = {
     error: "Ulogovani ste na drugom uredjaju",
   },
   BUTTONS: {
-    ok: "U redu",
+    ok: "OK",
     cancel: "Odustani",
   },
 
@@ -137,6 +137,8 @@ export const SRB_LOCALIZATION = {
     error:
       "Radnik i usluga mora biti odabrana pre preuzimanja slobodne satnice.",
     errorFetch: "Greška prilikom preuzimanja slobodne satnice...",
+    title: "Označite vreme"
+
   },
   DETAILS: {
     price: "Cena",

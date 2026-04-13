@@ -1,5 +1,6 @@
 import { get, delete as deleteRequest, put } from "@/api/apiService";
 import { useLocalization } from "@/contexts/LocalizationContext";
+import { getLanguageValue } from "@/helpers/language";
 import axios from "axios";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
@@ -19,11 +20,11 @@ const useBarbers = () => {
   const removeBarber = async (data) => {
     const { id, firedDate } = data;
     setIsLoading("remove");
-    console.log("removeBarber",data)
+    console.log("removeBarber", data);
     setError(null);
     try {
       const response = await put(`admin/users/${id}/softDelete`, { firedDate });
-      console.log("response",response)
+      console.log("response", response);
       setIsMessage(true);
       setMessage(localization.BARBERS.delete);
     } catch (err) {
@@ -81,6 +82,7 @@ const useBarbers = () => {
   };
 
   const addEditBarber = async (userData) => {
+    console.log("languageValue",localization.code)
     setIsLoading("addEdit");
     setError(null);
     const formData = new FormData();
@@ -118,6 +120,7 @@ const useBarbers = () => {
           {
             headers: {
               "Content-Type": "multipart/form-data",
+              "Accept-Language": localization.code, // or "en", "en-US", etc.
             },
           },
         );
@@ -139,6 +142,7 @@ const useBarbers = () => {
           {
             headers: {
               "Content-Type": "multipart/form-data", // Axios might need this explicitly for FormData
+              "Accept-Language": localization.code, // or "en", "en-US", etc.
             },
           },
         );

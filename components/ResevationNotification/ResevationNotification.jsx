@@ -44,7 +44,7 @@ function ResevationNotificationScreen() {
     changeStatusReservation,
     missedReservation,
   } = useAppointment();
-
+console.log("reservationData",reservationData)
   useEffect(() => {
     fetchReservationDetails(itemId);
   }, []);
@@ -164,7 +164,7 @@ function ResevationNotificationScreen() {
           </View>
         </ScrollView>
       )}
-      {!isLoading && reservationData && reservationData?.status !== 2 && startEndDate() === 'cancelled' && (
+      {!isLoading && reservationData && reservationData?.status === 0 && startEndDate() === 'cancelled' && (
         <View style={styles.bottomButtonRejected}>
           <SharedButtonCancel
             onPress={() => modalReservationHandler("rejected")}
@@ -197,7 +197,7 @@ function ResevationNotificationScreen() {
           </Text>
         </View>
       )}
-      {!isLoading && reservationData && startEndDate() === 'completed' && (
+      {!isLoading && reservationData?.status === 0 && startEndDate() === 'completed' && (
         <View style={styles.missed}>
           <Text style={styles.textBoldSuccess}>
             {localization.APPOINTMENTS.completed}

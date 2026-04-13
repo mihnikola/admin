@@ -37,7 +37,7 @@ export default function RequirementComponent() {
   }
   return (
     <View style={styles.container}>
-      <SharedBackButton onPress={router.back} styleBtn={{ margin: 15 }} />
+      <SharedBackButton onPress={router.back} styleBtn={{ marginTop: 20 }} />
       <View style={styles.header}>
         <Text style={styles.subTitle}>
           {localization.HOME.listRequirements}
@@ -58,7 +58,7 @@ export default function RequirementComponent() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    paddingTop: 20,
     backgroundColor: "#000",
   },
   header: {
@@ -78,7 +78,6 @@ const styles = StyleSheet.create({
   capture: {
     fontSize: 20,
     textAlign: "center",
-    paddingHorizontal: 80,
     fontWeight: "900",
     color: "#fff",
   },

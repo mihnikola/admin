@@ -279,49 +279,44 @@ export const convertReadFullDateTime = (item) => {
   const time = item.split("T")[1];
   const [hour, minuts] = time.split(":");
   if (localization.code === "en") {
-    return `${dayOfWeek} ${day}.${monthName} at ${hour}:${minuts}`;
+    return `${dayOfWeek} ${day}. ${monthName} at ${hour}:${minuts}`;
   } else {
-    return `${dayOfWeek} ${day}.${monthName} u ${hour}:${minuts}`;
+    return `${dayOfWeek} ${day}. ${monthName} u ${hour}:${minuts}`;
   }
 };
-export const convertReadDateTime = (startTime) => {
+export const convertReadDateTime = (startTime, endDate) => {
   const dateValue = new Date();
-  return getTodayOrTommorow(startTime, dateValue);
+  return getTodayOrTommorow(startTime, dateValue, endDate);
 };
 
-const getTodayOrTommorow = (x, y) => {
+const getTodayOrTommorow = (x, y, z) => {
   const { localization } = useLocalization();
 
-const criteriaDate = new Date(x);
-const currentDate = new Date(y);
+  const criteriaDate = new Date(x);
+  const currentDate = new Date(y);
+  const endDate = new Date(z);
 
-// uklanjamo vreme
-const startOfToday = new Date(currentDate);
-startOfToday.setHours(0, 0, 0, 0);
+  const startOfToday = new Date(currentDate);
+  startOfToday.setHours(0, 0, 0, 0);
 
-const startOfCriteria = new Date(criteriaDate);
-startOfCriteria.setHours(0, 0, 0, 0);
+  const startOfCriteria = new Date(criteriaDate);
+  startOfCriteria.setHours(0, 0, 0, 0);
 
-// razlika u danima
-const diffDays = Math.floor(
-  (startOfCriteria - startOfToday) / (1000 * 60 * 60 * 24)
-);
-  console.log("currentDate",currentDate)
-  console.log("criteriaDate",criteriaDate)
-if (criteriaDate < currentDate)  return `${localization.HOME.today} ${convertTimeHandler(criteriaDate)}h`;
+  const diffDays = Math.floor(
+    (startOfCriteria - startOfToday) / (1000 * 60 * 60 * 24),
+  );
 
+  if (criteriaDate < currentDate)
+    return `${convertTimeHandler(criteriaDate)}h : ${convertTimeHandler(endDate)}h`;
 
-if (diffDays === 0)
-  return `${localization.HOME.today} ${convertTimeHandler(criteriaDate)}h`;
+  if (diffDays === 0) {
+    return `${localization.HOME.today}${convertTimeHandler(criteriaDate)}h`;
+  }
 
-if (diffDays === 1)
-  return `${localization.HOME.tomorrow} ${convertTimeHandler(criteriaDate)}h`;
+  if (diffDays === 1)
+    return `${localization.HOME.tomorrow} ${convertTimeHandler(criteriaDate)}h`;
 
-if (diffDays === 2)
-return `${convertReadFullDateTime(x)}h`;
-
-
-
+  if (diffDays > 1) return `${convertReadFullDateTime(x)}h`;
 };
 
 export function convertToMonthName(dateString) {

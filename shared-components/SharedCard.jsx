@@ -6,7 +6,7 @@ import { convertTimeHandler } from "../helpers";
 
 const SharedCard = ({ item }) => {
   const { localization } = useLocalization();
-  console.log("item", item);
+  console.log("itemxxxxxxxxxxxxxxx", item);
 
   const goToScreen = (item) => {
     router.push({

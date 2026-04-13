@@ -18,7 +18,7 @@ const RequirementComponentItem = ({ item }) => {
     });
   };
 
-
+  
   
   return (
     <TouchableOpacity
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#262626ff",
     borderRadius: 10,
     padding: 15,
-    marginHorizontal: 20,
+    marginHorizontal: 10,
     marginVertical: 5,
     shadowColor: "#262626ff",
     shadowOffset: { width: 0, height: 2 },

@@ -17,7 +17,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { SharedQuestion } from "../../shared-components/SharedQuestion";
 import { router } from "expo-router";
-
+import BookingPicker from "./BookingPicker";
 export default function TimeSettingsScreen({
   isLoading,
   deactivate,
@@ -35,8 +35,6 @@ export default function TimeSettingsScreen({
   const { localization } = useLocalization();
   const {
     getTimes,
-    startWorkTime,
-    endWorkTime,
     error,
     minutesValue,
     message,
@@ -47,8 +45,8 @@ export default function TimeSettingsScreen({
 
   const [selected, setSelected] = useState(10);
   const [isError, setIsError] = useState(false);
-  // const [isRemove, setIsRemove] = useState(false);
-  // const [isDeactivate, setIsDeactivate] = useState(false);
+  const [isRemove, setIsRemove] = useState(false);
+  const [isDeactivate, setIsDeactivate] = useState(false);
 
   useEffect(() => {
     getTimes();
@@ -61,50 +59,25 @@ export default function TimeSettingsScreen({
   }, [minutesValue, minutes]);
 
   useEffect(() => {
-    if (startWorkTime) {
-      const [h, s] = startWorkTime.split(":").map(Number);
-      setFromTime(new Date(0, 0, 0, h, s));
-    }
-  }, [startWorkTime]);
-
-  useEffect(() => {
-    if (endWorkTime) {
-      const [h, s] = endWorkTime.split(":").map(Number);
-      setToTime(new Date(0, 0, 0, h, s));
-    }
-  }, [endWorkTime]);
-
-  useEffect(() => {
     if (minutesValue) {
       setSelected(minutesValue);
     }
   }, [minutesValue]);
 
-  // const now = new Date();
-
-  // const removeCancelHandler = () => {
-  //   setIsRemove(false);
-  // };
-  // const deactivateCancelHandler = () => {
-  //   setIsDeactivate(false);
-  // };
-
-  // const deactivateConfirmHandler = async (id) => {
-  //   setIsDeactivate(false);
-  //   await deactivate(id);
-  // };
-
   const removeHandler = () => {
-    // setIsRemove(true);
-    router.push({
-      pathname: "/(tabs)/(03_settings)/removeLocation",
-      params: { id, type: "delete" },
-    });
+    setIsRemove(true);
+    // router.push({
+    //   pathname: "/(tabs)/(03_settings)/removeLocation",
+    //   params: { id, type: "delete" },
+    // });
   };
-  // const removeConfirmHandler = async (id) => {
-  //   setIsRemove(false);
-  //   await deleteLocation(id);
-  // };
+  const removeCancelHandler = () => {
+    setIsRemove(false);
+  };
+  const removeConfirmHandler = async (id) => {
+    setIsRemove(false);
+    await deleteLocation(id);
+  };
 
   const undoHandler = () => {
     setIsUndo(true);
@@ -118,67 +91,32 @@ export default function TimeSettingsScreen({
   };
 
   const deactiveHandler = () => {
-    router.push({
-      pathname: "/(tabs)/(03_settings)/removeLocation",
-      params: { id, type: "deactivate" },
-    });
+    setIsDeactivate(true);
+    // router.push({
+    //   pathname: "/(tabs)/(03_settings)/removeLocation",
+    //   params: { id, type: "deactivate" },
+    // });
   };
 
-  const finishedDate = (data) => {
-    const now = new Date();
-
-    let hour = 17;
-    let min = 0;
-
-    if (data) {
-      const [h, m] = data.split(":");
-      hour = parseInt(h, 10);
-      min = parseInt(m, 10);
-    }
-
-    return new Date(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate(),
-      hour,
-      min,
-      0,
-    );
-  };
-
-  const startDate = (data) => {
-    const now = new Date();
-
-    let hour = 9;
-    let min = 0;
-
-    if (data) {
-      const [h, m] = data.split(":");
-      hour = parseInt(h, 10);
-      min = parseInt(m, 10);
-    }
-
-    return new Date(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate(),
-      hour,
-      min,
-      0,
-    );
-  };
-  const [toTime, setToTime] = useState(finishedDate(workHours?.end));
-  const [fromTime, setFromTime] = useState(startDate(workHours?.start));
+  const [toTime, setToTime] = useState(workHours?.end);
+  const [fromTime, setFromTime] = useState(workHours?.start);
   const [showFromPicker, setShowFromPicker] = useState(false);
   const [showToPicker, setShowToPicker] = useState(false);
   const [isUndo, setIsUndo] = useState(false);
   const [disabledBtn, setDisabledBtn] = useState(false);
 
+  const deactivateCancelHandler = () => {
+    setIsDeactivate(false);
+  };
+  const deactivateConfirmHandler = async (id) => {
+    setIsDeactivate(false);
+    await deactivate(id);
+  };
   const verificationData = () => {
     if (
       data?.address == streetName &&
-      data.workingHours.start == formatTime(fromTime) &&
-      data.workingHours.end == formatTime(toTime) &&
+      data.workingHours.start == fromTime &&
+      data.workingHours.end == toTime &&
       data.slotDuration == selected
     ) {
       setDisabledBtn(true);
@@ -195,51 +133,26 @@ export default function TimeSettingsScreen({
     verificationData();
   }, [selected, fromTime, toTime, streetName]);
 
-  console.log("selected", selected);
-
   useEffect(() => {
     if (minutesValue || minutes) {
-      console.log("wwwwwwwww", minutes, minutesValue);
       setSelected(minutes || minutesValue);
     }
   }, [minutesValue, minutes]);
 
   useEffect(() => {
-    if (startWorkTime) {
-      const [h, s] = startWorkTime.split(":").map(Number);
-      setFromTime(new Date(0, 0, 0, h, s));
-    }
-  }, [startWorkTime]);
-
-  useEffect(() => {
-    if (endWorkTime) {
-      const [h, s] = endWorkTime.split(":").map(Number);
-      setToTime(new Date(0, 0, 0, h, s));
-    }
-  }, [endWorkTime]);
-
-  useEffect(() => {
     if (minutesValue) {
-      console.log("wqweqweqwe");
       setSelected(minutesValue);
     }
   }, [minutesValue]);
 
-  const onChangeFrom = (event, selectedDate) => {
+  const onChangeFrom = (selectedDate) => {
     setShowFromPicker(Platform.OS === "ios");
-    if (selectedDate) setFromTime(selectedDate);
+    setFromTime(selectedDate);
   };
 
-  const onChangeTo = (event, selectedDate) => {
+  const onChangeTo = (selectedDate) => {
     setShowToPicker(Platform.OS === "ios");
-    if (selectedDate) setToTime(selectedDate);
-  };
-
-  // Formatiraj vreme u HH:mm
-  const formatTime = (date) => {
-    const h = date?.getHours().toString().padStart(2, "0");
-    const m = date?.getMinutes().toString().padStart(2, "0");
-    return `${h}:${m}`;
+    setToTime(selectedDate);
   };
 
   if (isLoading === "get") {
@@ -247,26 +160,15 @@ export default function TimeSettingsScreen({
   }
 
   const submitHandler = () => {
-    if (
-      formatTime(fromTime) === startWorkTime &&
-      formatTime(toTime) === endWorkTime &&
-      minutesValue === selected
-    ) {
-      setIsError(true);
-      return;
-    }
     const dataData = {
-      open: formatTime(fromTime),
-      close: formatTime(toTime),
+      open: fromTime,
+      close: toTime,
       minutes: selected,
     };
-    console.log("locationById", data);
-    console.log("locationByIdxs", dataData);
-    console.log("streetName", streetName);
-    console.log("city", city);
-    submitEverything(dataData);
+    // console.log("dataData", dataData);
+      submitEverything(dataData);
   };
-  console.log("disabledBtn", disabledBtn);
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
@@ -283,9 +185,7 @@ export default function TimeSettingsScreen({
             onPress={() => setShowFromPicker(true)}
             style={styles.timeButton}
           >
-            {fromTime && (
-              <Text style={styles.timeText}>{formatTime(fromTime)}</Text>
-            )}
+            {fromTime && <Text style={styles.timeText}>{fromTime}</Text>}
             {!fromTime && (
               <Text style={styles.timeText}>
                 {localization.SETTINGS.WORKHOURS.startTimePlaceHolder}
@@ -301,9 +201,7 @@ export default function TimeSettingsScreen({
             onPress={() => setShowToPicker(true)}
             style={styles.timeButton}
           >
-            {toTime && (
-              <Text style={styles.timeText}>{formatTime(toTime)}</Text>
-            )}
+            {toTime && <Text style={styles.timeText}>{toTime}</Text>}
             {!toTime && (
               <Text style={styles.timeText}>
                 {localization.SETTINGS.WORKHOURS.endTimePlaceHolder}
@@ -312,25 +210,22 @@ export default function TimeSettingsScreen({
           </TouchableOpacity>
         </View>
       </View>
+
       {showFromPicker && (
-        <DateTimePicker
-          value={fromTime || new Date()}
-          mode="time"
-          is24Hour={true}
-          display="spinner"
-          onChange={onChangeFrom}
+        <BookingPicker
+          visible={showFromPicker}
+          onClose={() => setShowFromPicker(false)}
+          onSelect={onChangeFrom}
+        />
+      )}
+      {showToPicker && (
+        <BookingPicker
+          visible={showToPicker}
+          onClose={() => setShowToPicker(false)}
+          onSelect={onChangeTo}
         />
       )}
 
-      {showToPicker && (
-        <DateTimePicker
-          value={toTime || new Date()}
-          mode="time"
-          is24Hour={true}
-          display="spinner"
-          onChange={onChangeTo}
-        />
-      )}
       <Text style={styles.subtitle}>
         {localization.SETTINGS.WORKHOURS.subCapture}
       </Text>
@@ -345,6 +240,7 @@ export default function TimeSettingsScreen({
       <View style={{ flex: !id ? 0.5 : 2 }}>
         <SharedButton
           loading={isLoading === "addEdit"}
+          disabled={disabledBtn}
           onPress={submitHandler}
           text={localization.SETTINGS.WORKHOURS.submit}
           margin
@@ -402,7 +298,7 @@ export default function TimeSettingsScreen({
         )}
       </View>
 
-      {/* {isRemove && (
+      {isRemove && (
         <SharedQuestion
           isOpen={isRemove}
           onClose={removeCancelHandler}
@@ -427,7 +323,7 @@ export default function TimeSettingsScreen({
           buttonTextYes={localization.PLACES.deactivateBtn}
           buttonTextNo={localization.PLACES.cancel}
         />
-      )} */}
+      )}
       {isUndo && (
         <SharedQuestion
           isOpen={isUndo}

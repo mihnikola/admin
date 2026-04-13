@@ -160,6 +160,7 @@ export const ENG_LOCALIZATION = {
   TIMES: {
     error: "Employer and service must be selected before fetching times.",
     errorFetch: "Errpr while fetching times...",
+    title: "Selected time"
   },
 
   APPOINTMENTS: {

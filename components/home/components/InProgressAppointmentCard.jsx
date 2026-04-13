@@ -19,6 +19,8 @@ export default function InProgressAppointmentCard({ data }) {
     });
   };
 
+  console.log("InProgressAppointmentCard",startDate,endDate)
+
   return (
     <TouchableOpacity
       activeOpacity={0.8}
@@ -32,7 +34,7 @@ export default function InProgressAppointmentCard({ data }) {
         </View>
       </View>
 
-      <Text style={styles.datetime}>{convertReadDateTime(startDate)}</Text>
+      <Text style={styles.datetime}>{convertReadDateTime(startDate,endDate)}</Text>
 
       {/* {place?.address && <Text style={styles.location}>{place?.address}</Text>} */}
     </TouchableOpacity>
