@@ -1,6 +1,12 @@
 import { SharedButton } from "@/shared-components/SharedButton";
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import DateAbsentComponent from "./DateAbsentComponent";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import useAbsentHours from "./hooks/useAbsentHours";
@@ -92,7 +98,7 @@ export default function AbsentHourManagement() {
     }
     setShowToTime(false);
   };
- 
+
   const submitChanges = () => {
     console.log("dateFrom", dateFrom);
     console.log("dateTo", finalDateTo);
@@ -113,35 +119,75 @@ export default function AbsentHourManagement() {
   const cancelHandler = () => {
     setIsMessage(false);
   };
+  const [activeTab, setActiveTab] = useState("upcoming"); // "upcoming" | "past"
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
         {localization.SETTINGS.ABSENTHOURS.capture}
       </Text>
-      <Text style={styles.subTitle}>
-        {localization.SETTINGS.ABSENTHOURS.from}
-      </Text>
-      <DateAbsentComponent
-        onTimeChange={onTimeFromChange}
-        onDateChange={onDateFromChange}
-        setShowDate={setShowFromDate}
-        showDate={showFromDate}
-        showTime={showFromTime}
-        date={dateFrom}
-        tempDate={tempFromDate}
-      />
-      <Text style={styles.subTitle}>
-        {localization.SETTINGS.ABSENTHOURS.to}
-      </Text>
-      <DateAbsentComponent
-        onTimeChange={onTimeToChange}
-        onDateChange={onDateToChange}
-        setShowDate={setShowToDate}
-        showDate={showToDate}
-        showTime={showToTime}
-        date={dateTo}
-        tempDate={tempFromDate}
-      />
+      <View style={styles.tabContainer}>
+        <TouchableOpacity
+          style={[styles.tab, activeTab === "upcoming" && styles.activeTab]}
+          onPress={() => setActiveTab("upcoming")}
+        >
+          <Text
+            style={[
+              styles.tabText,
+              activeTab === "upcoming" && styles.activeText,
+            ]}
+          >
+            Odmor / Bolovanje
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.tab, activeTab === "past" && styles.activeTab]}
+          onPress={() => setActiveTab("past")}
+        >
+          <Text
+            style={[styles.tabText, activeTab === "past" && styles.activeText]}
+          >
+            Hitni slucajevi
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+      {activeTab === "upcoming" && (
+        <>
+          <Text style={styles.subTitle}>
+            {localization.SETTINGS.ABSENTHOURS.from}
+          </Text>
+          <DateAbsentComponent
+            onTimeChange={onTimeFromChange}
+            onDateChange={onDateFromChange}
+            setShowDate={setShowFromDate}
+            showDate={showFromDate}
+            showTime={showFromTime}
+            date={dateFrom}
+            tempDate={tempFromDate}
+          />
+          <Text style={styles.subTitle}>
+            {localization.SETTINGS.ABSENTHOURS.to}
+          </Text>
+          <DateAbsentComponent
+            onTimeChange={onTimeToChange}
+            onDateChange={onDateToChange}
+            setShowDate={setShowToDate}
+            showDate={showToDate}
+            showTime={showToTime}
+            date={dateTo}
+            tempDate={tempFromDate}
+          />
+        </>
+      )}
+
+
+
+
+
+
+      
+
       <TextInput
         style={styles.textInput}
         placeholder={localization.SETTINGS.ABSENTHOURS.comment}
@@ -181,6 +227,29 @@ export default function AbsentHourManagement() {
 const styles = StyleSheet.create({
   submit: {
     // flex: 1
+  },
+  tabContainer: {
+    flexDirection: "row",
+    backgroundColor: "#747474",
+    borderRadius: 20,
+    marginBottom: 15,
+  },
+  tab: {
+    flex: 1,
+    padding: 12,
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "#fff"
+  },
+  activeTab: {
+    backgroundColor: "#000000",
+  },
+  tabText: {
+    color: "#ffffff",
+  },
+  activeText: {
+    color: "#fff",
+    fontWeight: "bold",
   },
   container: {
     padding: 20,
