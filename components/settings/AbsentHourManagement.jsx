@@ -1,6 +1,7 @@
 import { SharedButton } from "@/shared-components/SharedButton";
 import React, { useEffect, useState } from "react";
 import {
+  Platform,
   StyleSheet,
   Text,
   TextInput,
@@ -13,6 +14,7 @@ import useAbsentHours from "./hooks/useAbsentHours";
 import { useAuth } from "@/contexts/AuthContext";
 import { FontAwesome } from "@expo/vector-icons";
 import { SharedMessage } from "@/shared-components/SharedMessage";
+import BookingPickerModal from "./BookingPicker";
 
 export default function AbsentHourManagement() {
   const {
@@ -24,6 +26,8 @@ export default function AbsentHourManagement() {
     isLoading,
   } = useAbsentHours();
   const [comment, setComment] = useState("");
+  const [showFromPicker, setShowFromPicker] = useState(false);
+  const [showToPicker, setShowToPicker] = useState(false);
 
   const [dateFrom, setDateFrom] = useState(new Date());
   const [showFromDate, setShowFromDate] = useState(false);
@@ -35,29 +39,36 @@ export default function AbsentHourManagement() {
   const [showToTime, setShowToTime] = useState(false);
   const [tempToDate, setTempToDate] = useState(new Date());
   const [finalDateTo, setFinalDateTo] = useState();
+  const [fromTime, setFromTime] = useState("10:00");
+  const [toTime, setToTime] = useState("19:00");
 
   const { localization } = useLocalization();
   const { isToken } = useAuth();
 
   const onDateFromChange = (event, selectedDate) => {
     if (event.type === "set" && selectedDate) {
-      setTempFromDate(selectedDate);
-      setShowFromDate(false);
-      setShowFromTime(true);
-    } else {
+      setDateFrom(selectedDate);
       setShowFromDate(false);
     }
+  };
+  const onChangeFrom = (selectedDate) => {
+    setShowFromPicker(Platform.OS === "ios");
+    setFromTime(selectedDate);
   };
 
-  const onTimeFromChange = (event, selectedTime) => {
-    if (event.type === "set" && selectedTime) {
-      const newDate = new Date(tempFromDate);
-      newDate.setHours(selectedTime.getHours());
-      newDate.setMinutes(selectedTime.getMinutes());
-      setDateFrom(newDate);
-    }
-    setShowFromTime(false);
+  const onChangeTo = (selectedDate) => {
+    setShowToPicker(Platform.OS === "ios");
+    setToTime(selectedDate);
   };
+  // const onTimeFromChange = (event, selectedTime) => {
+  //   if (event.type === "set" && selectedTime) {
+  //     const newDate = new Date(tempFromDate);
+  //     newDate.setHours(selectedTime.getHours());
+  //     newDate.setMinutes(selectedTime.getMinutes());
+  //     setDateFrom(newDate);
+  //   }
+  //   setShowFromTime(false);
+  // };
 
   useEffect(() => {
     if (tempFromDate && tempFromDate > tempToDate) {
@@ -68,10 +79,7 @@ export default function AbsentHourManagement() {
 
   const onDateToChange = (event, selectedDate) => {
     if (event.type === "set" && selectedDate) {
-      setTempToDate(selectedDate);
-      setShowToDate(false);
-      setShowToTime(true);
-    } else {
+      setDateTo(selectedDate);
       setShowToDate(false);
     }
   };
@@ -158,25 +166,29 @@ export default function AbsentHourManagement() {
             {localization.SETTINGS.ABSENTHOURS.from}
           </Text>
           <DateAbsentComponent
-            onTimeChange={onTimeFromChange}
             onDateChange={onDateFromChange}
             setShowDate={setShowFromDate}
             showDate={showFromDate}
-            showTime={showFromTime}
             date={dateFrom}
-            tempDate={tempFromDate}
           />
+
           <Text style={styles.subTitle}>
             {localization.SETTINGS.ABSENTHOURS.to}
           </Text>
           <DateAbsentComponent
-            onTimeChange={onTimeToChange}
             onDateChange={onDateToChange}
             setShowDate={setShowToDate}
             showDate={showToDate}
-            showTime={showToTime}
             date={dateTo}
-            tempDate={tempFromDate}
+          />
+          <TextInput
+            style={styles.textInput}
+            placeholder={localization.SETTINGS.ABSENTHOURS.comment}
+            multiline
+            numberOfLines={4}
+            value={comment}
+            onChangeText={setComment}
+            textAlignVertical="top"
           />
         </>
       )}
@@ -184,19 +196,67 @@ export default function AbsentHourManagement() {
 
 
 
+      {activeTab === "past" && (
+        <>
+          <View style={styles.row}>
+            <Text style={styles.subTitle}>
+              {localization.SETTINGS.ABSENTHOURS.from}
+            </Text>
+            <TouchableOpacity
+              onPress={() => setShowFromPicker(true)}
+              style={styles.timeButton}
+            >
+              {fromTime && <Text style={styles.timeText}>{fromTime}</Text>}
+              {!fromTime && (
+                <Text style={styles.timeText}>
+                  {localization.SETTINGS.WORKHOURS.startTimePlaceHolder}
+                </Text>
+              )}
+            </TouchableOpacity>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.subTitle}>
+              {localization.SETTINGS.ABSENTHOURS.to}
+            </Text>
+            <TouchableOpacity
+              onPress={() => setShowToPicker(true)}
+              style={styles.timeButton}
+            >
+              {toTime && <Text style={styles.timeText}>{toTime}</Text>}
+              {!toTime && (
+                <Text style={styles.timeText}>
+                  {localization.SETTINGS.WORKHOURS.endTimePlaceHolder}
+                </Text>
+              )}
+            </TouchableOpacity>
+            <TextInput
+              style={styles.textInput}
+              placeholder={localization.SETTINGS.ABSENTHOURS.comment}
+              multiline
+              numberOfLines={4}
+              value={comment}
+              onChangeText={setComment}
+              textAlignVertical="top"
+            />
+          </View>
 
+        </>
+      )}
+      {showFromPicker && (
+        <BookingPickerModal
+          visible={showFromPicker}
+          onClose={() => setShowFromPicker(false)}
+          onSelect={onChangeFrom}
+        />
+      )}
+      {showToPicker && (
+        <BookingPickerModal
+          visible={showToPicker}
+          onClose={() => setShowToPicker(false)}
+          onSelect={onChangeTo}
+        />
+      )}
 
-      
-
-      <TextInput
-        style={styles.textInput}
-        placeholder={localization.SETTINGS.ABSENTHOURS.comment}
-        multiline
-        numberOfLines={4}
-        value={comment}
-        onChangeText={setComment}
-        textAlignVertical="top"
-      />
       <View style={styles.submit}>
         <SharedButton
           onPress={submitChanges}
@@ -228,10 +288,19 @@ const styles = StyleSheet.create({
   submit: {
     // flex: 1
   },
+  row: {
+    marginBottom: 20,
+    justifyContent: "space-between",
+    gap: 10,
+  },
+  label: {
+    fontSize: 18,
+    flex: 1,
+    color: "white",
+  },
   tabContainer: {
     flexDirection: "row",
     backgroundColor: "#747474",
-    borderRadius: 20,
     marginBottom: 15,
   },
   tab: {
@@ -243,6 +312,20 @@ const styles = StyleSheet.create({
   },
   activeTab: {
     backgroundColor: "#000000",
+  },
+  timeButton: {
+    borderWidth: 1,
+    borderColor: "rgb(0, 0, 0)",
+    paddingVertical: 5,
+    paddingHorizontal: 20,
+    backgroundColor: "rgb(48, 48, 48)",
+    fontWeight: "bold",
+    width: "100%"
+  },
+  timeText: {
+    fontSize: 18,
+    color: "#ffffffff",
+    textAlign: "center",
   },
   tabText: {
     color: "#ffffff",

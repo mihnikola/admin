@@ -311,7 +311,7 @@ export const SRB_LOCALIZATION = {
     },
     ABSENTHOURS: {
       title: "Upravljanje odsustvima",
-      capture: "Podešavanje izlazaka",
+      capture: "Podešavanje odsustva",
       submit: "Sačuvaj",
       from: "Od:",
       to: "Do:",
