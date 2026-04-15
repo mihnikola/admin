@@ -9,20 +9,19 @@ function useAbsentHours() {
   const [isMessage, setIsMessage] = useState(false);
   const [message, setMessage] = useState(null);
 
-  const createAbsentHours = async (from, to, comment, token) => {
+  const createAbsentHours = async (from, to, comment, token, type) => {
     setIsLoading(true);
     setError(null);
 
-    console.log("from, to, comment, token",from, to, comment, token)
     try {
       const response = await post("admin/availabilities", {
         startDate: from,
         endDate: to,
         token,
         description: comment,
+        type,
       });
 
-      console.log("vresponse",response)
       setIsMessage(true);
 
       if (response.status === 201) {
