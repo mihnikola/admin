@@ -41,7 +41,6 @@ export default function Barbers() {
   const filterResult = locationBarbersData.filter((item) => item.flag === "T");
   const allResult = locationBarbersData.filter((item) => item.flag !== "T");
 
-
   const [isError, setIsError] = useState(null);
 
   const cancelHandler = () => {
@@ -56,25 +55,22 @@ export default function Barbers() {
     }
   }, [id]);
   const filteredBarbers = allResult.filter((barber) =>
-    barber.name.toLowerCase().includes(search.toLowerCase())
+    barber.name.toLowerCase().includes(search.toLowerCase()),
   );
   return (
     <View style={styles.container}>
-
       <SharedBackButton onPress={router.back} styleBtn={{ marginTop: 5 }} />
 
       <Text style={styles.subTitle}>{localization.BARBERS.listBarbers}</Text>
       <View key={itemData.id} style={styles.itemContent}>
-        <FontAwesome
-          name="map-marker"
-          size={25}
-          color="white"
-        />
+        <FontAwesome name="map-marker" size={25} color="white" />
         <Text style={styles.address}>Lokacija:</Text>
         <Text style={styles.address}>{itemData.address}</Text>
       </View>
       <View style={{ flex: 2, marginTop: 10 }}>
-        <Text style={styles.addressBarbers}>Barberi na ovoj lokaciji ({filterResult.length})</Text>
+        <Text style={styles.addressBarbers}>
+          Barberi na ovoj lokaciji ({filterResult.length})
+        </Text>
         {isLoading === "getBarbers" ? (
           <View style={styles.loadingContainer}>
             <Loader />
@@ -91,14 +87,15 @@ export default function Barbers() {
       </View>
 
       <View style={{ flex: 2, marginTop: 5 }}>
-        <Text style={styles.addressBarbers}>Svi dostupni barberi ({filteredBarbers.length})</Text>
+        <Text style={styles.addressBarbers}>
+          Svi dostupni barberi ({filteredBarbers.length})
+        </Text>
         <TextInput
           style={styles.searchInput}
           placeholder={localization.CLIENTS.search}
           value={search}
           onChangeText={setSearch}
           placeholderTextColor="white"
-
         />
         {isLoading === "getBarbers" ? (
           <View style={styles.loadingContainer}>
@@ -159,13 +156,13 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 10,
     fontSize: 18,
-    color: "#fff"
+    color: "#fff",
   },
   itemContent: {
     alignItems: "baseline",
     justifyContent: "flex-start",
     paddingHorizontal: 10,
-    backgroundColor: "#646464",
+    backgroundColor: "#242424",
     flexDirection: "row",
     gap: 10,
   },
