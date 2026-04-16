@@ -5,15 +5,18 @@ import {
   FlatList,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
 import useLocationBarber from "./../hooks/useLocationBarber";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { SharedMessage } from "@/shared-components/SharedMessage";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import Loader from "@/shared-components/Loader";
 import BarberItem from "./BarberItem";
+import BarberItemAssign from "./BarberItemAssign";
+import SharedBackButton from "@/shared-components/SharedBackButton";
 
 export default function Barbers() {
   const { localization } = useLocalization();
@@ -33,6 +36,11 @@ export default function Barbers() {
     toggleBarber,
     submitChanges,
   } = useLocationBarber();
+  const [search, setSearch] = useState("");
+
+  const filterResult = locationBarbersData.filter((item) => item.flag === "T");
+  const allResult = locationBarbersData.filter((item) => item.flag !== "T");
+
 
   const [isError, setIsError] = useState(null);
 
@@ -47,24 +55,58 @@ export default function Barbers() {
       }, 100);
     }
   }, [id]);
-
+  const filteredBarbers = allResult.filter((barber) =>
+    barber.name.toLowerCase().includes(search.toLowerCase())
+  );
   return (
     <View style={styles.container}>
-      {itemData.id && (
-        <View key={itemData.id} style={styles.itemContent}>
-          <Text style={styles.address}>{itemData.address}</Text>
-        </View>
-      )}
+
+      <SharedBackButton onPress={router.back} styleBtn={{ marginTop: 5 }} />
+
       <Text style={styles.subTitle}>{localization.BARBERS.listBarbers}</Text>
-    
-      <View style={{ flex: 1 }}>
+      <View key={itemData.id} style={styles.itemContent}>
+        <FontAwesome
+          name="map-marker"
+          size={25}
+          color="white"
+        />
+        <Text style={styles.address}>Lokacija:</Text>
+        <Text style={styles.address}>{itemData.address}</Text>
+      </View>
+      <View style={{ flex: 2, marginTop: 10 }}>
+        <Text style={styles.addressBarbers}>Barberi na ovoj lokaciji ({filterResult.length})</Text>
         {isLoading === "getBarbers" ? (
           <View style={styles.loadingContainer}>
             <Loader />
           </View>
         ) : (
           <FlatList
-            data={locationBarbersData}
+            data={filterResult}
+            keyExtractor={(item) => item._id}
+            renderItem={({ item }) => (
+              <BarberItemAssign item={item} toggleBarber={toggleBarber} />
+            )}
+          />
+        )}
+      </View>
+
+      <View style={{ flex: 2, marginTop: 5 }}>
+        <Text style={styles.addressBarbers}>Svi dostupni barberi ({filteredBarbers.length})</Text>
+        <TextInput
+          style={styles.searchInput}
+          placeholder={localization.CLIENTS.search}
+          value={search}
+          onChangeText={setSearch}
+          placeholderTextColor="white"
+
+        />
+        {isLoading === "getBarbers" ? (
+          <View style={styles.loadingContainer}>
+            <Loader />
+          </View>
+        ) : (
+          <FlatList
+            data={filteredBarbers}
             keyExtractor={(item) => item._id}
             renderItem={({ item }) => (
               <BarberItem item={item} toggleBarber={toggleBarber} />
@@ -112,19 +154,32 @@ const styles = StyleSheet.create({
   loadingContainer: {
     paddingTop: 40,
   },
-  itemContent: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+  searchInput: {
+    backgroundColor: "#000000",
+    borderRadius: 8,
+    padding: 10,
+    fontSize: 18,
+    color: "#fff"
   },
-  address: {
-    color: "#fff",
-    fontSize: 17,
+  itemContent: {
+    alignItems: "baseline",
+    justifyContent: "flex-start",
     paddingHorizontal: 10,
+    backgroundColor: "#646464",
+    flexDirection: "row",
+    gap: 10,
+  },
+
+  addressBarbers: {
+    color: "#fff",
+    fontSize: 20,
+    alignItems: "center",
+    alignSelf: "flex-start",
+    justifyContent: "center",
   },
   container: {
     flex: 1,
-    padding: 10,
+    margin: 10,
     backgroundColor: "#000",
   },
   title: {
@@ -135,20 +190,20 @@ const styles = StyleSheet.create({
   },
   address: {
     marginHorizontal: 2,
-    fontSize: 20,
-    marginVertical: 10,
+    fontSize: 15,
+    marginBottom: 10,
     alignItems: "center",
     justifyContent: "space-between",
     color: "white",
   },
 
   subTitle: {
-    fontSize: 18,
+    fontSize: 25,
     fontWeight: "600",
     color: "#fff",
     textAlign: "center",
-    marginBottom: 12,
-    marginTop: 9,
+    marginTop: 22,
+    marginBottom: 5,
   },
   input: {
     backgroundColor: "#1e1e1e",

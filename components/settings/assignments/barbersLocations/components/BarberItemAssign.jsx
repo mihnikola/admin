@@ -1,7 +1,7 @@
 import { FontAwesome } from "@expo/vector-icons";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-export default function BarberItem({ id, item, toggleBarber }) {
+export default function BarberItemAssign({ id, item, toggleBarber }) {
     const checkHandler = (item, id) => {
         if (id) return;
         toggleBarber(item);
@@ -20,10 +20,10 @@ export default function BarberItem({ id, item, toggleBarber }) {
             </View>
             <View style={styles.centerCheckMark}>
                 <FontAwesome
-          name="plus"
-          size={15}
-          color="white"
-        />
+                    name="close"
+                    size={25}
+                    color="white"
+                />
             </View>
 
         </TouchableOpacity>
