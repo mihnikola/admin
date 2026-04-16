@@ -28,10 +28,8 @@ const TimeModal = ({ visible, onClose, onSelect, title = "Select Time" }) => {
     <Modal visible={visible} transparent animationType="slide">
       <View style={styles.overlay}>
         <View style={styles.container}>
-          {/* Header */}
           <Text style={styles.title}>{title}</Text>
 
-          {/* List */}
           <FlatList
             data={slots}
             keyExtractor={(item) => item}
