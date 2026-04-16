@@ -145,6 +145,9 @@ export const SRB_LOCALIZATION = {
     duration: "Trajanje",
     mark: "Ocena",
   },
+  EVENTS: {
+    notFound: "Nema zakazanih događaja za ovaj datum.",
+  },
   APPOINTMENTS: {
     completed: "Termin je uspešno završen",
     missedReservation: {

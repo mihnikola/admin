@@ -3,7 +3,7 @@ import { router } from "expo-router";
 import { createContext, useContext, useState } from "react";
 import { useLocalization } from "./LocalizationContext";
 import { useAuth } from "./AuthContext";
-import { get, post, put } from "@/api/apiService";
+import { get, getData, post, put } from "@/api/apiService";
 import {
   addMinutesToTime,
   convertNameAndDate,
@@ -33,6 +33,7 @@ export const AppointmentProvider = ({ children }) => {
 
   const { isToken, getTokenData } = useAuth();
   const { localization } = useLocalization();
+  const [events, setEvents] = useState([]);
   const {
     isLoading: isLoad,
     requirements,
@@ -54,13 +55,13 @@ export const AppointmentProvider = ({ children }) => {
     }
     try {
       const response = await put(`admin/availabilities/${id}/missed`);
-      console.log("admin/availabilities/${id}/missed",response)
+      console.log("admin/availabilities/${id}/missed", response)
       if (response.status === 202) {
         setIsModal(true);
         setMessage(localization.APPOINTMENTS.missedReservation.success);
       }
     } catch (err) {
-      console.log("errerrerr",err)
+      console.log("errerrerr", err)
       setIsError(true);
 
       setError(err);
@@ -69,10 +70,11 @@ export const AppointmentProvider = ({ children }) => {
     }
   };
 
-  const changeStatusReservation = async (id, status) => {
+  const changeStatusReservation = async (id, status, criteriaDate) => {
     setIsLoading(true);
     setError(null);
 
+    console.log("changeStatusReservation", criteriaDate)
     if (!id) {
       setIsError(true);
       setError("Reservation ID is missing.");
@@ -89,6 +91,7 @@ export const AppointmentProvider = ({ children }) => {
             ? localization.APPOINTMENTS.approveReservation.confirmMessage
             : localization.APPOINTMENTS.rejectReservation.confirmMessage,
         );
+        await getReservations(criteriaDate);
       }
     } catch (err) {
       setIsError(true);
@@ -98,6 +101,25 @@ export const AppointmentProvider = ({ children }) => {
     }
   };
 
+  const getReservations = async (criteria) => {
+    setIsLoading(true);
+    setError(null);
+    if (!criteria) {
+      setIsLoading(false);
+      return;
+    }
+    try {
+      const response = await getData("/admin/availabilities", {
+        dateValue: criteria,
+        token: isToken,
+      });
+      setEvents(response);
+    } catch (err) {
+      console.error("Error fetching tasks:", err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
   const fetchReservationDetails = async (reservationId) => {
     setIsLoading(true);
     setError(null);
@@ -163,6 +185,8 @@ export const AppointmentProvider = ({ children }) => {
         missedReservation,
         changeStatusReservation,
         fetchRequirements,
+        events,
+        getReservations
       }}
     >
       {children}

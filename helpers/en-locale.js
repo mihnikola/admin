@@ -132,6 +132,9 @@ export const ENG_LOCALIZATION = {
       "2. Cancellations must be made at least 180 minutes before the appointment.",
     success: "Your appointment is successfully booked!",
   },
+  EVENTS: {
+    notFound: "No events scheduled for this date.",
+  },
   SERVICES: {
     removeBtn: "Deactivate service",
     title: "Pricing & Services",

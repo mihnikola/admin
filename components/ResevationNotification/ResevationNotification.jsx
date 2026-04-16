@@ -26,7 +26,7 @@ import { convertNowDateTimestamp } from "@/helpers";
 
 function ResevationNotificationScreen() {
   const { localization } = useLocalization();
-  const { itemId, user, note, past, rating, notification, arrived } =
+  const { itemId, user, note, past, rating, criteriaDate, arrived } =
     useLocalSearchParams();
 
   const { company } = useCompany();
@@ -44,7 +44,9 @@ function ResevationNotificationScreen() {
     changeStatusReservation,
     missedReservation,
   } = useAppointment();
-console.log("reservationData",reservationData)
+
+  
+
   useEffect(() => {
     fetchReservationDetails(itemId);
   }, []);
@@ -60,7 +62,7 @@ console.log("reservationData",reservationData)
     setIsModalQuestion(false);
 
     setTimeout(async () => {
-      await changeStatusReservation(itemId, actionValue);
+      await changeStatusReservation(itemId, actionValue,criteriaDate);
     }, 500);
   };
 
@@ -68,14 +70,14 @@ console.log("reservationData",reservationData)
     setIsModalQuestion(false);
 
     setTimeout(async () => {
-      await missedReservation(itemId);
+      await missedReservation(itemId,criteriaDate);
     }, 500);
   };
 
   const sharedRejectQuestionHandler = () => {
     setIsModalQuestion(false);
     setTimeout(async () => {
-      await changeStatusReservation(itemId, actionValue);
+      await changeStatusReservation(itemId, actionValue,criteriaDate);
     }, 500);
   };
   const modalReservationHandler = (title) => {
