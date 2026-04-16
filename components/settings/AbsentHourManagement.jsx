@@ -14,7 +14,7 @@ import useAbsentHours from "./hooks/useAbsentHours";
 import { useAuth } from "@/contexts/AuthContext";
 import { FontAwesome } from "@expo/vector-icons";
 import { SharedMessage } from "@/shared-components/SharedMessage";
-import BookingPickerModal from "./BookingPicker";
+import TimePickerModal from "./TimePickerModal";
 
 export default function AbsentHourManagement() {
   const {
@@ -25,7 +25,8 @@ export default function AbsentHourManagement() {
     error,
     isLoading,
   } = useAbsentHours();
-  const [comment, setComment] = useState("");
+  const [commentDate, setCommentDate] = useState("");
+  const [commentTime, setCommentTime] = useState("");
   const [showFromPicker, setShowFromPicker] = useState(false);
   const [showToPicker, setShowToPicker] = useState(false);
 
@@ -51,24 +52,6 @@ export default function AbsentHourManagement() {
       setShowFromDate(false);
     }
   };
-  const onChangeFrom = (selectedDate) => {
-    setShowFromPicker(Platform.OS === "ios");
-    setFromTime(selectedDate);
-  };
-
-  const onChangeTo = (selectedDate) => {
-    setShowToPicker(Platform.OS === "ios");
-    setToTime(selectedDate);
-  };
-  // const onTimeFromChange = (event, selectedTime) => {
-  //   if (event.type === "set" && selectedTime) {
-  //     const newDate = new Date(tempFromDate);
-  //     newDate.setHours(selectedTime.getHours());
-  //     newDate.setMinutes(selectedTime.getMinutes());
-  //     setDateFrom(newDate);
-  //   }
-  //   setShowFromTime(false);
-  // };
 
   useEffect(() => {
     if (tempFromDate && tempFromDate > tempToDate) {
@@ -84,34 +67,19 @@ export default function AbsentHourManagement() {
     }
   };
 
-  const onTimeToChange = (event, selectedTime) => {
-    console.log("onTimeToChange", tempToDate);
-    console.log("selectedTime", selectedTime);
-    const combined = new Date(
-      Date.UTC(
-        tempToDate.getUTCFullYear(),
-        tempToDate.getUTCMonth(),
-        tempToDate.getUTCDate(),
-        selectedTime.getUTCHours(),
-        selectedTime.getUTCMinutes(),
-        selectedTime.getUTCSeconds(),
-      ),
-    );
-    setFinalDateTo(combined);
-    if (event.type === "set" && selectedTime) {
-      const newDate = new Date(tempToDate);
-      newDate.setHours(selectedTime.getHours());
-      newDate.setMinutes(selectedTime.getMinutes());
-      setDateTo(newDate);
-    }
-    setShowToTime(false);
-  };
-
   const submitChanges = () => {
     console.log("dateFrom", dateFrom);
-    console.log("dateTo", finalDateTo);
+    console.log("dateTo", dateTo);
+    console.log("fromTimeData", fromTime);
+    console.log("toTimeData", toTime);
+    console.log("aaaaaaaaaaa", activeTab);
+    if (activeTab === "upcoming") {
+      createAbsentHours(dateFrom, dateTo, commentDate, isToken, "upcoming");
+    } else {
+      createAbsentHours(fromTime, toTime, commentTime, isToken, "past");
+    }
     // createAbsentHours(formatTime(dateFrom), formatTime(dateTo), comment, isToken);
-    createAbsentHours(dateFrom, finalDateTo, comment, isToken);
+    // createAbsentHours(dateFrom, finalDateTo, comment, isToken);
   };
 
   const resetForm = () => {
@@ -124,163 +92,173 @@ export default function AbsentHourManagement() {
     resetForm();
   };
 
+  const getTimeFromHandler = (fromTimeData) => {
+    setFromTime(fromTimeData);
+  };
+  const getTimeToHandler = (toTimeData) => {
+    setToTime(toTimeData);
+  };
   const cancelHandler = () => {
     setIsMessage(false);
   };
   const [activeTab, setActiveTab] = useState("upcoming"); // "upcoming" | "past"
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>
-        {localization.SETTINGS.ABSENTHOURS.capture}
-      </Text>
-      <View style={styles.tabContainer}>
-        <TouchableOpacity
-          style={[styles.tab, activeTab === "upcoming" && styles.activeTab]}
-          onPress={() => setActiveTab("upcoming")}
-        >
-          <Text
-            style={[
-              styles.tabText,
-              activeTab === "upcoming" && styles.activeText,
-            ]}
+    <>
+      <View style={styles.container}>
+        <Text style={styles.title}>
+          {localization.SETTINGS.ABSENTHOURS.capture}
+        </Text>
+        <View style={styles.tabContainer}>
+          <TouchableOpacity
+            style={[styles.tab, activeTab === "upcoming" && styles.activeTab]}
+            onPress={() => setActiveTab("upcoming")}
           >
-            Odmor / Bolovanje
-          </Text>
-        </TouchableOpacity>
+            <Text
+              style={[
+                styles.tabText,
+                activeTab === "upcoming" && styles.activeText,
+              ]}
+            >
+              Odmor / Bolovanje
+            </Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          style={[styles.tab, activeTab === "past" && styles.activeTab]}
-          onPress={() => setActiveTab("past")}
-        >
-          <Text
-            style={[styles.tabText, activeTab === "past" && styles.activeText]}
+          <TouchableOpacity
+            style={[styles.tab, activeTab === "past" && styles.activeTab]}
+            onPress={() => setActiveTab("past")}
           >
-            Hitni slucajevi
-          </Text>
-        </TouchableOpacity>
-      </View>
+            <Text
+              style={[
+                styles.tabText,
+                activeTab === "past" && styles.activeText,
+              ]}
+            >
+              Hitni slucajevi
+            </Text>
+          </TouchableOpacity>
+        </View>
 
-      {activeTab === "upcoming" && (
-        <>
-          <Text style={styles.subTitle}>
-            {localization.SETTINGS.ABSENTHOURS.from}
-          </Text>
-          <DateAbsentComponent
-            onDateChange={onDateFromChange}
-            setShowDate={setShowFromDate}
-            showDate={showFromDate}
-            date={dateFrom}
-          />
-
-          <Text style={styles.subTitle}>
-            {localization.SETTINGS.ABSENTHOURS.to}
-          </Text>
-          <DateAbsentComponent
-            onDateChange={onDateToChange}
-            setShowDate={setShowToDate}
-            showDate={showToDate}
-            date={dateTo}
-          />
-          <TextInput
-            style={styles.textInput}
-            placeholder={localization.SETTINGS.ABSENTHOURS.comment}
-            multiline
-            numberOfLines={4}
-            value={comment}
-            onChangeText={setComment}
-            textAlignVertical="top"
-          />
-        </>
-      )}
-
-
-
-
-      {activeTab === "past" && (
-        <>
-          <View style={styles.row}>
+        {activeTab === "upcoming" && (
+          <>
             <Text style={styles.subTitle}>
               {localization.SETTINGS.ABSENTHOURS.from}
             </Text>
-            <TouchableOpacity
-              onPress={() => setShowFromPicker(true)}
-              style={styles.timeButton}
-            >
-              {fromTime && <Text style={styles.timeText}>{fromTime}</Text>}
-              {!fromTime && (
-                <Text style={styles.timeText}>
-                  {localization.SETTINGS.WORKHOURS.startTimePlaceHolder}
-                </Text>
-              )}
-            </TouchableOpacity>
-          </View>
-          <View style={styles.row}>
+            <DateAbsentComponent
+              onDateChange={onDateFromChange}
+              setShowDate={setShowFromDate}
+              showDate={showFromDate}
+              date={dateFrom}
+            />
+
             <Text style={styles.subTitle}>
               {localization.SETTINGS.ABSENTHOURS.to}
             </Text>
-            <TouchableOpacity
-              onPress={() => setShowToPicker(true)}
-              style={styles.timeButton}
-            >
-              {toTime && <Text style={styles.timeText}>{toTime}</Text>}
-              {!toTime && (
-                <Text style={styles.timeText}>
-                  {localization.SETTINGS.WORKHOURS.endTimePlaceHolder}
-                </Text>
-              )}
-            </TouchableOpacity>
+            <DateAbsentComponent
+              onDateChange={onDateToChange}
+              setShowDate={setShowToDate}
+              showDate={showToDate}
+              date={dateTo}
+            />
             <TextInput
               style={styles.textInput}
               placeholder={localization.SETTINGS.ABSENTHOURS.comment}
               multiline
               numberOfLines={4}
-              value={comment}
-              onChangeText={setComment}
+              value={commentDate}
+              onChangeText={setCommentDate}
               textAlignVertical="top"
             />
-          </View>
+          </>
+        )}
 
-        </>
-      )}
+        {activeTab === "past" && (
+          <>
+            <View style={styles.row}>
+              <Text style={styles.subTitle}>
+                {localization.SETTINGS.ABSENTHOURS.from}
+              </Text>
+              <TouchableOpacity
+                onPress={() => setShowFromPicker(true)}
+                style={styles.timeButton}
+              >
+                {fromTime && <Text style={styles.timeText}>{fromTime}</Text>}
+                {!fromTime && (
+                  <Text style={styles.timeText}>
+                    {localization.SETTINGS.WORKHOURS.startTimePlaceHolder}
+                  </Text>
+                )}
+              </TouchableOpacity>
+            </View>
+            <View style={styles.row}>
+              <Text style={styles.subTitle}>
+                {localization.SETTINGS.ABSENTHOURS.to}
+              </Text>
+              <TouchableOpacity
+                onPress={() => setShowToPicker(true)}
+                style={styles.timeButton}
+              >
+                {toTime && <Text style={styles.timeText}>{toTime}</Text>}
+                {!toTime && (
+                  <Text style={styles.timeText}>
+                    {localization.SETTINGS.WORKHOURS.endTimePlaceHolder}
+                  </Text>
+                )}
+              </TouchableOpacity>
+              <TextInput
+                style={styles.textInput}
+                placeholder={localization.SETTINGS.ABSENTHOURS.comment}
+                multiline
+                numberOfLines={4}
+                value={commentTime}
+                onChangeText={setCommentTime}
+                textAlignVertical="top"
+              />
+            </View>
+          </>
+        )}
+
+        <View style={styles.submit}>
+          <SharedButton
+            onPress={submitChanges}
+            loading={isLoading}
+            text={localization.SETTINGS.ABSENTHOURS.submit}
+          />
+        </View>
+
+        {isMessage && (
+          <SharedMessage
+            isOpen={isMessage}
+            onClose={!error ? confirmHandler : cancelHandler}
+            onConfirm={!error ? confirmHandler : cancelHandler}
+            icon={
+              <FontAwesome
+                name={error ? "close" : "check-circle-o"}
+                size={64}
+                color="white"
+              />
+            }
+            title={error || message}
+            buttonText="OK"
+          />
+        )}
+      </View>
       {showFromPicker && (
-        <BookingPickerModal
+        <TimePickerModal
           visible={showFromPicker}
-          onClose={() => setShowFromPicker(false)}
-          onSelect={onChangeFrom}
+          setVisible={setShowFromPicker}
+          onCancel={() => setShowFromPicker(false)}
+          onConfirm={getTimeFromHandler}
         />
       )}
       {showToPicker && (
-        <BookingPickerModal
+        <TimePickerModal
           visible={showToPicker}
-          onClose={() => setShowToPicker(false)}
-          onSelect={onChangeTo}
+          setVisible={setShowToPicker}
+          onCancel={() => setShowToPicker(false)}
+          onConfirm={getTimeToHandler}
         />
       )}
-
-      <View style={styles.submit}>
-        <SharedButton
-          onPress={submitChanges}
-          loading={isLoading}
-          text={localization.SETTINGS.ABSENTHOURS.submit}
-        />
-      </View>
-      {isMessage && (
-        <SharedMessage
-          isOpen={isMessage}
-          onClose={!error ? confirmHandler : cancelHandler}
-          onConfirm={!error ? confirmHandler : cancelHandler}
-          icon={
-            <FontAwesome
-              name={error ? "close" : "check-circle-o"}
-              size={64}
-              color="white"
-            />
-          }
-          title={error || message}
-          buttonText="OK"
-        />
-      )}
-    </View>
+    </>
   );
 }
 
@@ -308,7 +286,7 @@ const styles = StyleSheet.create({
     padding: 12,
     alignItems: "center",
     borderWidth: 1,
-    borderColor: "#fff"
+    borderColor: "#fff",
   },
   activeTab: {
     backgroundColor: "#000000",
@@ -320,7 +298,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     backgroundColor: "rgb(48, 48, 48)",
     fontWeight: "bold",
-    width: "100%"
+    width: "100%",
   },
   timeText: {
     fontSize: 18,
