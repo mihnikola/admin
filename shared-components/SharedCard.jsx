@@ -4,9 +4,8 @@ import { router } from "expo-router";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { convertTimeHandler } from "../helpers";
 
-const SharedCard = ({ item }) => {
+const SharedCard = ({ item, criteriaDate }) => {
   const { localization } = useLocalization();
-  console.log("itemxxxxxxxxxxxxxxx", item);
 
   const goToScreen = (item) => {
     router.push({
@@ -16,6 +15,7 @@ const SharedCard = ({ item }) => {
         user: item?.reservation?.user,
         note: item?.reservation?.note,
         arrived: item?.arrived,
+        criteriaDate: criteriaDate?.dateString
       },
     });
   };
@@ -75,7 +75,7 @@ const SharedCard = ({ item }) => {
           {item.status === "approved" && finishReservation() && (
             <FontAwesome size={25} color="white" name="check-circle-o" />
           )}
-           {item.status === "approved" && !finishReservation() && (
+          {item.status === "approved" && !finishReservation() && (
             <FontAwesome size={25} color="white" name="thumbs-up" />
           )}
           {item.status === "rejected" && (

@@ -1,4 +1,5 @@
 import { getData } from "@/api/apiService";
+import { useAppointment } from "@/contexts/AppointmentContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { useEffect, useState } from "react";
 
@@ -8,8 +9,9 @@ function useCheckCalendar() {
   const [error, setError] = useState(null);
   const [selectedDate, setSelectedDate] = useState(false);
   const { isToken } = useAuth();
+  const { getReservations, events } = useAppointment();
 
-  const [events, setEvents] = useState(null);
+  // const [events, setEvents] = useState(null);
 
   const convertResult = (response) => {
     const marketDates = {};
@@ -45,46 +47,22 @@ function useCheckCalendar() {
 
     return cleaned;
   }
-  const getReservations = async (criteria) => {
+
+  const handleDayPress = async (day) => {
     setIsLoading(true);
-    setError(null);
-    if (!criteria) {
-      setIsLoading(false);
-      return;
-    }
-    try {
-      const response = await getData("/admin/availabilities", {
-        dateValue: criteria,
-        token: isToken,
-      });
-      setEvents(response);
-    } catch (err) {
-      console.error("Error fetching tasks:", err);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-  const handleDayPress = (day) => {
-    console.log("handleDayPress", day);
-    const clickedDate = new Date(day);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    const isPast = clickedDate < today;
-    if (isPast) {
-      console.log("Kliknut prošli dan:", day);
-    } else {
-      console.log("Kliknut budući/današnji dan:", day?.dateString);
-    }
     let cleanedDates = removeSelectedProps(checkDates);
     cleanedDates[day?.dateString] = {
       ...cleanedDates[day?.dateString],
       selected: true,
       selectedColor: "#ffffffff",
     };
-    console.log("cleanedDates", cleanedDates);
     setCheckDates(cleanedDates);
-    getReservations(day?.dateString);
+    await getReservations(day?.dateString);
+    setIsLoading(false);
+
   };
   const createMonthObject = (date = new Date()) => {
     const year = date.getFullYear();
@@ -103,7 +81,7 @@ function useCheckCalendar() {
       };
 
       if (key === today) {
-        
+
         result[key] = {
           marked: true,
           dotColor: "white",
@@ -117,27 +95,17 @@ function useCheckCalendar() {
   };
 
   const initialHandleDayPress = (day) => {
-    console.log("handleDayPress", day);
-    const clickedDate = new Date(day);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-
-    const isPast = clickedDate < today;
-    if (isPast) {
-      console.log("Kliknut prošli dan:", day);
-    } else {
-      console.log("Kliknut budući/današnji dan:", day?.dateString);
-    }
-
     let cleanedDates = createMonthObject();
-    console.log("cleanedDates",cleanedDates)
     setCheckDates(cleanedDates);
     getReservations(day?.dateString);
   };
 
-  const getDates = async (selectedMonth: any) => {
+  const getDates = async (selectedMonth) => {
     setIsLoading(true);
     setError(null);
+
     if (!selectedMonth) {
       setIsLoading(false);
       return;
@@ -148,8 +116,19 @@ function useCheckCalendar() {
         monthValue: selectedMonth,
         token: isToken,
       });
+
       if (response.status === 200) {
         const responseData = convertResult(response.data);
+
+        const today = new Date();
+        const todayStr = today.toLocaleDateString("sv-SE"); // YYYY-MM-DD
+
+        responseData[todayStr] = {
+          ...responseData[todayStr],
+          selected: true,
+          selectedColor: "#fff",
+        };
+
         setCheckDates(responseData);
       }
     } catch (err) {

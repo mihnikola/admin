@@ -6,8 +6,11 @@ import {
   View,
 } from "react-native";
 import SharedCard from "@/shared-components/SharedCard";
+import { useLocalization } from "@/contexts/LocalizationContext";
 
-const EventTimelineList = ({ events, isLoading, error }) => {
+const EventTimelineList = ({ events, isLoading, error, criteriaDate }) => {
+
+  const { localization } = useLocalization();
   if (error) {
     return (
       <View style={styles.messageContainer}>
@@ -26,7 +29,7 @@ const EventTimelineList = ({ events, isLoading, error }) => {
     return (
       <View style={styles.messageContainer}>
         <Text style={styles.noEventsText}>
-          No events scheduled for this date.
+          {localization.EVENTS.notFound}
         </Text>
       </View>
     );
@@ -46,7 +49,7 @@ const EventTimelineList = ({ events, isLoading, error }) => {
       {!isLoading && (
         <FlatList
           data={events}
-          renderItem={({ item }) => <SharedCard item={item} />}
+          renderItem={({ item }) => <SharedCard item={item} criteriaDate={criteriaDate} />}
           keyExtractor={(item) => item.id}
         />
       )}
@@ -96,7 +99,7 @@ const styles = StyleSheet.create({
   },
   noEventsText: {
     fontSize: 16,
-    color: "#060606ff",
+    color: "rgb(255, 255, 255)",
     textAlign: "center",
   },
   flatListContent: {

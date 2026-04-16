@@ -1,6 +1,6 @@
 import { calendarTheme } from "@/helpers";
 import useCheckCalendar from "@/hooks/useCheckCalendar";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   StatusBar,
   StyleSheet,
@@ -10,6 +10,8 @@ import {
 } from "react-native";
 import { CalendarList } from "react-native-calendars";
 import EventTimelineList from "../../EventTimeLineList";
+import { useFocusEffect } from "expo-router";
+import { useIsFocused } from "@react-navigation/native";
 
 const DateComponent = () => {
   const today = new Date();
@@ -24,6 +26,9 @@ const DateComponent = () => {
     selectedDate,
     setSelectedDate,
   } = useCheckCalendar();
+
+
+  const [selectValueDate, setSelectValueDate] = useState(null);
   const [checkMonth, setCheckMonth] = useState(null);
   const [calendarHight, setCalendarHeight] = useState(null);
 
@@ -40,7 +45,6 @@ const DateComponent = () => {
     return Math.ceil((firstDay + daysInMonth) / 7) * 50 + 50;
   };
   useEffect(() => {
-    console.log("xxxxxxxxxxx");
     getDates(checkMonth || localDateString);
 
     setCalendarHeight(getWeeksInMonth(checkMonth));
@@ -49,6 +53,7 @@ const DateComponent = () => {
   const onDayPressHandler = (date) => {
     setSelectedDate(true);
     handleDayPress(date);
+    setSelectValueDate(date);
   };
 
   if (checkDates) {
@@ -121,6 +126,7 @@ const DateComponent = () => {
             events={selectedDate ? events : []}
             isLoading={isLoading}
             error={error}
+            criteriaDate={selectValueDate || null}
           />
         </View>
       </View>

@@ -260,7 +260,34 @@ export const convertAmPmTo24HourFormat = (dateTimeAmPmString) => {
   };
 };
 
+const toBelgradeISO = (utcDate) => {
+  const date = new Date(utcDate);
+
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Europe/Belgrade",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+  }).formatToParts(date);
+
+  const get = (type) => parts.find(p => p.type === type).value;
+
+  const year = get("year");
+  const month = get("month");
+  const day = get("day");
+  const hour = get("hour");
+  const minute = get("minute");
+  const second = get("second");
+
+  return `${year}-${month}-${day}T${hour}:${minute}:${second}+02:00`;
+};
+
 export const convertReadFullDateTime = (item) => {
+  
   const date = new Date(item);
   const { localization } = useLocalization();
   let weekdays = [];
@@ -276,7 +303,8 @@ export const convertReadFullDateTime = (item) => {
   const monthName = months[date.getMonth()];
 
   const day = date.getDate();
-  const time = item.split("T")[1];
+  const result = toBelgradeISO(item);
+  const time = result.split("T")[1];
   const [hour, minuts] = time.split(":");
   if (localization.code === "en") {
     return `${dayOfWeek} ${day}. ${monthName} at ${hour}:${minuts}`;

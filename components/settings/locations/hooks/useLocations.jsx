@@ -57,7 +57,6 @@ function useLocation() {
     setError(null);
     try {
       const response = await get(`/admin/places/${id}`);
-      console.log("rexxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",response);
       if (response.status === 200) {
         setLocationById(response.data);
       }

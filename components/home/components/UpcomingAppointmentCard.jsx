@@ -20,7 +20,6 @@ export default function UpcomingAppointmentCard({ data }) {
     });
   };
 
-  console.log("UpcomingAppointmentCard",data.startDate,data.endDate)
   return (
     <TouchableOpacity
       activeOpacity={0.8}
