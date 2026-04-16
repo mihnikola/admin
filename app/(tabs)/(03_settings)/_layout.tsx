@@ -8,6 +8,9 @@ const headerOptions = {
   },
   headerTintColor: "white",
 };
+const headerOptionsFalse = {
+  headerShown: false,
+};
 
 export default function RootLayoutBarbers() {
   return (
@@ -24,7 +27,7 @@ export default function RootLayoutBarbers() {
       <Stack.Screen name="addServices" options={headerOptions} />
       <Stack.Screen name="addBarbers" options={headerOptions} />
       <Stack.Screen name="barbers" options={headerOptions} />
-      <Stack.Screen name="barbersLocations" options={headerOptions} />
+      <Stack.Screen name="barbersLocations" options={headerOptionsFalse} />
       <Stack.Screen name="barbersServices" options={headerOptions} />
       <Stack.Screen name="locationBarbers" options={headerOptions} />
       <Stack.Screen name="servicesBarbers" options={headerOptions} />
