@@ -269,8 +269,8 @@ export default function BarbersAdd() {
             label="Status odobravanja"
             selected={
               localization.code === "sr"
-                ? selectedStatus?.name.nameLocal
-                : selectedStatus?.name.nameEn
+                ? selectedStatus?.name?.nameLocal
+                : selectedStatus?.name?.nameEn
             }
           />
           <BarberSeniorityComponent

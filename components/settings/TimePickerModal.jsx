@@ -1,33 +1,52 @@
 import React, { useState } from "react";
 import { View, Text, Modal, TouchableOpacity, StyleSheet } from "react-native";
 import WheelPicker from "@quidone/react-native-wheel-picker";
+import { useLocalization } from "@/contexts/LocalizationContext";
 
-const generateTimes = () => {
+const generateTimes = (startValue, endValue, step = 10) => {
   const times = [];
 
-  for (let h = 9; h <= 22; h++) {
-    ["00", "30"].forEach((m) => {
-      if (h === 22 && m !== "00") return;
+  const toMinutes = (time) => {
+    const [h, m] = time.split(":").map(Number);
+    return h * 60 + m;
+  };
 
-      const hour = h.toString().padStart(2, "0");
+  const toTimeString = (minutes) => {
+    const h = Math.floor(minutes / 60)
+      .toString()
+      .padStart(2, "0");
+    const m = (minutes % 60).toString().padStart(2, "0");
+    return `${h}:${m}`;
+  };
 
-      times.push({
-        label: `${hour}:${m}`,
-        value: `${hour}:${m}`,
-      });
+  let current = toMinutes(startValue);
+  const end = toMinutes(endValue);
+
+  while (current <= end) {
+    const time = toTimeString(current);
+
+    times.push({
+      label: time,
+      value: time,
     });
+
+    current += step; // npr. 10 minuta
   }
 
   return times;
 };
 
-const TimePickerModal = ({ setVisible, visible, onCancel, onConfirm }) => {
-  const [selectedTime, setSelectedTime] = useState("09:00");
-  const times = generateTimes();
+
+const TimePickerModal = ({ setVisible, visible, onCancel, onConfirm, startValue, endValue, interval }) => {
+  const [selectedTime, setSelectedTime] = useState(startValue);
+  const { localization } = useLocalization();
+  const times = generateTimes(startValue, endValue, interval);
   const onDone = () => {
     setVisible(false);
     onConfirm(selectedTime);
   };
+
+
 
   return (
     <Modal
@@ -41,11 +60,11 @@ const TimePickerModal = ({ setVisible, visible, onCancel, onConfirm }) => {
           {/* Header */}
           <View style={styles.header}>
             <TouchableOpacity onPress={onCancel}>
-              <Text style={styles.cancel}>Cancel</Text>
+              <Text style={styles.cancel}>{localization.PLACES.cancel}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={onDone}>
-              <Text style={styles.done}>Done</Text>
+              <Text style={styles.done}>{localization.PLACES.confirmButton}</Text>
             </TouchableOpacity>
           </View>
 
@@ -75,6 +94,7 @@ const styles = StyleSheet.create({
     color: "#007AFF",
   },
 
+
   overlay: {
     flex: 1,
     backgroundColor: "rgba(0, 0, 0, 2)",
@@ -98,13 +118,16 @@ const styles = StyleSheet.create({
 
   cancel: {
     fontSize: 16,
-    color: "#FF3B30",
+    color: "#797979",
+    fontWeight: "600",
+    padding: 10
   },
 
   done: {
     fontSize: 16,
-    color: "#007AFF",
+    color: "#fdfdfd",
     fontWeight: "600",
+    padding: 10
   },
 
   itemText: {

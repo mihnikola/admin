@@ -15,6 +15,8 @@ import { useAuth } from "@/contexts/AuthContext";
 import { FontAwesome } from "@expo/vector-icons";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import TimePickerModal from "./TimePickerModal";
+import { router } from "expo-router";
+import { SharedLoader } from "@/shared-components/SharedLoader";
 
 export default function AbsentHourManagement() {
   const {
@@ -24,7 +26,11 @@ export default function AbsentHourManagement() {
     message,
     error,
     isLoading,
+    getEmployer,
+    workHours
   } = useAbsentHours();
+  const [activeTab, setActiveTab] = useState("upcoming"); // "upcoming" | "past"
+
   const [commentDate, setCommentDate] = useState("");
   const [commentTime, setCommentTime] = useState("");
   const [showFromPicker, setShowFromPicker] = useState(false);
@@ -32,19 +38,28 @@ export default function AbsentHourManagement() {
 
   const [dateFrom, setDateFrom] = useState(new Date());
   const [showFromDate, setShowFromDate] = useState(false);
-  const [showFromTime, setShowFromTime] = useState(false);
   const [tempFromDate, setTempFromDate] = useState(new Date());
 
   const [dateTo, setDateTo] = useState(new Date());
   const [showToDate, setShowToDate] = useState(false);
-  const [showToTime, setShowToTime] = useState(false);
   const [tempToDate, setTempToDate] = useState(new Date());
-  const [finalDateTo, setFinalDateTo] = useState();
-  const [fromTime, setFromTime] = useState("10:00");
-  const [toTime, setToTime] = useState("19:00");
+  const [fromTime, setFromTime] = useState("");
+  const [toTime, setToTime] = useState("");
+
 
   const { localization } = useLocalization();
   const { isToken } = useAuth();
+
+  useEffect(() => {
+    if (isToken)
+      getEmployer(isToken);
+
+  }, [isToken]);
+
+  useEffect(() => {
+    setFromTime(workHours?.start || "");
+    setToTime(workHours?.end || "");
+  }, [activeTab]);
 
   const onDateFromChange = (event, selectedDate) => {
     if (event.type === "set" && selectedDate) {
@@ -68,28 +83,19 @@ export default function AbsentHourManagement() {
   };
 
   const submitChanges = () => {
-    console.log("dateFrom", dateFrom);
-    console.log("dateTo", dateTo);
-    console.log("fromTimeData", fromTime);
-    console.log("toTimeData", toTime);
-    console.log("aaaaaaaaaaa", activeTab);
+
     if (activeTab === "upcoming") {
       createAbsentHours(dateFrom, dateTo, commentDate, isToken, "upcoming");
     } else {
       createAbsentHours(fromTime, toTime, commentTime, isToken, "past");
     }
-    // createAbsentHours(formatTime(dateFrom), formatTime(dateTo), comment, isToken);
-    // createAbsentHours(dateFrom, finalDateTo, comment, isToken);
   };
 
-  const resetForm = () => {
-    // setComment(null);
-    // setDateFrom(new Date());
-    // setDateTo(new Date());
-  };
+
   const confirmHandler = () => {
     setIsMessage(false);
-    resetForm();
+    router.back();
+
   };
 
   const getTimeFromHandler = (fromTimeData) => {
@@ -101,7 +107,20 @@ export default function AbsentHourManagement() {
   const cancelHandler = () => {
     setIsMessage(false);
   };
-  const [activeTab, setActiveTab] = useState("upcoming"); // "upcoming" | "past"
+
+  if (isLoading === 'get') {
+    return <SharedLoader isOpen={isLoading === 'get'} />
+  }
+  if (!workHours) {
+    return (
+      <View style={styles.messageContainer}>
+        <Text style={styles.noEventsText}>
+          {localization.PLACES.workHoursNotFound}
+        </Text>
+      </View>
+    );
+  }
+
   return (
     <>
       <View style={styles.container}>
@@ -220,7 +239,7 @@ export default function AbsentHourManagement() {
         <View style={styles.submit}>
           <SharedButton
             onPress={submitChanges}
-            loading={isLoading}
+            loading={isLoading === 'post'}
             text={localization.SETTINGS.ABSENTHOURS.submit}
           />
         </View>
@@ -242,22 +261,24 @@ export default function AbsentHourManagement() {
           />
         )}
       </View>
-      {showFromPicker && (
-        <TimePickerModal
-          visible={showFromPicker}
-          setVisible={setShowFromPicker}
-          onCancel={() => setShowFromPicker(false)}
-          onConfirm={getTimeFromHandler}
-        />
-      )}
-      {showToPicker && (
-        <TimePickerModal
-          visible={showToPicker}
-          setVisible={setShowToPicker}
-          onCancel={() => setShowToPicker(false)}
-          onConfirm={getTimeToHandler}
-        />
-      )}
+      <TimePickerModal
+        visible={showFromPicker}
+        startValue={fromTime}
+        endValue={toTime}
+        interval={5}
+        setVisible={setShowFromPicker}
+        onCancel={() => setShowFromPicker(false)}
+        onConfirm={getTimeFromHandler}
+      />
+      <TimePickerModal
+        visible={showToPicker}
+        startValue={fromTime}
+        endValue={toTime}
+        interval={5}
+        setVisible={setShowToPicker}
+        onCancel={() => setShowToPicker(false)}
+        onConfirm={getTimeToHandler}
+      />
     </>
   );
 }
@@ -270,6 +291,18 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     justifyContent: "space-between",
     gap: 10,
+  },
+  noEventsText: {
+    fontSize: 16,
+    color: "rgb(255, 255, 255)",
+    textAlign: "center",
+  },
+  messageContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 40,
+    minHeight: 150,
   },
   label: {
     fontSize: 18,
@@ -293,12 +326,12 @@ const styles = StyleSheet.create({
   },
   timeButton: {
     borderWidth: 1,
-    borderColor: "rgb(0, 0, 0)",
-    paddingVertical: 5,
-    paddingHorizontal: 20,
-    backgroundColor: "rgb(48, 48, 48)",
-    fontWeight: "bold",
-    width: "100%",
+    borderColor: "#fff",
+    borderRadius: 8,
+    paddingVertical: 14,
+    paddingHorizontal: 10,
+    backgroundColor: "#000",
+    marginBottom: 20,
   },
   timeText: {
     fontSize: 18,

@@ -1,11 +1,13 @@
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import { StyleSheet, Text, View, FlatList, TextInput } from "react-native";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import useLocationBarber from "./../hooks/useLocationBarber";
 import Loader from "@/shared-components/Loader";
 import LocationItem from "./LocationItem";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 const Locations = () => {
   const { localization } = useLocalization();
+  const [search, setSearch] = useState("");
+
   const {
     getLocations,
     onSelectedLocation,
@@ -13,7 +15,9 @@ const Locations = () => {
     locations,
     selectedLocation,
   } = useLocationBarber();
-
+  const filteredLocations = locations.filter((location) =>
+    location.address.toLowerCase().includes(search.toLowerCase()),
+  );
   useEffect(() => {
     getLocations();
   }, []);
@@ -21,13 +25,20 @@ const Locations = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{localization.PLACES.title}</Text>
+      <TextInput
+        style={styles.searchInput}
+        placeholder={localization.CLIENTS.search}
+        value={search}
+        onChangeText={setSearch}
+        placeholderTextColor="white"
+      />
       <View style={{ flex: 1 }}>
         {isLoading === "getLocations" && (
           <Loader isOpen={isLoading === "getLocations"} />
         )}
         {!isLoading && (
           <FlatList
-            data={locations}
+            data={filteredLocations}
             keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => (
               <LocationItem
@@ -56,7 +67,14 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginTop: 20,
   },
-
+  searchInput: {
+    backgroundColor: "#222",
+    borderRadius: 8,
+    padding: 20,
+    margin: 18,
+    fontSize: 18,
+    color: "white"
+  },
   container: {
     flex: 1,
     backgroundColor: "#000",

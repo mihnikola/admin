@@ -67,6 +67,7 @@ export const SRB_LOCALIZATION = {
   },
   PLACES: {
     errorFields: "Popuni sva polja",
+    workHoursNotFound: "Barber trenutno nije dodeljen nijednoj lokaciji",
     deactivatedSuccess: "Lokacija je uspešno deaktivirana.",
     deletedSuccess: "Lokacija je uspešno obrisana.",
     undoSuccess: "Lokacija je uspešno aktivirana.",

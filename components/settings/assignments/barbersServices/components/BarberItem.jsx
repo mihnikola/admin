@@ -48,7 +48,8 @@ const styles = StyleSheet.create({
         borderColor: "white",
         padding: 20,
         borderRadius: 8,
-        marginBottom: 10,
+        marginHorizontal: 20,
+        marginBottom:5
     },
     barberText: {
         color: "#fff",
