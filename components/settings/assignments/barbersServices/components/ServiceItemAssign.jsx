@@ -3,7 +3,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import { TouchableOpacity, View, Image, Text } from "react-native";
 import { StyleSheet } from "react-native";
 
-const ServiceItem = ({ item, toggleService }) => {
+const ServiceItemAssign = ({ item, toggleService }) => {
   const { localization } = useLocalization();
 
   return (
@@ -24,15 +24,15 @@ const ServiceItem = ({ item, toggleService }) => {
         </View>
       </View>
       <View style={styles.centerCheckMark}>
-        <FontAwesome name="plus" size={28} color="white" />
+        <FontAwesome name="close" size={25} color="white" />
       </View>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  serviceItem: {
-    backgroundColor: "#424242",
+   serviceItem: {
+    backgroundColor: "#7c7a7a",
     flexDirection: "row",
     justifyContent: "space-between",
     padding: 5,
@@ -61,4 +61,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ServiceItem;
+export default ServiceItemAssign;

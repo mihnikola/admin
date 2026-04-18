@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   barberItem: {
-    backgroundColor: "#303030",
+    backgroundColor: "#7c7a7a",
     flexDirection: "row",
     justifyContent: "space-between",
     paddingHorizontal: 10,

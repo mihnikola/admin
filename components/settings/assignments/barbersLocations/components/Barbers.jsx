@@ -64,12 +64,15 @@ export default function Barbers() {
       <Text style={styles.subTitle}>{localization.BARBERS.listBarbers}</Text>
       <View key={itemData.id} style={styles.itemContent}>
         <FontAwesome name="map-marker" size={25} color="white" />
-        <Text style={styles.address}>Lokacija:</Text>
+        <Text style={styles.address}>
+          {localization.SETTINGS.EMPLOYERSPLACES.location}
+        </Text>
         <Text style={styles.address}>{itemData.address}</Text>
       </View>
       <View style={{ flex: 2, marginTop: 10 }}>
         <Text style={styles.addressBarbers}>
-          Barberi na ovoj lokaciji ({filterResult.length})
+          {localization.SETTINGS.EMPLOYERSPLACES.barbersLength} (
+          {filterResult.length})
         </Text>
         {isLoading === "getBarbers" ? (
           <View style={styles.loadingContainer}>
@@ -88,7 +91,8 @@ export default function Barbers() {
 
       <View style={{ flex: 2, marginTop: 5 }}>
         <Text style={styles.addressBarbers}>
-          Svi dostupni barberi ({filteredBarbers.length})
+          {localization.SETTINGS.EMPLOYERSPLACES.availableBarbers} (
+          {filteredBarbers.length})
         </Text>
         <TextInput
           style={styles.searchInput}

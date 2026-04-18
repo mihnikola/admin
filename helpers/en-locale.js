@@ -164,7 +164,7 @@ export const ENG_LOCALIZATION = {
   TIMES: {
     error: "Employer and service must be selected before fetching times.",
     errorFetch: "Errpr while fetching times...",
-    title: "Selected time"
+    title: "Selected time",
   },
 
   APPOINTMENTS: {
@@ -221,6 +221,9 @@ export const ENG_LOCALIZATION = {
     EMPLOYERSPLACES: {
       success: "Employers are successfully attachment on current location",
       submit: "Save",
+      location: "Location:",
+      barbersLength: "Barbers at this location",
+      availableBarbers: "All available barbers",
     },
     clickHere: "Click here to Log in",
     removeBarber: "Delete a barber",
@@ -282,6 +285,9 @@ export const ENG_LOCALIZATION = {
     SERVICESBARBERS: {
       title: "Services & Barbers",
       footerBottom: "All rights reserved ©",
+      barber: "Barber",
+      servicesLength: "Services at this barber",
+      availableServices: "All available services",
     },
     LOCATIONSBARBERS: {
       title: "Locations & Barbers",

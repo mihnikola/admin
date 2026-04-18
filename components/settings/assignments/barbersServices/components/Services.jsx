@@ -1,29 +1,208 @@
+// import { FontAwesome } from "@expo/vector-icons";
+// import { useCallback, useEffect, useState } from "react";
+// import {
+//   ActivityIndicator,
+//   Dimensions,
+//   FlatList,
+//   Image,
+//   ScrollView,
+//   StyleSheet,
+//   Text,
+//   TouchableOpacity,
+//   View,
+// } from "react-native";
+// import useBarbersService from "../hooks/useBarbersService";
+// import { useLocalization } from "@/contexts/LocalizationContext";
+// import { SharedMessage } from "@/shared-components/SharedMessage";
+// import { SharedQuestion } from "@/shared-components/SharedQuestion";
+// import { SharedLoader } from "@/shared-components/SharedLoader";
+// import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
+// import Loader from "@/shared-components/Loader";
+// import ServiceItem from "./ServiceItem";
+// import BarberItem from "./BarberItem";
+
+// export default function Services() {
+//   const { height: screenHeight } = Dimensions.get("window");
+//   const containerHeight = screenHeight * 0.55;
+//   const { localization } = useLocalization();
+//   const { id, name, image, phoneNumber } = useLocalSearchParams();
+
+//   const itemData = {
+//     id,
+//     name,
+//     image,
+//     phoneNumber: phoneNumber || "",
+//   };
+//   const {
+//     isLoading,
+//     error,
+//     isMessage,
+//     setIsMessage,
+//     setMessage,
+//     message,
+//     serviceData,
+//     removeService,
+//     confirmHandler,
+//     getServicesById,
+//     startEditing,
+//     servicesByBarbers,
+//     toggleService,
+//     submitChangesServiceToBarber,
+//   } = useBarbersService();
+
+//   const [isError, setIsError] = useState(null);
+
+//   const cancelHandler = () => {
+//     setIsError(null);
+//   };
+
+//   useEffect(() => {
+//     if (id) {
+//       setTimeout(async () => {
+//         await getServicesById(id);
+//       }, 100);
+//     }
+//   }, [id]);
+
+//   if (isLoading === "getServices") {
+//     return <SharedLoader isOpen={isLoading === "getServices"} />;
+//   }
+
+//   return (
+//     <View style={styles.container}>
+//       {id && <BarberItem item={itemData} id={id} />}
+//       <Text style={styles.subTitle}>{localization.SERVICES.listServices}</Text>
+//       <View style={{ maxHeight: containerHeight }}>
+//         {isLoading === "get" && <Loader />}
+//         {isLoading !== "get" && (
+//           <FlatList
+//             data={servicesByBarbers}
+//             keyExtractor={(item) => item._id}
+//             renderItem={({ item }) => (
+//               <ServiceItem item={item} toggleService={toggleService} />
+//             )}
+//           />
+//         )}
+//       </View>
+//       {isLoading !== "get" && (
+//         <View style={{ flex: 1 }}>
+//           <TouchableOpacity
+//             style={styles.button}
+//             onPress={() => submitChangesServiceToBarber(id)}
+//           >
+//             {isLoading === "patch" && (
+//               <ActivityIndicator size={20} color="#fff" />
+//             )}
+//             {isLoading !== "patch" && (
+//               <Text style={styles.buttonText}>
+//                 {localization.SERVICES.saveChanges}
+//               </Text>
+//             )}
+//           </TouchableOpacity>
+//         </View>
+//       )}
+
+//       {isMessage && (
+//         <SharedMessage
+//           isOpen={isMessage}
+//           icon={<FontAwesome name="check-circle-o" size={64} color="white" />}
+//           onClose={confirmHandler}
+//           onConfirm={confirmHandler}
+//           buttonText="Ok"
+//           title={message}
+//         />
+//       )}
+//       {isError?.length > 0 && (
+//         <SharedMessage
+//           isOpen={isError?.length > 0}
+//           icon={<FontAwesome name="close" size={64} color="white" />}
+//           onClose={cancelHandler}
+//           onConfirm={cancelHandler}
+//           buttonText="Ok"
+//           title={isError}
+//         />
+//       )}
+//     </View>
+//   );
+// }
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     padding: 10,
+//     backgroundColor: "#000000",
+//   },
+//   title: {
+//     fontSize: 22,
+//     fontWeight: "bold",
+//     color: "#fff",
+//     marginBottom: 10,
+//   },
+
+//   subTitle: {
+//     fontSize: 18,
+//     fontWeight: "600",
+//     color: "#fff",
+//     textAlign: "center",
+//     marginBottom: 10,
+//   },
+//   input: {
+//     backgroundColor: "#1e1e1e",
+//     color: "#fff",
+//     padding: 10,
+//     marginBottom: 10,
+//     borderRadius: 8,
+//   },
+//   button: {
+//     backgroundColor: "rgb(0, 0, 0)",
+//     padding: 12,
+//     borderRadius: 8,
+//     alignItems: "center",
+//     borderColor: "white",
+//     borderWidth: 1,
+//     marginTop: 20,
+//   },
+//   cancelButton: {
+//     backgroundColor: "#525252",
+//   },
+//   buttonText: {
+//     color: "#fff",
+//     fontWeight: "bold",
+//   },
+
+//   serviceText: {
+//     color: "#fff",
+//     fontSize: 15,
+//   },
+//   editHint: {
+//     fontSize: 12,
+//     color: "#aaa",
+//     padding: 8,
+//   },
+// });
+
 import { FontAwesome } from "@expo/vector-icons";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
-  Dimensions,
   FlatList,
-  Image,
-  ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
-import useBarbersService from "../hooks/useBarbersService";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { SharedMessage } from "@/shared-components/SharedMessage";
-import { SharedQuestion } from "@/shared-components/SharedQuestion";
-import { SharedLoader } from "@/shared-components/SharedLoader";
-import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import Loader from "@/shared-components/Loader";
+import ServiceItemAssign from "./ServiceItemAssign";
 import ServiceItem from "./ServiceItem";
-import BarberItem from "./BarberItem";
+import SharedBackButton from "@/shared-components/SharedBackButton";
+import useBarbersService from "../hooks/useBarbersService";
+import { SharedLoader } from "@/shared-components/SharedLoader";
 
 export default function Services() {
-  const { height: screenHeight } = Dimensions.get("window");
-  const containerHeight = screenHeight * 0.55;
   const { localization } = useLocalization();
   const { id, name, image, phoneNumber } = useLocalSearchParams();
 
@@ -33,6 +212,20 @@ export default function Services() {
     image,
     phoneNumber: phoneNumber || "",
   };
+  // const itemData = {
+  //   id,
+  //   address,
+  // };
+  // const {
+  //   isLoading,
+  //   isMessage,
+  //   message,
+  //   locationBarbersData,
+  //   confirmSubmit,
+  //   getBarbersById,
+  //   toggleBarber,
+  //   submitChanges,
+  // } = useLocationBarber();
   const {
     isLoading,
     error,
@@ -49,6 +242,9 @@ export default function Services() {
     toggleService,
     submitChangesServiceToBarber,
   } = useBarbersService();
+  const [search, setSearch] = useState("");
+  const filterResult = servicesByBarbers.filter((item) => item.assigned);
+  const allResult = servicesByBarbers.filter((item) => !item.assigned);
 
   const [isError, setIsError] = useState(null);
 
@@ -64,43 +260,81 @@ export default function Services() {
     }
   }, [id]);
 
+  const filteredService = allResult.filter(
+    (service) =>
+      service.name.nameEn.toLowerCase().includes(search.toLowerCase()) ||
+      service.name.nameLocal.toLowerCase().includes(search.toLowerCase()),
+  );
   if (isLoading === "getServices") {
     return <SharedLoader isOpen={isLoading === "getServices"} />;
   }
-
   return (
     <View style={styles.container}>
-      {id && <BarberItem item={itemData} id={id} />}
+      <SharedBackButton onPress={router.back} styleBtn={{ marginTop: 5 }} />
+
       <Text style={styles.subTitle}>{localization.SERVICES.listServices}</Text>
-      <View style={{ maxHeight: containerHeight }}>
-        {isLoading === "get" && <Loader />}
-        {isLoading !== "get" && (
+      <View key={itemData.id} style={styles.itemContent}>
+        <Text style={styles.address}>{localization.SETTINGS.SERVICESBARBERS.barber} </Text>
+        <Text style={styles.address}>{itemData.name}</Text>
+      </View>
+      <View style={{ flex: 2, marginTop: 10 }}>
+        <Text style={styles.addressBarbers}>
+          {localization.SETTINGS.SERVICESBARBERS.servicesLength} ({filterResult.length})
+        </Text>
+        {isLoading === "getServices" ? (
+          <View style={styles.loadingContainer}>
+            <Loader />
+          </View>
+        ) : (
           <FlatList
-            data={servicesByBarbers}
+            data={filterResult}
             keyExtractor={(item) => item._id}
             renderItem={({ item }) => (
-              <ServiceItem item={item} toggleService={toggleService} />
+              <ServiceItemAssign item={item} toggleService={toggleService} />
             )}
           />
         )}
       </View>
-      {isLoading !== "get" && (
-        <View style={{ flex: 1 }}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => submitChangesServiceToBarber(id)}
-          >
-            {isLoading === "patch" && (
-              <ActivityIndicator size={20} color="#fff" />
+
+      <View style={{ flex: 2, marginTop: 5 }}>
+        <Text style={styles.addressBarbers}>
+          {localization.SETTINGS.SERVICESBARBERS.availableServices} ({filteredService.length})
+        </Text>
+        <TextInput
+          style={styles.searchInput}
+          placeholder={localization.CLIENTS.search}
+          value={search}
+          onChangeText={setSearch}
+          placeholderTextColor="white"
+        />
+        {isLoading === "getServices" ? (
+          <View style={styles.loadingContainer}>
+            <Loader />
+          </View>
+        ) : (
+          <FlatList
+            data={filteredService}
+            keyExtractor={(item) => item._id}
+            renderItem={({ item }) => (
+              <ServiceItem item={item} toggleService={toggleService} />
             )}
-            {isLoading !== "patch" && (
-              <Text style={styles.buttonText}>
-                {localization.SERVICES.saveChanges}
-              </Text>
-            )}
-          </TouchableOpacity>
-        </View>
-      )}
+            contentContainerStyle={{ paddingBottom: 20 }}
+          />
+        )}
+      </View>
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => submitChangesServiceToBarber(id)}
+      >
+        {isLoading === "post" ? (
+          <ActivityIndicator size={20} color="#fff" />
+        ) : (
+          <Text style={styles.buttonText}>
+            {localization.SERVICES.saveChanges}
+          </Text>
+        )}
+      </TouchableOpacity>
 
       {isMessage && (
         <SharedMessage
@@ -127,10 +361,36 @@ export default function Services() {
 }
 
 const styles = StyleSheet.create({
+  loadingContainer: {
+    paddingTop: 40,
+  },
+  searchInput: {
+    backgroundColor: "#000000",
+    borderRadius: 8,
+    padding: 10,
+    fontSize: 18,
+    color: "#fff",
+  },
+  itemContent: {
+    alignItems: "baseline",
+    justifyContent: "flex-start",
+    paddingHorizontal: 10,
+    backgroundColor: "#242424",
+    flexDirection: "row",
+    gap: 10,
+  },
+
+  addressBarbers: {
+    color: "#fff",
+    fontSize: 20,
+    alignItems: "center",
+    alignSelf: "flex-start",
+    justifyContent: "center",
+  },
   container: {
     flex: 1,
-    padding: 10,
-    backgroundColor: "#000000",
+    margin: 10,
+    backgroundColor: "#000",
   },
   title: {
     fontSize: 22,
@@ -138,13 +398,22 @@ const styles = StyleSheet.create({
     color: "#fff",
     marginBottom: 10,
   },
+  address: {
+    marginHorizontal: 2,
+    fontSize: 15,
+    marginBottom: 10,
+    alignItems: "center",
+    justifyContent: "space-between",
+    color: "white",
+  },
 
   subTitle: {
-    fontSize: 18,
+    fontSize: 25,
     fontWeight: "600",
     color: "#fff",
     textAlign: "center",
-    marginBottom: 10,
+    marginTop: 22,
+    marginBottom: 5,
   },
   input: {
     backgroundColor: "#1e1e1e",

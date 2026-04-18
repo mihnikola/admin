@@ -30,10 +30,8 @@ const styles = StyleSheet.create({
     borderColor: "#fff",
   },
   item: {
-    padding: 5,
-    marginHorizontal: 2,
-    marginVertical: 10,
-    borderRadius: 20,
+     padding: 5,
+    marginVertical: 5,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",

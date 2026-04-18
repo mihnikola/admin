@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   btnStyle: {
     zIndex: 9999,
     position: "absolute",
-    left: 15,
+    left: 5,
     top: 20,
   },
 });

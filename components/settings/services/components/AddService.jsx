@@ -67,7 +67,6 @@ export default function AddService() {
 
   useEffect(() => {
     if (getServiceData) {
-      console.log("dasjdkajsh jjjjj", getServiceData);
       setNameEn(getServiceData?.name?.nameEn);
       setNameLocal(getServiceData?.name?.nameLocal);
       setPrice(getServiceData.price?.toString() || "");

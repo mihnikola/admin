@@ -138,8 +138,7 @@ export const SRB_LOCALIZATION = {
     error:
       "Radnik i usluga mora biti odabrana pre preuzimanja slobodne satnice.",
     errorFetch: "Greška prilikom preuzimanja slobodne satnice...",
-    title: "Označite vreme"
-
+    title: "Označite vreme",
   },
   DETAILS: {
     price: "Cena",
@@ -225,6 +224,9 @@ export const SRB_LOCALIZATION = {
     EMPLOYERSPLACES: {
       success: "Zaposleni su uspešno dodeljeni na datu lokaciju",
       submit: "Sačuvaj",
+      location: "Lokacija",
+      barbersLength: "Barberi na ovoj lokaciji ",
+      availableBarbers: "Svi dostupni barberi ",
     },
     deactivateLocation: "Deaktiviraj lokaciju",
     clickHere: "Prijavite se ovde",
@@ -285,6 +287,9 @@ export const SRB_LOCALIZATION = {
     SERVICESBARBERS: {
       title: "Barberi i servisi",
       footerBottom: "All rights reserved ©",
+      barber: "Barber",
+      servicesLength: "Usluge kod datog barbera",
+      availableServices: "Sve dostupne usluge",
     },
 
     LOCATIONSBARBERS: {

@@ -30,7 +30,7 @@ export default function RootLayoutBarbers() {
       <Stack.Screen name="barbersLocations" options={headerOptionsFalse} />
       <Stack.Screen name="barbersServices" options={headerOptions} />
       <Stack.Screen name="locationBarbers" options={headerOptions} />
-      <Stack.Screen name="servicesBarbers" options={headerOptions} />
+      <Stack.Screen name="servicesBarbers" options={headerOptionsFalse} />
       <Stack.Screen name="addLocation" options={headerOptions} />
     </Stack>
   );
