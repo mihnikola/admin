@@ -36,7 +36,11 @@ export default function BarbersList() {
   } = useBarbers();
 
   const [isError, setIsError] = useState(null);
+  const [search, setSearch] = useState("");
 
+  const filterDataBarber = barbersData.filter((barber) =>
+    barber.name.toLowerCase().includes(search.toLowerCase()),
+  );
   const cancelHandler = () => {
     setIsError(null);
   };
@@ -52,13 +56,20 @@ export default function BarbersList() {
 
   return (
     <View style={styles.container}>
-      
+
       <Text style={styles.subTitle}>{localization.BARBERS.listBarbers}</Text>
+      <TextInput
+        style={styles.searchInput}
+        placeholder={localization.CLIENTS.search}
+        value={search}
+        onChangeText={setSearch}
+        placeholderTextColor="white"
+      />
       {isLoading === "get" && <Loader />}
 
       {isLoading !== "get" && (
         <FlatList
-          data={barbersData}
+          data={filterDataBarber}
           keyExtractor={(item) => item._id}
           renderItem={({ item }) => (
             <TouchableOpacity
@@ -119,8 +130,16 @@ export default function BarbersList() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
     backgroundColor: "#000000",
+  },
+  searchInput: {
+    backgroundColor: "#222",
+    borderRadius: 8,
+    padding: 20,
+    marginHorizontal: 12,
+    marginBottom:10,
+    fontSize: 18,
+    color: "white"
   },
   title: {
     fontSize: 22,
@@ -169,6 +188,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 8,
     marginBottom: 10,
+    marginHorizontal: 15,
     borderWidth: 1,
     borderColor: 'white',
   },

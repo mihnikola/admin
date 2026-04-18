@@ -86,6 +86,7 @@ export const ENG_LOCALIZATION = {
   },
 
   PLACES: {
+    workHoursNotFound: "Barber is not currently assigned to a location",
     errorFields: "Fill in all input fields",
     deactivatedSuccess: "Location is successfully deactivated",
     deletedSuccess: "Location is successfully deleted",

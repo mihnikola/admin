@@ -5,6 +5,7 @@ import {
   Image,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -17,6 +18,7 @@ import BarberItem from './BarberItem';
 
 export default function Barbers() {
   const { localization } = useLocalization();
+
   const {
     isLoading,
     error,
@@ -29,6 +31,11 @@ export default function Barbers() {
   } = useBarbersService();
 
   const [isError, setIsError] = useState(null);
+  const [search, setSearch] = useState("");
+
+  const filterDataBarber = barbersData.filter((barber) =>
+    barber.name.toLowerCase().includes(search.toLowerCase()),
+  );
 
   const cancelHandler = () => {
     setIsError(null);
@@ -43,11 +50,18 @@ export default function Barbers() {
   return (
     <View style={styles.container}>
       <Text style={styles.subTitle}>{localization.BARBERS.listBarbers}</Text>
+      <TextInput
+        style={styles.searchInput}
+        placeholder={localization.CLIENTS.search}
+        value={search}
+        onChangeText={setSearch}
+        placeholderTextColor="white"
+      />
       {isLoading === "get" && <Loader />}
 
       {isLoading !== "get" && (
         <FlatList
-          data={barbersData}
+          data={filterDataBarber}
           keyExtractor={(item) => item._id}
           renderItem={({ item }) => (
             <BarberItem item={item} assignmentHandler={assignmentHandler} />
@@ -81,10 +95,16 @@ export default function Barbers() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
     backgroundColor: "#000000",
   },
-
+  searchInput: {
+    backgroundColor: "#222",
+    borderRadius: 8,
+    padding: 20,
+    margin: 18,
+    fontSize: 18,
+    color: "white"
+  },
   image: {
     width: 60,
     height: 60,

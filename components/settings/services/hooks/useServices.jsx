@@ -125,11 +125,7 @@ const useServices = () => {
     setIsLoading("getService");
     setError(null);
     try {
-    console.log("dksajhdjksaghjasgdhjasgdjhas hey ey e",id)
-
       const response = await get(`/admin/services/${id}`);
-    console.log("dksajhdjksaghjasgdhjasgdjhas",response)
-
       if (response.status === 200) {
         setGetServiceData(response.data);
       }

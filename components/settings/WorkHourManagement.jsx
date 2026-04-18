@@ -18,6 +18,7 @@ import { useLocalization } from "@/contexts/LocalizationContext";
 import { SharedQuestion } from "../../shared-components/SharedQuestion";
 import { router } from "expo-router";
 import BookingPicker from "./BookingPicker";
+import TimePickerModal from "./TimePickerModal";
 export default function TimeSettingsScreen({
   isLoading,
   deactivate,
@@ -166,7 +167,7 @@ export default function TimeSettingsScreen({
       minutes: selected,
     };
     // console.log("dataData", dataData);
-      submitEverything(dataData);
+    submitEverything(dataData);
   };
 
   return (
@@ -211,20 +212,24 @@ export default function TimeSettingsScreen({
         </View>
       </View>
 
-      {showFromPicker && (
-        <BookingPicker
-          visible={showFromPicker}
-          onClose={() => setShowFromPicker(false)}
-          onSelect={onChangeFrom}
-        />
-      )}
-      {showToPicker && (
-        <BookingPicker
-          visible={showToPicker}
-          onClose={() => setShowToPicker(false)}
-          onSelect={onChangeTo}
-        />
-      )}
+      <TimePickerModal
+        visible={showFromPicker}
+        startValue="00:00"
+        endValue="23:50"
+        interval={30}
+        setVisible={setShowFromPicker}
+        onCancel={() => setShowFromPicker(false)}
+        onConfirm={onChangeFrom}
+      />
+      <TimePickerModal
+        visible={showToPicker}
+        startValue="00:00"
+        endValue="23:50"
+        interval={30}
+        setVisible={setShowToPicker}
+        onCancel={() => setShowToPicker(false)}
+        onConfirm={onChangeTo}
+      />
 
       <Text style={styles.subtitle}>
         {localization.SETTINGS.WORKHOURS.subCapture}

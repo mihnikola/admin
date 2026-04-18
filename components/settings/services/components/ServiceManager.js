@@ -37,7 +37,11 @@ export default function ServiceManager() {
   } = useServices();
 
   const [isError, setIsError] = useState(null);
+  const [search, setSearch] = useState("");
 
+  const filterServices = serviceData.filter((barber) =>
+    barber.name.toLowerCase().includes(search.toLowerCase()),
+  );
   const cancelHandler = () => {
     setIsError(null);
   };
@@ -54,11 +58,18 @@ export default function ServiceManager() {
   return (
     <View style={styles.container}>
       <Text style={styles.subTitle}>{localization.SERVICES.listServices}</Text>
+      <TextInput
+        style={styles.searchInput}
+        placeholder={localization.CLIENTS.search}
+        value={search}
+        onChangeText={setSearch}
+        placeholderTextColor="white"
+      />
       {isLoading === "get" && <Loader />}
 
       {isLoading !== "get" && (
         <FlatList
-          data={serviceData}
+          data={filterServices}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <TouchableOpacity style={styles.serviceItem} onPress={() => startEditing(item)}>
@@ -108,7 +119,7 @@ export default function ServiceManager() {
           title={isError}
         />
       )}
-     
+
     </View>
   );
 }
@@ -118,6 +129,14 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     backgroundColor: "#000000",
+  },
+  searchInput: {
+    backgroundColor: "#222",
+    borderRadius: 8,
+    padding: 20,
+    marginBottom: 10,
+    fontSize: 18,
+    color: "white"
   },
   title: {
     fontSize: 22,
