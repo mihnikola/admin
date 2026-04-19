@@ -8,11 +8,17 @@ import {
 const SharedButtonApproved = (props) => {
   return (
     <TouchableOpacity
-      style={styles.btn}
+      style={[styles.btn, props.disabled && styles.btnDisabled]}
       disabled={props.loading || props.disabled}
       onPress={props.onPress}
     >
-      {!props.loading && <Text style={styles.btnText}>{props.text}</Text>}
+      {!props.loading && (
+        <Text
+          style={[styles.btnText, props.disabled && styles.btnTextDisabled]}
+        >
+          {props.text}
+        </Text>
+      )}
       {props.loading && <ActivityIndicator size={25} color="white" />}
     </TouchableOpacity>
   );
@@ -24,6 +30,16 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "600",
     letterSpacing: 0.5,
+  },
+  btnTextDisabled: {
+    color: "#3f3f3fff",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  btnDisabled: {
+    borderColor: "grey",
+    backgroundColor: "#8b8b8bff",
+    color: "#3f3f3fff",
   },
 
   btn: {

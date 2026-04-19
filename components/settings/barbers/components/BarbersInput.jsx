@@ -8,9 +8,11 @@ export default function BarbersInput({
   onChangeText,
   placeholder,
   keyboardType = "default",
+  error,
+  autoFocus
 }) {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container,error && styles.error]}>
       <View style={styles.iconContainer}>
         <FontAwesome name={icon} size={20} color="#aaa" />
       </View>
@@ -21,6 +23,7 @@ export default function BarbersInput({
         <TextInput
           style={styles.input}
           value={value}
+          autoFocus={autoFocus}
           onChangeText={onChangeText}
           placeholder={placeholder}
           placeholderTextColor="#777"
@@ -39,6 +42,10 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     padding: 12,
     marginBottom: 7,
+  },
+  error:{
+    borderWidth: 1,
+    borderColor: 'red',
   },
 
   iconContainer: {
