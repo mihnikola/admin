@@ -327,7 +327,10 @@ export const SRB_LOCALIZATION = {
       comment: "Dodaj komentar...",
       startTimePlaceHolder: "Izaberi startno vreme",
       endTimePlaceHolder: "Izaberi krajnje vreme",
-      success: "Uspešno ste definisali vremenski period",
+      success: "Uspešno ste definisali vremenski period odsustva",
+      tab1: "Najava odsustva",
+      tab2: "Hitno odsustvo",
+      error: "Vreme završetka mora biti kasnije od vremena početka",
     },
     PROFILE: {
       email: "Vaš email",

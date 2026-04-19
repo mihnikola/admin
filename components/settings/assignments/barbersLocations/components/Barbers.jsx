@@ -17,6 +17,7 @@ import Loader from "@/shared-components/Loader";
 import BarberItem from "./BarberItem";
 import BarberItemAssign from "./BarberItemAssign";
 import SharedBackButton from "@/shared-components/SharedBackButton";
+import SharedButtonApproved from "@/shared-components/SharedButtonApproved";
 
 export default function Barbers() {
   const { localization } = useLocalization();
@@ -116,16 +117,11 @@ export default function Barbers() {
           />
         )}
       </View>
-
-      <TouchableOpacity style={styles.button} onPress={() => submitChanges(id)}>
-        {isLoading === "post" ? (
-          <ActivityIndicator size={20} color="#fff" />
-        ) : (
-          <Text style={styles.buttonText}>
-            {localization.SERVICES.saveChanges}
-          </Text>
-        )}
-      </TouchableOpacity>
+      <SharedButtonApproved
+        onPress={() => submitChanges(id)}
+        loading={isLoading === "post"}
+        text={localization.SERVICES.saveChanges}
+      />
 
       {isMessage && (
         <SharedMessage

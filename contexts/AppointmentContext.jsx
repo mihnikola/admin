@@ -74,7 +74,6 @@ export const AppointmentProvider = ({ children }) => {
     setIsLoading(true);
     setError(null);
 
-    console.log("changeStatusReservation", criteriaDate)
     if (!id) {
       setIsError(true);
       setError("Reservation ID is missing.");

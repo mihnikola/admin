@@ -18,6 +18,7 @@ import { router, useLocalSearchParams } from "expo-router";
 import useBarbers from "../hooks/useBarbers";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { FontAwesome } from "@expo/vector-icons";
+import SharedButtonRejected from "@/shared-components/SharedButtonRejected";
 
 function BarberDelete() {
   const { company } = useCompany();
@@ -51,8 +52,8 @@ function BarberDelete() {
     }
   };
   const confirmMessageHandler = () => {
-    router.dismissAll();
-    router.replace("/(tabs)/(03_settings)/barbers");
+    router.dismissAll(2);
+    router.push("/(tabs)/(03_settings)/barbers");
   };
   return (
     <>
@@ -91,19 +92,11 @@ function BarberDelete() {
         )}
       </View>
       <View style={styles.btnContainer}>
-        <TouchableOpacity
-          style={styles.buttonRmv}
+        <SharedButtonRejected
           onPress={removeBarberHandler}
-        >
-          {isLoading === "remove" && (
-            <ActivityIndicator size={20} color="#fff" />
-          )}
-          {isLoading !== "remove" && (
-            <Text style={styles.buttonText}>
-              {localization.BARBERS.removeBtn}
-            </Text>
-          )}
-        </TouchableOpacity>
+          loading={isLoading === "remove"}
+          text={localization.BARBERS.removeBtn}
+        />
       </View>
       {isMessage && (
         <SharedMessage
@@ -125,7 +118,7 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
   },
   btnContainer: {
-    flex: 0.1,
+    flex: 0.15,
     margin: 20,
   },
   buttonRmv: {

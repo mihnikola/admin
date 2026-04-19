@@ -201,6 +201,7 @@ import ServiceItem from "./ServiceItem";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import useBarbersService from "../hooks/useBarbersService";
 import { SharedLoader } from "@/shared-components/SharedLoader";
+import SharedButtonApproved from "@/shared-components/SharedButtonApproved";
 
 export default function Services() {
   const { localization } = useLocalization();
@@ -274,12 +275,15 @@ export default function Services() {
 
       <Text style={styles.subTitle}>{localization.SERVICES.listServices}</Text>
       <View key={itemData.id} style={styles.itemContent}>
-        <Text style={styles.address}>{localization.SETTINGS.SERVICESBARBERS.barber} </Text>
+        <Text style={styles.address}>
+          {localization.SETTINGS.SERVICESBARBERS.barber}{" "}
+        </Text>
         <Text style={styles.address}>{itemData.name}</Text>
       </View>
       <View style={{ flex: 2, marginTop: 10 }}>
         <Text style={styles.addressBarbers}>
-          {localization.SETTINGS.SERVICESBARBERS.servicesLength} ({filterResult.length})
+          {localization.SETTINGS.SERVICESBARBERS.servicesLength} (
+          {filterResult.length})
         </Text>
         {isLoading === "getServices" ? (
           <View style={styles.loadingContainer}>
@@ -298,7 +302,8 @@ export default function Services() {
 
       <View style={{ flex: 2, marginTop: 5 }}>
         <Text style={styles.addressBarbers}>
-          {localization.SETTINGS.SERVICESBARBERS.availableServices} ({filteredService.length})
+          {localization.SETTINGS.SERVICESBARBERS.availableServices} (
+          {filteredService.length})
         </Text>
         <TextInput
           style={styles.searchInput}
@@ -323,18 +328,12 @@ export default function Services() {
         )}
       </View>
 
-      <TouchableOpacity
-        style={styles.button}
+
+      <SharedButtonApproved
         onPress={() => submitChangesServiceToBarber(id)}
-      >
-        {isLoading === "post" ? (
-          <ActivityIndicator size={20} color="#fff" />
-        ) : (
-          <Text style={styles.buttonText}>
-            {localization.SERVICES.saveChanges}
-          </Text>
-        )}
-      </TouchableOpacity>
+        loading={isLoading === "post"}
+        text={localization.SERVICES.saveChanges}
+      />
 
       {isMessage && (
         <SharedMessage

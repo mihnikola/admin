@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   },
   noMargin: {
     marginTop: 0,
-    marginBottom: 10,
+    marginBottom: 0,
   }
 });
 

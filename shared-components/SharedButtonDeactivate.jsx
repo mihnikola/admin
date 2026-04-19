@@ -5,7 +5,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 
-const SharedButtonApproved = (props) => {
+const SharedButtonDeactivate = (props) => {
   return (
     <TouchableOpacity
       style={styles.btn}
@@ -27,16 +27,14 @@ const styles = StyleSheet.create({
   },
 
   btn: {
+    backgroundColor: "#633a3a", // Elegantnija tamno crvena
     paddingVertical: 15,
     borderRadius: 8,
     borderWidth: 1,
     borderColor: "white",
     alignItems: "center",
-    marginTop: 20,
     padding: 60,
-    backgroundColor: "transparent",
-    borderWidth: 1.5,
-    borderColor: "#FFFFFF",
   },
+ 
 });
-export default SharedButtonApproved;
+export default SharedButtonDeactivate;

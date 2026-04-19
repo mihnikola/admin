@@ -45,8 +45,6 @@ function ResevationNotificationScreen() {
     missedReservation,
   } = useAppointment();
 
-  
-
   useEffect(() => {
     fetchReservationDetails(itemId);
   }, []);
@@ -62,7 +60,7 @@ function ResevationNotificationScreen() {
     setIsModalQuestion(false);
 
     setTimeout(async () => {
-      await changeStatusReservation(itemId, actionValue,criteriaDate);
+      await changeStatusReservation(itemId, actionValue, criteriaDate);
     }, 500);
   };
 
@@ -70,14 +68,14 @@ function ResevationNotificationScreen() {
     setIsModalQuestion(false);
 
     setTimeout(async () => {
-      await missedReservation(itemId,criteriaDate);
+      await missedReservation(itemId, criteriaDate);
     }, 500);
   };
 
   const sharedRejectQuestionHandler = () => {
     setIsModalQuestion(false);
     setTimeout(async () => {
-      await changeStatusReservation(itemId, actionValue,criteriaDate);
+      await changeStatusReservation(itemId, actionValue, criteriaDate);
     }, 500);
   };
   const modalReservationHandler = (title) => {
@@ -135,13 +133,13 @@ function ResevationNotificationScreen() {
     );
 
     if (now >= startDateReservation && now <= endDateReservation) {
-      return 'missed';
+      return "missed";
     }
     if (now > endDateReservation) {
-      return 'completed';
+      return "completed";
     }
 
-    return 'cancelled';
+    return "cancelled";
   };
 
   return (
@@ -166,18 +164,21 @@ function ResevationNotificationScreen() {
           </View>
         </ScrollView>
       )}
-      {!isLoading && reservationData && reservationData?.status === 0 && startEndDate() === 'cancelled' && (
-        <View style={styles.bottomButtonRejected}>
-          <SharedButtonCancel
-            onPress={() => modalReservationHandler("rejected")}
-            text={localization.APPOINTMENTS.cancelBtn}
-          />
-        </View>
-      )}
+      {!isLoading &&
+        reservationData &&
+        reservationData?.status === 0 &&
+        startEndDate() === "cancelled" && (
+          <View style={styles.bottomButtonRejected}>
+            <SharedButtonCancel
+              onPress={() => modalReservationHandler("rejected")}
+              text={localization.APPOINTMENTS.cancelBtn}
+            />
+          </View>
+        )}
       {!isLoading &&
         reservationData?.status === 0 &&
         arrived === "arrived" &&
-        startEndDate() === 'missed' && (
+        startEndDate() === "missed" && (
           <TouchableOpacity
             style={styles.missed}
             onPress={() => modalReservationHandler("missed")}
@@ -199,13 +200,15 @@ function ResevationNotificationScreen() {
           </Text>
         </View>
       )}
-      {!isLoading && reservationData?.status === 0 && startEndDate() === 'completed' && (
-        <View style={styles.missed}>
-          <Text style={styles.textBoldSuccess}>
-            {localization.APPOINTMENTS.completed}
-          </Text>
-        </View>
-      )}
+      {!isLoading &&
+        reservationData?.status === 0 &&
+        startEndDate() === "completed" && (
+          <View style={styles.missed}>
+            <Text style={styles.textBoldSuccess}>
+              {localization.APPOINTMENTS.completed}
+            </Text>
+          </View>
+        )}
       {reservationData?.status === 1 && (
         <View style={styles.missed}>
           <Text style={styles.textBoldRejected}>
@@ -220,10 +223,12 @@ function ResevationNotificationScreen() {
             onPress={() => modalReservationHandler("approved")}
             text={localization.APPOINTMENTS.approveReservation.approveButton}
           />
-          <SharedButtonRejected
-            onPress={() => modalReservationHandler("rejected")}
-            text={localization.APPOINTMENTS.rejectReservation.rejectButton}
-          />
+          <View style={{marginTop: 20}}>
+            <SharedButtonRejected
+              onPress={() => modalReservationHandler("rejected")}
+              text={localization.APPOINTMENTS.rejectReservation.rejectButton}
+            />
+          </View>
         </View>
       )}
 
@@ -264,7 +269,7 @@ const styles = StyleSheet.create({
     color: "grey",
     fontSize: 24,
   },
-   textBoldSuccess: {
+  textBoldSuccess: {
     color: "white",
     fontSize: 24,
   },
@@ -286,7 +291,6 @@ const styles = StyleSheet.create({
   bottomButtons: {
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingHorizontal: 20,
     paddingBottom: 80,
     backgroundColor: "#000", // Osnovna boja aplikacije
   },

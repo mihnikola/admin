@@ -24,6 +24,8 @@ import BarbersInput from "./BarbersInput";
 import BarberSeniorityComponent from "./BarbersSeniorityInput";
 import BarbersStatusCheck from "./BarbersStatusCheck";
 import BarbersStatuses from "./BarbersStatuses";
+import SharedButtonApproved from "@/shared-components/SharedButtonApproved";
+import SharedButtonRejected from "@/shared-components/SharedButtonRejected";
 
 export default function BarbersAdd() {
   const { localization } = useLocalization();
@@ -176,7 +178,7 @@ export default function BarbersAdd() {
   // const [isRemove, setIsRemove] = useState(null);
 
   const removeQuestion = (id) => {
-    router.push({
+    router.replace({
       pathname: "/(tabs)/(03_settings)/removeBarber",
       params: { id },
     });
@@ -281,32 +283,21 @@ export default function BarbersAdd() {
         </View>
       </ScrollView>
       <View style={[styles.btnContainer, editingId && styles.btnGap]}>
-        <TouchableOpacity style={styles.button} onPress={addBarber}>
-          {isLoading === "addEdit" && (
-            <ActivityIndicator size={20} color="#fff" />
-          )}
-          {isLoading !== "addEdit" && (
-            <Text style={styles.buttonText}>
-              {editingId
-                ? localization.BARBERS.saveChanges
-                : localization.BARBERS.submitAdd}
-            </Text>
-          )}
-        </TouchableOpacity>
+        <SharedButtonApproved
+          onPress={addBarber}
+          loading={isLoading === "addEdit"}
+          text={
+            editingId
+              ? localization.BARBERS.saveChanges
+              : localization.BARBERS.submitAdd
+          }
+        />
         {editingId && (
-          <TouchableOpacity
-            style={styles.buttonRmv}
+          <SharedButtonRejected
             onPress={() => removeQuestion(id)}
-          >
-            {isLoading === "remove" && (
-              <ActivityIndicator size={20} color="#fff" />
-            )}
-            {isLoading !== "remove" && (
-              <Text style={styles.buttonText}>
-                {localization.BARBERS.removeBtn}
-              </Text>
-            )}
-          </TouchableOpacity>
+            loading={isLoading === "remove"}
+            text={localization.BARBERS.removeBtn}
+          />
         )}
       </View>
 
@@ -345,7 +336,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   btnContainer: {},
-  btnGap: { gap: 20 },
+  btnGap: { gap: 1 },
   buttonRmv: {
     backgroundColor: "rgb(129, 29, 29)",
     padding: 12,

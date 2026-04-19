@@ -1,10 +1,8 @@
 import { SharedButton } from "@/shared-components/SharedButton";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import { SharedMessage } from "@/shared-components/SharedMessage";
-import DateTimePicker from "@react-native-community/datetimepicker";
 import React, { useEffect, useState } from "react";
 import {
-  ActivityIndicator,
   Platform,
   StyleSheet,
   Text,
@@ -12,13 +10,13 @@ import {
   View,
 } from "react-native";
 import CustomDropDownPicker from "./CustomDropDownPicker";
-import useGetWorhHours from "./hooks/useGetWorkHours";
 import { FontAwesome } from "@expo/vector-icons";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { SharedQuestion } from "../../shared-components/SharedQuestion";
-import { router } from "expo-router";
-import BookingPicker from "./BookingPicker";
 import TimePickerModal from "./TimePickerModal";
+import SharedButtonRejected from "@/shared-components/SharedButtonRejected";
+import SharedButtonDeactivate from "@/shared-components/SharedButtonDeactivate";
+import SharedButtonActivate from "@/shared-components/SharedButtonActivate";
 export default function TimeSettingsScreen({
   isLoading,
   deactivate,
@@ -34,43 +32,31 @@ export default function TimeSettingsScreen({
   city,
 }) {
   const { localization } = useLocalization();
-  const {
-    getTimes,
-    error,
-    minutesValue,
-    message,
-    isMessage,
-    setIsMessage,
-    options,
-  } = useGetWorhHours();
+
+   const options = [
+        { label: `10 ${localization.SETTINGS.WORKHOURS.minutes}`, value: 10 },
+        { label: `15  ${localization.SETTINGS.WORKHOURS.minutes}`, value: 15 },
+        { label: `20  ${localization.SETTINGS.WORKHOURS.minutes}`, value: 20 },
+        { label: `30  ${localization.SETTINGS.WORKHOURS.minutes}`, value: 30 },
+        { label: `40  ${localization.SETTINGS.WORKHOURS.minutes}`, value: 40 },
+        { label: `45  ${localization.SETTINGS.WORKHOURS.minutes}`, value: 45 },
+        { label: `50  ${localization.SETTINGS.WORKHOURS.minutes}`, value: 50 },
+        { label: `60  ${localization.SETTINGS.WORKHOURS.minutes}`, value: 60 },
+    ];
 
   const [selected, setSelected] = useState(10);
-  const [isError, setIsError] = useState(false);
   const [isRemove, setIsRemove] = useState(false);
   const [isDeactivate, setIsDeactivate] = useState(false);
-
-  useEffect(() => {
-    getTimes();
-  }, []);
-
-  useEffect(() => {
-    if (minutesValue || minutes) {
-      setSelected(minutes || minutesValue);
-    }
-  }, [minutesValue, minutes]);
-
-  useEffect(() => {
-    if (minutesValue) {
-      setSelected(minutesValue);
-    }
-  }, [minutesValue]);
+  const [toTime, setToTime] = useState(workHours?.end);
+  const [fromTime, setFromTime] = useState(workHours?.start);
+  const [showFromPicker, setShowFromPicker] = useState(false);
+  const [showToPicker, setShowToPicker] = useState(false);
+  const [isUndo, setIsUndo] = useState(false);
+  const [disabledBtn, setDisabledBtn] = useState(false);
+  const [error, setError] = useState(null);
 
   const removeHandler = () => {
     setIsRemove(true);
-    // router.push({
-    //   pathname: "/(tabs)/(03_settings)/removeLocation",
-    //   params: { id, type: "delete" },
-    // });
   };
   const removeCancelHandler = () => {
     setIsRemove(false);
@@ -99,13 +85,6 @@ export default function TimeSettingsScreen({
     // });
   };
 
-  const [toTime, setToTime] = useState(workHours?.end);
-  const [fromTime, setFromTime] = useState(workHours?.start);
-  const [showFromPicker, setShowFromPicker] = useState(false);
-  const [showToPicker, setShowToPicker] = useState(false);
-  const [isUndo, setIsUndo] = useState(false);
-  const [disabledBtn, setDisabledBtn] = useState(false);
-
   const deactivateCancelHandler = () => {
     setIsDeactivate(false);
   };
@@ -126,26 +105,6 @@ export default function TimeSettingsScreen({
     }
   };
 
-  useEffect(() => {
-    getTimes();
-  }, []);
-
-  useEffect(() => {
-    verificationData();
-  }, [selected, fromTime, toTime, streetName]);
-
-  useEffect(() => {
-    if (minutesValue || minutes) {
-      setSelected(minutes || minutesValue);
-    }
-  }, [minutesValue, minutes]);
-
-  useEffect(() => {
-    if (minutesValue) {
-      setSelected(minutesValue);
-    }
-  }, [minutesValue]);
-
   const onChangeFrom = (selectedDate) => {
     setShowFromPicker(Platform.OS === "ios");
     setFromTime(selectedDate);
@@ -156,19 +115,46 @@ export default function TimeSettingsScreen({
     setToTime(selectedDate);
   };
 
+  const isValidTimeRange = (startTime, endTime) => {
+    if(!startTime || !endTime)return false;
+    const [startH, startM] = startTime.split(":").map(Number);
+    const [endH, endM] = endTime.split(":").map(Number);
+
+    const startTotal = startH * 60 + startM;
+    const endTotal = endH * 60 + endM;
+
+    if (startTotal >= endTotal) {
+      return false;
+    }
+
+    return true;
+  };
+
+  const submitHandler = () => {
+    if (isValidTimeRange(fromTime, toTime)) {
+         const dataData = {
+        open: fromTime,
+        close: toTime,
+        minutes: selected,
+      };
+      submitEverything(dataData);
+    } else {
+      setError(localization.SETTINGS.ABSENTHOURS.error);
+    }
+  };
+  useEffect(() => {
+    if (minutes) {
+      setSelected(minutes);
+    }
+  }, [minutes]);
+
+  useEffect(() => {
+    verificationData();
+  }, [selected, fromTime, toTime, streetName]);
+
   if (isLoading === "get") {
     return <SharedLoader isOpen={isLoading === "get"} />;
   }
-
-  const submitHandler = () => {
-    const dataData = {
-      open: fromTime,
-      close: toTime,
-      minutes: selected,
-    };
-    // console.log("dataData", dataData);
-    submitEverything(dataData);
-  };
 
   return (
     <View style={styles.container}>
@@ -242,7 +228,7 @@ export default function TimeSettingsScreen({
         placeholder={selected || localization.SETTINGS.WORKHOURS.gap}
       />
 
-      <View style={{ flex: !id ? 0.5 : 2 }}>
+      <View style={{ flex: !id ? 1 : 2.5, gap: 10 }}>
         <SharedButton
           loading={isLoading === "addEdit"}
           disabled={disabledBtn}
@@ -250,56 +236,26 @@ export default function TimeSettingsScreen({
           text={localization.SETTINGS.WORKHOURS.submit}
           margin
         />
-        {id && active === 1 && (
-          <View style={{ gap: 10 }}>
-            <TouchableOpacity style={styles.buttonRmv} onPress={removeHandler}>
-              {isLoading === "remove" && (
-                <ActivityIndicator size={20} color="#fff" />
-              )}
-              {isLoading !== "remove" && (
-                <Text style={styles.buttonText}>
-                  {localization.PLACES.deleteBtn}
-                </Text>
-              )}
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.buttonDeactive}
-              onPress={deactiveHandler}
-            >
-              {isLoading === "deactivate" && (
-                <ActivityIndicator size={20} color="#fff" />
-              )}
-              {isLoading !== "deactivate" && (
-                <Text style={styles.buttonText}>
-                  {localization.PLACES.deactivateBtn}
-                </Text>
-              )}
-            </TouchableOpacity>
-          </View>
+        {id && (
+          <SharedButtonRejected
+            onPress={removeHandler}
+            loading={isLoading === "remove"}
+            text={localization.PLACES.deleteBtn}
+          />
         )}
-        {id && active === 0 && (
-          <View style={{ gap: 10 }}>
-            <TouchableOpacity style={styles.buttonRmv} onPress={removeHandler}>
-              {isLoading === "remove" && (
-                <ActivityIndicator size={20} color="#fff" />
-              )}
-              {isLoading !== "remove" && (
-                <Text style={styles.buttonText}>
-                  {localization.PLACES.deleteBtn}
-                </Text>
-              )}
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonUndo} onPress={undoHandler}>
-              {isLoading === "activate" && (
-                <ActivityIndicator size={20} color="#fff" />
-              )}
-              {isLoading !== "activate" && (
-                <Text style={styles.buttonText}>
-                  {localization.PLACES.undo}
-                </Text>
-              )}
-            </TouchableOpacity>
-          </View>
+        {active === 1 && (
+          <SharedButtonDeactivate
+            onPress={deactiveHandler}
+            loading={isLoading === "deactivate"}
+            text={localization.PLACES.deactivateBtn}
+          />
+        )}
+        {active === 0 && (
+          <SharedButtonActivate
+            onPress={undoHandler}
+            loading={isLoading === "activate"}
+            text={localization.PLACES.undo}
+          />
         )}
       </View>
 
@@ -342,7 +298,7 @@ export default function TimeSettingsScreen({
           buttonTextNo={localization.PLACES.cancel}
         />
       )}
-      {isMessage && (
+      {/* {isMessage && (
         <SharedMessage
           isOpen={isMessage}
           onConfirm={() => setIsMessage(false)}
@@ -356,15 +312,13 @@ export default function TimeSettingsScreen({
           title={message}
           buttonText="Ok"
         />
-      )}
-      {isError && (
+      )} */}
+      {error?.length > 0 && (
         <SharedMessage
-          isOpen={isError}
-          onConfirm={() => setIsError(false)}
-          icon={
-            <FontAwesome name={isError && "close"} size={64} color="white" />
-          }
-          title={message}
+          isOpen={error?.length > 0}
+          onConfirm={() => setError(null)}
+          icon={<FontAwesome name="close" size={64} color="white" />}
+          title={error}
           buttonText="Ok"
         />
       )}

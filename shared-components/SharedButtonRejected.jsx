@@ -20,9 +20,9 @@ const SharedButtonRejected = (props) => {
 
 const styles = StyleSheet.create({
   btnText: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
     letterSpacing: 0.5,
   },
 
@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "white",
     alignItems: "center",
-    marginTop: 20,
-    padding: 30,
+    padding: 60,
   },
+ 
 });
 export default SharedButtonRejected;

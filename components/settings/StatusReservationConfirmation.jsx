@@ -17,6 +17,7 @@ import { router } from "expo-router";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { useEffect } from "react";
+import SharedButtonApproved from "@/shared-components/SharedButtonApproved";
 
 const StatusReservationConfirmation = () => {
     const { localization } = useLocalization();
@@ -80,7 +81,7 @@ const StatusReservationConfirmation = () => {
 
 
             <View style={{ marginHorizontal: 20 }}>
-                <SharedButton
+                <SharedButtonApproved
                     loading={isLoading === 'patch'}
                     onPress={patchStatusNotification}
                     text={localization.SETTINGS.NOTIFICATIONSTATUS.saveChanges}

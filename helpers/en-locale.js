@@ -323,7 +323,10 @@ export const ENG_LOCALIZATION = {
       comment: "Add comment...",
       startTimePlaceHolder: "Choose start time",
       endTimePlaceHolder: "Choose end time",
-      success: "You have successfully set the time period",
+      success: "You have successfully set the absent time period",
+      tab1: "Schedule Leave",
+      tab2: "Report Urgent Leave",
+      error:"End time must be later than start time"
     },
     ERROR: {
       label: "Error while changing user",

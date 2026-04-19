@@ -1,26 +1,19 @@
 import { FontAwesome } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
 import {
-  ActivityIndicator,
-  FlatList,
-  Image,
   StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
   View,
 } from "react-native";
 import ImageCompress from "../../ImageCompress";
 import useServices from "../hooks/useServices";
-import Loader from "../../../../shared-components/Loader";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import { SharedLoader } from "@/shared-components/SharedLoader";
-import { useCompany } from "@/contexts/CompanyContext";
-import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import { router, useLocalSearchParams } from "expo-router";
 import ServiceInput from "./ServiceInput";
+import SharedButtonRejected from "@/shared-components/SharedButtonRejected";
+import SharedButtonApproved from "@/shared-components/SharedButtonApproved";
 
 export default function AddService() {
   const { localization } = useLocalization();
@@ -37,7 +30,7 @@ export default function AddService() {
     confirmHandler,
     getServiceHandler,
     getServiceData,
-    removeService
+    removeService,
   } = useServices();
 
   useEffect(() => {
@@ -84,10 +77,7 @@ export default function AddService() {
     setEditingId(null);
     setChangedImg(null);
   };
-  const cancelEditHandler = () => {
-    router.back();
-    resetForm();
-  };
+
 
   const [removeItem, setRemoveItem] = useState(null);
   const [isRemove, setIsRemove] = useState(null);
@@ -150,10 +140,7 @@ export default function AddService() {
   if (isLoading === "getService") {
     return <SharedLoader isOpen={isLoading === "getService"} />;
   }
-
-  if (isLoading === "remove") {
-    return <SharedLoader isOpen={isLoading === "remove"} />;
-  }
+  
   return (
     <View style={styles.container}>
       <View style={styles.containerImage}>
@@ -178,29 +165,6 @@ export default function AddService() {
           value={nameEn}
           onChangeText={setNameEn}
         />
-        {/* 
-        <TextInput
-          style={styles.input}
-          placeholder={localization.SERVICES.serviceNameSr}
-          value={nameLocal}
-          onChangeText={setNameLocal}
-        /> */}
-        {/* ovo ti je za lokalni jezik - engleski nameEn */}
-
-        {/* <TextInput
-          style={styles.input}
-          placeholder={localization.SERVICES.serviceNameEn}
-          value={nameEn}
-          onChangeText={setNameEn}
-        /> */}
-
-        {/* <TextInput
-          style={styles.input}
-          placeholder={localization.SERVICES.servicePrice}
-          value={price}
-          onChangeText={setPrice}
-          keyboardType="numeric"
-        /> */}
 
         <ServiceInput
           icon="money"
@@ -216,42 +180,25 @@ export default function AddService() {
           onChangeText={setDuration}
           keyboardType="numeric"
         />
-        {/* <TextInput
-          style={styles.input}
-          placeholder={localization.SERVICES.serviceDuration}
-          value={duration}
-          onChangeText={setDuration}
-          keyboardType="numeric"
-        /> */}
       </View>
 
       <View style={[styles.btnContainer, id && styles.btnGap]}>
-        <TouchableOpacity style={styles.button} onPress={addService}>
-          {isLoading === "addEdit" && (
-            <ActivityIndicator size={20} color="#fff" />
-          )}
-          {isLoading !== "addEdit" && (
-            <Text style={styles.buttonText}>
-              {editingId
-                ? localization.SERVICES.saveChanges
-                : localization.SERVICES.submitAdd}
-            </Text>
-          )}
-        </TouchableOpacity>
+        <SharedButtonApproved
+          onPress={addService}
+          loading={isLoading === "addEdit"}
+          text={
+            editingId
+              ? localization.SERVICES.saveChanges
+              : localization.SERVICES.submitAdd
+          }
+        />
         {id && (
-          <TouchableOpacity
-            style={styles.buttonRmv}
+ 
+          <SharedButtonRejected
             onPress={() => removeQuestion(id)}
-          >
-            {isLoading === "remove" && (
-              <ActivityIndicator size={20} color="#fff" />
-            )}
-            {isLoading !== "remove" && (
-              <Text style={styles.buttonText}>
-                {localization.SERVICES.removeBtn}
-              </Text>
-            )}
-          </TouchableOpacity>
+            loading={isLoading === "remove"}
+            text={localization.SERVICES.removeBtn}
+          />
         )}
       </View>
 
@@ -289,16 +236,11 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     paddingTop: 20,
   },
-  btnContainer: {},
-  btnGap: { gap: 20 },
-  buttonRmv: {
-    backgroundColor: "rgb(129, 29, 29)",
-    padding: 12,
-    borderRadius: 8,
-    alignItems: "center",
-    borderColor: "white",
-    borderWidth: 1,
+  btnContainer: {
+    flexDirection: "column"
   },
+  btnGap: { gap: 2 },
+ 
   container: {
     flex: 1,
     padding: 10,

@@ -19,6 +19,7 @@ import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import FloatingButton from "../../FloatingButton";
 import { router, useFocusEffect } from "expo-router";
+import SharedBackButton from "@/shared-components/SharedBackButton";
 
 export default function BarbersList() {
   const { localization } = useLocalization();
@@ -56,7 +57,6 @@ export default function BarbersList() {
 
   return (
     <View style={styles.container}>
-
       <Text style={styles.subTitle}>{localization.BARBERS.listBarbers}</Text>
       <TextInput
         style={styles.searchInput}

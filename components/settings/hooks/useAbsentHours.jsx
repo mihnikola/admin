@@ -61,7 +61,8 @@ function useAbsentHours() {
     message,
     setIsMessage,
     getEmployer,
-    workHours
+    workHours,
+    setError
   };
 }
 

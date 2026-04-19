@@ -29,7 +29,7 @@ export default function RequirementComponent() {
             styleBtn={{ marginTop: 20 }}
           />
         </View>
-        <View style={{ marginTop: 100 }}>
+        <View style={{ marginTop: 100, padding: 50 }}>
           <Text style={styles.capture}>{localization.APPOINTMENTS.error}</Text>
         </View>
       </View>

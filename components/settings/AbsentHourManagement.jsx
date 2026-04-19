@@ -25,9 +25,10 @@ export default function AbsentHourManagement() {
     isMessage,
     message,
     error,
+    setError,
     isLoading,
     getEmployer,
-    workHours
+    workHours,
   } = useAbsentHours();
   const [activeTab, setActiveTab] = useState("upcoming"); // "upcoming" | "past"
 
@@ -46,14 +47,11 @@ export default function AbsentHourManagement() {
   const [fromTime, setFromTime] = useState("");
   const [toTime, setToTime] = useState("");
 
-
   const { localization } = useLocalization();
   const { isToken } = useAuth();
 
   useEffect(() => {
-    if (isToken)
-      getEmployer(isToken);
-
+    if (isToken) getEmployer(isToken);
   }, [isToken]);
 
   useEffect(() => {
@@ -82,21 +80,53 @@ export default function AbsentHourManagement() {
     }
   };
 
-  const submitChanges = () => {
+  const isValidDateRange = (startDate, endDate) => {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    if (start.getTime() === end.getTime()) {
+      return false;
+    }
+    if (start > end) {
+      return false;
+    }
+    return true;
+  };
+  const isValidTimeRange = (startTime, endTime) => {
+    const [startH, startM] = startTime.split(":").map(Number);
+    const [endH, endM] = endTime.split(":").map(Number);
 
+    const startTotal = startH * 60 + startM;
+    const endTotal = endH * 60 + endM;
+
+    if (startTotal >= endTotal) {
+      return false;
+    }
+
+    return true;
+  };
+  const submitChanges = () => {
     if (activeTab === "upcoming") {
-      createAbsentHours(dateFrom, dateTo, commentDate, isToken, "upcoming");
+      if (isValidDateRange(dateFrom, dateTo)) {
+        createAbsentHours(dateFrom, dateTo, commentDate, isToken, "upcoming");
+      } else {
+        setError(localization.SETTINGS.ABSENTHOURS.error);
+      }
     } else {
-      createAbsentHours(fromTime, toTime, commentTime, isToken, "past");
+      if (isValidTimeRange(fromTime, toTime)) {
+        createAbsentHours(fromTime, toTime, commentTime, isToken, "past");
+      } else {
+        setError(localization.SETTINGS.ABSENTHOURS.error);
+      }
     }
   };
-
 
   const confirmHandler = () => {
     setIsMessage(false);
     router.back();
-
   };
+  const cancelErrorHandler = () => {
+    setError(null);
+  }
 
   const getTimeFromHandler = (fromTimeData) => {
     setFromTime(fromTimeData);
@@ -108,8 +138,8 @@ export default function AbsentHourManagement() {
     setIsMessage(false);
   };
 
-  if (isLoading === 'get') {
-    return <SharedLoader isOpen={isLoading === 'get'} />
+  if (isLoading === "get") {
+    return <SharedLoader isOpen={isLoading === "get"} />;
   }
   if (!workHours) {
     return (
@@ -138,7 +168,7 @@ export default function AbsentHourManagement() {
                 activeTab === "upcoming" && styles.activeText,
               ]}
             >
-              Odmor / Bolovanje
+              {localization.SETTINGS.ABSENTHOURS.tab1}
             </Text>
           </TouchableOpacity>
 
@@ -152,7 +182,7 @@ export default function AbsentHourManagement() {
                 activeTab === "past" && styles.activeText,
               ]}
             >
-              Hitni slucajevi
+              {localization.SETTINGS.ABSENTHOURS.tab2}
             </Text>
           </TouchableOpacity>
         </View>
@@ -192,54 +222,50 @@ export default function AbsentHourManagement() {
 
         {activeTab === "past" && (
           <>
-            <View style={styles.row}>
-              <Text style={styles.subTitle}>
-                {localization.SETTINGS.ABSENTHOURS.from}
-              </Text>
-              <TouchableOpacity
-                onPress={() => setShowFromPicker(true)}
-                style={styles.timeButton}
-              >
-                {fromTime && <Text style={styles.timeText}>{fromTime}</Text>}
-                {!fromTime && (
-                  <Text style={styles.timeText}>
-                    {localization.SETTINGS.WORKHOURS.startTimePlaceHolder}
-                  </Text>
-                )}
-              </TouchableOpacity>
-            </View>
-            <View style={styles.row}>
-              <Text style={styles.subTitle}>
-                {localization.SETTINGS.ABSENTHOURS.to}
-              </Text>
-              <TouchableOpacity
-                onPress={() => setShowToPicker(true)}
-                style={styles.timeButton}
-              >
-                {toTime && <Text style={styles.timeText}>{toTime}</Text>}
-                {!toTime && (
-                  <Text style={styles.timeText}>
-                    {localization.SETTINGS.WORKHOURS.endTimePlaceHolder}
-                  </Text>
-                )}
-              </TouchableOpacity>
-              <TextInput
-                style={styles.textInput}
-                placeholder={localization.SETTINGS.ABSENTHOURS.comment}
-                multiline
-                numberOfLines={4}
-                value={commentTime}
-                onChangeText={setCommentTime}
-                textAlignVertical="top"
-              />
-            </View>
+            <Text style={styles.subTitle}>
+              {localization.SETTINGS.ABSENTHOURS.from}
+            </Text>
+            <TouchableOpacity
+              onPress={() => setShowFromPicker(true)}
+              style={styles.timeButton}
+            >
+              {fromTime && <Text style={styles.timeText}>{fromTime}</Text>}
+              {!fromTime && (
+                <Text style={styles.timeText}>
+                  {localization.SETTINGS.WORKHOURS.startTimePlaceHolder}
+                </Text>
+              )}
+            </TouchableOpacity>
+            <Text style={styles.subTitle}>
+              {localization.SETTINGS.ABSENTHOURS.to}
+            </Text>
+            <TouchableOpacity
+              onPress={() => setShowToPicker(true)}
+              style={styles.timeButton}
+            >
+              {toTime && <Text style={styles.timeText}>{toTime}</Text>}
+              {!toTime && (
+                <Text style={styles.timeText}>
+                  {localization.SETTINGS.WORKHOURS.endTimePlaceHolder}
+                </Text>
+              )}
+            </TouchableOpacity>
+            <TextInput
+              style={styles.textInput}
+              placeholder={localization.SETTINGS.ABSENTHOURS.comment}
+              multiline
+              numberOfLines={4}
+              value={commentTime}
+              onChangeText={setCommentTime}
+              textAlignVertical="top"
+            />
           </>
         )}
 
-        <View style={styles.submit}>
+        <View>
           <SharedButton
             onPress={submitChanges}
-            loading={isLoading === 'post'}
+            loading={isLoading === "post"}
             text={localization.SETTINGS.ABSENTHOURS.submit}
           />
         </View>
@@ -260,11 +286,21 @@ export default function AbsentHourManagement() {
             buttonText="OK"
           />
         )}
+        {error?.length > 0 && (
+          <SharedMessage
+            isOpen={error?.length > 0}
+            icon={<FontAwesome name="close" size={64} color="white" />}
+            onClose={cancelErrorHandler}
+            onConfirm={cancelErrorHandler}
+            buttonText="Ok"
+            title={error}
+          />
+        )}
       </View>
       <TimePickerModal
         visible={showFromPicker}
-        startValue={fromTime}
-        endValue={toTime}
+        startValue={workHours?.start}
+        endValue={workHours?.end}
         interval={5}
         setVisible={setShowFromPicker}
         onCancel={() => setShowFromPicker(false)}
@@ -272,8 +308,8 @@ export default function AbsentHourManagement() {
       />
       <TimePickerModal
         visible={showToPicker}
-        startValue={fromTime}
-        endValue={toTime}
+        startValue={workHours?.start}
+        endValue={workHours?.end}
         interval={5}
         setVisible={setShowToPicker}
         onCancel={() => setShowToPicker(false)}
@@ -285,7 +321,7 @@ export default function AbsentHourManagement() {
 
 const styles = StyleSheet.create({
   submit: {
-    // flex: 1
+    flex: 2,
   },
   row: {
     marginBottom: 20,
@@ -346,10 +382,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   container: {
-    padding: 20,
-    paddingBottom: 40,
-    backgroundColor: "#000",
     flex: 1,
+    padding: 20,
+    backgroundColor: "#000",
+    justifyContent: "space-between",
   },
   title: {
     fontSize: 24,

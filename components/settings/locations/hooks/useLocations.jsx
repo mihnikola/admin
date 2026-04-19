@@ -121,8 +121,6 @@ function useLocation() {
 
 
   const verificationData = (data) => {
-    console.log("verificationData",data);
-
     if (data?.close === locationById?.workingHours?.end &&
       data?.open === locationById?.workingHours?.start &&
       data?.streetName === locationById?.address &&
