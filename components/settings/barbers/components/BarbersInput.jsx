@@ -1,40 +1,52 @@
-import { View, Text, TextInput, StyleSheet } from "react-native";
+import { View, Text, TextInput, StyleSheet, Image } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
+import { forwardRef, useState } from "react";
 
-export default function BarbersInput({
-  icon,
-  label,
-  value,
-  onChangeText,
-  placeholder,
-  keyboardType = "default",
-  error,
-  autoFocus
-}) {
+const BarbersInput = forwardRef((props, ref) => {
+  const [isFocused, setIsFocused] = useState(false);
   return (
-    <View style={[styles.container,error && styles.error]}>
+    <View style={[styles.container, props.error && styles.error]}>
       <View style={styles.iconContainer}>
-        <FontAwesome name={icon} size={20} color="#aaa" />
+        <FontAwesome name={props.icon} size={20} color="#aaa" />
       </View>
 
-      <View style={{ flex: 1 }}>
-        <Text style={styles.label}>{label}</Text>
+      <View style={styles.viewContainer}>
+        <Text style={styles.label}>{props.label}</Text>
+        <View style={[styles.viewContainer, props.dataDetectorTypes && styles.phoneNumberContainer]}>
 
-        <TextInput
-          style={styles.input}
-          value={value}
-          autoFocus={autoFocus}
-          onChangeText={onChangeText}
-          placeholder={placeholder}
-          placeholderTextColor="#777"
-          keyboardType={keyboardType}
-        />
+          {props.dataDetectorTypes && (
+            <Image
+              source={require("../../../../assets/images/serbiaFlag.png")}
+              style={styles.flagIcon}
+            />
+          )}
+          {props.dataDetectorTypes && <Text style={styles.prefixText}>+381</Text>}
+          <TextInput
+            {...props}
+            style={styles.input}
+            value={props.value}
+            ref={ref}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+            onChangeText={props.onChangeText}
+            placeholder={props.placeholder}
+            placeholderTextColor="#777"
+            keyboardType={props.keyboardType}
+          />
+        </View>
       </View>
     </View>
   );
-}
+
+});
 
 const styles = StyleSheet.create({
+  phoneNumberContainer: {
+    flexDirection: "row"
+  },
+  viewContainer: {
+    flex: 1
+  },
   container: {
     flexDirection: "row",
     alignItems: "center",
@@ -43,7 +55,19 @@ const styles = StyleSheet.create({
     padding: 12,
     marginBottom: 7,
   },
-  error:{
+  flagIcon: {
+    width: 24, // Adjust size as needed
+    height: 18, // Adjust size as needed, maintain aspect ratio
+    marginRight: 8,
+    borderRadius: 2, // Slightly rounded corners for the flag
+  },
+  prefixText: {
+    color: "grey",
+    fontSize: 16,
+    marginRight: 8,
+    fontWeight: "medium", // Make prefix stand out
+  },
+  error: {
     borderWidth: 1,
     borderColor: 'red',
   },
@@ -64,3 +88,5 @@ const styles = StyleSheet.create({
     padding: 0,
   },
 });
+
+export default BarbersInput;

@@ -22,12 +22,9 @@ const useBarbers = () => {
     setError(null);
     try {
       const response = await put(`admin/users/${id}/softDelete`, { firedDate });
-      console.log("response", response);
       setIsMessage(true);
       setMessage(localization.BARBERS.delete);
     } catch (err) {
-      console.log("errorrr", err);
-
       setError(localization.BARBERS.errorFetch);
     } finally {
       setIsLoading(null);
@@ -78,105 +75,23 @@ const useBarbers = () => {
       setIsLoading(null);
     }
   };
-
-  // const addEditBarber = async (userData) => {
-  //   console.log("languageValue", localization.code)
-  //   setIsLoading("addEdit");
-  //   setError(null);
-  //   const formData = new FormData();
-  //   if (userData?.name) {
-  //     formData.append("name", userData?.name);
-  //   }
-
-  //   formData.append("phoneNumber", userData?.phoneNumber);
-  //   formData.append("seniority", userData?.seniority?._id);
-  //   formData.append("email", userData?.email);
-  //   formData.append("password", userData?.password);
-  //   formData.append("statusCheck", userData?.statusCheck);
-
-  //   if (userData?.image) {
-  //     const filename = userData?.image.split("/").pop();
-  //     const fileType =
-  //       filename.split(".").pop() === "png"
-  //         ? "image/png"
-  //         : filename.split(".").pop() === "jpg"
-  //           ? "image/jpg"
-  //           : "image/jpeg";
-  //     formData.append("image", {
-  //       uri: userData?.image,
-  //       name: filename,
-  //       type: fileType,
-  //     });
-  //   }
-  //   Object.fromEntries(formData._parts);
-
-  //   if (userData?.id) {
-  //     try {
-  //       const response = await axios.put(
-  //         `${process.env.EXPO_PUBLIC_API_URL}/admin/users/${userData?.id}`,
-  //         formData,
-  //         {
-  //           headers: {
-  //             "Content-Type": "multipart/form-data",
-  //             "Accept-Language": localization.code, // or "en", "en-US", etc.
-  //           },
-  //         },
-  //       );
-  //       if (response.status === 200) {
-  //         setIsMessage(true);
-  //         setMessage(localization.BARBERS.edit);
-  //       }
-  //     } catch (err) {
-  //       setError(localization.BARBERS.errorFetch);
-  //       setIsMessage(true);
-  //     } finally {
-  //       setIsLoading(null);
-  //     }
-  //   } else {
-  //     try {
-  //       const response = await axios.post(
-  //         `${process.env.EXPO_PUBLIC_API_URL}/admin/users`,
-  //         formData,
-  //         {
-  //           headers: {
-  //             "Content-Type": "multipart/form-data", // Axios might need this explicitly for FormData
-  //             "Accept-Language": localization.code, // or "en", "en-US", etc.
-  //           },
-  //         },
-  //       );
-  //       if (response.status === 201) {
-  //         setIsMessage(true);
-  //         setMessage(localization.BARBERS.add);
-  //       }
-  //     } catch (err) {
-  //       console.log("errrr", err);
-  //       setError(localization.BARBERS.errorFetch);
-  //       setIsMessage(true);
-  //     } finally {
-  //       setIsLoading(null);
-  //     }
-  //   }
-  // };
   const validateBarber = (data, localization) => {
     if (
       !data?.name ||
       !data?.phoneNumber ||
       !data?.seniority?._id ||
       !data?.email ||
-      !data?.password ||
-      typeof data?.statusCheck !== "boolean"
+      !data?.statusCheck
     ) {
       return localization.REGISTER.error;
     }
   };
 
   const addEditBarber = async (userData) => {
-    console.log("validationErrors")
-
     const validationErrors = validateBarber(userData, localization);
-    console.log("validationErrors",validationErrors)
-    if (validationErrors.length > 0) {
-      setError(validationErrors); // možeš prikazati po poljima u UI
+
+    if (validationErrors && validationErrors?.length > 0) {
+      setError(validationErrors);
       setIsMessage(true);
       return;
     }
@@ -186,18 +101,12 @@ const useBarbers = () => {
     try {
       const formData = new FormData();
 
-      // Basic fields
       if (userData?.name) formData.append("name", userData.name);
-      if (userData?.phoneNumber)
-        formData.append("phoneNumber", userData.phoneNumber);
-      if (userData?.seniority?._id)
-        formData.append("seniority", userData.seniority._id);
+      if (userData?.phoneNumber) formData.append("phoneNumber", userData.phoneNumber);
+      if (userData?.seniority?._id) formData.append("seniority", userData.seniority._id);
       if (userData?.email) formData.append("email", userData.email);
-      if (userData?.password) formData.append("password", userData.password);
-
       formData.append("statusCheck", userData?.statusCheck ?? false);
 
-      // Image handling
       if (userData?.image) {
         const filename = userData.image.split("/").pop();
         const ext = filename?.split(".").pop()?.toLowerCase();
@@ -215,7 +124,6 @@ const useBarbers = () => {
         });
       }
 
-      // Decide method + URL
       const isEdit = Boolean(userData?.id);
       const url = isEdit
         ? `${process.env.EXPO_PUBLIC_API_URL}/admin/users/${userData.id}`
@@ -233,7 +141,6 @@ const useBarbers = () => {
         },
       });
 
-      // Success handling
       if (
         (isEdit && response.status === 200) ||
         (!isEdit && response.status === 201)
@@ -244,7 +151,7 @@ const useBarbers = () => {
         );
       }
     } catch (err) {
-      console.log("API ERROR:", err?.response || err);
+      console.log("POST || PUT ERROR:", err?.response || err);
       setError(localization.BARBERS.errorFetch);
       setIsMessage(true);
     } finally {
