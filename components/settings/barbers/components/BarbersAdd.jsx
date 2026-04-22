@@ -1,5 +1,5 @@
 import { FontAwesome } from "@expo/vector-icons";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
   ScrollView,
@@ -26,6 +26,10 @@ import BarbersStatusCheck from "./BarbersStatusCheck";
 import BarbersStatuses from "./BarbersStatuses";
 import SharedButtonApproved from "@/shared-components/SharedButtonApproved";
 import SharedButtonRejected from "@/shared-components/SharedButtonRejected";
+import useEmail from "@/components/login/hooks/useEmail";
+import usePassword from "@/components/login/hooks/usePassword";
+import usePhoneNumber from "@/components/login/hooks/usePhoneNumber";
+import { SharedInput } from "@/shared-components/SharedInput";
 
 export default function BarbersAdd() {
   const { localization } = useLocalization();
@@ -40,6 +44,7 @@ export default function BarbersAdd() {
     setMessage,
     message,
     barberData,
+    setError,
     removeBarber,
     confirmHandler,
     getBarberHandler,
@@ -51,20 +56,25 @@ export default function BarbersAdd() {
   } = useBarbers();
 
   const [name, setName] = useState("");
-
-  const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [password, setPassword] = useState("");
   const [imageValue, setImageValue] = useState("");
   const [editingId, setEditingId] = useState(null);
   const [changedImg, setChangedImg] = useState(null);
-  const { company } = useCompany();
   const [selected, setSelected] = useState(null);
   const [selectedStatus, setSelectedStatus] = useState(null);
   const [statusChecking, setStatusChecking] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
+  const refName = useRef(null);
+  const scrollRef = useRef(null);
+  const phoneNumberLayoutY = useRef(0);
+  const emailLayoutY = useRef(0);
 
-  const [isError, setIsError] = useState(null);
+  const { email, emailError, handleEmailChange, emailInputRef } = useEmail();
+  const {
+    phoneNumber,
+    handlePhoneNumberChange,
+    errorPhoneNumber,
+    phoneNumberInputRef,
+  } = usePhoneNumber();
 
   const selectedImgHandler = (imgData) => {
     if (imgData) {
@@ -86,9 +96,10 @@ export default function BarbersAdd() {
   useEffect(() => {
     if (barberData) {
       setName(barberData?.name);
+      handleEmailChange(barberData?.email);
       setSelected(barberData?.seniority);
       setSelectedStatus(barberData?.statusCheck);
-      setPhoneNumber(barberData?.phoneNumber);
+      handlePhoneNumberChange(barberData?.phoneNumber);
       selectedImgHandler(barberData?.image);
       setEditingId(barberData?.id);
     }
@@ -97,23 +108,20 @@ export default function BarbersAdd() {
   const resetForm = () => {
     setName("");
     setSelected("");
+    handlePhoneNumberChange("");
+    handleEmailChange("");
     setSelectedStatus(null);
-    setEmail("");
-    setPhoneNumber("");
-    setPassword("");
     setEditingId(null);
     setChangedImg(null);
   };
-  const cancelEditHandler = () => {
-    resetForm();
-    router.back();
-  };
+
 
   const addBarber = () => {
     if (editingId) {
       const updateBarber = {
         id: editingId,
         name,
+        email,
         phoneNumber,
         seniority: selected,
         image: changedImg === imageValue ? null : changedImg,
@@ -127,7 +135,6 @@ export default function BarbersAdd() {
         name,
         email,
         phoneNumber,
-        password,
         seniority: selected,
         image: changedImg === imageValue ? null : changedImg,
         statusCheck: selectedStatus?._id,
@@ -135,7 +142,7 @@ export default function BarbersAdd() {
       if (newBarber?.name && newBarber?.email) {
         addEditBarber(newBarber);
       } else {
-        setIsError(localization.BARBERS.errorFields);
+        setError(localization.BARBERS.errorFields);
       }
     }
   };
@@ -174,24 +181,11 @@ export default function BarbersAdd() {
     setSelectedStatus(activeStatus);
   };
 
-  // const [removeItem, setRemoveItem] = useState(null);
-  // const [isRemove, setIsRemove] = useState(null);
-
   const removeQuestion = (id) => {
     router.replace({
       pathname: "/(tabs)/(03_settings)/removeBarber",
       params: { id },
     });
-
-    //   setIsRemove(true);
-    //   setRemoveItem(item);
-  };
-  const removeCancelHandler = () => {
-    // setIsRemove(false);
-  };
-  const removeConfirmHandler = () => {
-    // setIsRemove(false);
-    removeBarber(removeItem);
   };
   const modalStatusHandler = () => {
     setStatusChecking(true);
@@ -232,40 +226,67 @@ export default function BarbersAdd() {
           />
         </View>
       )}
-      <ScrollView>
+      <ScrollView
+        ref={scrollRef}
+        keyboardDismissMode="interactive"
+        style={styles.safeArea}
+        contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }}
+        keyboardShouldPersistTaps="always"
+      >
         <View style={{ flex: 3, marginTop: 20 }}>
           <BarbersInput
+            autoFocus
             icon="user"
             label={localization.BARBERS.name}
             value={name}
             onChangeText={setName}
+            onSubmitEditing={() => emailInputRef.current.focus()}
+            ref={refName}
+            returnKeyType="next"
           />
 
-          {!id && (
+          <View
+            onLayout={(e) => {
+              emailLayoutY.current = e.nativeEvent.layout.y;
+            }}
+          >
             <BarbersInput
               icon="at"
               label={localization.BARBERS.email}
               value={email}
-              onChangeText={setEmail}
+              autoCapitalize="none"
+              onChangeText={handleEmailChange}
               keyboardType="email-address"
+              error={emailError}
+              returnKeyType="next"
+              ref={emailInputRef}
+              onSubmitEditing={() => {
+                phoneNumberInputRef.current?.focus();
+                scrollRef.current?.scrollTo({
+                  y: emailLayoutY.current - 20,
+                  animated: true,
+                });
+              }}
             />
-          )}
-          {!id && (
+          </View>
+          <View
+            onLayout={(e) => {
+              phoneNumberLayoutY.current = e.nativeEvent.layout.y;
+            }}
+          >
             <BarbersInput
-              icon="lock"
-              label={localization.BARBERS.password}
-              value={password}
-              onChangeText={setPassword}
-              textContentType="password"
+              icon="phone"
+              label="Telefon"
+              value={phoneNumber}
+              onChangeText={handlePhoneNumberChange}
+              keyboardType="phone-pad"
+              ref={phoneNumberInputRef}
+              error={errorPhoneNumber}
+              dataDetectorTypes="phoneNumber"
+              placeholder="6x xxx xxxx"
+
             />
-          )}
-          <BarbersInput
-            icon="phone"
-            label="Telefon"
-            value={phoneNumber}
-            onChangeText={setPhoneNumber}
-            keyboardType="phone-pad"
-          />
+          </View>
           <BarbersStatusCheck
             modalHandler={modalStatusHandler}
             label="Status odobravanja"
@@ -291,6 +312,10 @@ export default function BarbersAdd() {
               ? localization.BARBERS.saveChanges
               : localization.BARBERS.submitAdd
           }
+          disabled={
+            emailError?.length > 0 ||
+            errorPhoneNumber?.length > 0
+          }
         />
         {editingId && (
           <SharedButtonRejected
@@ -311,19 +336,16 @@ export default function BarbersAdd() {
           title={message}
         />
       )}
-      {/* {isRemove && (
-        <SharedQuestion
-          isOpen={isRemove}
-          onClose={removeCancelHandler}
-          onLogOut={removeConfirmHandler}
-          icon={
-            <FontAwesome name="question-circle-o" size={64} color="white" />
-          }
-          title={localization.BARBERS.question}
-          buttonTextYes={localization.BARBERS.confirmButton}
-          buttonTextNo={localization.BARBERS.cancel}
+      {error?.length > 0 && (
+        <SharedMessage
+          isOpen={error?.length > 0}
+          icon={<FontAwesome name="close" size={64} color="white" />}
+          onClose={confirmMessageHandler}
+          onConfirm={confirmMessageHandler}
+          buttonText="Ok"
+          title={error}
         />
-      )} */}
+      )}
     </View>
   );
 }
@@ -358,7 +380,6 @@ const styles = StyleSheet.create({
     alignContent: "center",
     alignItems: "center",
     alignSelf: "center",
-    paddingTop: 20,
   },
   container: {
     flex: 1,
