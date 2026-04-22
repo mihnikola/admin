@@ -54,7 +54,6 @@ export default function BarbersList() {
       fetchAllBarbers();
     }, []),
   );
-
   return (
     <View style={styles.container}>
       <Text style={styles.subTitle}>{localization.BARBERS.listBarbers}</Text>
@@ -71,35 +70,55 @@ export default function BarbersList() {
         <FlatList
           data={filterDataBarber}
           keyExtractor={(item) => item._id}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              onPress={() => startEditing(item)}
-              style={styles.barberItem}
-            >
-              <View>
-                <Image source={{ uri: item.image }} style={styles.image} />
-              </View>
-              <View style={{ width: "52%", marginLeft: 10 }}>
-                <View>
-                  <Text style={styles.serviceText}>{item.name}</Text>
-                </View>
-                {item?.seniority?.title && (
+          renderItem={({ item }) => {
+            const initials = item.name.trim().includes(" ")
+              ? item.name
+                .trim()
+                .split(/\s+/)
+                .map(word => word[0])
+                .join("")
+                .toUpperCase()
+              : item.name.substring(0, 2).toUpperCase();
+
+            return (
+              <TouchableOpacity
+                onPress={() => startEditing(item)}
+                style={styles.barberItem}
+              >
+                {item.image &&
                   <View>
-                    <Text style={styles.serviceText}>
-                      {item?.seniority?.title}
+                    <Image source={{ uri: item.image }} style={styles.image} />
+                  </View>}
+
+                {!item.image && <View style={styles.avatar}>
+                  <Text style={styles.avatarText}>{initials}</Text>
+                </View>
+                }
+
+                <View style={{ width: "52%", marginLeft: 10 }}>
+                  <View>
+                    <Text style={styles.serviceText}>{item.name}</Text>
+                  </View>
+                  {item?.seniority?.title && (
+                    <View>
+                      <Text style={styles.serviceText}>
+                        {item?.seniority?.title}
+                      </Text>
+                    </View>
+                  )}
+                </View>
+                <View style={{ flexDirection: "row" }}>
+                  <View>
+                    <Text style={styles.editHint}>
+                      <FontAwesome name="edit" size={24} color="white" />
                     </Text>
                   </View>
-                )}
-              </View>
-              <View style={{ flexDirection: "row" }}>
-                <View>
-                  <Text style={styles.editHint}>
-                    <FontAwesome name="edit" size={24} color="white" />
-                  </Text>
                 </View>
-              </View>
-            </TouchableOpacity>
-          )}
+              </TouchableOpacity>
+            )
+          }
+
+          }
         />
       )}
       <FloatingButton onPress={addServiceRouter} />
@@ -132,14 +151,28 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#000000",
   },
+  avatar: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: "#333",
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 12,
+    position: "relative",
+  },
   searchInput: {
     backgroundColor: "#222",
     borderRadius: 8,
     padding: 20,
     marginHorizontal: 12,
-    marginBottom:10,
+    marginBottom: 10,
     fontSize: 18,
     color: "white"
+  },
+  avatarText: {
+    color: "#fff",
+    fontWeight: "bold",
   },
   title: {
     fontSize: 22,
