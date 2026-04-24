@@ -5,10 +5,12 @@ import {
   Text,
   View,
 } from "react-native";
+
 import SharedCard from "@/shared-components/SharedCard";
 import { useLocalization } from "@/contexts/LocalizationContext";
 
-const EventTimelineList = ({ events, isLoading, error, criteriaDate }) => {
+const EventTimelineList = ({ events, selectedDate, isLoading, error, criteriaDate }) => {
+
 
   const { localization } = useLocalization();
   if (error) {
@@ -23,9 +25,19 @@ const EventTimelineList = ({ events, isLoading, error, criteriaDate }) => {
       </View>
     );
   }
-
+  if (isLoading) {
+    return (
+      <View style={styles.messageContainer}>
+        <ActivityIndicator
+          size={40}
+          style={{ paddingVertical: 20 }}
+          color="white"
+        />
+      </View>
+    );
+  }
   // Display message if no events found for the selected date
-  if (!events || events.length === 0) {
+  if (!isLoading && events.length === 0 && !selectedDate) {
     return (
       <View style={styles.messageContainer}>
         <Text style={styles.noEventsText}>
@@ -35,26 +47,22 @@ const EventTimelineList = ({ events, isLoading, error, criteriaDate }) => {
     );
   }
 
+
   // Render individual event item
 
-  return (
-    <View style={styles.list}>
-      {isLoading && (
-        <ActivityIndicator
-          size={40}
-          style={{ paddingVertical: 20 }}
-          color="white"
-        />
-      )}
-      {!isLoading && (
+  if (!isLoading && events?.length > 0 && selectedDate) {
+
+    return (
+      <View style={styles.list}>
         <FlatList
           data={events}
           renderItem={({ item }) => <SharedCard item={item} criteriaDate={criteriaDate} />}
           keyExtractor={(item) => item.id}
         />
-      )}
-    </View>
-  );
+      </View>
+    );
+  }
+
 };
 
 const styles = StyleSheet.create({

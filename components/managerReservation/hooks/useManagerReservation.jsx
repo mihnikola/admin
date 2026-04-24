@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { get, put } from "@/api/apiService";
-import { Alert } from "react-native";
 
 const useManagerReservation = () => {
   const [isLoading, setIsLoading] = useState(null);
@@ -10,16 +9,14 @@ const useManagerReservation = () => {
   const [isMessage, setIsMessage] = useState(false);
   const { localization } = useLocalization();
   const [dailyLimit, setDailyLimit] = useState("222");
-  const [weeklyLimit, setWeeklyLimit] = useState("333");
+  const [weeklyLimit, setWeeklyLimit] = useState("000");
   const [monthlyLimit, setMonthlyLimit] = useState("444");
+  const [error, setError] = useState(null);
 
   const handleReservation = async (data) => {
     const { dailyLimit, weeklyLimit, monthlyLimit } = data;
     if (!dailyLimit || !weeklyLimit || !monthlyLimit) {
-      Alert.alert(
-        localization.SETTINGS.LIMIT.error,
-        localization.SETTINGS.LIMIT.errorLimit,
-      );
+      setError(localization.SETTINGS.LIMIT.errorLimit)
       return;
     }
     if (
@@ -27,10 +24,7 @@ const useManagerReservation = () => {
       parseInt(weeklyLimit) === 0 ||
       parseInt(monthlyLimit) === 0
     ) {
-      Alert.alert(
-        localization.SETTINGS.LIMIT.error,
-        localization.SETTINGS.LIMIT.errorCorrect,
-      );
+      setError(localization.SETTINGS.LIMIT.errorCorrect)
       return;
     }
     if (
@@ -38,10 +32,7 @@ const useManagerReservation = () => {
       parseInt(weeklyLimit) < 0 ||
       parseInt(monthlyLimit) < 0
     ) {
-      Alert.alert(
-        localization.SETTINGS.LIMIT.error,
-        localization.SETTINGS.LIMIT.greaterThanZero,
-      );
+      setError(localization.SETTINGS.LIMIT.greaterThanZero)
       return;
     }
 
@@ -116,6 +107,8 @@ const useManagerReservation = () => {
     setWeeklyLimit,
     monthlyLimit,
     setMonthlyLimit,
+    error,
+    setError
   };
 };
 export default useManagerReservation;

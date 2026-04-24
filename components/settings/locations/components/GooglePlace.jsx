@@ -10,6 +10,8 @@ import {
 } from "react-native";
 import Constants from "expo-constants";
 import { useLocalization } from "./../../../../contexts/LocalizationContext";
+import { Keyboard } from 'react-native';
+import { useCompany } from "@/contexts/CompanyContext";
 
 const apiKey = Constants.expoConfig.extra.API_KEY_MAP;
 
@@ -17,7 +19,14 @@ export default function GooglePlace({ onSelect }) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { company, getCompany } = useCompany();
+
+
   const { localization } = useLocalization(); // Fetch autocomplete suggestions
+
+  useEffect(() => {
+    getCompany();
+  }, []);
   const searchPlaces = async (text) => {
     if (!text || text.length < 6) {
       setResults([]);
@@ -30,7 +39,7 @@ export default function GooglePlace({ onSelect }) {
       const res = await fetch(
         `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURIComponent(
           text,
-        )}&key=${apiKey}&language=${localization.code}&types=address`,
+        )}&key=${apiKey}&language=${localization.code}&components=country:${company?.country}`,
       );
       const data = await res.json();
       if (data.status === "OK") {
@@ -46,6 +55,7 @@ export default function GooglePlace({ onSelect }) {
 
     setLoading(false);
   };
+
 
   // Fetch place details (lat/lng, address components)
   const getPlaceDetails = async (placeId) => {
@@ -107,6 +117,8 @@ export default function GooglePlace({ onSelect }) {
     // Clear query and results
     setQuery("");
     setResults([]);
+    Keyboard.dismiss();
+
   };
 
   // Debounce user input
