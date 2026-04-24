@@ -7,7 +7,7 @@ function useCheckCalendar() {
   const [checkDates, setCheckDates] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [selectedDate, setSelectedDate] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(true);
   const { isToken } = useAuth();
   const { getReservations, events } = useAppointment();
 
@@ -102,7 +102,8 @@ function useCheckCalendar() {
     getReservations(day?.dateString);
   };
 
-  const getDates = async (selectedMonth) => {
+  const getDates = async (selectedMonth, initial) => {
+    console.log("ajmo llog",initial);
     setIsLoading(true);
     setError(null);
 
@@ -118,16 +119,20 @@ function useCheckCalendar() {
       });
 
       if (response.status === 200) {
-        const responseData = convertResult(response.data);
+        let responseData;
+        responseData = convertResult(response.data);
+        
+        if (initial) {
+          const today = new Date();
+          const todayStr = today.toLocaleDateString("sv-SE"); // YYYY-MM-DD
 
-        const today = new Date();
-        const todayStr = today.toLocaleDateString("sv-SE"); // YYYY-MM-DD
+          responseData[todayStr] = {
+            ...responseData[todayStr],
+            selected: true,
+            selectedColor: "#fff",
+          };
 
-        responseData[todayStr] = {
-          ...responseData[todayStr],
-          selected: true,
-          selectedColor: "#fff",
-        };
+        }
 
         setCheckDates(responseData);
       }
@@ -161,6 +166,7 @@ function useCheckCalendar() {
     events,
     selectedDate,
     setSelectedDate,
+    setCheckDates
   };
 }
 

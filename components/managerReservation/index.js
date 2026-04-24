@@ -29,6 +29,8 @@ export default function ManagerReservation() {
     setWeeklyLimit,
     monthlyLimit,
     setMonthlyLimit,
+    setError,
+    error
   } = useManagerReservation();
 
   if (isLoading === "get") {
@@ -115,6 +117,16 @@ export default function ManagerReservation() {
           title={lastResponse}
           onClose={() => setIsMessage(false)}
           onConfirm={refreshHandler}
+        />
+      )}
+       {error?.length > 0 && (
+        <SharedMessage
+          isOpen={error?.length > 0}
+          buttonText="OK"
+          icon={<FontAwesome name="close" size={64} color="white" />}
+          title={error}
+          onClose={() => setError(null)}
+          onConfirm={() => setError(null)}
         />
       )}
     </KeyboardAvoidingView>

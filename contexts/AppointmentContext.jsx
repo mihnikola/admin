@@ -101,12 +101,14 @@ export const AppointmentProvider = ({ children }) => {
   };
 
   const getReservations = async (criteria) => {
+    
     setIsLoading(true);
     setError(null);
     if (!criteria) {
       setIsLoading(false);
       return;
     }
+
     try {
       const response = await getData("/admin/availabilities", {
         dateValue: criteria,

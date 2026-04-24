@@ -20,6 +20,7 @@ const DateComponent = () => {
     checkDates,
     getDates,
     handleDayPress,
+    setCheckDates,
     isLoading,
     events,
     error,
@@ -28,9 +29,10 @@ const DateComponent = () => {
   } = useCheckCalendar();
 
 
-  const [selectValueDate, setSelectValueDate] = useState(null);
+  const [selectValueDate, setSelectValueDate] = useState({ dateString: new Date().toLocaleDateString("en-CA") });
   const [checkMonth, setCheckMonth] = useState(null);
   const [calendarHight, setCalendarHeight] = useState(null);
+  const [initialValue, setInitialValue] = useState(true);
 
   const getWeeksInMonth = (dateString) => {
     const date = new Date(dateString);
@@ -45,15 +47,27 @@ const DateComponent = () => {
     return Math.ceil((firstDay + daysInMonth) / 7) * 50 + 50;
   };
   useEffect(() => {
-    getDates(checkMonth || localDateString);
 
+    getDates(checkMonth || localDateString, initialValue);
     setCalendarHeight(getWeeksInMonth(checkMonth));
+    setInitialValue(false);
   }, [checkMonth]);
 
+  
+
+
+
+  useEffect(() => {
+
+  }, [])
+
   const onDayPressHandler = (date) => {
+    console.log("date", date);
     setSelectedDate(true);
-    handleDayPress(date);
     setSelectValueDate(date);
+    //iznad su kljucna
+
+    handleDayPress(date);
   };
 
   if (checkDates) {
@@ -66,8 +80,20 @@ const DateComponent = () => {
             style={styles.calendar}
             theme={calendarTheme}
             onVisibleMonthsChange={(months) => {
-              setSelectedDate(false);
+              setSelectedDate(null);
               setCheckMonth(months[0]?.dateString);
+              setCheckDates(prev => {
+                const updated = {};
+
+                Object.keys(prev).forEach(date => {
+                  updated[date] = {
+                    ...prev[date],
+                    selected: false
+                  };
+                });
+
+                return updated;
+              });
             }}
             current={localDateString}
             minDate={localDateString}
@@ -123,7 +149,8 @@ const DateComponent = () => {
 
         <View style={styles.timesAndDetails}>
           <EventTimelineList
-            events={selectedDate ? events : []}
+            events={events}
+            selectedDate={selectedDate}
             isLoading={isLoading}
             error={error}
             criteriaDate={selectValueDate || null}
@@ -133,6 +160,46 @@ const DateComponent = () => {
     );
   }
 };
+
+const DayComponent = (date, isSelected, checkDates, onPress, isPast) => {
+  return (
+    <TouchableOpacity onPress={onPress}>
+      <View
+        style={{
+          borderRadius: 20,
+          backgroundColor: isSelected ? "#b6cdd7ff" : "transparent",
+        }}
+      >
+        <Text
+          style={{
+            color: isPast
+              ? "#999"
+              : isSelected
+                ? "#fff"
+                : "#dfdfdfff",
+            textAlign: "center",
+            fontWeight: "500",
+            paddingHorizontal: 8,
+          }}
+        >
+          {date.day}
+        </Text>
+        {checkDates?.[dateStr]?.marked && (
+          <View
+            style={{
+              width: 5,
+              height: 5,
+              borderRadius: 2.5,
+              backgroundColor: isPast ? "#999" : "white",
+              alignSelf: "center",
+              marginTop: 2,
+            }}
+          />
+        )}
+      </View>
+    </TouchableOpacity>
+  )
+}
 
 const styles = StyleSheet.create({
   notWorkingDays: {

@@ -270,8 +270,9 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
   textBoldSuccess: {
-    color: "white",
+    color: "grey",
     fontSize: 24,
+    textAlign: "center"
   },
   missed: {
     flex: 2,

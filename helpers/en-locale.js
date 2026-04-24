@@ -225,6 +225,16 @@ export const ENG_LOCALIZATION = {
       barbersLength: "Barbers at this location",
       availableBarbers: "All available barbers",
     },
+    PROFILE: {
+      email: "Your email",
+      phoneNumber: "Your phone number",
+      errorPhoneNumber: "Please enter a valid phone number format.",
+      name: "Your name",
+      placeholderName: "Enter your name",
+      loading: "Sending...",
+      btnText: "Send",
+      messageConfirm: "User updated successfully",
+    },
     clickHere: "Click here to Log in",
     removeBarber: "Delete a barber",
     removeLocation: "Delete a location",
@@ -326,7 +336,7 @@ export const ENG_LOCALIZATION = {
       success: "You have successfully set the absent time period",
       tab1: "Schedule Leave",
       tab2: "Report Urgent Leave",
-      error:"End time must be later than start time"
+      error: "End time must be later than start time"
     },
     ERROR: {
       label: "Error while changing user",
