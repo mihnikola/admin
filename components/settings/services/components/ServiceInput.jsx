@@ -1,36 +1,39 @@
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
+import { forwardRef } from "react";
 
-export default function ServiceInput({
-  icon,
-  label,
-  value,
-  onChangeText,
-  placeholder,
-  keyboardType = "default",
-}) {
+const ServiceInput = forwardRef((props, ref) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, props.error && styles.error]}>
       <View style={styles.iconContainer}>
-        <FontAwesome name={icon} size={icon === 'history' ? 24 : 20} color="#aaa" />
+        <FontAwesome
+          name={props.icon}
+          size={props.icon === "history" ? 24 : 20}
+          color="#aaa"
+        />
       </View>
 
       <View style={{ flex: 1 }}>
-        <Text style={styles.label}>{label}</Text>
+        <Text style={styles.label}>{props.label}</Text>
 
         <TextInput
+          {...props}
+          ref={ref}
           style={styles.input}
-          value={value}
-          onChangeText={onChangeText}
-          placeholder={placeholder}
+          value={props.value}
+          onChangeText={
+            props.keyboardType === "numeric"
+              ? props.onChangeText(props.setValue, 1000)
+              : props.onChangeText
+          }
+          placeholder={props.placeholder}
           placeholderTextColor="#777"
-          keyboardType={keyboardType}
+          keyboardType={props.keyboardType}
         />
       </View>
     </View>
   );
-}
-
+});
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
@@ -39,6 +42,10 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     padding: 12,
     marginBottom: 7,
+  },
+  error: {
+    borderWidth: 1,
+    borderColor: "red",
   },
 
   iconContainer: {
@@ -57,3 +64,5 @@ const styles = StyleSheet.create({
     padding: 0,
   },
 });
+
+export default ServiceInput;

@@ -15,7 +15,6 @@ const useServices = () => {
   const [message, setMessage] = useState(null);
 
   const removeService = async (id) => {
-
     setIsLoading("remove");
     setError(null);
     try {
@@ -43,8 +42,24 @@ const useServices = () => {
       setIsLoading(null);
     }
   };
-
+  const validationServicesErrors = (newService, localization) => {
+    if (
+      !newService?.image ||
+      !newService?.nameLocal ||
+      !newService?.nameEn ||
+      !newService?.price ||
+      !newService?.duration
+    ) {
+      return localization.REGISTER.error;
+    }
+  };
   const addEditService = async (userData) => {
+
+    const validationErrors = validationServicesErrors(userData, localization);
+    if (validationErrors && validationErrors?.length > 0) {
+      setError(validationErrors);
+      return;
+    }
     setIsLoading("addEdit");
     setError(null);
     const formData = new FormData();
@@ -155,6 +170,7 @@ const useServices = () => {
   return {
     isLoading,
     error,
+    setError,
     isMessage,
     setIsMessage,
     setMessage,
