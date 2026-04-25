@@ -9,10 +9,15 @@ import {
 import SharedCard from "@/shared-components/SharedCard";
 import { useLocalization } from "@/contexts/LocalizationContext";
 
-const EventTimelineList = ({ events, selectedDate, isLoading, error, criteriaDate }) => {
-
-
+const EventTimelineList = ({
+  events,
+  selectedDate,
+  isLoading,
+  error,
+  criteriaDate,
+}) => {
   const { localization } = useLocalization();
+
   if (error) {
     return (
       <View style={styles.messageContainer}>
@@ -36,38 +41,61 @@ const EventTimelineList = ({ events, selectedDate, isLoading, error, criteriaDat
       </View>
     );
   }
-  // Display message if no events found for the selected date
-  if (!isLoading && events.length === 0 && !selectedDate) {
+  if (!selectedDate && !isLoading) {
     return (
-      <View style={styles.messageContainer}>
-        <Text style={styles.noEventsText}>
-          {localization.EVENTS.notFound}
-        </Text>
-      </View>
+      <>
+        {!selectedDate ? (
+          <View style={styles.messageContainer}>
+            <Text style={styles.infoDetails}>
+              {localization.EVENTS.noSelected}
+            </Text>
+          </View>
+        ) : (
+          events.length === 0 && (
+            <View style={styles.messageContainer}>
+              <Text style={styles.noEventsText}>
+                {localization.EVENTS.notFound}
+              </Text>
+            </View>
+          )
+        )}
+      </>
     );
   }
 
-
   // Render individual event item
 
-  if (!isLoading && events?.length > 0 && selectedDate) {
-
+  if (events?.length > 0 && selectedDate) {
     return (
       <View style={styles.list}>
         <FlatList
           data={events}
-          renderItem={({ item }) => <SharedCard item={item} criteriaDate={criteriaDate} />}
+          renderItem={({ item }) => (
+            <SharedCard item={item} criteriaDate={criteriaDate} />
+          )}
           keyExtractor={(item) => item.id}
         />
       </View>
     );
   }
 
+  if (selectedDate && !isLoading && events.length === 0) {
+    return (
+      <View style={styles.messageContainer}>
+        <Text style={styles.noEventsText}>{localization.EVENTS.notFound}</Text>
+      </View>
+    );
+  }
 };
 
 const styles = StyleSheet.create({
   list: {
     padding: 2,
+  },
+  infoDetails: {
+    fontSize: 22,
+    color: "rgb(172, 164, 164)",
+    textAlign: "center",
   },
   messageContainer: {
     flex: 1,
@@ -96,7 +124,7 @@ const styles = StyleSheet.create({
   },
   errorMessageDetail: {
     fontSize: 14,
-    color: "#141313ff",
+    color: "rgb(172, 164, 164)",
     textAlign: "center",
   },
   notWorkingDaysContent: {

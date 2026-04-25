@@ -134,7 +134,8 @@ export const ENG_LOCALIZATION = {
     success: "Your appointment is successfully booked!",
   },
   EVENTS: {
-    notFound: "No events scheduled for this date.",
+    notFound: "No reservations scheduled for this date.",
+    noSelected: "Choose your date"
   },
   SERVICES: {
     removeBtn: "Deactivate service",

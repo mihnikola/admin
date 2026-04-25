@@ -25,6 +25,6 @@
     "components/home/components/HomeScreen.jsx",
     "components/home/components/MenuServices.jsx",
     "components/settings/WorkHourManagement.jsx"
-  ],
+, "components/EventTimeLineList.jsx"  ],
   "extends": "expo/tsconfig.base"
 }

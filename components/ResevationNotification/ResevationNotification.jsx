@@ -28,7 +28,7 @@ function ResevationNotificationScreen() {
   const { localization } = useLocalization();
   const { itemId, user, note, past, rating, criteriaDate, arrived } =
     useLocalSearchParams();
-
+  console.log("object",note);
   const { company } = useCompany();
 
   const {
@@ -45,6 +45,7 @@ function ResevationNotificationScreen() {
     missedReservation,
   } = useAppointment();
 
+  console.log("reservationData",reservationData)
   useEffect(() => {
     fetchReservationDetails(itemId);
   }, []);

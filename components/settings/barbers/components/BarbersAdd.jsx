@@ -153,6 +153,9 @@ export default function BarbersAdd() {
     resetForm();
     confirmHandler();
   };
+  const confirmErrorMessageHandler = () => {
+     setError(null);
+  }
 
   const modalHandler = () => {
     setModalVisible(true);
@@ -340,8 +343,8 @@ export default function BarbersAdd() {
         <SharedMessage
           isOpen={error?.length > 0}
           icon={<FontAwesome name="close" size={64} color="white" />}
-          onClose={confirmMessageHandler}
-          onConfirm={confirmMessageHandler}
+          onClose={confirmErrorMessageHandler}
+          onConfirm={confirmErrorMessageHandler}
           buttonText="Ok"
           title={error}
         />

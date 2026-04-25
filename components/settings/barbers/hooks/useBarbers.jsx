@@ -92,7 +92,6 @@ const useBarbers = () => {
 
     if (validationErrors && validationErrors?.length > 0) {
       setError(validationErrors);
-      setIsMessage(true);
       return;
     }
 

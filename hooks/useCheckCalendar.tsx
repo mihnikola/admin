@@ -159,6 +159,7 @@ function useCheckCalendar() {
 
   return {
     isLoading,
+    setIsLoading,
     error,
     handleDayPress,
     getDates,

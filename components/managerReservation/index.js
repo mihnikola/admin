@@ -1,19 +1,25 @@
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { SharedButton } from "@/shared-components/SharedButton";
 import { SharedMessage } from "@/shared-components/SharedMessage";
-import { FontAwesome } from "@expo/vector-icons";
+import {
+  FontAwesome,
+  MaterialCommunityIcons,
+  Octicons,
+} from "@expo/vector-icons";
 import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
   StyleSheet,
-  Text,
-  TextInput,
   View,
 } from "react-native";
 import useManagerReservation from "./hooks/useManagerReservation";
 import { SharedLoader } from "@/shared-components/SharedLoader";
-
+import LimitComponent from "./LimitComponent";
+import LimitDescription from "./LimitDescription";
+const THEME = {
+  accentTeal: "#9da0a0", // Light Teal
+};
 export default function ManagerReservation() {
   const { localization } = useLocalization();
   const {
@@ -30,7 +36,7 @@ export default function ManagerReservation() {
     monthlyLimit,
     setMonthlyLimit,
     setError,
-    error
+    error,
   } = useManagerReservation();
 
   if (isLoading === "get") {
@@ -46,61 +52,48 @@ export default function ManagerReservation() {
 
   return (
     <KeyboardAvoidingView
-      style={{ flex: 1 }}
+      style={styles.containerKeyboard}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <ScrollView contentContainerStyle={styles.container}>
-        <View>
-          <Text style={styles.title}>
-            {localization.SETTINGS.LIMIT.capture}
-          </Text>
-        </View>
-        <View>
-          <Text style={styles.subTitle}>
-            {localization.SETTINGS.LIMIT.subTitle}
-          </Text>
-        </View>
-        <Text style={styles.limitsTitle}>
-          {localization.SETTINGS.LIMIT.info}
-        </Text>
-        <View>
-          <Text style={styles.limitsTitleDay}>
-            {localization.SETTINGS.LIMIT.day}
-          </Text>
-          <TextInput
-            style={styles.input}
-            placeholder={localization.SETTINGS.LIMIT.day}
-            keyboardType="number-pad"
-            value={String(dailyLimit ?? "")}
-            onChangeText={handleNumberInput(setDailyLimit, 4)}
-          />
-        </View>
-
-        <View>
-          <Text style={styles.limitsTitleDay}>
-            {localization.SETTINGS.LIMIT.week}
-          </Text>
-          <TextInput
-            style={styles.input}
-            placeholder={localization.SETTINGS.LIMIT.week}
-            keyboardType="number-pad"
-            value={String(weeklyLimit ?? "")}
-            onChangeText={handleNumberInput(setWeeklyLimit, 4)}
-          />
-        </View>
-
-        <View>
-          <Text style={styles.limitsTitleDay}>
-            {localization.SETTINGS.LIMIT.month}
-          </Text>
-          <TextInput
-            style={styles.input}
-            placeholder={localization.SETTINGS.LIMIT.month}
-            keyboardType="number-pad"
-            value={String(monthlyLimit ?? "")}
-            onChangeText={handleNumberInput(setMonthlyLimit, 4)}
-          />
-        </View>
+        <LimitDescription
+          title={localization.SETTINGS.LIMIT.capture}
+          subTitle={localization.SETTINGS.LIMIT.subTitle}
+          description={localization.SETTINGS.LIMIT.info}
+        />
+        <LimitComponent
+          label={localization.SETTINGS.LIMIT.day}
+          icon={
+            <MaterialCommunityIcons
+              name="weather-sunset-up"
+              size={28}
+              color={THEME.accentTeal}
+            />
+          }
+          value={dailyLimit}
+          setValue={setDailyLimit}
+          onChangeValueLimit={handleNumberInput}
+        />
+        <LimitComponent
+          label={localization.SETTINGS.LIMIT.week}
+          icon={<Octicons name="calendar" size={26} color={THEME.accentTeal} />}
+          value={weeklyLimit}
+          setValue={setWeeklyLimit}
+          onChangeValueLimit={handleNumberInput}
+        />
+        <LimitComponent
+          label={localization.SETTINGS.LIMIT.month}
+          icon={
+            <MaterialCommunityIcons
+              name="progress-clock"
+              size={28}
+              color={THEME.accentTeal}
+            />
+          }
+          value={monthlyLimit}
+          setValue={setMonthlyLimit}
+          onChangeValueLimit={handleNumberInput}
+        />
       </ScrollView>
       <View style={{ marginHorizontal: 20 }}>
         <SharedButton
@@ -119,7 +112,7 @@ export default function ManagerReservation() {
           onConfirm={refreshHandler}
         />
       )}
-       {error?.length > 0 && (
+      {error?.length > 0 && (
         <SharedMessage
           isOpen={error?.length > 0}
           buttonText="OK"
@@ -134,46 +127,12 @@ export default function ManagerReservation() {
 }
 
 const styles = StyleSheet.create({
-  limitsTitleDay: {
-    color: "white",
-    fontSize: 16,
-  },
-  limitsDisplay: {
-    gap: 15,
-    backgroundColor: "#010101",
-    borderRadius: 8,
-  },
-  limitsTitle: {
-    fontWeight: "bold",
-    marginBottom: 20,
-    color: "white",
-    fontSize: 19,
-  },
   container: {
     paddingHorizontal: 24,
     backgroundColor: "#000",
     justifyContent: "center",
   },
-  title: {
-    fontSize: 22,
-    marginBottom: 20,
-    textAlign: "center",
-    fontWeight: "bold",
-    color: "#fff",
-  },
-  subTitle: {
-    fontSize: 14,
-    marginBottom: 20,
-    textAlign: "center",
-    color: "#fff",
-    lineHeight: 23,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: "#f5f5f5",
-    color: "#ddd8d8",
-    padding: 12,
-    marginBottom: 12,
-    borderRadius: 8,
+  containerKeyboard: {
+    flex: 1,
   },
 });

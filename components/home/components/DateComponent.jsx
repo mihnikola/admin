@@ -1,6 +1,6 @@
 import { calendarTheme } from "@/helpers";
 import useCheckCalendar from "@/hooks/useCheckCalendar";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StatusBar,
   StyleSheet,
@@ -10,8 +10,6 @@ import {
 } from "react-native";
 import { CalendarList } from "react-native-calendars";
 import EventTimelineList from "../../EventTimeLineList";
-import { useFocusEffect } from "expo-router";
-import { useIsFocused } from "@react-navigation/native";
 
 const DateComponent = () => {
   const today = new Date();
@@ -22,6 +20,7 @@ const DateComponent = () => {
     handleDayPress,
     setCheckDates,
     isLoading,
+    setIsLoading,
     events,
     error,
     selectedDate,
@@ -44,7 +43,7 @@ const DateComponent = () => {
       0,
     ).getDate();
 
-    return Math.ceil((firstDay + daysInMonth) / 7) * 50 + 50;
+    return Math.ceil((firstDay + daysInMonth) / 7) * 45 + 50;
   };
   useEffect(() => {
 
@@ -53,20 +52,11 @@ const DateComponent = () => {
     setInitialValue(false);
   }, [checkMonth]);
 
-  
-
-
-
-  useEffect(() => {
-
-  }, [])
 
   const onDayPressHandler = (date) => {
     console.log("date", date);
     setSelectedDate(true);
     setSelectValueDate(date);
-    //iznad su kljucna
-
     handleDayPress(date);
   };
 
@@ -80,6 +70,7 @@ const DateComponent = () => {
             style={styles.calendar}
             theme={calendarTheme}
             onVisibleMonthsChange={(months) => {
+              setIsLoading(true);
               setSelectedDate(null);
               setCheckMonth(months[0]?.dateString);
               setCheckDates(prev => {
@@ -149,7 +140,7 @@ const DateComponent = () => {
 
         <View style={styles.timesAndDetails}>
           <EventTimelineList
-            events={events}
+            events={selectedDate && events}
             selectedDate={selectedDate}
             isLoading={isLoading}
             error={error}
@@ -160,46 +151,6 @@ const DateComponent = () => {
     );
   }
 };
-
-const DayComponent = (date, isSelected, checkDates, onPress, isPast) => {
-  return (
-    <TouchableOpacity onPress={onPress}>
-      <View
-        style={{
-          borderRadius: 20,
-          backgroundColor: isSelected ? "#b6cdd7ff" : "transparent",
-        }}
-      >
-        <Text
-          style={{
-            color: isPast
-              ? "#999"
-              : isSelected
-                ? "#fff"
-                : "#dfdfdfff",
-            textAlign: "center",
-            fontWeight: "500",
-            paddingHorizontal: 8,
-          }}
-        >
-          {date.day}
-        </Text>
-        {checkDates?.[dateStr]?.marked && (
-          <View
-            style={{
-              width: 5,
-              height: 5,
-              borderRadius: 2.5,
-              backgroundColor: isPast ? "#999" : "white",
-              alignSelf: "center",
-              marginTop: 2,
-            }}
-          />
-        )}
-      </View>
-    </TouchableOpacity>
-  )
-}
 
 const styles = StyleSheet.create({
   notWorkingDays: {
@@ -225,9 +176,6 @@ const styles = StyleSheet.create({
   },
   calendarContainer: {
     backgroundColor: "black",
-    // alignSelf: "flex-start",
-
-    // height: 320
   },
   calendar: {
     borderWidth: 1,

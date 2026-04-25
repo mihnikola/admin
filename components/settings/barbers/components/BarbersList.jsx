@@ -73,11 +73,11 @@ export default function BarbersList() {
           renderItem={({ item }) => {
             const initials = item.name.trim().includes(" ")
               ? item.name
-                .trim()
-                .split(/\s+/)
-                .map(word => word[0])
-                .join("")
-                .toUpperCase()
+                  .trim()
+                  .split(/\s+/)
+                  .map((word) => word[0])
+                  .join("")
+                  .toUpperCase()
               : item.name.substring(0, 2).toUpperCase();
 
             return (
@@ -85,15 +85,17 @@ export default function BarbersList() {
                 onPress={() => startEditing(item)}
                 style={styles.barberItem}
               >
-                {item.image &&
+                {item.image && (
                   <View>
                     <Image source={{ uri: item.image }} style={styles.image} />
-                  </View>}
+                  </View>
+                )}
 
-                {!item.image && <View style={styles.avatar}>
-                  <Text style={styles.avatarText}>{initials}</Text>
-                </View>
-                }
+                {!item.image && (
+                  <View style={styles.avatar}>
+                    <Text style={styles.avatarText}>{initials}</Text>
+                  </View>
+                )}
 
                 <View style={{ width: "52%", marginLeft: 10 }}>
                   <View>
@@ -115,10 +117,8 @@ export default function BarbersList() {
                   </View>
                 </View>
               </TouchableOpacity>
-            )
-          }
-
-          }
+            );
+          }}
         />
       )}
       <FloatingButton onPress={addServiceRouter} />
@@ -161,6 +161,10 @@ const styles = StyleSheet.create({
     marginRight: 12,
     position: "relative",
   },
+  avatarText: {
+    color: "#fff",
+    fontWeight: "bold",
+  },
   searchInput: {
     backgroundColor: "#222",
     borderRadius: 8,
@@ -168,12 +172,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 12,
     marginBottom: 10,
     fontSize: 18,
-    color: "white"
+    color: "white",
   },
-  avatarText: {
-    color: "#fff",
-    fontWeight: "bold",
-  },
+
   title: {
     fontSize: 22,
     fontWeight: "bold",
@@ -223,7 +224,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginHorizontal: 15,
     borderWidth: 1,
-    borderColor: 'white',
+    borderColor: "white",
   },
   serviceText: {
     color: "#fff",

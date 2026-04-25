@@ -3,12 +3,12 @@ import SharedDetailsCustomerCard from "./SharedDetailsCustomerCard";
 import SharedDetailsServiceCard from "./SharedDetailsServiceCard";
 
 const SharedDetailsReservation = ({ data, note }) => {
-  const { service, user } = data;
+  const { service, user, description } = data;
 
   return (
     <View>
       <SharedDetailsServiceCard data={service} />
-      <SharedDetailsCustomerCard user={user} note={note} />
+      <SharedDetailsCustomerCard user={user} note={note || description} />
     </View>
   );
 };
