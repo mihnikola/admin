@@ -88,7 +88,8 @@ const usePickImage = (initialImageUri) => {
         mediaTypes: ["images"],
         allowsEditing: true,
         quality: 1,
-        copyToCacheDirectory: true, // ✅ ovo automatski pravi file:// kopiju za standalone build
+        copyToCacheDirectory: true, 
+        aspect: [1, 1], 
       });
 
       if (result.canceled) {

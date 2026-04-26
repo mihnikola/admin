@@ -1,3 +1,4 @@
+import { useLocalization } from "@/contexts/LocalizationContext";
 import { FontAwesome } from "@expo/vector-icons";
 import {
   Modal,
@@ -15,6 +16,8 @@ function BarbersSeniority({
   handleLocationSelect,
   selected,
 }) {
+  const { localization } = useLocalization();
+
   const onConfirm = () => {
     setModalVisible(false);
   };
@@ -28,7 +31,9 @@ function BarbersSeniority({
     >
       <View style={styles.overlay}>
         <View style={styles.modalContent}>
-          <Text style={styles.modalTitle}>Senioritetetii</Text>
+          <Text style={styles.modalTitle}>
+            {localization.BARBERS.listSeniorities}
+          </Text>
           <ScrollView style={{ maxHeight: 300 }}>
             {seniorityData?.map((item) => {
               return (
@@ -47,7 +52,7 @@ function BarbersSeniority({
                   {selected && (
                     <FontAwesome
                       name={item._id === selected._id && "check-circle-o"}
-                      size={28}
+                      size={20}
                       color="white"
                     />
                   )}
@@ -83,7 +88,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     flexDirection: "row",
     gap: 10,
-    padding: 10,
+    padding: 8,
   },
   itemSubtitle: {
     flex: 2,

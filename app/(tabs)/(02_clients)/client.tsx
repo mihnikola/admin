@@ -1,5 +1,6 @@
 import useChangeUser from "@/components/clients/hooks/useChangeUser";
 import { useLocalization } from "@/contexts/LocalizationContext";
+import { getInitialsName } from "@/helpers";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import {
@@ -38,7 +39,7 @@ const UserProfile = () => {
     id,
   } = params;
 
-  const initials = name?.substring(0, 2)?.toUpperCase();
+  const initials = getInitialsName(name);
 
   const refreshHandler = () => {
     setIsMessage(false);

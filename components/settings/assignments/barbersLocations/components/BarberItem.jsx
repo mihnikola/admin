@@ -1,3 +1,4 @@
+import { getInitialsName } from "@/helpers";
 import { FontAwesome } from "@expo/vector-icons";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
@@ -6,14 +7,9 @@ export default function BarberItem({ id, item, toggleBarber }) {
     if (id) return;
     toggleBarber(item);
   };
-  const initials = item.name.trim().includes(" ")
-    ? item.name
-        .trim()
-        .split(/\s+/)
-        .map((word) => word[0])
-        .join("")
-        .toUpperCase()
-    : item.name.substring(0, 2).toUpperCase();
+
+  const initials = getInitialsName(item.name);
+
   return (
     <TouchableOpacity
       style={styles.barberItem}

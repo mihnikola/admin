@@ -1,22 +1,39 @@
 import { getSettingsOptions } from "@/helpers/getSettingsOptions";
 import SharedCarousel from "@/shared-components/SharedCarousel";
 import { router } from "expo-router";
-import { ScrollView, StatusBar, StyleSheet, View } from "react-native";
+import {
+  Image,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
-import { FontAwesome } from "@expo/vector-icons";
+import {
+  FontAwesome,
+  Ionicons,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 import { SharedLoader } from "@/shared-components/SharedLoader";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SettingsItem from "../../SettingsItem";
+import useBarbers from "../../barbers/hooks/useBarbers";
 
 export default function SettingsComponent() {
   const { localization } = useLocalization();
 
   const settingsOptions = getSettingsOptions(localization);
   const { logoutFirebase, isLoading } = useAuth();
+  const { fetchUserData, userData } = useAuth();
   const [isLogout, setIsLogout] = useState(false);
 
+  useEffect(() => {
+    fetchUserData();
+  }, []);
   const handlePress = (route) => {
     if (route === "logout") {
       setIsLogout(true);
@@ -32,22 +49,61 @@ export default function SettingsComponent() {
 
     logoutFirebase();
   };
+  const editProfileBarber = () => {
+    router.push({
+      pathname: "/(tabs)/(03_settings)/addBarbers",
+      params: { id: userData?.id, changeProfile: 1 },
+    });
+  };
 
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
-      <SharedCarousel title={localization.TABS.SETTINGS} />
+      {/* <SharedCarousel  /> */}
 
-      <ScrollView contentContainerStyle={styles.list}>
-        {settingsOptions.map((item) => (
-          <SettingsItem
-            key={item.id}
-            title={item.title}
-            icon={item.icon}
-            onPress={() => handlePress(item.route)}
-          />
-        ))}
-      </ScrollView>
+      {/* 1. SEKCIJA: Slika (Header) */}
+      <View style={styles.imageContainer}>
+        <Image
+          source={require("@/assets/images/coverImage.jpg")}
+          style={styles.coverImage}
+        />
+        {userData?.image && (
+          <TouchableOpacity
+            style={styles.defaultImgAvatar}
+            onPress={editProfileBarber}
+          >
+            <Image source={{ uri: userData?.image }} style={styles.image} />
+            <View style={styles.editButtonContainer}>
+              <View style={styles.editButton}>
+                <MaterialCommunityIcons name="pencil" size={25} color="#000" />
+              </View>
+            </View>
+          </TouchableOpacity>
+        )}
+
+        <Text style={styles.avatarText}>{userData?.name}</Text>
+
+        {/* <Ionicons name="person-circle-sharp" size={170} color="black" /> */}
+      </View>
+
+      {/* 2. SEKCIJA: Lista koja se skroluje */}
+      <View style={styles.listWrapper}>
+        <ScrollView
+          contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}
+        >
+          {settingsOptions.map((item) => (
+            <SettingsItem
+              key={item.id}
+              title={item.title}
+              icon={item.icon}
+              onPress={() => handlePress(item.route)}
+            />
+          ))}
+        </ScrollView>
+      </View>
+
+      {/* Modali i Loaderi */}
       {isLogout && (
         <SharedQuestion
           isOpen={isLogout}
@@ -61,19 +117,64 @@ export default function SettingsComponent() {
           buttonTextNo={localization.SETTINGS.LOGOUT.cancel}
         />
       )}
-
       {isLoading && <SharedLoader isOpen={isLoading} />}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  defaultImgAvatar: {
+    alignSelf: "baseline",
+    alignContent: "baseline",
+    justifyContent: "flex-start",
+    backgroundColor: "#fff",
+    borderRadius: 100,
+    padding: 6,
+  },
+  editButtonContainer: {
+    position: "absolute",
+    alignSelf: "flex-end",
+    alignItems: "flex-start",
+  },
+  editButton: {
+    backgroundColor: "#fff",
+    borderRadius: 20,
+    padding: 4,
+  },
   container: {
     flex: 1,
-    backgroundColor: "#111",
-    paddingTop: 40,
+    backgroundColor: "#000",
   },
-  list: {
-    paddingVertical: 16,
+  image: {
+    width: 125,
+    height: 125,
+    borderRadius: 100,
+    resizeMode: "cover",
+  },
+  coverImage: {
+    width: "100%",
+    height: "100%",
+    opacity: 0.2,
+    position: "absolute",
+  },
+  avatarText: {
+    color: "#fff",
+    fontWeight: "700",
+    fontSize: 20,
+    letterSpacing: 2,
+  },
+  imageContainer: {
+    height: 250,
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    alignContent: "center",
+  },
+  listWrapper: {
+    flex: 1,
+  },
+  scrollContent: {
+    paddingHorizontal: 5,
+    paddingVertical: 15,
   },
 });

@@ -16,7 +16,6 @@ const useGetClient = () => {
         try {
             const response = await get(`/admin/users/${clientId}`);
 
-            console.log("response", response)
             if (response.status === 200) {
                 setIsLoading(false);
                 setUserData(response.data);

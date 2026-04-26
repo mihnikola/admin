@@ -23,7 +23,7 @@ export default function BarbersStatusCheck({
             { color: selected ? "#fff" : "#777" },
           ]}
         >
-          {selected || "Izaberi tip odobravanja"}
+          {selected || ""}
         </Text>
       </View>
 

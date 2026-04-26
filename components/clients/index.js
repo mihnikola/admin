@@ -12,22 +12,22 @@ import {
 } from "react-native";
 import useGetClients from "./hooks/useGetClients";
 import { useLocalization } from "@/contexts/LocalizationContext";
+import { getInitialsName } from "@/helpers";
 
 export default function ClientsScreen() {
   const [search, setSearch] = useState("");
   const { clients, fetchAllClients } = useGetClients();
   const { localization } = useLocalization();
 
-
   const filteredClients = clients.filter((client) =>
-    client.name.toLowerCase().includes(search.toLowerCase())
+    client.name.toLowerCase().includes(search.toLowerCase()),
   );
 
   const isFocusClientTab = useIsFocused();
   useFocusEffect(
     useCallback(() => {
       fetchAllClients();
-    }, [isFocusClientTab])
+    }, [isFocusClientTab]),
   );
 
   const getClient = (item) => {
@@ -35,7 +35,7 @@ export default function ClientsScreen() {
   };
 
   const renderClient = ({ item }) => {
-    const initials = item.name ? item.name.substring(0, 2).toUpperCase() : "";
+    const initials = getInitialsName(item.name);
 
     return (
       <TouchableOpacity
@@ -51,11 +51,12 @@ export default function ClientsScreen() {
             <Text style={styles.phone}>{item.phoneNumber}</Text>
           )}
           <Text style={styles.details}>
-            {localization.CLIENTS.finished} <Text style={styles.done}>{item.completedCount}</Text>
-
+            {localization.CLIENTS.finished}{" "}
+            <Text style={styles.done}>{item.completedCount}</Text>
           </Text>
           <Text style={styles.details}>
-            {localization.CLIENTS.missed} <Text style={styles.missed}>{item.skippedCount}</Text>
+            {localization.CLIENTS.missed}{" "}
+            <Text style={styles.missed}>{item.skippedCount}</Text>
           </Text>
 
           <Text style={styles.income}>
@@ -68,7 +69,10 @@ export default function ClientsScreen() {
 
   return (
     <View style={styles.container}>
-      <SharedCarousel title={localization.TABS.CLIENTS} length={clients.length} />
+      <SharedCarousel
+        title={localization.TABS.CLIENTS}
+        length={clients.length}
+      />
       <TextInput
         style={styles.searchInput}
         placeholder={localization.CLIENTS.search}
