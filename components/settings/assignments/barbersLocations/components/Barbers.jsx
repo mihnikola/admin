@@ -1,4 +1,4 @@
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -60,17 +60,23 @@ export default function Barbers() {
   );
   return (
     <View style={styles.container}>
-      <SharedBackButton onPress={router.back} styleBtn={{ marginTop: 5 }} />
+      <View style={styles.headerComponent}>
+        <View style={styles.headerRow}>
+          <TouchableOpacity hitSlop={20} onPress={router.back}>
+            <MaterialIcons name="arrow-back" size={25} color="white" />
+          </TouchableOpacity>
 
-      <Text style={styles.subTitle}>{localization.BARBERS.listBarbers}</Text>
-      <View key={itemData.id} style={styles.itemContent}>
-        <FontAwesome name="map-marker" size={25} color="white" />
-        <Text style={styles.address}>
-          {localization.SETTINGS.EMPLOYERSPLACES.location}
-        </Text>
-        <Text style={styles.address}>{itemData.address}</Text>
+          {/* Kolona sa Naslovom i Adresom desno od strelice */}
+          <View style={styles.headerTextContainer}>
+            <Text style={styles.pageTitleHeader}>
+              {localization.BARBERS.listBarbers}
+            </Text>
+            <Text style={styles.addressHeader}>{itemData.address}</Text>
+          </View>
+        </View>
       </View>
-      <View style={{ flex: 2, marginTop: 10 }}>
+
+      <View style={{ flex: 2, marginVertical: 5, paddingHorizontal: 16, paddingBottom: 24 }}>
         <Text style={styles.addressBarbers}>
           {localization.SETTINGS.EMPLOYERSPLACES.barbersLength} (
           {filterResult.length})
@@ -90,7 +96,7 @@ export default function Barbers() {
         )}
       </View>
 
-      <View style={{ flex: 2, marginTop: 5 }}>
+      <View style={{ flex: 2,paddingHorizontal: 16, paddingBottom: 24 }}>
         <Text style={styles.addressBarbers}>
           {localization.SETTINGS.EMPLOYERSPLACES.availableBarbers} (
           {filteredBarbers.length})
@@ -113,15 +119,17 @@ export default function Barbers() {
             renderItem={({ item }) => (
               <BarberItem item={item} toggleBarber={toggleBarber} />
             )}
-            contentContainerStyle={{ paddingBottom: 20 }}
           />
         )}
       </View>
+            <View style={{ paddingHorizontal: 16, paddingBottom: 24 }}>
+
       <SharedButtonApproved
         onPress={() => submitChanges(id)}
         loading={isLoading === "post"}
         text={localization.SERVICES.saveChanges}
       />
+      </View>
 
       {isMessage && (
         <SharedMessage
@@ -148,14 +156,44 @@ export default function Barbers() {
 }
 
 const styles = StyleSheet.create({
+  // Stilovi za NOVI Fiksni Header
+  headerComponent: {
+    paddingTop: 25,
+    paddingBottom: 15,
+    paddingHorizontal: 16, // Dodat padding nazad ovde
+    backgroundColor: "#000", // Osigurava da se ne providi
+    borderBottomWidth: 1,
+    borderColor: "#1A1A1A", // Suptilna linija za odvajanje
+  },
+  headerRow: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  headerTextContainer: {
+    flex: 1,
+    marginLeft: 10, // Prostor desno od strelice
+    justifyContent: "center",
+  },
+  pageTitleHeader: {
+    fontSize: 20, // Malo manji, ali i dalje dominantan
+    fontWeight: "700",
+    color: "#fff",
+    letterSpacing: 0.5,
+  },
+  addressHeader: {
+    color: "#AAA", // Svetlije siva za adresu
+    fontSize: 14,
+    fontWeight: "400",
+    marginTop: 2,
+  },
+
   loadingContainer: {
     paddingTop: 40,
   },
   searchInput: {
     backgroundColor: "#000000",
     borderRadius: 8,
-    padding: 10,
-    fontSize: 18,
+    fontSize: 16,
     color: "#fff",
   },
   itemContent: {
@@ -169,10 +207,11 @@ const styles = StyleSheet.create({
 
   addressBarbers: {
     color: "#fff",
-    fontSize: 20,
+    fontSize: 17,
     alignItems: "center",
     alignSelf: "flex-start",
     justifyContent: "center",
+    marginBottom: 10
   },
   container: {
     flex: 1,

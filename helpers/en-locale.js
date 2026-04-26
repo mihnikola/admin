@@ -228,7 +228,7 @@ export const ENG_LOCALIZATION = {
       success: "Employers are successfully attachment on current location",
       submit: "Save",
       location: "Location:",
-      barbersLength: "Barbers at this location",
+      barbersLength: "Current barbers",
       availableBarbers: "All available barbers",
     },
     PROFILE: {
@@ -302,7 +302,7 @@ export const ENG_LOCALIZATION = {
       title: "Services & Barbers",
       footerBottom: "All rights reserved ©",
       barber: "Barber",
-      servicesLength: "Services at this barber",
+      servicesLength: "Current services",
       availableServices: "All available services",
     },
     LOCATIONSBARBERS: {
