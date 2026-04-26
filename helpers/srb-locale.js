@@ -230,7 +230,7 @@ export const SRB_LOCALIZATION = {
       success: "Zaposleni su uspešno dodeljeni na datu lokaciju",
       submit: "Sačuvaj",
       location: "Lokacija",
-      barbersLength: "Barberi na ovoj lokaciji ",
+      barbersLength: "Trenutni barberi",
       availableBarbers: "Svi dostupni barberi ",
     },
     deactivateLocation: "Deaktiviraj lokaciju",
@@ -293,7 +293,7 @@ export const SRB_LOCALIZATION = {
       title: "Barberi i servisi",
       footerBottom: "All rights reserved ©",
       barber: "Barber",
-      servicesLength: "Usluge kod datog barbera",
+      servicesLength: "Trenutne usluge",
       availableServices: "Sve dostupne usluge",
     },
 

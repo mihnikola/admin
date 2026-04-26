@@ -23,8 +23,8 @@ const ServiceItem = ({ item, toggleService }) => {
           <Text style={styles.serviceText}>{item.duration} MIN</Text>
         </View>
       </View>
-      <View style={styles.centerCheckMark}>
-        <FontAwesome name="plus" size={28} color="white" />
+      <View style={styles.actionButton}>
+        <FontAwesome name="plus" size={18} color="white" />
       </View>
     </TouchableOpacity>
   );
@@ -32,12 +32,17 @@ const ServiceItem = ({ item, toggleService }) => {
 
 const styles = StyleSheet.create({
   serviceItem: {
-    backgroundColor: "#424242",
+    backgroundColor: "#1E1E1E", // Tamnija siva za nedodeljene
     flexDirection: "row",
     justifyContent: "space-between",
-    padding: 5,
-    borderRadius: 10,
-    marginBottom: 5,
+    alignItems: "center",
+    padding: 12,
+    marginBottom: 8,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: "#2A2A2A",
+    // Suptilna senka za Android
+    elevation: 2,
   },
   centerCheckMark: {
     justifyContent: "center",
@@ -57,7 +62,15 @@ const styles = StyleSheet.create({
   },
   serviceText: {
     color: "#fff",
-    fontSize: 15,
+    fontSize: 12,
+  },
+  actionButton: {
+    width: 36,
+    height: 36,
+    borderRadius: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#85b2bd", // Akcentovana boja za dodavanje
   },
 });
 

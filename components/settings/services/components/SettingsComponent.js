@@ -27,8 +27,7 @@ export default function SettingsComponent() {
   const { localization } = useLocalization();
 
   const settingsOptions = getSettingsOptions(localization);
-  const { logoutFirebase, isLoading } = useAuth();
-  const { fetchUserData, userData } = useAuth();
+  const { logoutFirebase, isLoading, fetchUserData, userData } = useAuth();
   const [isLogout, setIsLogout] = useState(false);
 
   useEffect(() => {

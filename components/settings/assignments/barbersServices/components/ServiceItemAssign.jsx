@@ -31,13 +31,18 @@ const ServiceItemAssign = ({ item, toggleService }) => {
 };
 
 const styles = StyleSheet.create({
-   serviceItem: {
-    backgroundColor: "#7c7a7a",
+  serviceItem: {
+    backgroundColor: "#2A2A2A", // Malo svetlija siva za dodeljene radi kontrasta
     flexDirection: "row",
     justifyContent: "space-between",
-    padding: 5,
-    borderRadius: 10,
-    marginBottom: 5,
+    alignItems: "center",
+    padding: 12,
+    marginBottom: 8,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: "#2A2A2A",
+    // Suptilna senka za Android
+    elevation: 2,
   },
   centerCheckMark: {
     justifyContent: "center",
@@ -57,7 +62,7 @@ const styles = StyleSheet.create({
   },
   serviceText: {
     color: "#fff",
-    fontSize: 15,
+    fontSize: 13.2,
   },
 });
 

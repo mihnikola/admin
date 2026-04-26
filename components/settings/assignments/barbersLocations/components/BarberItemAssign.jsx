@@ -27,9 +27,10 @@ export default function BarberItemAssign({ id, item, toggleBarber }) {
 
 const styles = StyleSheet.create({
   image: {
-    width: 60,
-    height: 60,
-    borderRadius: 20,
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    marginRight: 12,
   },
   centerCheckMark: {
     justifyContent: "center",
@@ -43,12 +44,17 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   barberItem: {
-    backgroundColor: "#7c7a7a",
+    backgroundColor: "#2A2A2A", // Malo svetlija siva za dodeljene radi kontrasta
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingHorizontal: 10,
-    marginBottom: 5,
-    borderRadius: 10,
+    alignItems: "center",
+    padding: 12,
+    marginBottom: 8,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: "#2A2A2A",
+    // Suptilna senka za Android
+    elevation: 2,
   },
   barberText: {
     color: "#fff",

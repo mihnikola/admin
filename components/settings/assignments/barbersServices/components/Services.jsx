@@ -181,7 +181,7 @@
 //   },
 // });
 
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -271,17 +271,24 @@ export default function Services() {
   }
   return (
     <View style={styles.container}>
-      <SharedBackButton onPress={router.back} styleBtn={{ marginTop: 5 }} />
+      <View style={styles.headerComponent}>
+        <View style={styles.headerRow}>
+          <TouchableOpacity hitSlop={20} onPress={router.back}>
+            <MaterialIcons name="arrow-back" size={25} color="white" />
+          </TouchableOpacity>
 
-      <Text style={styles.subTitle}>{localization.SERVICES.listServices}</Text>
-      <View key={itemData.id} style={styles.itemContent}>
-        <Text style={styles.address}>
-          {localization.SETTINGS.SERVICESBARBERS.barber}{" "}
-        </Text>
-        <Text style={styles.address}>{itemData.name}</Text>
+          {/* Kolona sa Naslovom i Adresom desno od strelice */}
+          <View style={styles.headerTextContainer}>
+            <Text style={styles.pageTitleHeader}>
+              {localization.SERVICES.listServices}
+            </Text>
+            <Text style={styles.addressHeader}>{itemData.name}</Text>
+          </View>
+        </View>
       </View>
-      <View style={{ flex: 2, marginTop: 10 }}>
-        <Text style={styles.addressBarbers}>
+
+      <View style={{ flex:2, paddingHorizontal: 16, paddingBottom: 24 }}>
+        <Text style={styles.addressBarbersX}>
           {localization.SETTINGS.SERVICESBARBERS.servicesLength} (
           {filterResult.length})
         </Text>
@@ -300,7 +307,7 @@ export default function Services() {
         )}
       </View>
 
-      <View style={{ flex: 2, marginTop: 5 }}>
+      <View style={{ flex:1.5, paddingHorizontal: 16, paddingBottom: 5 }}>
         <Text style={styles.addressBarbers}>
           {localization.SETTINGS.SERVICESBARBERS.availableServices} (
           {filteredService.length})
@@ -323,11 +330,9 @@ export default function Services() {
             renderItem={({ item }) => (
               <ServiceItem item={item} toggleService={toggleService} />
             )}
-            contentContainerStyle={{ paddingBottom: 20 }}
           />
         )}
       </View>
-
 
       <SharedButtonApproved
         onPress={() => submitChangesServiceToBarber(id)}
@@ -360,14 +365,43 @@ export default function Services() {
 }
 
 const styles = StyleSheet.create({
+  // Stilovi za NOVI Fiksni Header
+  headerComponent: {
+    paddingTop: 25,
+    paddingBottom: 15,
+    paddingHorizontal: 16, // Dodat padding nazad ovde
+    backgroundColor: "#000", // Osigurava da se ne providi
+    borderBottomWidth: 1,
+    borderColor: "#1A1A1A", // Suptilna linija za odvajanje
+  },
+  headerRow: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  headerTextContainer: {
+    flex: 1,
+    marginLeft: 10, // Prostor desno od strelice
+    justifyContent: "center",
+  },
+  pageTitleHeader: {
+    fontSize: 18, // Malo manji, ali i dalje dominantan
+    fontWeight: "700",
+    color: "#fff",
+    letterSpacing: 0.5,
+  },
+  addressHeader: {
+    color: "#AAA", // Svetlije siva za adresu
+    fontSize: 14,
+    fontWeight: "400",
+    marginTop: 2,
+  },
   loadingContainer: {
     paddingTop: 40,
   },
   searchInput: {
     backgroundColor: "#000000",
     borderRadius: 8,
-    padding: 10,
-    fontSize: 18,
+    fontSize: 15,
     color: "#fff",
   },
   itemContent: {
@@ -378,13 +412,22 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 10,
   },
-
-  addressBarbers: {
+  addressBarbersX: {
     color: "#fff",
-    fontSize: 20,
+    fontSize: 15,
     alignItems: "center",
     alignSelf: "flex-start",
     justifyContent: "center",
+    marginBottom: 12,
+    marginTop: 12,
+  },
+  addressBarbers: {
+    color: "#fff",
+    fontSize: 17,
+    alignItems: "center",
+    alignSelf: "flex-start",
+    justifyContent: "center",
+    marginBottom: 6,
   },
   container: {
     flex: 1,
