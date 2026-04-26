@@ -1,9 +1,6 @@
 import { FontAwesome } from "@expo/vector-icons";
-import React, { useEffect, useState } from "react";
-import {
-  StyleSheet,
-  View,
-} from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import { ScrollView, StyleSheet, View } from "react-native";
 import ImageCompress from "../../ImageCompress";
 import useServices from "../hooks/useServices";
 import { useLocalization } from "@/contexts/LocalizationContext";
@@ -22,6 +19,7 @@ export default function AddService() {
   const {
     isLoading,
     error,
+    setError,
     isMessage,
     setIsMessage,
     message,
@@ -49,9 +47,14 @@ export default function AddService() {
   const [imageValue, setImageValue] = useState("");
   const [editingId, setEditingId] = useState(null);
   const [changedImg, setChangedImg] = useState(null);
-
-  const [isError, setIsError] = useState(null);
-
+  const scrollRef = useRef(null);
+  const refNameLocal = useRef(null);
+  const refNameEng = useRef(0);
+  const refDuration = useRef(0);
+  const refPrice = useRef(0);
+  const nameLocalLayout = useRef(0);
+  const priceLayout = useRef(0);
+  const durationLayout = useRef(0);
   const selectedImgHandler = (imgData) => {
     if (imgData) {
       setChangedImg(imgData);
@@ -77,7 +80,6 @@ export default function AddService() {
     setEditingId(null);
     setChangedImg(null);
   };
-
 
   const [removeItem, setRemoveItem] = useState(null);
   const [isRemove, setIsRemove] = useState(null);
@@ -116,17 +118,7 @@ export default function AddService() {
         image: changedImg === imageValue ? null : changedImg,
       };
 
-      if (
-        newService?.image &&
-        newService?.nameLocal &&
-        newService?.nameEn &&
-        newService?.price &&
-        newService?.duration
-      ) {
-        addEditService(newService);
-      } else {
-        setIsError(localization.SERVICES.errorFields);
-      }
+      addEditService(newService);
     }
   };
   const confirmMessageHandler = () => {
@@ -136,11 +128,21 @@ export default function AddService() {
     resetForm();
     confirmHandler();
   };
+  const confirmErrorMessageHandler = () => {
+    setError(null);
+  };
 
   if (isLoading === "getService") {
     return <SharedLoader isOpen={isLoading === "getService"} />;
   }
-  
+
+  const handleNumberInput =
+    (setValue, maxLength = 4) =>
+    (text) => {
+      const cleaned = text.replace(/\D/g, "").slice(0, maxLength);
+      setValue(cleaned);
+    };
+
   return (
     <View style={styles.container}>
       <View style={styles.containerImage}>
@@ -149,38 +151,85 @@ export default function AddService() {
           imageValue={changedImg}
         />
       </View>
-
-      <View style={{ flex: 3, marginTop: 20 }}>
-        {/* ovo ti je za lokalni jezik - srpski nameLocal */}
-        <ServiceInput
-          icon="scissors"
-          label={localization.SERVICES.serviceNameSr}
-          value={nameLocal}
-          onChangeText={setNameLocal}
-        />
-
-        <ServiceInput
-          icon="scissors"
-          label={localization.SERVICES.serviceNameEn}
-          value={nameEn}
-          onChangeText={setNameEn}
-        />
-
-        <ServiceInput
-          icon="money"
-          label={localization.SERVICES.servicePrice}
-          value={price}
-          onChangeText={setPrice}
-          keyboardType="numeric"
-        />
-        <ServiceInput
-          icon="history"
-          label={localization.SERVICES.serviceDuration}
-          value={duration}
-          onChangeText={setDuration}
-          keyboardType="numeric"
-        />
-      </View>
+      <ScrollView
+        ref={scrollRef}
+        keyboardDismissMode="interactive"
+        style={styles.safeArea}
+        contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }}
+        keyboardShouldPersistTaps="always"
+      >
+        <View style={{ flex: 3, marginTop: 20 }}>
+          {/* ovo ti je za lokalni jezik - srpski nameLocal */}
+          <ServiceInput
+            autoFocus
+            icon="scissors"
+            label={localization.SERVICES.serviceNameSr}
+            value={nameLocal}
+            onChangeText={setNameLocal}
+            onSubmitEditing={() => refNameEng.current.focus()}
+            ref={refNameLocal}
+            returnKeyType="next"
+          />
+          <View
+            onLayout={(e) => {
+              nameLocalLayout.current = e.nativeEvent.layout.y;
+            }}
+          >
+            <ServiceInput
+              icon="scissors"
+              label={localization.SERVICES.serviceNameEn}
+              value={nameEn}
+              onChangeText={setNameEn}
+              ref={refNameEng}
+              returnKeyType="next"
+              onSubmitEditing={() => {
+                refPrice.current?.focus();
+                scrollRef.current?.scrollTo({
+                  y: nameLocalLayout.current - 20,
+                  animated: true,
+                });
+              }}
+            />
+          </View>
+          <View
+            onLayout={(e) => {
+              priceLayout.current = e.nativeEvent.layout.y;
+            }}
+          >
+            <ServiceInput
+              icon="money"
+              label={localization.SERVICES.servicePrice}
+              value={price}
+              onChangeText={handleNumberInput}
+              keyboardType="numeric"
+              onSubmitEditing={() => {
+                refDuration.current?.focus();
+                scrollRef.current?.scrollTo({
+                  y: nameLocalLayout.current - 20,
+                  animated: true,
+                });
+              }}
+              setValue={setPrice}
+              ref={refPrice}
+            />
+          </View>
+          <View
+            onLayout={(e) => {
+              durationLayout.current = e.nativeEvent.layout.y;
+            }}
+          >
+            <ServiceInput
+              icon="history"
+              label={localization.SERVICES.serviceDuration}
+              value={duration}
+              keyboardType="numeric"
+              onChangeText={handleNumberInput}
+              setValue={setDuration}
+              ref={refDuration}
+            />
+          </View>
+        </View>
+      </ScrollView>
 
       <View style={[styles.btnContainer, id && styles.btnGap]}>
         <SharedButtonApproved
@@ -193,7 +242,6 @@ export default function AddService() {
           }
         />
         {id && (
- 
           <SharedButtonRejected
             onPress={() => removeQuestion(id)}
             loading={isLoading === "remove"}
@@ -225,6 +273,16 @@ export default function AddService() {
           buttonTextNo={localization.SERVICES.cancel}
         />
       )}
+      {error?.length > 0 && (
+        <SharedMessage
+          isOpen={error?.length > 0}
+          icon={<FontAwesome name="close" size={64} color="white" />}
+          onClose={confirmErrorMessageHandler}
+          onConfirm={confirmErrorMessageHandler}
+          buttonText="Ok"
+          title={error}
+        />
+      )}
     </View>
   );
 }
@@ -237,10 +295,10 @@ const styles = StyleSheet.create({
     paddingTop: 20,
   },
   btnContainer: {
-    flexDirection: "column"
+    flexDirection: "column",
   },
   btnGap: { gap: 2 },
- 
+
   container: {
     flex: 1,
     padding: 10,
