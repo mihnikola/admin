@@ -1,3 +1,4 @@
+import { useLocalization } from "@/contexts/LocalizationContext";
 import { FontAwesome } from "@expo/vector-icons";
 import {
   Modal,
@@ -18,7 +19,7 @@ function BarbersStatuses({
   const onConfirm = () => {
     setModalVisible(false);
   };
-
+const {localization } = useLocalization();
   return (
     <Modal
       animationType="fade"
@@ -28,7 +29,7 @@ function BarbersStatuses({
     >
       <View style={styles.overlay}>
         <View style={styles.modalContent}>
-          <Text style={styles.modalTitle}>Tipovi odobravanja</Text>
+          <Text style={styles.modalTitle}>{localization.BARBERS.typeApproval}</Text>
           <ScrollView style={{ maxHeight: 300 }}>
             {statuses?.map((item) => {
               return (
@@ -42,12 +43,12 @@ function BarbersStatuses({
                     numberOfLines={1}
                     style={styles.itemSubtitle}
                   >
-                    {item.name.nameLocal}
+                    {localization.code === 'en' ? item.name.nameEn :  item.name.nameLocal  }
                   </Text>
                   {selected && (
                     <FontAwesome
                       name={item._id === selected._id && "check-circle-o"}
-                      size={28}
+                      size={20}
                       color="white"
                     />
                   )}
@@ -83,7 +84,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     flexDirection: "row",
     gap: 10,
-    padding: 10,
+    padding: 8,
   },
   itemSubtitle: {
     flex: 2,

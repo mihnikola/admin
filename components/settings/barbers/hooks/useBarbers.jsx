@@ -81,7 +81,8 @@ const useBarbers = () => {
       !data?.phoneNumber ||
       !data?.seniority?._id ||
       !data?.email ||
-      !data?.statusCheck
+      !data?.statusCheck 
+      
     ) {
       return localization.REGISTER.error;
     }
@@ -101,8 +102,11 @@ const useBarbers = () => {
       const formData = new FormData();
 
       if (userData?.name) formData.append("name", userData.name);
-      if (userData?.phoneNumber) formData.append("phoneNumber", userData.phoneNumber);
-      if (userData?.seniority?._id) formData.append("seniority", userData.seniority._id);
+      if (userData?.password && userData?.password?.length > 0) formData.append("password", userData?.password);
+      if (userData?.phoneNumber)
+        formData.append("phoneNumber", userData.phoneNumber);
+      if (userData?.seniority?._id)
+        formData.append("seniority", userData.seniority._id);
       if (userData?.email) formData.append("email", userData.email);
       formData.append("statusCheck", userData?.statusCheck ?? false);
 
@@ -158,11 +162,11 @@ const useBarbers = () => {
     }
   };
 
-  const getBarberHandler = async (id) => {
+  const getBarberHandler = async (id, profile) => {
     setIsLoading("getBarber");
     setError(null);
     try {
-      const response = await get(`/admin/users/employer/${id}`);
+      const response = await get(`/admin/users/employer/${id}`, { profile });
 
       if (response.status === 200) {
         setBarberData(response.data);
@@ -209,7 +213,7 @@ const useBarbers = () => {
     seniorityData,
     fetchAllStatusChecking,
     statuses,
-    setError
+    setError,
   };
 };
 

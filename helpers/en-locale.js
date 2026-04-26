@@ -44,7 +44,7 @@ export const ENG_LOCALIZATION = {
     title: "Manage barbers",
     listBarbers: "List barbers",
     email: "Enter email",
-    phoneNumber: "Enter phone nummber",
+    phoneNumber: "Enter phone number",
     seniority: "Enter seniority",
     name: "Enter name",
     errorFields: "Enter all your fields",
@@ -52,9 +52,14 @@ export const ENG_LOCALIZATION = {
     delete: "Barber is successfully deleted",
     edit: "Barber is successfully updated",
     password: "Enter password",
+    newPassword: "Enter a new password",
     submit: "Add barber",
     cancel: "Cancel",
     removeBtn: "Deactivate account",
+    status: "Status approval",
+    typeApproval:"Types approval",
+    listSeniorities: "List of seniority",
+
   },
   COMPANY: {
     error: "Error while fetching company data...",

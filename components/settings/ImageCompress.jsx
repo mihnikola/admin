@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import usePickImage from "./hooks/usePickImage";
 
 export default function ImageCompress({ imageValue, handlePickImage }) {
@@ -31,7 +31,7 @@ export default function ImageCompress({ imageValue, handlePickImage }) {
       {selectedImageUri && (
         <View style={styles.imageWrapper}>
           {/* <Image source={{ uri: selectedImageUri }} style={styles.image} /> */}
-          <Image
+          {/* <Image
             source={{ uri: selectedImageUri }}
             style={styles.profileImage}
             onError={() => console.log("Ne može da učita sliku")}
@@ -43,8 +43,21 @@ export default function ImageCompress({ imageValue, handlePickImage }) {
             style={styles.editButton}
             hitSlop={50}
           >
-            <MaterialIcons name="edit" size={36} color="white" />
-          </TouchableOpacity>
+                <MaterialCommunityIcons name="pencil" size={25} color="#000" />
+          </TouchableOpacity> */}
+          <View style={styles.defaultImgAvatar}>
+            <Image source={{ uri: selectedImageUri }} style={styles.image} />
+            <View style={styles.editButtonContainer}>
+              <TouchableOpacity
+                style={styles.editButton}
+                onPress={pickImage}
+                disabled={uploading}
+                hitSlop={50}
+              >
+                <MaterialCommunityIcons name="pencil" size={25} color="#000" />
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
       )}
     </View>
@@ -55,31 +68,43 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
-    padding: 10,
+    marginBottom: 25,
   },
-
+  image: {
+    width: 125,
+    height: 125,
+    borderRadius: 100,
+    resizeMode: "cover",
+  },
+  editButtonContainer: {
+    position: "absolute",
+    alignSelf: "flex-end",
+    alignItems: "flex-start",
+  },
+  defaultImgAvatar: {
+    alignSelf: "baseline",
+    alignContent: "baseline",
+    justifyContent: "flex-start",
+    backgroundColor: "#fff",
+    borderRadius: 100,
+    padding: 6,
+  },
   imageWrapper: {
+    justifyContent: "center",
+    alignItems: "center",
     alignSelf: "center",
+    alignContent: "center",
   },
   profileImage: {
-    width: 150,
-    height: 150,
-    borderRadius: 60,
-    borderWidth: 3,
-    borderColor: "#fff",
+    width: 125,
+    height: 125,
+    borderRadius: 100,
+    resizeMode: "cover",
   },
 
   editButton: {
-    position: "absolute",
-    bottom: 0,
-    right: 0,
-    backgroundColor: "#1e1e1e",
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    justifyContent: "center",
-    alignItems: "center",
-    borderWidth: 2,
-    borderColor: "#fff",
+    backgroundColor: "#fff",
+    borderRadius: 20,
+    padding: 4,
   },
 });

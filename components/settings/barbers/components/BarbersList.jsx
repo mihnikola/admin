@@ -20,6 +20,7 @@ import { SharedLoader } from "@/shared-components/SharedLoader";
 import FloatingButton from "../../FloatingButton";
 import { router, useFocusEffect } from "expo-router";
 import SharedBackButton from "@/shared-components/SharedBackButton";
+import { getInitialsName } from "@/helpers";
 
 export default function BarbersList() {
   const { localization } = useLocalization();
@@ -71,14 +72,7 @@ export default function BarbersList() {
           data={filterDataBarber}
           keyExtractor={(item) => item._id}
           renderItem={({ item }) => {
-            const initials = item.name.trim().includes(" ")
-              ? item.name
-                  .trim()
-                  .split(/\s+/)
-                  .map((word) => word[0])
-                  .join("")
-                  .toUpperCase()
-              : item.name.substring(0, 2).toUpperCase();
+            const initials = getInitialsName(item.name);
 
             return (
               <TouchableOpacity

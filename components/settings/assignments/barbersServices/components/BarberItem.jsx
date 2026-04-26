@@ -1,3 +1,4 @@
+import { getInitialsName } from "@/helpers";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function BarberItem({ id, item, assignmentHandler }) {
@@ -5,14 +6,8 @@ export default function BarberItem({ id, item, assignmentHandler }) {
     if (id) return;
     assignmentHandler(item);
   };
-  const initials = item.name.trim().includes(" ")
-    ? item.name
-        .trim()
-        .split(/\s+/)
-        .map((word) => word[0])
-        .join("")
-        .toUpperCase()
-    : item.name.substring(0, 2).toUpperCase();
+  const initials = getInitialsName(item.name);
+
   return (
     <TouchableOpacity
       style={styles.barberItem}

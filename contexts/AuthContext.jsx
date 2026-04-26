@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }) => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await get(`/users/${isToken}`);
+      const response = await get(`/admin/users/employerData/${isToken}`);
       if (response.status === 200) {
         setUserData(response.data);
         setIsLoading(false);

@@ -34,7 +34,7 @@ import { SharedInput } from "@/shared-components/SharedInput";
 export default function BarbersAdd() {
   const { localization } = useLocalization();
   const params = useLocalSearchParams();
-  const { id } = params;
+  const { id, changeProfile } = params;
 
   const {
     isLoading,
@@ -67,8 +67,11 @@ export default function BarbersAdd() {
   const scrollRef = useRef(null);
   const phoneNumberLayoutY = useRef(0);
   const emailLayoutY = useRef(0);
+  const passwordLayoutY = useRef(0);
 
   const { email, emailError, handleEmailChange, emailInputRef } = useEmail();
+  const { password, passwordError, handlePasswordChange, passwordInputRef } =
+    usePassword();
   const {
     phoneNumber,
     handlePhoneNumberChange,
@@ -88,7 +91,7 @@ export default function BarbersAdd() {
     }, 100);
     if (id) {
       setTimeout(async () => {
-        await getBarberHandler(id);
+        await getBarberHandler(id, changeProfile || "");
       }, 100);
     }
   }, [id]);
@@ -115,7 +118,6 @@ export default function BarbersAdd() {
     setChangedImg(null);
   };
 
-
   const addBarber = () => {
     if (editingId) {
       const updateBarber = {
@@ -124,6 +126,7 @@ export default function BarbersAdd() {
         email,
         phoneNumber,
         seniority: selected,
+        password: changeProfile === "1" && password?.length > 0 ? password : "",
         image: changedImg === imageValue ? null : changedImg,
         statusCheck: selectedStatus?._id,
       };
@@ -154,8 +157,8 @@ export default function BarbersAdd() {
     confirmHandler();
   };
   const confirmErrorMessageHandler = () => {
-     setError(null);
-  }
+    setError(null);
+  };
 
   const modalHandler = () => {
     setModalVisible(true);
@@ -264,7 +267,9 @@ export default function BarbersAdd() {
               returnKeyType="next"
               ref={emailInputRef}
               onSubmitEditing={() => {
-                phoneNumberInputRef.current?.focus();
+                changeProfile === "1"
+                  ? passwordInputRef.current?.focus()
+                  : phoneNumberInputRef.current?.focus();
                 scrollRef.current?.scrollTo({
                   y: emailLayoutY.current - 20,
                   animated: true,
@@ -272,6 +277,34 @@ export default function BarbersAdd() {
               }}
             />
           </View>
+
+          {changeProfile === "1" && (
+            <View
+              onLayout={(e) => {
+                passwordLayoutY.current = e.nativeEvent.layout.y;
+              }}
+            >
+              <BarbersInput
+                icon="lock"
+                label={localization.BARBERS.newPassword}
+                value={password}
+                autoCapitalize="none"
+                onChangeText={handlePasswordChange}
+                keyboardType="password"
+                error={passwordError}
+                returnKeyType="next"
+                ref={passwordInputRef}
+                onSubmitEditing={() => {
+                  phoneNumberInputRef.current?.focus();
+                  scrollRef.current?.scrollTo({
+                    y: emailLayoutY.current - 20,
+                    animated: true,
+                  });
+                }}
+              />
+            </View>
+          )}
+
           <View
             onLayout={(e) => {
               phoneNumberLayoutY.current = e.nativeEvent.layout.y;
@@ -279,7 +312,7 @@ export default function BarbersAdd() {
           >
             <BarbersInput
               icon="phone"
-              label="Telefon"
+              label={localization.BARBERS.phoneNumber}
               value={phoneNumber}
               onChangeText={handlePhoneNumberChange}
               keyboardType="phone-pad"
@@ -287,12 +320,11 @@ export default function BarbersAdd() {
               error={errorPhoneNumber}
               dataDetectorTypes="phoneNumber"
               placeholder="6x xxx xxxx"
-
             />
           </View>
           <BarbersStatusCheck
             modalHandler={modalStatusHandler}
-            label="Status odobravanja"
+            label={localization.BARBERS.status}
             selected={
               localization.code === "sr"
                 ? selectedStatus?.name?.nameLocal
@@ -301,7 +333,7 @@ export default function BarbersAdd() {
           />
           <BarberSeniorityComponent
             modalHandler={modalHandler}
-            label="Senioritet"
+            label={localization.BARBERS.seniority}
             selected={selected?.title}
           />
         </View>
@@ -315,10 +347,7 @@ export default function BarbersAdd() {
               ? localization.BARBERS.saveChanges
               : localization.BARBERS.submitAdd
           }
-          disabled={
-            emailError?.length > 0 ||
-            errorPhoneNumber?.length > 0
-          }
+          disabled={emailError?.length > 0 || errorPhoneNumber?.length > 0 || passwordError?.length > 0}
         />
         {editingId && (
           <SharedButtonRejected
@@ -361,7 +390,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   btnContainer: {},
-  btnGap: { gap: 1 },
+  btnGap: { gap: 10 },
   buttonRmv: {
     backgroundColor: "rgb(129, 29, 29)",
     padding: 12,

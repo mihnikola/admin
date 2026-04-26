@@ -19,7 +19,6 @@ const useServices = () => {
     setError(null);
     try {
       const response = await deleteRequest(`admin/services/${id}`);
-      console.log("response", response);
       setIsMessage(true);
       setMessage(localization.SERVICES.delete);
       // await fetchAllServices();

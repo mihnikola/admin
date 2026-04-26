@@ -23,7 +23,7 @@ export default function BarberSeniorityComponent({
             { color: selected ? "#fff" : "#777" },
           ]}
         >
-          {selected || "Izaberi senioritet"}
+          {selected || ""}
         </Text>
       </View>
 

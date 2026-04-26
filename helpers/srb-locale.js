@@ -147,8 +147,7 @@ export const SRB_LOCALIZATION = {
   },
   EVENTS: {
     notFound: "Nema zakazanih rezervacija za ovaj datum.",
-    noSelected: "Izaberite datum"
-
+    noSelected: "Izaberite datum",
   },
   APPOINTMENTS: {
     completed: "Termin je uspešno završen",
@@ -217,10 +216,14 @@ export const SRB_LOCALIZATION = {
     delete: "Uspešno ste obrisali barbera",
     edit: "Uspešno ste ažurirali barbera",
     password: "Unesi lozinku",
+    newPassword: "Unesi novu lozinku",
     submit: "Dodaj barbera",
     cancel: "Odustani",
     saveChanges: "Sačuvaj promene",
     removeBtn: "Deaktiviraj nalog",
+    status: "Status odobravanja",
+    typeApproval: "Tipovi odobravanja",
+    listSeniorities: "Lista senioriteta",
   },
   SETTINGS: {
     EMPLOYERSPLACES: {

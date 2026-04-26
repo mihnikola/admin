@@ -312,6 +312,21 @@ export const convertReadFullDateTime = (item) => {
     return `${dayOfWeek} ${day}. ${monthName} u ${hour}:${minuts}`;
   }
 };
+
+export const getInitialsName = (mrk) => {
+  const words = mrk.trim().split(/\s+/);
+  const numWords = words.length;
+  if (numWords > 2) {
+    return words[0].substring(0, 2).toUpperCase();
+  } 
+  if (numWords === 2) {
+    return (words[0][0] + words[1][0]).toUpperCase();
+  }
+  if (numWords === 1 && words[0] !== "") {
+     return words[0].substring(0, 2).toUpperCase();
+  }
+  return "";
+}
 export const convertReadDateTime = (startTime, endDate) => {
   const dateValue = new Date();
   return getTodayOrTommorow(startTime, dateValue, endDate);
