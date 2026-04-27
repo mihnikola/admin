@@ -1,3 +1,4 @@
+import { getInitialsName } from "@/helpers";
 import { FontAwesome } from "@expo/vector-icons";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
@@ -6,13 +7,21 @@ export default function BarberItemAssign({ id, item, toggleBarber }) {
     if (id) return;
     toggleBarber(item);
   };
+  const initials = getInitialsName(item.name);
+
   return (
     <TouchableOpacity
       style={styles.barberItem}
       onPress={() => checkHandler(item, id)}
     >
       <View style={styles.barberPositionDeatils}>
-        <Image source={{ uri: item.image }} style={styles.image} />
+        {item.image ? (
+          <Image source={{ uri: item.image }} style={styles.image} />
+        ) : (
+          <View style={styles.avatar}>
+            <Text style={styles.avatarText}>{initials}</Text>
+          </View>
+        )}
         <View style={styles.barberInfo}>
           <Text style={styles.barberText}>{item.name}</Text>
           <Text style={styles.barberText}>{item.seniority.title}</Text>
@@ -26,6 +35,20 @@ export default function BarberItemAssign({ id, item, toggleBarber }) {
 }
 
 const styles = StyleSheet.create({
+  avatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: "#333",
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 12,
+  },
+  avatarText: {
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 16,
+  },
   image: {
     width: 50,
     height: 50,
