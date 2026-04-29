@@ -224,14 +224,7 @@ export default function BarbersAdd() {
 
   return (
     <View style={styles.container}>
-      {changedImg !== undefined && (
-        <View style={styles.containerImage}>
-          <ImageCompress
-            handlePickImage={selectedImgHandler}
-            imageValue={changedImg}
-          />
-        </View>
-      )}
+
       <ScrollView
         ref={scrollRef}
         keyboardDismissMode="interactive"
@@ -239,6 +232,14 @@ export default function BarbersAdd() {
         contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }}
         keyboardShouldPersistTaps="always"
       >
+        {changedImg !== undefined && (
+          <View style={styles.containerImage}>
+            <ImageCompress
+              handlePickImage={selectedImgHandler}
+              imageValue={changedImg}
+            />
+          </View>
+        )}
         <View style={{ flex: 3, marginTop: 20 }}>
           <BarbersInput
             autoFocus
@@ -337,7 +338,6 @@ export default function BarbersAdd() {
             selected={selected?.title}
           />
         </View>
-      </ScrollView>
       <View style={[styles.btnContainer, editingId && styles.btnGap]}>
         <SharedButtonApproved
           onPress={addBarber}
@@ -349,7 +349,7 @@ export default function BarbersAdd() {
           }
           disabled={emailError?.length > 0 || errorPhoneNumber?.length > 0 || passwordError?.length > 0}
         />
-        {editingId && (
+        {editingId && changeProfile !== "1" && (
           <SharedButtonRejected
             onPress={() => removeQuestion(id)}
             loading={isLoading === "remove"}
@@ -357,6 +357,8 @@ export default function BarbersAdd() {
           />
         )}
       </View>
+      </ScrollView>
+
 
       {isMessage && (
         <SharedMessage

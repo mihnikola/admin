@@ -22,6 +22,7 @@ import { SharedLoader } from "@/shared-components/SharedLoader";
 import { useEffect, useState } from "react";
 import SettingsItem from "../../SettingsItem";
 import useBarbers from "../../barbers/hooks/useBarbers";
+import { getInitialsName } from "@/helpers";
 
 export default function SettingsComponent() {
   const { localization } = useLocalization();
@@ -31,8 +32,11 @@ export default function SettingsComponent() {
   const [isLogout, setIsLogout] = useState(false);
 
   useEffect(() => {
-    fetchUserData();
+    setTimeout(async () => {
+      await fetchUserData();
+    }, 500);
   }, []);
+  console.log("userData", userData)
   const handlePress = (route) => {
     if (route === "logout") {
       setIsLogout(true);
@@ -55,6 +59,8 @@ export default function SettingsComponent() {
     });
   };
 
+  const initials = getInitialsName(userData?.name);
+  console.log("initials", initials)
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
@@ -66,7 +72,7 @@ export default function SettingsComponent() {
           source={require("@/assets/images/coverImage.jpg")}
           style={styles.coverImage}
         />
-        {userData?.image && (
+        {userData?.image ?
           <TouchableOpacity
             style={styles.defaultImgAvatar}
             onPress={editProfileBarber}
@@ -78,7 +84,22 @@ export default function SettingsComponent() {
               </View>
             </View>
           </TouchableOpacity>
-        )}
+          :
+
+          <TouchableOpacity
+            style={styles.initialContainer}
+            onPress={editProfileBarber}
+          >
+            <View style={styles.avatarContainer}>
+              <Text style={styles.avatarText}>{initials}</Text>
+            </View>
+            <View style={styles.editButtonContainer}>
+              <View style={styles.editButton}>
+                <MaterialCommunityIcons name="pencil" size={12} color="#000" />
+              </View>
+            </View>
+          </TouchableOpacity>
+        }
 
         <Text style={styles.avatarText}>{userData?.name}</Text>
 
@@ -122,6 +143,15 @@ export default function SettingsComponent() {
 }
 
 const styles = StyleSheet.create({
+  avatarContainer: {
+    backgroundColor: "grey",
+    padding: 20,
+    borderRadius: 50,
+  },
+  avatarText: {
+    color: "#fff",
+    fontSize: 30,
+  },
   defaultImgAvatar: {
     alignSelf: "baseline",
     alignContent: "baseline",
@@ -129,6 +159,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 100,
     padding: 6,
+  },
+  initialContainer: {
+    alignSelf: "center",
+    alignContent: "center",
+    justifyContent: "flex-start",
+    backgroundColor: "#fff",
+    borderRadius: 100,
+    padding: 1,
   },
   editButtonContainer: {
     position: "absolute",

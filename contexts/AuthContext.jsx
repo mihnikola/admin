@@ -31,7 +31,6 @@ export const AuthProvider = ({ children }) => {
   const { localization } = useLocalization();
 
   const fetchUserData = async () => {
-    setIsLoading(true);
     setError(null);
     try {
       const response = await get(`/admin/users/employerData/${isToken}`);
@@ -45,19 +44,20 @@ export const AuthProvider = ({ children }) => {
       } else {
         setError(localization.SERVER_RESPONSE.error);
       }
-      setIsLoading(false);
+    } finally {
+      setLoadingLogin(null);
+
     }
   };
   const getTokenData = async () => {
-    setIsLoading(true);
     await getStorage().then((res) => {
       if (res) {
         setIsToken(res);
       } else {
         setIsToken(null);
       }
-      setIsLoading(false);
     });
+
   };
 
   const removeTokenData = async () => {
@@ -77,6 +77,7 @@ export const AuthProvider = ({ children }) => {
       setIsMessage(false);
       setIsToken(null);
       setIsLoading(false);
+      setUserData(null);
       router.push("/(z_auth)");
     } catch (error) {
       setError(error);
@@ -125,7 +126,13 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     getInitialTokenData();
     getTokenData();
-  }, []);
+    if (isToken) {
+      setTimeout(async () => {
+        await fetchUserData();
+      }, 500);
+    }
+
+  }, [isToken]);
 
   //initial Token screen
   const addInitialTokenData = async () => {
@@ -181,8 +188,6 @@ export const AuthProvider = ({ children }) => {
       if (err.status === 500) {
         setError(err);
       }
-    } finally {
-      setLoadingLogin(null);
     }
   };
 
