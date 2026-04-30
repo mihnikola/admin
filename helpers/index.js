@@ -287,7 +287,7 @@ const toBelgradeISO = (utcDate) => {
 };
 
 export const convertReadFullDateTime = (item) => {
-  
+
   const date = new Date(item);
   const { localization } = useLocalization();
   let weekdays = [];
@@ -314,16 +314,17 @@ export const convertReadFullDateTime = (item) => {
 };
 
 export const getInitialsName = (mrk) => {
-  const words = mrk.trim().split(/\s+/);
+  if (!mrk) { return }
+  const words = mrk?.trim().split(/\s+/);
   const numWords = words.length;
   if (numWords > 2) {
     return words[0].substring(0, 2).toUpperCase();
-  } 
+  }
   if (numWords === 2) {
     return (words[0][0] + words[1][0]).toUpperCase();
   }
   if (numWords === 1 && words[0] !== "") {
-     return words[0].substring(0, 2).toUpperCase();
+    return words[0].substring(0, 2).toUpperCase();
   }
   return "";
 }

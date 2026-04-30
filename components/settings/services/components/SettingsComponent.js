@@ -36,7 +36,7 @@ export default function SettingsComponent() {
       await fetchUserData();
     }, 500);
   }, []);
-  console.log("userData", userData)
+
   const handlePress = (route) => {
     if (route === "logout") {
       setIsLogout(true);
@@ -60,13 +60,9 @@ export default function SettingsComponent() {
   };
 
   const initials = getInitialsName(userData?.name);
-  console.log("initials", initials)
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
-      {/* <SharedCarousel  /> */}
-
-      {/* 1. SEKCIJA: Slika (Header) */}
       <View style={styles.imageContainer}>
         <Image
           source={require("@/assets/images/coverImage.jpg")}
@@ -91,19 +87,18 @@ export default function SettingsComponent() {
             onPress={editProfileBarber}
           >
             <View style={styles.avatarContainer}>
-              <Text style={styles.avatarText}>{initials}</Text>
+              <Text style={styles.avatarTextInitials}>{initials}</Text>
             </View>
             <View style={styles.editButtonContainer}>
               <View style={styles.editButton}>
-                <MaterialCommunityIcons name="pencil" size={12} color="#000" />
+                <MaterialCommunityIcons name="pencil" size={25} color="#000" />
               </View>
             </View>
           </TouchableOpacity>
         }
-
-        <Text style={styles.avatarText}>{userData?.name}</Text>
-
-        {/* <Ionicons name="person-circle-sharp" size={170} color="black" /> */}
+        <View style={{ marginTop: 20 }}>
+          <Text style={styles.avatarText}>{userData?.name}</Text>
+        </View>
       </View>
 
       {/* 2. SEKCIJA: Lista koja se skroluje */}
@@ -144,34 +139,30 @@ export default function SettingsComponent() {
 
 const styles = StyleSheet.create({
   avatarContainer: {
-    backgroundColor: "grey",
-    padding: 20,
-    borderRadius: 50,
-  },
-  avatarText: {
-    color: "#fff",
-    fontSize: 30,
-  },
-  defaultImgAvatar: {
-    alignSelf: "baseline",
-    alignContent: "baseline",
-    justifyContent: "flex-start",
-    backgroundColor: "#fff",
+    padding: 35,
     borderRadius: 100,
-    padding: 6,
+    borderWidth: 1,
+    borderColor: "#fff",
+  },
+
+  defaultImgAvatar: {
+    alignSelf: "center",
+    alignContent: "baseline",
+    justifyContent: "flex-end",
+    backgroundColor: "transparent",
+    borderRadius: 100,
   },
   initialContainer: {
     alignSelf: "center",
     alignContent: "center",
-    justifyContent: "flex-start",
-    backgroundColor: "#fff",
-    borderRadius: 100,
-    padding: 1,
+    justifyContent: "flex-end",
+    backgroundColor: "transparent",
+    borderRadius: 50,
   },
   editButtonContainer: {
     position: "absolute",
     alignSelf: "flex-end",
-    alignItems: "flex-start",
+    alignContent: "flex-end"
   },
   editButton: {
     backgroundColor: "#fff",
@@ -197,8 +188,15 @@ const styles = StyleSheet.create({
   avatarText: {
     color: "#fff",
     fontWeight: "700",
-    fontSize: 20,
+    fontSize: 23,
     letterSpacing: 2,
+  },
+  avatarTextInitials: {
+    fontSize: 32,
+    letterSpacing: 2,
+    fontWeight: "700",
+    color: "#ffffff",
+
   },
   imageContainer: {
     height: 250,
