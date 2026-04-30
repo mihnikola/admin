@@ -43,7 +43,7 @@ const DateComponent = () => {
       0,
     ).getDate();
 
-    return Math.ceil((firstDay + daysInMonth) / 7) * 45 + 50;
+    return Math.ceil((firstDay + daysInMonth) / 7) * 50 + 50;
   };
   useEffect(() => {
 
@@ -54,7 +54,6 @@ const DateComponent = () => {
 
 
   const onDayPressHandler = (date) => {
-    console.log("date", date);
     setSelectedDate(true);
     setSelectValueDate(date);
     handleDayPress(date);

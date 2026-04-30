@@ -103,7 +103,6 @@ function useCheckCalendar() {
   };
 
   const getDates = async (selectedMonth, initial) => {
-    console.log("ajmo llog",initial);
     setIsLoading(true);
     setError(null);
 

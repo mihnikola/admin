@@ -188,7 +188,7 @@ export default function BarbersAdd() {
   };
 
   const removeQuestion = (id) => {
-    router.replace({
+    router.push({
       pathname: "/(tabs)/(03_settings)/removeBarber",
       params: { id },
     });
@@ -338,25 +338,25 @@ export default function BarbersAdd() {
             selected={selected?.title}
           />
         </View>
-      <View style={[styles.btnContainer, editingId && styles.btnGap]}>
-        <SharedButtonApproved
-          onPress={addBarber}
-          loading={isLoading === "addEdit"}
-          text={
-            editingId
-              ? localization.BARBERS.saveChanges
-              : localization.BARBERS.submitAdd
-          }
-          disabled={emailError?.length > 0 || errorPhoneNumber?.length > 0 || passwordError?.length > 0}
-        />
-        {editingId && changeProfile !== "1" && (
-          <SharedButtonRejected
-            onPress={() => removeQuestion(id)}
-            loading={isLoading === "remove"}
-            text={localization.BARBERS.removeBtn}
+        <View style={[styles.btnContainer, editingId && styles.btnGap]}>
+          <SharedButtonApproved
+            onPress={addBarber}
+            loading={isLoading === "addEdit"}
+            text={
+              editingId
+                ? localization.BARBERS.saveChanges
+                : localization.BARBERS.submitAdd
+            }
+            disabled={emailError?.length > 0 || errorPhoneNumber?.length > 0 || passwordError?.length > 0}
           />
-        )}
-      </View>
+          {editingId && changeProfile !== "1" && (
+            <SharedButtonRejected
+              onPress={() => removeQuestion(id)}
+              loading={isLoading === "remove"}
+              text={localization.BARBERS.removeBtn}
+            />
+          )}
+        </View>
       </ScrollView>
 
 

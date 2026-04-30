@@ -78,14 +78,6 @@ const EventTimelineList = ({
       </View>
     );
   }
-
-  if (selectedDate && !isLoading && events.length === 0) {
-    return (
-      <View style={styles.messageContainer}>
-        <Text style={styles.noEventsText}>{localization.EVENTS.notFound}</Text>
-      </View>
-    );
-  }
 };
 
 const styles = StyleSheet.create({

@@ -17,7 +17,7 @@ const UserProfile = () => {
   const { localization } = useLocalization();
   const {
     makePhoneCall,
-    softDelete,
+    deleteClient,
     error,
     isLoading,
     dialog,
@@ -124,7 +124,7 @@ const UserProfile = () => {
           isOpen={dialog}
           icon={<FontAwesome name="close" size={64} color="white" />}
           onClose={() => setDialog(false)}
-          onLogOut={() => softDelete(id)}
+          onLogOut={() => deleteClient(id)}
           buttonTextYes="OK"
           title={localization.CLIENTS.question}
           buttonTextNo={localization.CLIENTS.cancel}

@@ -24,7 +24,7 @@ export default function useChangeUser() {
     };
 
 
-    const softDelete = async (clientId) => {
+    const deleteClient = async (clientId) => {
         setError(null);
         try {
             const response = await del(`/admin/users/${clientId}`);
@@ -42,5 +42,6 @@ export default function useChangeUser() {
     };
 
 
-    return { makePhoneCall, softDelete, error, isLoading, dialog, setDialog, message, setMessage, setIsMessage, isMessage }
+    return { makePhoneCall, deleteClient, error, isLoading, dialog,
+         setDialog, message, setMessage, setIsMessage, isMessage }
 }

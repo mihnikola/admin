@@ -58,7 +58,6 @@ const styles = StyleSheet.create({
   flagIcon: {
     width: 24, // Adjust size as needed
     height: 18, // Adjust size as needed, maintain aspect ratio
-    marginRight: 8,
     borderRadius: 2, // Slightly rounded corners for the flag
   },
   prefixText: {
@@ -86,6 +85,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 16,
     padding: 0,
+    width: "100%"
   },
 });
 

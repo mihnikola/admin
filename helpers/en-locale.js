@@ -88,6 +88,7 @@ export const ENG_LOCALIZATION = {
     approved: "Approved",
     rejected: "Rejected",
     reservation: "Treatman is missed",
+    expired:"Expired"
   },
 
   PLACES: {
@@ -218,6 +219,7 @@ export const ENG_LOCALIZATION = {
     description: "Your description",
     placeholderDescription: "Enter your description...",
     errorFields: "Missing reservation details. Please check your selection.",
+    expired: "This reservation has been expired"
   },
   INITIAL: {
     error: "Error while fetching initial data",

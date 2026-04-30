@@ -28,7 +28,7 @@ function ResevationNotificationScreen() {
   const { localization } = useLocalization();
   const { itemId, user, note, past, rating, criteriaDate, arrived } =
     useLocalSearchParams();
-  console.log("object",note);
+  console.log("object", note);
   const { company } = useCompany();
 
   const {
@@ -45,7 +45,6 @@ function ResevationNotificationScreen() {
     missedReservation,
   } = useAppointment();
 
-  console.log("reservationData",reservationData)
   useEffect(() => {
     fetchReservationDetails(itemId);
   }, []);
@@ -120,6 +119,17 @@ function ResevationNotificationScreen() {
         buttonTextNo={questionButtonNo}
       />
     );
+  };
+  console.log("reservationData", reservationData);
+
+  const finishReservation = (startDateValue) => {
+    if (!startDateValue) return null;
+    const now = new Date();
+    const startDate = new Date(startDateValue);
+    if (now > startDate) {
+      return true;
+    }
+    return false;
   };
 
   const startEndDate = () => {
@@ -218,18 +228,25 @@ function ResevationNotificationScreen() {
         </View>
       )}
 
-      {!isLoading && reservationData?.status === 2 && (
+      {!isLoading && reservationData?.status === 2 && !finishReservation(reservationData?.startDate) && (
         <View style={styles.bottomButtons}>
           <SharedButtonApproved
             onPress={() => modalReservationHandler("approved")}
             text={localization.APPOINTMENTS.approveReservation.approveButton}
           />
-          <View style={{marginTop: 20}}>
+          <View style={{ marginTop: 20 }}>
             <SharedButtonRejected
               onPress={() => modalReservationHandler("rejected")}
               text={localization.APPOINTMENTS.rejectReservation.rejectButton}
             />
           </View>
+        </View>
+      )}
+      {!isLoading && reservationData?.status === 2 && finishReservation(reservationData?.startDate) && (
+        <View style={styles.missed}>
+          <Text style={styles.textBoldSuccess}>
+            {localization.APPOINTMENTS.expired}
+          </Text>
         </View>
       )}
 

@@ -30,6 +30,7 @@ const SharedCard = ({ item, criteriaDate }) => {
     return false;
   };
 
+
   return (
     <TouchableOpacity
       key={item._id}
@@ -56,7 +57,8 @@ const SharedCard = ({ item, criteriaDate }) => {
         </Text>
         {item.arrived === "arrived" ? (
           <Text style={styles.eventStatus}>
-            {item.status === "pending" && localization.STATUS.pending}
+            {item.status === "pending" && finishReservation() && localization.STATUS.expired}
+            {item.status === "pending" && !finishReservation() && localization.STATUS.pending}
             {item.status === "approved" && !finishReservation() && localization.STATUS.approved}
             {item.status === "approved" && finishReservation() && localization.STATUS.completed}
             {item.status === "rejected" && localization.STATUS.rejected}
@@ -67,22 +69,20 @@ const SharedCard = ({ item, criteriaDate }) => {
           </Text>
         )}
       </View>
-      {item.arrived === "arrived" && (
         <View style={styles.status}>
           {item.status === "pending" && (
             <FontAwesome size={25} color="white" name="clock-o" />
           )}
-          {item.status === "approved" && finishReservation() && (
+          {item.status === "approved" && item.arrived !== 'missed' && finishReservation() && (
             <FontAwesome size={25} color="white" name="check-circle-o" />
           )}
-          {item.status === "approved" && !finishReservation() && (
+          {item.status === "approved" && item.arrived !== 'missed' && !finishReservation() && (
             <FontAwesome size={25} color="white" name="thumbs-up" />
           )}
           {item.status === "rejected" && (
             <FontAwesome size={25} color="white" name="close" />
           )}
         </View>
-      )}
     </TouchableOpacity>
   );
 };
