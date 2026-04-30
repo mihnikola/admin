@@ -1,71 +1,29 @@
-import {
-  ActivityIndicator,
-  FlatList,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 
 import SharedCard from "@/shared-components/SharedCard";
 import { useLocalization } from "@/contexts/LocalizationContext";
 
-const EventTimelineList = ({
-  events,
-  selectedDate,
-  isLoading,
-  error,
-  criteriaDate,
-}) => {
+const EventTimelineList = ({ events, error, criteriaDate }) => {
   const { localization } = useLocalization();
 
   if (error) {
     return (
       <View style={styles.messageContainer}>
-        <Text style={styles.errorMessage}>
-          Error: {error.message || "Failed to load events."}
-        </Text>
         <Text style={styles.errorMessageDetail}>
-          Please check your connection and try again.
+          {localization.EVENTS.noEvents}
         </Text>
       </View>
     );
   }
-  if (isLoading) {
+
+  if (events.length === 0) {
     return (
       <View style={styles.messageContainer}>
-        <ActivityIndicator
-          size={40}
-          style={{ paddingVertical: 20 }}
-          color="white"
-        />
+        <Text style={styles.noEventsText}>{localization.EVENTS.notFound}</Text>
       </View>
     );
   }
-  if (!selectedDate && !isLoading) {
-    return (
-      <>
-        {!selectedDate ? (
-          <View style={styles.messageContainer}>
-            <Text style={styles.infoDetails}>
-              {localization.EVENTS.noSelected}
-            </Text>
-          </View>
-        ) : (
-          events.length === 0 && (
-            <View style={styles.messageContainer}>
-              <Text style={styles.noEventsText}>
-                {localization.EVENTS.notFound}
-              </Text>
-            </View>
-          )
-        )}
-      </>
-    );
-  }
-
-  // Render individual event item
-
-  if (events?.length > 0 && selectedDate) {
+  if (events?.length > 0) {
     return (
       <View style={styles.list}>
         <FlatList

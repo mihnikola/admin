@@ -57,9 +57,8 @@ export const ENG_LOCALIZATION = {
     cancel: "Cancel",
     removeBtn: "Deactivate account",
     status: "Status approval",
-    typeApproval:"Types approval",
+    typeApproval: "Types approval",
     listSeniorities: "List of seniority",
-
   },
   COMPANY: {
     error: "Error while fetching company data...",
@@ -88,7 +87,7 @@ export const ENG_LOCALIZATION = {
     approved: "Approved",
     rejected: "Rejected",
     reservation: "Treatman is missed",
-    expired:"Expired"
+    expired: "Expired",
   },
 
   PLACES: {
@@ -141,7 +140,8 @@ export const ENG_LOCALIZATION = {
   },
   EVENTS: {
     notFound: "No reservations scheduled for this date.",
-    noSelected: "Choose your date"
+    noSelected: "Choose your date",
+    noEvents: "Error while fetching reservations...",
   },
   SERVICES: {
     removeBtn: "Deactivate service",
@@ -219,7 +219,7 @@ export const ENG_LOCALIZATION = {
     description: "Your description",
     placeholderDescription: "Enter your description...",
     errorFields: "Missing reservation details. Please check your selection.",
-    expired: "This reservation has been expired"
+    expired: "This reservation has been expired",
   },
   INITIAL: {
     error: "Error while fetching initial data",
@@ -344,7 +344,7 @@ export const ENG_LOCALIZATION = {
       success: "You have successfully set the absent time period",
       tab1: "Schedule Leave",
       tab2: "Report Urgent Leave",
-      error: "End time must be later than start time"
+      error: "End time must be later than start time",
     },
     ERROR: {
       label: "Error while changing user",

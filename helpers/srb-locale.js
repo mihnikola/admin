@@ -64,8 +64,7 @@ export const SRB_LOCALIZATION = {
     approved: "Odobreno",
     rejected: "Otkazano",
     reservation: "Termin je propušten",
-    expired: "Isteklo"
-
+    expired: "Isteklo",
   },
   PLACES: {
     errorFields: "Popuni sva polja",
@@ -150,6 +149,7 @@ export const SRB_LOCALIZATION = {
   EVENTS: {
     notFound: "Nema zakazanih rezervacija za ovaj datum.",
     noSelected: "Izaberite datum",
+    noEvents: "Greška prilikom učitavanja rezervacija...",
   },
   APPOINTMENTS: {
     completed: "Termin je uspešno završen",
@@ -199,8 +199,7 @@ export const SRB_LOCALIZATION = {
     placeholderDescription: "Unesite opis...",
     errorFields:
       "Nedostaju neophodni podaci za rezervaciju termina. Molim Vas ponovite ceo proces.",
-    expired: "Ova rezervacija je istekla"
-
+    expired: "Ova rezervacija je istekla",
   },
   INITIAL: {
     error: "Greška prilikom preuzimanja inicijalnih podataka",

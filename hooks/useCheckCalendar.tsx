@@ -5,11 +5,15 @@ import { useEffect, useState } from "react";
 
 function useCheckCalendar() {
   const [checkDates, setCheckDates] = useState();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedDate, setSelectedDate] = useState(true);
   const { isToken } = useAuth();
-  const { getReservations, events } = useAppointment();
+  const {
+    getReservations,
+    events,
+    isLoading: isLoadingAppointment,
+  } = useAppointment();
 
   // const [events, setEvents] = useState(null);
 
@@ -62,7 +66,6 @@ function useCheckCalendar() {
     setCheckDates(cleanedDates);
     await getReservations(day?.dateString);
     setIsLoading(false);
-
   };
   const createMonthObject = (date = new Date()) => {
     const year = date.getFullYear();
@@ -81,7 +84,6 @@ function useCheckCalendar() {
       };
 
       if (key === today) {
-
         result[key] = {
           marked: true,
           dotColor: "white",
@@ -94,12 +96,12 @@ function useCheckCalendar() {
     return result;
   };
 
-  const initialHandleDayPress = (day) => {
+  const initialHandleDayPress = async (day) => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     let cleanedDates = createMonthObject();
     setCheckDates(cleanedDates);
-    getReservations(day?.dateString);
+    await getReservations(day?.dateString);
   };
 
   const getDates = async (selectedMonth, initial) => {
@@ -120,7 +122,7 @@ function useCheckCalendar() {
       if (response.status === 200) {
         let responseData;
         responseData = convertResult(response.data);
-        
+
         if (initial) {
           const today = new Date();
           const todayStr = today.toLocaleDateString("sv-SE"); // YYYY-MM-DD
@@ -130,7 +132,6 @@ function useCheckCalendar() {
             selected: true,
             selectedColor: "#fff",
           };
-
         }
 
         setCheckDates(responseData);
@@ -151,7 +152,7 @@ function useCheckCalendar() {
     return { dateString: `${year}-${month}-${day}` };
   };
   useEffect(() => {
-    const result = formatDate(nowValue);
+    let result = formatDate(nowValue);
     setSelectedDate(true);
     initialHandleDayPress(result);
   }, []);
@@ -159,6 +160,7 @@ function useCheckCalendar() {
   return {
     isLoading,
     setIsLoading,
+    isLoadingAppointment,
     error,
     handleDayPress,
     getDates,
@@ -166,7 +168,7 @@ function useCheckCalendar() {
     events,
     selectedDate,
     setSelectedDate,
-    setCheckDates
+    setCheckDates,
   };
 }
 

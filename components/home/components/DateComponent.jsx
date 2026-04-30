@@ -2,6 +2,7 @@ import { calendarTheme } from "@/helpers";
 import useCheckCalendar from "@/hooks/useCheckCalendar";
 import React, { useEffect, useState } from "react";
 import {
+  ActivityIndicator,
   StatusBar,
   StyleSheet,
   Text,
@@ -10,9 +11,12 @@ import {
 } from "react-native";
 import { CalendarList } from "react-native-calendars";
 import EventTimelineList from "../../EventTimeLineList";
+import { useLocalization } from "@/contexts/LocalizationContext";
 
 const DateComponent = () => {
   const today = new Date();
+  const { localization } = useLocalization();
+
   const localDateString = today.toLocaleDateString("sv-SE");
   const {
     checkDates,
@@ -24,11 +28,13 @@ const DateComponent = () => {
     events,
     error,
     selectedDate,
+    isLoadingAppointment,
     setSelectedDate,
   } = useCheckCalendar();
 
-
-  const [selectValueDate, setSelectValueDate] = useState({ dateString: new Date().toLocaleDateString("en-CA") });
+  const [selectValueDate, setSelectValueDate] = useState({
+    dateString: new Date().toLocaleDateString("en-CA"),
+  });
   const [checkMonth, setCheckMonth] = useState(null);
   const [calendarHight, setCalendarHeight] = useState(null);
   const [initialValue, setInitialValue] = useState(true);
@@ -46,17 +52,49 @@ const DateComponent = () => {
     return Math.ceil((firstDay + daysInMonth) / 7) * 50 + 50;
   };
   useEffect(() => {
-
     getDates(checkMonth || localDateString, initialValue);
     setCalendarHeight(getWeeksInMonth(checkMonth));
     setInitialValue(false);
   }, [checkMonth]);
 
-
   const onDayPressHandler = (date) => {
     setSelectedDate(true);
     setSelectValueDate(date);
     handleDayPress(date);
+  };
+
+  const renderSomeShit = () => {
+    if (isLoadingAppointment) {
+      return (
+        <View style={styles.messageContainer}>
+          <ActivityIndicator
+            size={40}
+            style={{ paddingVertical: 20 }}
+            color="white"
+          />
+        </View>
+      );
+    }
+    if (selectedDate && !isLoadingAppointment) {
+      return (
+        <View style={styles.timesAndDetails}>
+          <EventTimelineList
+            events={events}
+            error={error}
+            criteriaDate={selectValueDate || null}
+          />
+        </View>
+      );
+    }
+    if (!selectedDate && !isLoadingAppointment) {
+      return (
+        <View style={styles.messageContainer}>
+          <Text style={styles.infoDetails}>
+            {localization.EVENTS.noSelected}
+          </Text>
+        </View>
+      );
+    }
   };
 
   if (checkDates) {
@@ -72,13 +110,13 @@ const DateComponent = () => {
               setIsLoading(true);
               setSelectedDate(null);
               setCheckMonth(months[0]?.dateString);
-              setCheckDates(prev => {
+              setCheckDates((prev) => {
                 const updated = {};
 
-                Object.keys(prev).forEach(date => {
+                Object.keys(prev).forEach((date) => {
                   updated[date] = {
                     ...prev[date],
-                    selected: false
+                    selected: false,
                   };
                 });
 
@@ -136,27 +174,30 @@ const DateComponent = () => {
             }}
           />
         </View>
-
-        <View style={styles.timesAndDetails}>
-          <EventTimelineList
-            events={selectedDate && events}
-            selectedDate={selectedDate}
-            isLoading={isLoading}
-            error={error}
-            criteriaDate={selectValueDate || null}
-          />
-        </View>
+        {renderSomeShit()}
       </View>
     );
   }
 };
 
 const styles = StyleSheet.create({
+  messageContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+    minHeight: 150, // Give some minimum height for consistency
+  },
   notWorkingDays: {
     display: "flex",
     alignItems: "center",
     alignContent: "center",
     justifyContent: "center",
+  },
+  infoDetails: {
+    fontSize: 22,
+    color: "rgb(172, 164, 164)",
+    textAlign: "center",
   },
   notWorkingDaysContent: {
     fontSize: 20,
