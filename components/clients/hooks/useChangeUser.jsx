@@ -15,11 +15,9 @@ export default function useChangeUser() {
         const url = `tel:${phoneNumber}`;
         try {
             const supported = await Linking.canOpenURL(url);
-            if (supported) {
-                await Linking.openURL(url);
-            } else {
-                Alert.alert(localization.CLIENTS.error, localization.CLIENTS.errorInfo);
-            }
+
+            await Linking.openURL(url);
+
         } catch (error) {
             Alert.alert(localization.CLIENTS.error, localization.CLIENTS.errorCall);
         }

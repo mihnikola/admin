@@ -19,7 +19,6 @@ export default function InProgressAppointmentCard({ data }) {
     });
   };
 
-  console.log("InProgressAppointmentCard",startDate,endDate)
 
   return (
     <TouchableOpacity
@@ -34,7 +33,7 @@ export default function InProgressAppointmentCard({ data }) {
         </View>
       </View>
 
-      <Text style={styles.datetime}>{convertReadDateTime(startDate,endDate)}</Text>
+      <Text style={styles.datetime}>{convertReadDateTime(startDate, endDate)}</Text>
 
       {/* {place?.address && <Text style={styles.location}>{place?.address}</Text>} */}
     </TouchableOpacity>
@@ -77,11 +76,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
 
-  badgeText: {
-    color: "#FFFFFF",
-    fontSize: 12,
-    fontWeight: "600",
-  },
+
 
   header: {
     flexDirection: "row",
@@ -111,8 +106,7 @@ const styles = StyleSheet.create({
   badgeText: {
     fontSize: 12,
     fontWeight: "500",
-    color: "#ffffff",
-    textTransform: "capitalize",
+    color: "#fff",
   },
   upcoming: {
     backgroundColor: "#858585",

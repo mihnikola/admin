@@ -351,7 +351,7 @@ const getTodayOrTommorow = (x, y, z) => {
   );
 
   if (criteriaDate < currentDate)
-    return `${convertTimeHandler(criteriaDate)}h : ${convertTimeHandler(endDate)}h`;
+    return `${convertTimeHandler(criteriaDate)}h - ${convertTimeHandler(endDate)}h`;
 
   if (diffDays === 0) {
     return `${localization.HOME.today}${convertTimeHandler(criteriaDate)}h`;

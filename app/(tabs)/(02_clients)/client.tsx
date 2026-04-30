@@ -31,7 +31,7 @@ const UserProfile = () => {
   const {
     name,
     skippedCount,
-    approvedCount,
+    completedCount,
     totalRevenue,
     image,
     phoneNumber,
@@ -80,12 +80,12 @@ const UserProfile = () => {
         <View style={styles.statItem}>
           <Text style={styles.statLabel}>{localization.CLIENTS.missed}</Text>
           <Text style={[styles.statValue, { color: "#d9534f" }]}>
-            {skippedCount}
+            {skippedCount || 0}
           </Text>
         </View>
         <View style={styles.statItem}>
           <Text style={styles.statLabel}>{localization.CLIENTS.finished}</Text>
-          <Text style={styles.statValue}>{approvedCount}</Text>
+          <Text style={styles.statValue}>{completedCount || 0}</Text>
         </View>
 
         <View style={styles.totalIncome}>

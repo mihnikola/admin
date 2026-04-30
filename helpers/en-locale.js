@@ -28,7 +28,7 @@ export const ENG_LOCALIZATION = {
     requirements: "Requirements",
     commentLabel: "Treatment description:",
     upcoming: "Upcoming",
-    inProgress: "inProgress",
+    inProgress: "In progress",
     today: "Today at ",
     tomorrow: "Tomorrow at ",
   },
