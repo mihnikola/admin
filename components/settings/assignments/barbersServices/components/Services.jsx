@@ -153,7 +153,7 @@ export default function Services() {
 
       <SharedButtonApproved
         onPress={() => submitChangesServiceToBarber(id)}
-        loading={isLoading === "post"}
+        loading={isLoading === "patch"}
         text={localization.SERVICES.saveChanges}
       />
 

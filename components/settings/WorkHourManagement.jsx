@@ -33,16 +33,16 @@ export default function TimeSettingsScreen({
 }) {
   const { localization } = useLocalization();
 
-   const options = [
-        { label: `10 ${localization.SETTINGS.WORKHOURS.minutes}`, value: 10 },
-        { label: `15  ${localization.SETTINGS.WORKHOURS.minutes}`, value: 15 },
-        { label: `20  ${localization.SETTINGS.WORKHOURS.minutes}`, value: 20 },
-        { label: `30  ${localization.SETTINGS.WORKHOURS.minutes}`, value: 30 },
-        { label: `40  ${localization.SETTINGS.WORKHOURS.minutes}`, value: 40 },
-        { label: `45  ${localization.SETTINGS.WORKHOURS.minutes}`, value: 45 },
-        { label: `50  ${localization.SETTINGS.WORKHOURS.minutes}`, value: 50 },
-        { label: `60  ${localization.SETTINGS.WORKHOURS.minutes}`, value: 60 },
-    ];
+  const options = [
+    { label: `10 ${localization.SETTINGS.WORKHOURS.minutes}`, value: 10 },
+    { label: `15  ${localization.SETTINGS.WORKHOURS.minutes}`, value: 15 },
+    { label: `20  ${localization.SETTINGS.WORKHOURS.minutes}`, value: 20 },
+    { label: `30  ${localization.SETTINGS.WORKHOURS.minutes}`, value: 30 },
+    { label: `40  ${localization.SETTINGS.WORKHOURS.minutes}`, value: 40 },
+    { label: `45  ${localization.SETTINGS.WORKHOURS.minutes}`, value: 45 },
+    { label: `50  ${localization.SETTINGS.WORKHOURS.minutes}`, value: 50 },
+    { label: `60  ${localization.SETTINGS.WORKHOURS.minutes}`, value: 60 },
+  ];
 
   const [selected, setSelected] = useState(10);
   const [isRemove, setIsRemove] = useState(false);
@@ -116,7 +116,7 @@ export default function TimeSettingsScreen({
   };
 
   const isValidTimeRange = (startTime, endTime) => {
-    if(!startTime || !endTime)return false;
+    if (!startTime || !endTime) return false;
     const [startH, startM] = startTime.split(":").map(Number);
     const [endH, endM] = endTime.split(":").map(Number);
 
@@ -132,7 +132,7 @@ export default function TimeSettingsScreen({
 
   const submitHandler = () => {
     if (isValidTimeRange(fromTime, toTime)) {
-         const dataData = {
+      const dataData = {
         open: fromTime,
         close: toTime,
         minutes: selected,
@@ -157,7 +157,7 @@ export default function TimeSettingsScreen({
   }
 
   return (
-    <View style={styles.container}>
+    <View style={styles.containerEdit}>
       <Text style={styles.title}>
         {localization.SETTINGS.WORKHOURS.capture}
       </Text>
@@ -200,6 +200,7 @@ export default function TimeSettingsScreen({
 
       <TimePickerModal
         visible={showFromPicker}
+        value={workHours?.start}
         startValue="00:00"
         endValue="23:50"
         interval={30}
@@ -209,6 +210,7 @@ export default function TimeSettingsScreen({
       />
       <TimePickerModal
         visible={showToPicker}
+        value={workHours?.end}
         startValue="00:00"
         endValue="23:50"
         interval={30}
@@ -228,7 +230,7 @@ export default function TimeSettingsScreen({
         placeholder={selected || localization.SETTINGS.WORKHOURS.gap}
       />
 
-      <View style={{ flex: !id ? 1 : 2.5, gap: 10 }}>
+      <View style={{ flex: !id ? 0.4 : 1.5, gap: 10 }}>
         <SharedButton
           loading={isLoading === "addEdit"}
           disabled={disabledBtn}
@@ -334,6 +336,9 @@ const styles = StyleSheet.create({
     flex: 2,
     backgroundColor: "#000",
     marginHorizontal: 10,
+  },
+  containerEdit: {
+    flex: 4,
   },
   buttonText: {
     color: "#fff",

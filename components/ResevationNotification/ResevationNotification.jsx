@@ -198,7 +198,7 @@ function ResevationNotificationScreen() {
             <FontAwesome5
               name="calendar-times"
               size={60}
-              color="#E53935"
+              color="#c38d8d"
               solid
             />
           </TouchableOpacity>

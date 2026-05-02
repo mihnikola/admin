@@ -121,21 +121,13 @@ export default function AddService() {
       addEditService(newService);
     }
   };
-  const confirmMessageHandler = () => {
-    if (editingId) {
-      router.back();
-    }
+  const confirmMessageHandler = async () => {
     resetForm();
     confirmHandler();
   };
   const confirmErrorMessageHandler = () => {
     setError(null);
   };
-
-  if (isLoading === "getService") {
-    return <SharedLoader isOpen={isLoading === "getService"} />;
-  }
-
   const handleNumberInput =
     (setValue, maxLength = 4) =>
     (text) => {
@@ -143,14 +135,13 @@ export default function AddService() {
       setValue(cleaned);
     };
 
+    
+  if (isLoading === "getService") {
+    return <SharedLoader isOpen={isLoading === "getService"} />;
+  }
+
   return (
     <View style={styles.container}>
-      <View style={styles.containerImage}>
-        <ImageCompress
-          handlePickImage={selectedImgHandler}
-          imageValue={changedImg}
-        />
-      </View>
       <ScrollView
         ref={scrollRef}
         keyboardDismissMode="interactive"
@@ -158,7 +149,13 @@ export default function AddService() {
         contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }}
         keyboardShouldPersistTaps="always"
       >
-        <View style={{ flex: 3, marginTop: 20 }}>
+        <View style={{ flex: 3 }}>
+          <View style={styles.containerImage}>
+            <ImageCompress
+              handlePickImage={selectedImgHandler}
+              imageValue={changedImg}
+            />
+          </View>
           {/* ovo ti je za lokalni jezik - srpski nameLocal */}
           <ServiceInput
             autoFocus
@@ -229,26 +226,25 @@ export default function AddService() {
             />
           </View>
         </View>
-      </ScrollView>
-
-      <View style={[styles.btnContainer, id && styles.btnGap]}>
-        <SharedButtonApproved
-          onPress={addService}
-          loading={isLoading === "addEdit"}
-          text={
-            editingId
-              ? localization.SERVICES.saveChanges
-              : localization.SERVICES.submitAdd
-          }
-        />
-        {id && (
-          <SharedButtonRejected
-            onPress={() => removeQuestion(id)}
-            loading={isLoading === "remove"}
-            text={localization.SERVICES.removeBtn}
+        <View style={[styles.btnContainer, id && styles.btnGap]}>
+          <SharedButtonApproved
+            onPress={addService}
+            loading={isLoading === "addEdit"}
+            text={
+              editingId
+                ? localization.SERVICES.saveChanges
+                : localization.SERVICES.submitAdd
+            }
           />
-        )}
-      </View>
+          {id && (
+            <SharedButtonRejected
+              onPress={() => removeQuestion(id)}
+              loading={isLoading === "remove"}
+              text={localization.SERVICES.removeBtn}
+            />
+          )}
+        </View>
+      </ScrollView>
 
       {isMessage && (
         <SharedMessage
@@ -292,12 +288,11 @@ const styles = StyleSheet.create({
     alignContent: "center",
     alignItems: "center",
     alignSelf: "center",
-    paddingTop: 20,
   },
   btnContainer: {
     flexDirection: "column",
   },
-  btnGap: { gap: 2 },
+  btnGap: { gap: 10 },
 
   container: {
     flex: 1,

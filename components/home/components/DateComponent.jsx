@@ -23,7 +23,6 @@ const DateComponent = () => {
     getDates,
     handleDayPress,
     setCheckDates,
-    isLoading,
     setIsLoading,
     events,
     error,
@@ -186,7 +185,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 20,
-    minHeight: 150, // Give some minimum height for consistency
+    minHeight: 150, 
   },
   notWorkingDays: {
     display: "flex",

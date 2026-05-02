@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import Constants from "expo-constants";
 import { useLocalization } from "./../../../../contexts/LocalizationContext";
-import { Keyboard } from 'react-native';
+import { Keyboard } from "react-native";
 import { useCompany } from "@/contexts/CompanyContext";
 
 const apiKey = Constants.expoConfig.extra.API_KEY_MAP;
@@ -20,7 +20,6 @@ export default function GooglePlace({ onSelect }) {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const { company, getCompany } = useCompany();
-
 
   const { localization } = useLocalization(); // Fetch autocomplete suggestions
 
@@ -41,7 +40,10 @@ export default function GooglePlace({ onSelect }) {
           text,
         )}&key=${apiKey}&language=${localization.code}&components=country:${company?.country}`,
       );
+
       const data = await res.json();
+      console.log("res", data);
+
       if (data.status === "OK") {
         setResults(data.predictions);
       } else {
@@ -55,7 +57,6 @@ export default function GooglePlace({ onSelect }) {
 
     setLoading(false);
   };
-
 
   // Fetch place details (lat/lng, address components)
   const getPlaceDetails = async (placeId) => {
@@ -96,18 +97,21 @@ export default function GooglePlace({ onSelect }) {
 
   // Handle selecting a suggestion
   const handleSelect = async (item) => {
+    const addressValueData = item?.description.split(",")[0];
+    console.log("handleSelect", item);
     const details = await getPlaceDetails(item.place_id);
+    console.log("handleSelecthandleSelect", details);
+
     if (!details) return;
 
     // const { city, street } = extractAddress(details);
-    const [street, city] = details.vicinity.split(",");
+    const [_, city] = details.vicinity.split(",");
     const location = details.geometry.location;
 
-    console.log("details+++", details);
     // Pass data back to parent
     onSelect({
       city,
-      street,
+      street: addressValueData,
       lat: location.lat,
       lng: location.lng,
       place_id: item.place_id,
@@ -118,7 +122,6 @@ export default function GooglePlace({ onSelect }) {
     setQuery("");
     setResults([]);
     Keyboard.dismiss();
-
   };
 
   // Debounce user input

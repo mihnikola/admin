@@ -3,9 +3,10 @@ import { useLocalization } from "@/contexts/LocalizationContext";
 import axios from "axios";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
+import { useServicesStore } from "@/contexts/ServiceContext";
 
 const useServices = () => {
-  const [serviceData, setServicesData] = useState([]);
+  const { serviceData, setServicesData } = useServicesStore();
   const [getServiceData, setGetServiceData] = useState([]);
 
   const [isLoading, setIsLoading] = useState(null);
@@ -13,22 +14,6 @@ const useServices = () => {
   const { localization } = useLocalization();
   const [isMessage, setIsMessage] = useState(false);
   const [message, setMessage] = useState(null);
-
-  const removeService = async (id) => {
-    setIsLoading("remove");
-    setError(null);
-    try {
-      const response = await deleteRequest(`admin/services/${id}`);
-      setIsMessage(true);
-      setMessage(localization.SERVICES.delete);
-      // await fetchAllServices();
-    } catch (err) {
-      setError(localization.SERVICES.errorFetch);
-    } finally {
-      setIsLoading(null);
-    }
-  };
-
   const fetchAllServices = async () => {
     setIsLoading("get");
     setError(null);
@@ -41,9 +26,24 @@ const useServices = () => {
       setIsLoading(null);
     }
   };
+
+  const removeService = async (id) => {
+    setIsLoading("remove");
+    setError(null);
+    try {
+      const response = await deleteRequest(`admin/services/${id}`);
+      setIsMessage(true);
+      setMessage(localization.SERVICES.delete);
+      await fetchAllServices();
+    } catch (err) {
+      setError(localization.SERVICES.errorFetch);
+    } finally {
+      setIsLoading(null);
+    }
+  };
+
   const validationServicesErrors = (newService, localization) => {
     if (
-      !newService?.image ||
       !newService?.nameLocal ||
       !newService?.nameEn ||
       !newService?.price ||
@@ -51,9 +51,11 @@ const useServices = () => {
     ) {
       return localization.REGISTER.error;
     }
+    if (!newService?.image) {
+      return localization.SERVICES.errorImage;
+    }
   };
   const addEditService = async (userData) => {
-
     const validationErrors = validationServicesErrors(userData, localization);
     if (validationErrors && validationErrors?.length > 0) {
       setError(validationErrors);
@@ -104,6 +106,10 @@ const useServices = () => {
           setIsMessage(true);
           setMessage(localization.SERVICES.editService);
         }
+        setTimeout(async () => {
+          await fetchAllServices();
+        }, 300);
+        // setTimeout(fetchAllServices, 300);
       } catch (err) {
         setError(localization.SERVICES.errorFetch);
         setIsMessage(true);
@@ -125,6 +131,10 @@ const useServices = () => {
           setIsMessage(true);
           setMessage(localization.SERVICES.addService);
         }
+        setTimeout(async () => {
+          await fetchAllServices();
+        }, 300);
+        // await fetchAllServices();
       } catch (err) {
         console.log("errrr", err);
         setError(localization.SERVICES.errorFetch);
@@ -159,12 +169,8 @@ const useServices = () => {
 
   const confirmHandler = async () => {
     setIsMessage(false);
-    await fetchAllServices();
+    router.back();
   };
-
-  useEffect(() => {
-    fetchAllServices();
-  }, []);
 
   return {
     isLoading,

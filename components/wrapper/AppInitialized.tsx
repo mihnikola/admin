@@ -7,6 +7,7 @@ import { useColorScheme } from "react-native";
 import NotificationWrapper from "./NotificationWrapper";
 import { AppointmentProvider } from "@/contexts/AppointmentContext";
 import { HomeDataProvider } from "@/contexts/HomeDataContext";
+import { ServicesProvider } from "@/contexts/ServiceContext";
 
 export default function AppInitialized(props) {
   const colorScheme = useColorScheme();
@@ -27,7 +28,9 @@ export default function AppInitialized(props) {
             <NotificationWrapper>
               <HomeDataProvider>
                 <ReservationProvider>
-                  <AppointmentProvider>{props.children}</AppointmentProvider>
+                  <AppointmentProvider>
+                    <ServicesProvider>{props.children}</ServicesProvider>
+                  </AppointmentProvider>
                 </ReservationProvider>
               </HomeDataProvider>
             </NotificationWrapper>

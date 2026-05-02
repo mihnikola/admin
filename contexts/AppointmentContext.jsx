@@ -4,10 +4,7 @@ import { createContext, useContext, useState } from "react";
 import { useLocalization } from "./LocalizationContext";
 import { useAuth } from "./AuthContext";
 import { get, getData, post, put } from "@/api/apiService";
-import {
-  addMinutesToTime,
-  convertNameAndDate,
-} from "@/helpers";
+import { addMinutesToTime, convertNameAndDate } from "@/helpers";
 
 import useRequirements from "@/components/home/hooks/useRequirements";
 import { convertTimeHandler } from "../helpers";
@@ -42,9 +39,7 @@ export const AppointmentProvider = ({ children }) => {
 
   const [isModal, setIsModal] = useState(false);
 
-
-
-  const missedReservation = async (id) => {
+  const missedReservation = async (id, criteriaDate) => {
     setIsLoading(true);
     setError(null);
 
@@ -55,13 +50,14 @@ export const AppointmentProvider = ({ children }) => {
     }
     try {
       const response = await put(`admin/availabilities/${id}/missed`);
-      console.log("admin/availabilities/${id}/missed", response)
+      console.log("admin/availabilities/${id}/missed", response);
       if (response.status === 202) {
         setIsModal(true);
         setMessage(localization.APPOINTMENTS.missedReservation.success);
       }
+      await getReservations(criteriaDate);
     } catch (err) {
-      console.log("errerrerr", err)
+      console.log("ssssssssssssss", err);
       setIsError(true);
 
       setError(err);
@@ -101,7 +97,6 @@ export const AppointmentProvider = ({ children }) => {
   };
 
   const getReservations = async (criteria) => {
-    
     setIsLoading(true);
     setError(null);
     if (!criteria) {
@@ -187,7 +182,7 @@ export const AppointmentProvider = ({ children }) => {
         changeStatusReservation,
         fetchRequirements,
         events,
-        getReservations
+        getReservations,
       }}
     >
       {children}

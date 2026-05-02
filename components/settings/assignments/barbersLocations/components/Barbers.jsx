@@ -18,6 +18,7 @@ import BarberItem from "./BarberItem";
 import BarberItemAssign from "./BarberItemAssign";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import SharedButtonApproved from "@/shared-components/SharedButtonApproved";
+import { SharedLoader } from "@/shared-components/SharedLoader";
 
 export default function Barbers() {
   const { localization } = useLocalization();
@@ -58,6 +59,9 @@ export default function Barbers() {
   const filteredBarbers = allResult.filter((barber) =>
     barber.name.toLowerCase().includes(search.toLowerCase()),
   );
+  if (isLoading === "getBarbers") {
+    return <SharedLoader isOpen={isLoading === "getBarbers"} />;
+  }
   return (
     <View style={styles.container}>
       <View style={styles.headerComponent}>
@@ -66,7 +70,6 @@ export default function Barbers() {
             <MaterialIcons name="arrow-back" size={25} color="white" />
           </TouchableOpacity>
 
-          {/* Kolona sa Naslovom i Adresom desno od strelice */}
           <View style={styles.headerTextContainer}>
             <Text style={styles.pageTitleHeader}>
               {localization.BARBERS.listBarbers}
@@ -76,27 +79,29 @@ export default function Barbers() {
         </View>
       </View>
 
-      <View style={{ flex: 2, marginVertical: 5, paddingHorizontal: 16, paddingBottom: 24 }}>
+      <View
+        style={{
+          flex: 2,
+          marginVertical: 5,
+          paddingHorizontal: 16,
+          paddingBottom: 24,
+        }}
+      >
         <Text style={styles.addressBarbers}>
           {localization.SETTINGS.EMPLOYERSPLACES.barbersLength} (
           {filterResult.length})
         </Text>
-        {isLoading === "getBarbers" ? (
-          <View style={styles.loadingContainer}>
-            <Loader />
-          </View>
-        ) : (
-          <FlatList
-            data={filterResult}
-            keyExtractor={(item) => item._id}
-            renderItem={({ item }) => (
-              <BarberItemAssign item={item} toggleBarber={toggleBarber} />
-            )}
-          />
-        )}
+
+        <FlatList
+          data={filterResult}
+          keyExtractor={(item) => item._id}
+          renderItem={({ item }) => (
+            <BarberItemAssign item={item} toggleBarber={toggleBarber} />
+          )}
+        />
       </View>
 
-      <View style={{ flex: 2,paddingHorizontal: 16, paddingBottom: 24 }}>
+      <View style={{ flex: 2, paddingHorizontal: 16, paddingBottom: 24 }}>
         <Text style={styles.addressBarbers}>
           {localization.SETTINGS.EMPLOYERSPLACES.availableBarbers} (
           {filteredBarbers.length})
@@ -108,27 +113,21 @@ export default function Barbers() {
           onChangeText={setSearch}
           placeholderTextColor="white"
         />
-        {isLoading === "getBarbers" ? (
-          <View style={styles.loadingContainer}>
-            <Loader />
-          </View>
-        ) : (
-          <FlatList
-            data={filteredBarbers}
-            keyExtractor={(item) => item._id}
-            renderItem={({ item }) => (
-              <BarberItem item={item} toggleBarber={toggleBarber} />
-            )}
-          />
-        )}
-      </View>
-            <View style={{ paddingHorizontal: 16, paddingBottom: 24 }}>
 
-      <SharedButtonApproved
-        onPress={() => submitChanges(id)}
-        loading={isLoading === "post"}
-        text={localization.SERVICES.saveChanges}
-      />
+        <FlatList
+          data={filteredBarbers}
+          keyExtractor={(item) => item._id}
+          renderItem={({ item }) => (
+            <BarberItem item={item} toggleBarber={toggleBarber} />
+          )}
+        />
+      </View>
+      <View style={{ paddingHorizontal: 16, paddingBottom: 24 }}>
+        <SharedButtonApproved
+          onPress={() => submitChanges(id)}
+          loading={isLoading === "post"}
+          text={localization.SERVICES.saveChanges}
+        />
       </View>
 
       {isMessage && (
@@ -211,7 +210,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "flex-start",
     justifyContent: "center",
-    marginBottom: 10
+    marginBottom: 10,
   },
   container: {
     flex: 1,

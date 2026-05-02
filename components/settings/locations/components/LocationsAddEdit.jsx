@@ -114,13 +114,7 @@ export default function LocationsAddEdit() {
             icon="map"
             label={localization.PLACES.addStreetName}
             placeholder={streetName}
-          />
-        )}
-        {city && (
-          <LocationInput
-            icon="map"
-            label={localization.PLACES.addCityName}
-            placeholder={city}
+            city={city}
           />
         )}
       </View>

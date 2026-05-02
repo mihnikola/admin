@@ -20,11 +20,11 @@ const SharedCard = ({ item, criteriaDate }) => {
     });
   };
 
-  const finishReservation = () => {
+   const completedReservation = () => {
     const now = new Date();
-    const startDate = new Date(item.startTime);
+    const endTimeDate = new Date(item.endTime);
 
-    if (now > startDate) {
+    if (now > endTimeDate) {
       return true;
     }
     return false;
@@ -57,10 +57,10 @@ const SharedCard = ({ item, criteriaDate }) => {
         </Text>
         {item.arrived === "arrived" ? (
           <Text style={styles.eventStatus}>
-            {item.status === "pending" && finishReservation() && localization.STATUS.expired}
-            {item.status === "pending" && !finishReservation() && localization.STATUS.pending}
-            {item.status === "approved" && !finishReservation() && localization.STATUS.approved}
-            {item.status === "approved" && finishReservation() && localization.STATUS.completed}
+            {item.status === "pending" && completedReservation() &&  localization.STATUS.expired}
+            {item.status === "pending" &&  !completedReservation() && localization.STATUS.pending}
+            {item.status === "approved" && completedReservation() && localization.STATUS.completed}
+            {item.status === "approved" && !completedReservation() && localization.STATUS.approved}
             {item.status === "rejected" && localization.STATUS.rejected}
           </Text>
         ) : (
@@ -73,11 +73,14 @@ const SharedCard = ({ item, criteriaDate }) => {
           {item.status === "pending" && (
             <FontAwesome size={25} color="white" name="clock-o" />
           )}
-          {item.status === "approved" && item.arrived !== 'missed' && finishReservation() && (
+          {item.status === "approved" && item.arrived !== 'missed' && completedReservation() && (
             <FontAwesome size={25} color="white" name="check-circle-o" />
           )}
-          {item.status === "approved" && item.arrived !== 'missed' && !finishReservation() && (
+          {item.status === "approved" && item.arrived !== 'missed' && !completedReservation()  && (
             <FontAwesome size={25} color="white" name="thumbs-up" />
+          )}
+          {item.arrived === "missed" && (
+            <FontAwesome size={25} color="white" name="close" />
           )}
           {item.status === "rejected" && (
             <FontAwesome size={25} color="white" name="close" />
@@ -105,7 +108,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   timeBlock: {
-    width: 70, // Fixed width for time block
+    width: 70,
     marginRight: 15,
     alignItems: "center",
     justifyContent: "center",
@@ -119,7 +122,7 @@ const styles = StyleSheet.create({
     color: "#e2e2e2ff",
   },
   detailsBlock: {
-    flex: 1, // Take remaining space
+    flex: 1, 
   },
   eventTitle: {
     fontSize: 16,

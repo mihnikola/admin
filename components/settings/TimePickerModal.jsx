@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, Modal, TouchableOpacity, StyleSheet } from "react-native";
 import WheelPicker from "@quidone/react-native-wheel-picker";
 import { useLocalization } from "@/contexts/LocalizationContext";
@@ -36,17 +36,29 @@ const generateTimes = (startValue, endValue, step = 10) => {
   return times;
 };
 
-
-const TimePickerModal = ({ setVisible, visible, onCancel, onConfirm, startValue, endValue, interval }) => {
-  const [selectedTime, setSelectedTime] = useState(startValue);
+const TimePickerModal = ({
+  setVisible,
+  visible,
+  onCancel,
+  onConfirm,
+  startValue,
+  endValue,
+  value,
+  interval,
+  activeTab,
+}) => {
+  const [selectedTime, setSelectedTime] = useState(value);
   const { localization } = useLocalization();
   const times = generateTimes(startValue, endValue, interval);
+
+  useEffect(() => {
+    setSelectedTime(value);
+  }, [activeTab]);
+
   const onDone = () => {
     setVisible(false);
     onConfirm(selectedTime);
   };
-
-
 
   return (
     <Modal
@@ -57,18 +69,17 @@ const TimePickerModal = ({ setVisible, visible, onCancel, onConfirm, startValue,
     >
       <View style={styles.overlay}>
         <View style={styles.modalContent}>
-          {/* Header */}
           <View style={styles.header}>
             <TouchableOpacity onPress={onCancel}>
               <Text style={styles.cancel}>{localization.PLACES.cancel}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={onDone}>
-              <Text style={styles.done}>{localization.PLACES.confirmButton}</Text>
+              <Text style={styles.done}>
+                {localization.PLACES.confirmButton}
+              </Text>
             </TouchableOpacity>
           </View>
-
-          {/* Wheel */}
           <WheelPicker
             data={times}
             value={selectedTime}
@@ -93,7 +104,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "#007AFF",
   },
-
 
   overlay: {
     flex: 1,
@@ -120,14 +130,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#797979",
     fontWeight: "600",
-    padding: 10
+    padding: 10,
   },
 
   done: {
     fontSize: 16,
     color: "#fdfdfd",
     fontWeight: "600",
-    padding: 10
+    padding: 10,
   },
 
   itemText: {

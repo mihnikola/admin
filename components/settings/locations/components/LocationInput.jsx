@@ -1,7 +1,7 @@
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 
-export default function LocationInput({ icon, label, placeholder }) {
+export default function LocationInput({ icon, label, placeholder, city }) {
   return (
     <View style={styles.container}>
       <View style={styles.iconContainer}>
@@ -11,9 +11,16 @@ export default function LocationInput({ icon, label, placeholder }) {
       <View style={{ flex: 1 }}>
         <Text style={styles.label}>{label}</Text>
 
-        <Text style={styles.input} placeholderTextColor="#777">
-          {placeholder}
-        </Text>
+        {city && (
+          <Text style={styles.input} placeholderTextColor="#777">
+            {placeholder}{","}{city}
+          </Text>
+        )}
+         {!city && (
+          <Text style={styles.input} placeholderTextColor="#777">
+            {placeholder} 
+          </Text>
+        )}
       </View>
     </View>
   );

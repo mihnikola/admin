@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     backgroundColor: "#fff",
     borderRadius: 100,
-    padding: 6,
+    padding: 2,
   },
   imageWrapper: {
     justifyContent: "center",

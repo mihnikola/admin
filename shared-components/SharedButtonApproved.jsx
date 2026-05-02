@@ -19,7 +19,7 @@ const SharedButtonApproved = (props) => {
           {props.text}
         </Text>
       )}
-      {props.loading && <ActivityIndicator size={25} color="white" />}
+      {props.loading && <ActivityIndicator size={20} color="white" />}
     </TouchableOpacity>
   );
 };

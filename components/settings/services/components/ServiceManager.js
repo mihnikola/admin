@@ -1,5 +1,5 @@
 import { FontAwesome } from "@expo/vector-icons";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
@@ -18,7 +18,7 @@ import { SharedMessage } from "@/shared-components/SharedMessage";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import FloatingButton from "../../FloatingButton";
-import { router, useFocusEffect } from "expo-router";
+import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
 
 export default function ServiceManager() {
   const { localization } = useLocalization();
@@ -36,6 +36,7 @@ export default function ServiceManager() {
     startEditing,
   } = useServices();
 
+
   const [isError, setIsError] = useState(null);
   const [search, setSearch] = useState("");
 
@@ -49,12 +50,10 @@ export default function ServiceManager() {
   const addServiceRouter = () => {
     router.push("/(tabs)/(03_settings)/addServices");
   };
-  useFocusEffect(
-    useCallback(() => {
-      fetchAllServices();
-    }, []),
-  );
 
+  useEffect(() => {
+    fetchAllServices();
+  }, []);
   return (
     <View style={styles.container}>
       <Text style={styles.subTitle}>{localization.SERVICES.listServices}</Text>
@@ -72,7 +71,10 @@ export default function ServiceManager() {
           data={filterServices}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <TouchableOpacity style={styles.serviceItem} onPress={() => startEditing(item)}>
+            <TouchableOpacity
+              style={styles.serviceItem}
+              onPress={() => startEditing(item)}
+            >
               <View>
                 <Image source={{ uri: item.image }} style={styles.image} />
               </View>
@@ -119,7 +121,6 @@ export default function ServiceManager() {
           title={isError}
         />
       )}
-
     </View>
   );
 }
@@ -136,7 +137,7 @@ const styles = StyleSheet.create({
     padding: 20,
     marginBottom: 10,
     fontSize: 18,
-    color: "white"
+    color: "white",
   },
   title: {
     fontSize: 22,
