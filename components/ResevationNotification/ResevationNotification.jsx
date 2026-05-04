@@ -1,5 +1,6 @@
 import { useLocalization } from "@/contexts/LocalizationContext";
-import SharedButtonApproved from "@/shared-components/SharedButtonApproved";
+import SharedApprovedReservationButton from "@/shared-components/SharedApprovedReservationButton";
+import SharedDeclinedReservationButton from "@/shared-components/SharedDeclinedReservationButton";
 import SharedButtonCancel from "@/shared-components/SharedButtonCancel";
 import SharedButtonRejected from "@/shared-components/SharedButtonRejected";
 import {
@@ -230,12 +231,12 @@ function ResevationNotificationScreen() {
 
       {!isLoading && reservationData?.status === 2 && !finishReservation(reservationData?.startDate) && (
         <View style={styles.bottomButtons}>
-          <SharedButtonApproved
+          <SharedApprovedReservationButton
             onPress={() => modalReservationHandler("approved")}
             text={localization.APPOINTMENTS.approveReservation.approveButton}
           />
           <View style={{ marginTop: 20 }}>
-            <SharedButtonRejected
+            <SharedDeclinedReservationButton
               onPress={() => modalReservationHandler("rejected")}
               text={localization.APPOINTMENTS.rejectReservation.rejectButton}
             />
@@ -309,7 +310,7 @@ const styles = StyleSheet.create({
 
   bottomButtons: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     paddingBottom: 80,
     backgroundColor: "#000", // Osnovna boja aplikacije
   },

@@ -1,26 +1,35 @@
 import React from "react";
-import { ActivityIndicator, StyleSheet, Text, TouchableOpacity } from "react-native";
-
+import {
+  ActivityIndicator,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 
 export function SharedButton(props: any) {
   return (
     <TouchableOpacity
-      style={[styles.btn, props.margin && styles.noMargin, props.disabled && styles.btnDisabled]}
+      style={[
+        styles.btn,
+        props.margin && styles.noMargin,
+        props.disabled && styles.btnDisabled,
+      ]}
       disabled={props.loading || props.disabled}
       onPress={props.onPress}
     >
-      {props.loading && <ActivityIndicator size={28} color="white" />}
-      {!props.loading &&
-        <Text style={[styles.btnText, props.disabled && styles.btnTextDisabled]}>
+      {props.loading && <ActivityIndicator size={24} color="white" />}
+      {!props.loading && (
+        <Text
+          style={[styles.btnText, props.disabled && styles.btnTextDisabled]}
+        >
           {props.text}
         </Text>
-      }
+      )}
     </TouchableOpacity>
   );
-};
+}
 
 const styles = StyleSheet.create({
-
   btnText: {
     color: "#fff",
     fontSize: 18,
@@ -35,6 +44,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
   },
+
   btn: {
     backgroundColor: "#1C1C1E",
     paddingVertical: 15,
@@ -42,12 +52,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "white",
     alignItems: "center",
+    justifyContent: "center", 
     marginTop: 20,
     marginBottom: 30,
+    minHeight: 50,
   },
   noMargin: {
     marginTop: 0,
     marginBottom: 0,
-  }
+  },
 });
-

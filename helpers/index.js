@@ -178,6 +178,46 @@ export function convertNameAndDate(value) {
   const year = date.getFullYear();
   return `${dayNameSr} ${day}-${month}-${year}`;
 }
+const formatDateBrate = (input, code) => {
+  const [day, month, year] = input.split("-");
+
+  const months = [
+    "januar",
+    "februar",
+    "mart",
+    "april",
+    "maj",
+    "jun",
+    "jul",
+    "avgust",
+    "septembar",
+    "oktobar",
+    "novembar",
+    "decembar",
+  ];
+  const monthsEn = [
+    "january",
+    "february",
+    "march",
+    "april",
+    "may",
+    "june",
+    "july",
+    "august",
+    "september",
+    "october",
+    "november",
+    "december",
+  ];
+  let monthName;
+  if (code === "sr") {
+    monthName = months[parseInt(month, 10) - 1];
+  } else {
+    monthName = monthsEn[parseInt(month, 10) - 1];
+  }
+
+  return `${day}. ${monthName.charAt(0).toUpperCase() + monthName.slice(1)} ${year}.`;
+};
 export const convertDateDetails = (item) => {
   const itemValue = item?.split(" ")[1];
   const [day, month, year] = itemValue.split("-").map(Number);
@@ -191,7 +231,7 @@ export const convertDateDetails = (item) => {
     weekdays = dayNamesRs;
   }
   const dayOfWeek = weekdays[date.getDay()];
-  return `${dayOfWeek} ${itemValue}`;
+  return `${dayOfWeek} ${formatDateBrate(itemValue, localization.code)}`;
 };
 export const convertDate = (item) => {
   const date = new Date(item);
@@ -274,7 +314,7 @@ const toBelgradeISO = (utcDate) => {
     hour12: false,
   }).formatToParts(date);
 
-  const get = (type) => parts.find(p => p.type === type).value;
+  const get = (type) => parts.find((p) => p.type === type).value;
 
   const year = get("year");
   const month = get("month");
@@ -287,7 +327,6 @@ const toBelgradeISO = (utcDate) => {
 };
 
 export const convertReadFullDateTime = (item) => {
-
   const date = new Date(item);
   const { localization } = useLocalization();
   let weekdays = [];
@@ -314,7 +353,9 @@ export const convertReadFullDateTime = (item) => {
 };
 
 export const getInitialsName = (mrk) => {
-  if (!mrk) { return }
+  if (!mrk) {
+    return;
+  }
   const words = mrk?.trim().split(/\s+/);
   const numWords = words.length;
   if (numWords > 2) {
@@ -327,7 +368,7 @@ export const getInitialsName = (mrk) => {
     return words[0].substring(0, 2).toUpperCase();
   }
   return "";
-}
+};
 export const convertReadDateTime = (startTime, endDate) => {
   const dateValue = new Date();
   return getTodayOrTommorow(startTime, dateValue, endDate);

@@ -46,7 +46,6 @@ export const AuthProvider = ({ children }) => {
       }
     } finally {
       setLoadingLogin(null);
-
     }
   };
   const getTokenData = async () => {
@@ -57,7 +56,6 @@ export const AuthProvider = ({ children }) => {
         setIsToken(null);
       }
     });
-
   };
 
   const removeTokenData = async () => {
@@ -131,7 +129,6 @@ export const AuthProvider = ({ children }) => {
         await fetchUserData();
       }, 500);
     }
-
   }, [isToken]);
 
   //initial Token screen
@@ -149,10 +146,8 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
-
-
   const loginAdmin = async (email, password) => {
-    setLoadingLogin('login');
+    setLoadingLogin("login");
     setError(null);
 
     const expoToken = await NotificationService.getFCMToken();
@@ -188,6 +183,8 @@ export const AuthProvider = ({ children }) => {
       if (err.status === 500) {
         setError(err);
       }
+    } finally {
+      setLoadingLogin(null);
     }
   };
 
@@ -215,7 +212,7 @@ export const AuthProvider = ({ children }) => {
         loginAdmin,
         success,
         message,
-        loadingLogin
+        loadingLogin,
       }}
     >
       {children}

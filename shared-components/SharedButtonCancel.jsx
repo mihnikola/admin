@@ -2,7 +2,6 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  ActivityIndicator,
 } from "react-native";
 
 const SharedButtonCancel = (props) => {
@@ -12,22 +11,20 @@ const SharedButtonCancel = (props) => {
       disabled={props.loading || props.disabled}
       onPress={props.onPress}
     >
-      {!props.loading && <Text style={styles.btnText}>{props.text}</Text>}
-      {props.loading && <ActivityIndicator size={25} color="white" />}
+      <Text style={styles.btnText}>{props.text}</Text>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   btnText: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: '600',
-    letterSpacing: 0.5,
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "bold",
   },
 
   btn: {
-    backgroundColor: "#313131", // Elegantnija tamno crvena
+    backgroundColor: "#1C1C1E",
     paddingVertical: 15,
     borderRadius: 8,
     borderWidth: 1,

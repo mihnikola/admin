@@ -39,7 +39,7 @@ export const ENG_LOCALIZATION = {
   BARBERS: {
     question: "Are you sure you want to delete this barber?",
     submitAdd: "Add barber",
-    saveChanges: "Save changes",
+    saveChanges: "Save",
     confirmButton: "Ok",
     title: "Manage barbers",
     listBarbers: "List barbers",
@@ -106,7 +106,7 @@ export const ENG_LOCALIZATION = {
     undo: "Activate",
     deactivateBtn: "Deactivate",
     deleteBtn: "Delete",
-    saveChanges: "Save changes",
+    saveChanges: "Save",
     addStreetName: "Address",
     addStreetNumber: "Enter street number",
     addCityName: "City",
@@ -155,7 +155,7 @@ export const ENG_LOCALIZATION = {
     serviceDuration: "Enter duration in minutes",
     submitAdd: "Add service",
     cancel: "Cancel",
-    saveChanges: "Save changes",
+    saveChanges: "Save",
     listServices: "List services",
     delete: "Service is successfully removed",
     addService: "Service is successfully added",
@@ -315,7 +315,7 @@ export const ENG_LOCALIZATION = {
     NOTIFICATIONSTATUS: {
       title: "Status reservation confirmation",
       capture: "Type confirmation",
-      saveChanges: "Save changes",
+      saveChanges: "Save",
       submitChanges: "Type confirmation is successfully changed.",
     },
     WORKHOURS: {

@@ -30,7 +30,9 @@ export default function AppInitialized(props) {
               <HomeDataProvider>
                 <ReservationProvider>
                   <AppointmentProvider>
-                    <ServicesProvider> <BarbersProvider>{props.children}</BarbersProvider></ServicesProvider>
+                    <ServicesProvider>
+                      <BarbersProvider>{props.children}</BarbersProvider>
+                    </ServicesProvider>
                   </AppointmentProvider>
                 </ReservationProvider>
               </HomeDataProvider>

@@ -5,7 +5,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 
-const SharedButtonRejected = (props) => {
+const SharedDeclinedReservationButton = (props) => {
   return (
     <TouchableOpacity
       style={styles.btn}
@@ -32,11 +32,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "white",
     alignItems: "center",
-
+    padding: 40,
     borderColor: "white",
     alignItems: "center",
     justifyContent: "center",
     minHeight: 50,
   },
 });
-export default SharedButtonRejected;
+export default SharedDeclinedReservationButton;

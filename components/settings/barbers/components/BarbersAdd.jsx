@@ -150,9 +150,6 @@ export default function BarbersAdd() {
     }
   };
   const confirmMessageHandler = () => {
-    if (editingId) {
-      router.back();
-    }
     resetForm();
     confirmHandler();
   };

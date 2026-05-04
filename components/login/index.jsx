@@ -30,7 +30,7 @@ export default function LoginScreen() {
     error,
     success,
   } = useAuth();
-  const { email, handleEmailChange } = useEmail();
+  const { email, handleEmailChange, emailError } = useEmail();
   const { password, handlePasswordChange } = usePassword();
 
   const handleLogin = () => {
@@ -96,6 +96,7 @@ export default function LoginScreen() {
             keyboardType="email-address"
             autoCapitalize="none"
             style={styles.input}
+            error={emailError}
           />
 
           <SharedPassword

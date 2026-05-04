@@ -19,17 +19,16 @@ const SharedButtonApproved = (props) => {
           {props.text}
         </Text>
       )}
-      {props.loading && <ActivityIndicator size={20} color="white" />}
+      {props.loading && <ActivityIndicator size={24} color="white" />}
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   btnText: {
-    color: "#FFFFFF",
-    fontSize: 16,
-    fontWeight: "600",
-    letterSpacing: 0.5,
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "bold",
   },
   btnTextDisabled: {
     color: "#3f3f3fff",
@@ -43,16 +42,15 @@ const styles = StyleSheet.create({
   },
 
   btn: {
+    backgroundColor: "#1C1C1E",
     paddingVertical: 15,
     borderRadius: 8,
     borderWidth: 1,
     borderColor: "white",
     alignItems: "center",
+    justifyContent: "center",
     marginTop: 20,
-    padding: 60,
-    backgroundColor: "transparent",
-    borderWidth: 1.5,
-    borderColor: "#FFFFFF",
+    minHeight: 50,
   },
 });
 export default SharedButtonApproved;
