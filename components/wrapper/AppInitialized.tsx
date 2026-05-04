@@ -8,6 +8,7 @@ import NotificationWrapper from "./NotificationWrapper";
 import { AppointmentProvider } from "@/contexts/AppointmentContext";
 import { HomeDataProvider } from "@/contexts/HomeDataContext";
 import { ServicesProvider } from "@/contexts/ServiceContext";
+import { BarbersProvider } from "@/contexts/BarberContext";
 
 export default function AppInitialized(props) {
   const colorScheme = useColorScheme();
@@ -29,7 +30,7 @@ export default function AppInitialized(props) {
               <HomeDataProvider>
                 <ReservationProvider>
                   <AppointmentProvider>
-                    <ServicesProvider>{props.children}</ServicesProvider>
+                    <ServicesProvider> <BarbersProvider>{props.children}</BarbersProvider></ServicesProvider>
                   </AppointmentProvider>
                 </ReservationProvider>
               </HomeDataProvider>

@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   defaultImgAvatar: {
     alignSelf: "baseline",
     alignContent: "baseline",
-    justifyContent: "flex-start",
+    justifyContent: "flex-end",
     backgroundColor: "#fff",
     borderRadius: 100,
     padding: 2,

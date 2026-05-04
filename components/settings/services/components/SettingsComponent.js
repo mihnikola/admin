@@ -1,5 +1,4 @@
 import { getSettingsOptions } from "@/helpers/getSettingsOptions";
-import SharedCarousel from "@/shared-components/SharedCarousel";
 import { router } from "expo-router";
 import {
   Image,
@@ -15,13 +14,11 @@ import { useAuth } from "@/contexts/AuthContext";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import {
   FontAwesome,
-  Ionicons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import { useEffect, useState } from "react";
 import SettingsItem from "../../SettingsItem";
-import useBarbers from "../../barbers/hooks/useBarbers";
 import { getInitialsName } from "@/helpers";
 
 export default function SettingsComponent() {
@@ -150,6 +147,8 @@ const styles = StyleSheet.create({
     alignContent: "baseline",
     justifyContent: "flex-end",
     backgroundColor: "transparent",
+    borderWidth: 3,
+    borderColor: "#fff",
     borderRadius: 100,
   },
   initialContainer: {

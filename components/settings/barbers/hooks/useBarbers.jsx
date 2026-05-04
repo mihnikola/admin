@@ -1,11 +1,13 @@
 import { get, delete as deleteRequest, put } from "@/api/apiService";
+import { useBarbersStore } from "@/contexts/BarberContext";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import axios from "axios";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
 
 const useBarbers = () => {
-  const [barbersData, setBarbersData] = useState([]);
+  const { barbersData, setBarbersData } = useBarbersStore();
+
   const [seniorityData, setSeniorityData] = useState([]);
   const [statuses, setStatuses] = useState([]);
   const [barberData, setBarberData] = useState(null);
@@ -16,20 +18,6 @@ const useBarbers = () => {
   const [isMessage, setIsMessage] = useState(false);
   const [message, setMessage] = useState(null);
 
-  const removeBarber = async (data) => {
-    const { id, firedDate } = data;
-    setIsLoading("remove");
-    setError(null);
-    try {
-      const response = await put(`admin/users/${id}/softDelete`, { firedDate });
-      setIsMessage(true);
-      setMessage(localization.BARBERS.delete);
-    } catch (err) {
-      setError(localization.BARBERS.errorFetch);
-    } finally {
-      setIsLoading(null);
-    }
-  };
 
   const fetchAllBarbers = async () => {
     setIsLoading("get");
@@ -45,6 +33,24 @@ const useBarbers = () => {
       setIsLoading(null);
     }
   };
+
+  const removeBarber = async (data) => {
+    const { id, firedDate } = data;
+    setIsLoading("remove");
+    setError(null);
+    try {
+      const response = await put(`admin/users/${id}/softDelete`, { firedDate });
+      setIsMessage(true);
+      setMessage(localization.BARBERS.delete);
+      await fetchAllBarbers();
+    } catch (err) {
+      setError(localization.BARBERS.errorFetch);
+    } finally {
+      setIsLoading(null);
+    }
+  };
+
+
 
   const fetchAllSeniority = async () => {
     setIsLoading("get");
@@ -81,8 +87,8 @@ const useBarbers = () => {
       !data?.phoneNumber ||
       !data?.seniority?._id ||
       !data?.email ||
-      !data?.statusCheck 
-      
+      !data?.statusCheck
+
     ) {
       return localization.REGISTER.error;
     }
@@ -153,6 +159,8 @@ const useBarbers = () => {
           isEdit ? localization.BARBERS.edit : localization.BARBERS.add,
         );
       }
+      await fetchAllBarbers();
+
     } catch (err) {
       console.log("POST || PUT ERROR:", err?.response || err);
       setError(localization.BARBERS.errorFetch);
@@ -187,7 +195,8 @@ const useBarbers = () => {
 
   const confirmHandler = async () => {
     setIsMessage(false);
-    await fetchAllBarbers();
+    router.back();
+
   };
 
   useEffect(() => {

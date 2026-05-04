@@ -100,7 +100,7 @@ export const SRB_LOCALIZATION = {
   },
   SERVICES: {
     errorImage: "Slika je obavezna",
-    removeBtn: "Deaktiviraj uslugu",
+    removeBtn: "Izbriši uslugu",
     title: "Cenovnik & Usluge",
     errorFetch: "Greška prilikom uzimanja podataka o servisima...",
     successMsg: "Servisi su uspešno dodeljeni zaposlenom",

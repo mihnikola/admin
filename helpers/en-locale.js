@@ -145,7 +145,7 @@ export const ENG_LOCALIZATION = {
   },
   SERVICES: {
     errorImage: "Image is a required",
-    removeBtn: "Deactivate service",
+    removeBtn: "Delete service",
     title: "Pricing & Services",
     errorFetch: "An unexpected error occurred while fetching services.",
     successMsg: "Services are successfully defines",

@@ -18,7 +18,7 @@ import { SharedMessage } from "@/shared-components/SharedMessage";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import FloatingButton from "../../FloatingButton";
-import { router, useFocusEffect } from "expo-router";
+import { router } from "expo-router";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { getInitialsName } from "@/helpers";
 
@@ -33,7 +33,6 @@ export default function BarbersList() {
     message,
     barbersData,
     confirmHandler,
-    fetchAllBarbers,
     startEditing,
   } = useBarbers();
 
@@ -50,11 +49,7 @@ export default function BarbersList() {
   const addServiceRouter = () => {
     router.push("/(tabs)/(03_settings)/addBarbers");
   };
-  useFocusEffect(
-    useCallback(() => {
-      fetchAllBarbers();
-    }, []),
-  );
+
   return (
     <View style={styles.container}>
       <Text style={styles.subTitle}>{localization.BARBERS.listBarbers}</Text>

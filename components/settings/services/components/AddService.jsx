@@ -293,7 +293,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
   },
   btnGap: { gap: 10 },
-
   container: {
     flex: 1,
     padding: 10,
