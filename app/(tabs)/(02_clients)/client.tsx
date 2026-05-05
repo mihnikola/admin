@@ -185,7 +185,6 @@ const styles = StyleSheet.create({
   },
   profileHeader: {
     alignItems: "center",
-    paddingVertical: 50,
   },
   photoPlaceholder: {
     width: 100,

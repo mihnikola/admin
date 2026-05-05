@@ -83,7 +83,7 @@ export default function Barbers() {
         style={{
           flex: 2,
           marginVertical: 5,
-          paddingHorizontal: 16,
+          paddingHorizontal: 12,
           paddingBottom: 24,
         }}
       >
@@ -101,7 +101,7 @@ export default function Barbers() {
         />
       </View>
 
-      <View style={{ flex: 2, paddingHorizontal: 16, paddingBottom: 24 }}>
+      <View style={{ flex: 2, paddingHorizontal: 12, paddingBottom: 24 }}>
         <Text style={styles.addressBarbers}>
           {localization.SETTINGS.EMPLOYERSPLACES.availableBarbers} (
           {filteredBarbers.length})
@@ -155,14 +155,13 @@ export default function Barbers() {
 }
 
 const styles = StyleSheet.create({
-  // Stilovi za NOVI Fiksni Header
   headerComponent: {
     paddingTop: 25,
     paddingBottom: 15,
-    paddingHorizontal: 16, // Dodat padding nazad ovde
-    backgroundColor: "#000", // Osigurava da se ne providi
+    paddingHorizontal: 8, 
+    backgroundColor: "#000",
     borderBottomWidth: 1,
-    borderColor: "#1A1A1A", // Suptilna linija za odvajanje
+    borderColor: "#1A1A1A", 
   },
   headerRow: {
     flexDirection: "row",
@@ -170,17 +169,17 @@ const styles = StyleSheet.create({
   },
   headerTextContainer: {
     flex: 1,
-    marginLeft: 10, // Prostor desno od strelice
+    marginLeft: 10, 
     justifyContent: "center",
   },
   pageTitleHeader: {
-    fontSize: 20, // Malo manji, ali i dalje dominantan
+    fontSize: 20, 
     fontWeight: "700",
     color: "#fff",
     letterSpacing: 0.5,
   },
   addressHeader: {
-    color: "#AAA", // Svetlije siva za adresu
+    color: "#AAA",
     fontSize: 14,
     fontWeight: "400",
     marginTop: 2,

@@ -5,7 +5,8 @@ import LocationItem from "./LocationItem";
 import useLocation from "../hooks/useLocations";
 import FloatingButton from "../../FloatingButton";
 import { useCallback, useState } from "react";
-import { useFocusEffect } from "expo-router";
+import { router, useFocusEffect } from "expo-router";
+import SharedBackButton from "@/shared-components/SharedBackButton";
 
 const Locations = () => {
   const { localization } = useLocalization();
@@ -31,8 +32,11 @@ const Locations = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{localization.PLACES.title}</Text>
+      <View style={{ flexDirection: 'row', alignItems: "center", marginTop: 30, marginLeft: 15, marginBottom: 20 }}>
+        <SharedBackButton onPress={router.back} absolutePosition={false} />
 
+        <Text style={styles.title}>{localization.PLACES.title}</Text>
+      </View>
       <TextInput
         style={styles.searchInput}
         placeholder={localization.CLIENTS.search}
@@ -92,8 +96,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "600",
     color: "#fff",
-    marginBottom: 10,
     textAlign: "center",
+    alignSelf: "center",
+    alignItems: "center",
+    width: "80%"
   },
   btn: {
     paddingBottom: 5,

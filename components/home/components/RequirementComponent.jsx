@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 20,
     backgroundColor: "#000",
+    margin: 15
   },
   header: {
     marginVertical: 20,

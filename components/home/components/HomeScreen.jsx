@@ -52,7 +52,7 @@ export default function HomeScreen() {
               <InProgressAppointmentCard data={inProgressData} />
             )}
 
-            <View>
+            <View style={styles.containerData}>
               <TouchableOpacity
                 onPress={calendarHandler}
                 style={styles.btnLocationContent}
@@ -67,7 +67,7 @@ export default function HomeScreen() {
 
                 <FontAwesome name="chevron-right" size={28} color="white" />
               </TouchableOpacity>
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 onPress={locationHandler}
                 style={styles.btnLocationContent}
               >
@@ -80,7 +80,7 @@ export default function HomeScreen() {
                 </View>
 
                 <FontAwesome name="chevron-right" size={28} color="white" />
-              </TouchableOpacity>
+              </TouchableOpacity> */}
               <TouchableOpacity
                 onPress={requirementsHandler}
                 style={styles.btnLocationContent}
@@ -93,9 +93,9 @@ export default function HomeScreen() {
                   </Text>
                 </View>
                 {requirementsLength > 0 &&
-                <View style={styles.badge}>
-                  <Text style={styles.badgeText}>{requirementsLength}</Text>
-                </View>
+                  <View style={styles.badge}>
+                    <Text style={styles.badgeText}>{requirementsLength}</Text>
+                  </View>
                 }
                 <FontAwesome name="chevron-right" size={28} color="white" />
               </TouchableOpacity>
@@ -108,6 +108,9 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
+  containerData: {
+    margin: 15
+  },
   box: {
     width: 400,
     height: 400,
@@ -159,10 +162,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "center",
     flexDirection: "row",
-    paddingHorizontal: 25,
+    paddingHorizontal: 20,
     paddingVertical: 5,
-    marginHorizontal: -10,
-    marginVertical: 5,
+    margin: 5
+
   },
 
   address: {

@@ -146,7 +146,7 @@ export default function AddService() {
         ref={scrollRef}
         keyboardDismissMode="interactive"
         style={styles.safeArea}
-        contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }}
+        contentContainerStyle={{ flexGrow: 1, paddingBottom: 20, marginHorizontal: 12 }}
         keyboardShouldPersistTaps="always"
       >
         <View style={{ flex: 3 }}>

@@ -104,27 +104,22 @@ export default function Services() {
         </View>
       </View>
 
-      <View style={{ flex:2, paddingHorizontal: 16, paddingBottom: 24 }}>
+      <View style={{ flex: 2, paddingHorizontal: 12, paddingBottom: 24 }}>
         <Text style={styles.addressBarbersX}>
           {localization.SETTINGS.SERVICESBARBERS.servicesLength} (
           {filterResult.length})
         </Text>
-        {isLoading === "getServices" ? (
-          <View style={styles.loadingContainer}>
-            <Loader />
-          </View>
-        ) : (
-          <FlatList
-            data={filterResult}
-            keyExtractor={(item) => item._id}
-            renderItem={({ item }) => (
-              <ServiceItemAssign item={item} toggleService={toggleService} />
-            )}
-          />
-        )}
+
+        <FlatList
+          data={filterResult}
+          keyExtractor={(item) => item._id}
+          renderItem={({ item }) => (
+            <ServiceItemAssign item={item} toggleService={toggleService} />
+          )}
+        />
       </View>
 
-      <View style={{ flex:1.5, paddingHorizontal: 16, paddingBottom: 5 }}>
+      <View style={{ flex: 1.5, paddingHorizontal: 12, paddingBottom: 5 }}>
         <Text style={styles.addressBarbers}>
           {localization.SETTINGS.SERVICESBARBERS.availableServices} (
           {filteredService.length})
@@ -136,26 +131,22 @@ export default function Services() {
           onChangeText={setSearch}
           placeholderTextColor="white"
         />
-        {isLoading === "getServices" ? (
-          <View style={styles.loadingContainer}>
-            <Loader />
-          </View>
-        ) : (
-          <FlatList
-            data={filteredService}
-            keyExtractor={(item) => item._id}
-            renderItem={({ item }) => (
-              <ServiceItem item={item} toggleService={toggleService} />
-            )}
-          />
-        )}
-      </View>
 
-      <SharedButtonApproved
-        onPress={() => submitChangesServiceToBarber(id)}
-        loading={isLoading === "patch"}
-        text={localization.SERVICES.saveChanges}
-      />
+        <FlatList
+          data={filteredService}
+          keyExtractor={(item) => item._id}
+          renderItem={({ item }) => (
+            <ServiceItem item={item} toggleService={toggleService} />
+          )}
+        />
+      </View>
+      <View style={{ marginHorizontal: 12 }}>
+        <SharedButtonApproved
+          onPress={() => submitChangesServiceToBarber(id)}
+          loading={isLoading === "patch"}
+          text={localization.SERVICES.saveChanges}
+        />
+      </View>
 
       {isMessage && (
         <SharedMessage

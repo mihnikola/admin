@@ -19,6 +19,7 @@ import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import FloatingButton from "../../FloatingButton";
 import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
+import SharedBackButton from "@/shared-components/SharedBackButton";
 
 export default function ServiceManager() {
   const { localization } = useLocalization();
@@ -56,7 +57,11 @@ export default function ServiceManager() {
   }, []);
   return (
     <View style={styles.container}>
-      <Text style={styles.subTitle}>{localization.SERVICES.listServices}</Text>
+      <View style={{ flexDirection: 'row', alignItems: "center", marginTop: 30, marginLeft: 10, marginBottom: 20 }}>
+        <SharedBackButton onPress={router.back} absolutePosition={false} />
+
+        <Text style={styles.subTitle}>{localization.SERVICES.listServices}</Text>
+      </View>
       <TextInput
         style={styles.searchInput}
         placeholder={localization.CLIENTS.search}
@@ -75,21 +80,22 @@ export default function ServiceManager() {
               style={styles.serviceItem}
               onPress={() => startEditing(item)}
             >
-              <View>
-                <Image source={{ uri: item.image }} style={styles.image} />
-              </View>
-              <View style={{ width: "52%", marginLeft: 10 }}>
-                <View>
-                  <Text style={styles.serviceText}>{item.name}</Text>
-                </View>
-                <View>
-                  <Text style={styles.serviceText}>{item.price} RSD</Text>
-                </View>
-                <View>
-                  <Text style={styles.serviceText}>{item.duration} min</Text>
-                </View>
-              </View>
               <View style={{ flexDirection: "row" }}>
+                <Image source={{ uri: item.image }} style={styles.image} />
+                <View style={{ marginLeft: 10 }}>
+                  <View>
+                    <Text style={styles.serviceText}>{item.name}</Text>
+                  </View>
+                  <View>
+                    <Text style={styles.serviceText}>{item.price} RSD</Text>
+                  </View>
+                  <View>
+                    <Text style={styles.serviceText}>{item.duration} min</Text>
+                  </View>
+                </View>
+              </View>
+
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <View>
                   <Text style={styles.editHint}>
                     <FontAwesome name="edit" size={24} color="white" />
@@ -136,8 +142,9 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 20,
     marginBottom: 10,
+    marginHorizontal: 12,
     fontSize: 18,
-    color: "white",
+    color: "#fff",
   },
   title: {
     fontSize: 22,
@@ -154,7 +161,9 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     color: "#fff",
     textAlign: "center",
-    marginBottom: 10,
+    alignSelf: "center",
+    alignItems: "center",
+    width: "80%"
   },
   input: {
     backgroundColor: "#1e1e1e",
@@ -168,7 +177,7 @@ const styles = StyleSheet.create({
     padding: 12,
     borderRadius: 8,
     alignItems: "center",
-    borderColor: "white",
+    borderColor: "#fff",
     borderWidth: 1,
     marginTop: 5,
   },
@@ -188,6 +197,7 @@ const styles = StyleSheet.create({
     borderColor: "white",
     padding: 20,
     borderRadius: 8,
+    marginHorizontal: 12,
     marginBottom: 10,
   },
   serviceText: {

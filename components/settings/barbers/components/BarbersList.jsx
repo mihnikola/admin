@@ -52,7 +52,12 @@ export default function BarbersList() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.subTitle}>{localization.BARBERS.listBarbers}</Text>
+      {/* <Text style={styles.subTitle}>{localization.BARBERS.listBarbers}</Text> */}
+      <View style={{ flexDirection: 'row', alignItems: "center", marginTop: 30, marginLeft: 10, marginBottom: 20 }}>
+        <SharedBackButton onPress={router.back} absolutePosition={false} />
+
+        <Text style={styles.subTitle}>{localization.BARBERS.listBarbers}</Text>
+      </View>
       <TextInput
         style={styles.searchInput}
         placeholder={localization.CLIENTS.search}
@@ -74,36 +79,37 @@ export default function BarbersList() {
                 onPress={() => startEditing(item)}
                 style={styles.barberItem}
               >
-                {item.image && (
-                  <View>
-                    <Image source={{ uri: item.image }} style={styles.image} />
-                  </View>
-                )}
+                <View style={{ flexDirection: "row" }}>
 
-                {!item.image && (
-                  <View style={styles.avatar}>
-                    <Text style={styles.avatarText}>{initials}</Text>
-                  </View>
-                )}
-
-                <View style={{ width: "52%", marginLeft: 10 }}>
-                  <View>
-                    <Text style={styles.serviceText}>{item.name}</Text>
-                  </View>
-                  {item?.seniority?.title && (
+                  {item.image && (
                     <View>
-                      <Text style={styles.serviceText}>
-                        {item?.seniority?.title}
-                      </Text>
+                      <Image source={{ uri: item.image }} style={styles.image} />
                     </View>
                   )}
+
+                  {!item.image && (
+                    <View style={styles.avatar}>
+                      <Text style={styles.avatarText}>{initials}</Text>
+                    </View>
+                  )}
+
+                  <View style={{ marginLeft: 10 }}>
+                    <View>
+                      <Text style={styles.serviceText}>{item.name}</Text>
+                    </View>
+                    {item?.seniority?.title && (
+                      <View>
+                        <Text style={styles.serviceText}>
+                          {item?.seniority?.title}
+                        </Text>
+                      </View>
+                    )}
+                  </View>
                 </View>
-                <View style={{ flexDirection: "row" }}>
-                  <View>
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <Text style={styles.editHint}>
                       <FontAwesome name="edit" size={24} color="white" />
                     </Text>
-                  </View>
                 </View>
               </TouchableOpacity>
             );
@@ -138,6 +144,7 @@ export default function BarbersList() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 10,
     backgroundColor: "#000000",
   },
   avatar: {
@@ -158,10 +165,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#222",
     borderRadius: 8,
     padding: 20,
-    marginHorizontal: 12,
     marginBottom: 10,
+    marginHorizontal: 12,
     fontSize: 18,
-    color: "white",
+    color: "#fff",
   },
 
   title: {
@@ -179,7 +186,9 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     color: "#fff",
     textAlign: "center",
-    marginBottom: 10,
+    alignSelf: "center",
+    alignItems: "center",
+    width: "80%"
   },
   input: {
     backgroundColor: "#1e1e1e",

@@ -59,7 +59,7 @@ function BarberDelete() {
     <>
       <View style={styles.container}>
         <StatusBar backgroundColor="black" barStyle="dark-content" />
-        <SharedBackButton onPress={router.back} styleBtn={{ marginTop: 20 }} />
+        <SharedBackButton onPress={router.back} styleBtn={{ marginLeft: 10, marginTop: 20 }} />
 
         <SharedTabHeader
           image={company?.media?.coverImageSettings}
@@ -118,8 +118,9 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
   },
   btnContainer: {
-    flex: 0.15,
-    margin: 20,
+    flex: 0.1,
+    margin: 30,
+
   },
   buttonRmv: {
     backgroundColor: "rgb(129, 29, 29)",
@@ -146,7 +147,7 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     paddingHorizontal: 10,
     backgroundColor: "#000",
-    margin: 20,
+    margin: 30,
   },
   info: {
     color: "white",

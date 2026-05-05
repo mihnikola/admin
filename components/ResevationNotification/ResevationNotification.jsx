@@ -164,7 +164,7 @@ function ResevationNotificationScreen() {
           <SharedCoverImage image={company?.media?.coverImageAppointments} />
           <SharedBackButton
             onPress={router.back}
-            styleBtn={{ marginTop: 10 }}
+            styleBtn={{ margin: 10 }}
           />
 
           <HeaderReservationTime data={reservationData} />

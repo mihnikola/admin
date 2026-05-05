@@ -24,10 +24,8 @@ export default function RootLayoutBarbers() {
 }
 function CustomBackButton() {
   return (
-    <TouchableOpacity onPress={() => router.back()} style={{ paddingLeft: 5 }}>
-      <View style={{ marginTop: 50 }}>
-        <Ionicons name="arrow-back" size={24} color="white" />
-      </View>
+    <TouchableOpacity onPress={() => router.back()}>
+      <Ionicons name="arrow-back" size={24} color="white" />
     </TouchableOpacity>
   );
 }

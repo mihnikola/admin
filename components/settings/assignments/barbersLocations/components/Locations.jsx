@@ -4,6 +4,8 @@ import useLocationBarber from "./../hooks/useLocationBarber";
 import Loader from "@/shared-components/Loader";
 import LocationItem from "./LocationItem";
 import { useEffect, useState } from "react";
+import SharedBackButton from "@/shared-components/SharedBackButton";
+import { router } from "expo-router";
 const Locations = () => {
   const { localization } = useLocalization();
   const [search, setSearch] = useState("");
@@ -24,7 +26,11 @@ const Locations = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{localization.PLACES.title}</Text>
+      <View style={{ flexDirection: 'row', alignItems: "center", marginTop: 30, marginLeft: 15, marginBottom: 2 }}>
+        <SharedBackButton onPress={router.back} absolutePosition={false} />
+
+        <Text style={styles.title}>{localization.PLACES.title}</Text>
+      </View>
       <TextInput
         style={styles.searchInput}
         placeholder={localization.CLIENTS.search}
@@ -82,9 +88,11 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: "600",
-    color: "white",
-    marginBottom: 10,
+    color: "#fff",
     textAlign: "center",
+    alignSelf: "center",
+    alignItems: "center",
+    width: "80%"
   },
 });
 export default Locations;

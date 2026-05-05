@@ -339,6 +339,7 @@ const styles = StyleSheet.create({
   },
   containerEdit: {
     flex: 4,
+    marginHorizontal: 12
   },
   buttonText: {
     color: "#fff",

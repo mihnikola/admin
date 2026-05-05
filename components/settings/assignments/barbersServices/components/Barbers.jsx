@@ -13,8 +13,9 @@ import useBarbersService from "./../hooks/useBarbersService";
 import Loader from "../../../../../shared-components/Loader";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { SharedMessage } from "@/shared-components/SharedMessage";
-import { useFocusEffect } from "expo-router";
+import { router, useFocusEffect } from "expo-router";
 import BarberItem from './BarberItem';
+import SharedBackButton from "@/shared-components/SharedBackButton";
 
 export default function Barbers() {
   const { localization } = useLocalization();
@@ -49,7 +50,11 @@ export default function Barbers() {
 
   return (
     <View style={styles.container}>
+       <View style={{ flexDirection: 'row', alignItems: "center", marginTop: 30, marginLeft: 15, marginBottom: 10 }}>
+        <SharedBackButton onPress={router.back} absolutePosition={false} />
+
       <Text style={styles.subTitle}>{localization.BARBERS.listBarbers}</Text>
+      </View>
       <TextInput
         style={styles.searchInput}
         placeholder={localization.CLIENTS.search}
@@ -114,7 +119,9 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     color: "#fff",
     textAlign: "center",
-    marginBottom: 10,
+    alignSelf: "center",
+    alignItems: "center",
+    width: "80%"
   },
 
   barberItem: {

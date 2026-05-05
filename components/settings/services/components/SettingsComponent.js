@@ -208,7 +208,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollContent: {
-    paddingHorizontal: 5,
-    paddingVertical: 15,
+    // paddingHorizontal: 12,
+    marginHorizontal: 6,
+    marginVertical: 8,
   },
 });
