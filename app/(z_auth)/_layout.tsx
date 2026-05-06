@@ -9,6 +9,18 @@ export default function AuthLayout() {
                 name="index"
                 options={{ title: "", headerShown: false }}
             />
+            <Stack.Screen
+                name="forgotPass"
+                options={{ title: "", headerShown: false }}
+            />
+            <Stack.Screen
+                name="otpCode"
+                options={{ title: "", headerShown: false }}
+            />
+            <Stack.Screen
+                name="changePassword"
+                options={{ title: "", headerShown: false }}
+            />
         </Stack>
     );
 }

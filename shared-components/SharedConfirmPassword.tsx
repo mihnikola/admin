@@ -1,6 +1,7 @@
 import { FontAwesome } from "@expo/vector-icons";
-import { useState } from "react";
+import { forwardRef, useState } from "react";
 import {
+  Image,
   StyleSheet,
   Text,
   TextInput,
@@ -8,7 +9,7 @@ import {
   View,
 } from "react-native";
 
-export function SharedPassword(props: any) {
+const SharedConfirmPassword = forwardRef((props: any, ref) => {
   const [isFocused, setIsFocused] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const togglePasswordVisibility = () => {
@@ -30,6 +31,7 @@ export function SharedPassword(props: any) {
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           secureTextEntry={!isPasswordVisible}
+          ref={ref}
           placeholderTextColor="grey"
         />
 
@@ -40,7 +42,7 @@ export function SharedPassword(props: any) {
           <FontAwesome
             name={isPasswordVisible ? "eye" : "eye-slash"}
             size={24}
-            color="#888"
+            color="grey"
           />
         </TouchableOpacity>
       </View>
@@ -49,7 +51,7 @@ export function SharedPassword(props: any) {
       ) : null}
     </>
   );
-}
+});
 const styles = StyleSheet.create({
   passwordInputContainer: {
     flexDirection: "row",
@@ -75,8 +77,7 @@ const styles = StyleSheet.create({
   inputLabel: {
     color: "#ccc",
     fontSize: 14,
-    marginBottom: 8,
-    marginTop: 15,
+    marginTop: 10,
   },
   errorText: {
     color: "red",
@@ -88,3 +89,5 @@ const styles = StyleSheet.create({
     padding: 10,
   },
 });
+
+export default SharedConfirmPassword;
