@@ -1,5 +1,12 @@
-import { View, Text, TextInput, StyleSheet, Image } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+} from "react-native";
+import { Feather, FontAwesome } from "@expo/vector-icons";
 import { forwardRef, useState } from "react";
 
 const BarbersInput = forwardRef((props, ref) => {
@@ -12,40 +19,77 @@ const BarbersInput = forwardRef((props, ref) => {
 
       <View style={styles.viewContainer}>
         <Text style={styles.label}>{props.label}</Text>
-        <View style={[styles.viewContainer, props.dataDetectorTypes && styles.phoneNumberContainer]}>
-
+        <View
+          style={[
+            styles.viewContainer,
+            props.dataDetectorTypes && styles.phoneNumberContainer,
+          ]}
+        >
           {props.dataDetectorTypes && (
             <Image
               source={require("../../../../assets/images/serbiaFlag.png")}
               style={styles.flagIcon}
             />
           )}
-          {props.dataDetectorTypes && <Text style={styles.prefixText}>+381</Text>}
-          <TextInput
-            {...props}
-            style={styles.input}
-            value={props.value}
-            ref={ref}
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
-            onChangeText={props.onChangeText}
-            placeholder={props.placeholder}
-            placeholderTextColor="#777"
-            keyboardType={props.keyboardType}
-          />
+          {props.dataDetectorTypes && (
+            <Text style={styles.prefixText}>+381</Text>
+          )}
+          {!props.lock && (
+            <TextInput
+              {...props}
+              style={styles.input}
+              value={props.value}
+              ref={ref}
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => setIsFocused(false)}
+              onChangeText={props.onChangeText}
+              placeholder={props.placeholder}
+              placeholderTextColor="#777"
+              keyboardType={props.keyboardType}
+            />
+          )}
+          {props.lock && (
+            <TouchableOpacity style={styles.lockRow} onPress={props.onPress}>
+              <Text style={styles.lock}>{props.lock}</Text>
+              <Feather name="chevron-right" size={25} color="#777" />
+            </TouchableOpacity>
+          )}
         </View>
       </View>
+      {props.lock && (
+        <TouchableOpacity
+          style={styles.overlay}
+          onPress={props.onPress}
+          activeOpacity={0.7}
+        />
+      )}
     </View>
   );
-
 });
 
 const styles = StyleSheet.create({
+  lockRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  overlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    borderRadius: 16,
+  },
+  lock: {
+    color: "#fff",
+    fontSize: 15,
+  },
   phoneNumberContainer: {
-    flexDirection: "row"
+    flexDirection: "row",
   },
   viewContainer: {
-    flex: 1
+    flex: 1,
   },
   container: {
     flexDirection: "row",
@@ -68,7 +112,7 @@ const styles = StyleSheet.create({
   },
   error: {
     borderWidth: 1,
-    borderColor: 'red',
+    borderColor: "red",
   },
 
   iconContainer: {
@@ -85,7 +129,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 16,
     padding: 0,
-    width: "100%"
+    width: "100%",
   },
 });
 

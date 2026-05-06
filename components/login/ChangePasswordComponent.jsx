@@ -1,11 +1,6 @@
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { router, useLocalSearchParams } from "expo-router";
-import {
-  View,
-  Text,
-  StyleSheet,
-  findNodeHandle,
-} from "react-native";
+import { View, Text, StyleSheet, findNodeHandle } from "react-native";
 import usePassword from "./hooks/usePassword";
 import useConfirmPassword from "./hooks/useConfirmPassword";
 import useChangePasswordHandler from "./hooks/useChangePasswordHandler";
@@ -18,13 +13,18 @@ import { SharedButton } from "@/shared-components/SharedButton";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { FontAwesome } from "@expo/vector-icons";
 
-
 const ChangePasswordComponent = () => {
-  const { data } = useLocalSearchParams();
+  const { data, email, changeProfile } = useLocalSearchParams();
 
   const { localization } = useLocalization();
   const { password, passwordError, handlePasswordChange, passwordInputRef } =
     usePassword();
+  const {
+    password: passwordCurrent,
+    passwordError: passworCurrentError,
+    handlePasswordChange: handleCurrentPassword,
+    passwordInputRef: passwordCurrentRef,
+  } = usePassword();
   const {
     confirmPassword,
     handleConfirmPasswordChange,
@@ -38,9 +38,14 @@ const ChangePasswordComponent = () => {
     setIsMessage,
     error,
     isLoading,
+    changePasswordHandler,
   } = useChangePasswordHandler();
 
   const submitChanges = () => {
+    if(changeProfile === "1"){
+      changePasswordHandler(email, passwordCurrent,password,confirmPassword);
+      return;
+    }
     if (passwordError?.length === 0)
       handlePatchUser(data, password, confirmPassword);
   };
@@ -71,9 +76,31 @@ const ChangePasswordComponent = () => {
         </View>
 
         <View style={styles.textinputContainer}>
+          {changeProfile === "1" && (
+            <SharedPassword
+              label={localization.PASSWORD.currentLabel}
+              value={passwordCurrent}
+              onChangeText={handleCurrentPassword}
+              placeholder={localization.PASSWORD.placeholder}
+              error={passworCurrentError}
+              returnKeyType="next"
+              onSubmitEditing={() => {
+                const node = findNodeHandle(passwordCurrentRef.current);
+                if (node) {
+                  scrollRef.current?.scrollResponderScrollNativeHandleToKeyboard(
+                    node,
+                    80,
+                    true,
+                  );
+                }
+                passwordInputRef.current?.focus();
+              }}
+            />
+          )}
           <SharedPassword
-            label={localization.PASSWORD.label}
+            label={localization.PASSWORD.newLabel}
             value={password}
+            ref={passwordInputRef}
             onChangeText={handlePasswordChange}
             placeholder={localization.PASSWORD.placeholder}
             error={passwordError}
@@ -84,12 +111,14 @@ const ChangePasswordComponent = () => {
                 scrollRef.current?.scrollResponderScrollNativeHandleToKeyboard(
                   node,
                   80,
-                  true
+                  true,
                 );
               }
+
               passwordConfirmInputRef.current?.focus();
             }}
           />
+
           <SharedConfirmPassword
             label={localization.CONFIRM_PASSWORD.label}
             value={confirmPassword}

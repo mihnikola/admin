@@ -164,7 +164,6 @@ export const AuthProvider = ({ children }) => {
         password,
         fcmToken: expoToken,
       });
-      console.log("responseData", responseData);
       setIsMessage(true);
 
       if (responseData.status === 200) {

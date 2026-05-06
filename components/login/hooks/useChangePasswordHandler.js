@@ -9,7 +9,7 @@ const useChangePasswordHandler = () => {
   const [message, setMessage] = useState(null);
   const [isMessage, setIsMessage] = useState(false);
   const { localization } = useLocalization();
-  
+
   const handlePatchUser = useCallback(
     async (email, password, confirmPassword) => {
       setIsLoading(true);
@@ -28,9 +28,6 @@ const useChangePasswordHandler = () => {
         return;
       }
 
-
-      console.log("data",email, password);
-
       try {
         const response = await put(`/users/${email}/changePassword`, {
           password,
@@ -42,12 +39,52 @@ const useChangePasswordHandler = () => {
       } catch (err) {
         setError(localization.CHANGE_PASS.error);
         setIsMessage(true);
+      } finally {
+        setIsLoading(false);
       }
-      setIsLoading(false);
-    }
+    },
   );
 
+  const changePasswordHandler = async (
+    email,
+    currentPassword,
+    newPassword,
+    confirmNewPassword,
+  ) => {
+    setIsLoading(true);
+    setError(null);
+
+    if (newPassword.length === 0 || confirmNewPassword.length === 0) {
+      setIsMessage(true);
+      setError(localization.LOGIN.error);
+      setIsLoading(false);
+      return;
+    }
+    if (newPassword !== confirmNewPassword) {
+      setIsMessage(true);
+      setError(localization.LOGIN.notMatch);
+      setIsLoading(false);
+      return;
+    }
+    try {
+      const response = await put(`admin/users/${email}/changePassword`, {
+        currentPassword,
+        newPassword,
+      });
+      if (response.status === 200) {
+        setIsMessage(true);
+        setMessage(localization.CHANGE_PASS.success);
+      }
+    } catch (err) {
+      setError(localization.CHANGE_PASS.error);
+      setIsMessage(true);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return {
+    changePasswordHandler,
     handlePatchUser,
     isLoading,
     message,

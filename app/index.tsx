@@ -7,7 +7,7 @@ const SplashScreen = () => {
   const navigationState = useRootNavigationState();
 
   useEffect(() => {
-    if (!navigationState?.key) return; // 🚨 wait until router is ready
+    if (!navigationState?.key) return; 
 
     const checkToken = async () => {
       const token = await AsyncStorage.getItem("token");

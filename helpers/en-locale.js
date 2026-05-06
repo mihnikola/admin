@@ -52,7 +52,7 @@ export const ENG_LOCALIZATION = {
     delete: "Barber is successfully deleted",
     edit: "Barber is successfully updated",
     password: "Enter password",
-    newPassword: "Enter a new password",
+    changePassword: "Change password",
     submit: "Add barber",
     cancel: "Cancel",
     removeBtn: "Deactivate account",
@@ -397,6 +397,8 @@ export const ENG_LOCALIZATION = {
   },
   PASSWORD: {
     label: "Password",
+    currentLabel: "Current password",
+    newLabel: "New password",
     placeholder: "Enter your password",
     errorRegex:
       "Password has to start with letter and has to be at least 8 characters long, one uppercase letter, one number, and one special character.",

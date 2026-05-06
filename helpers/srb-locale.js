@@ -220,7 +220,7 @@ export const SRB_LOCALIZATION = {
     delete: "Uspešno ste obrisali barbera",
     edit: "Uspešno ste ažurirali barbera",
     password: "Unesi lozinku",
-    newPassword: "Unesi novu lozinku",
+    changePassword: "Promeni lozinku",
     submit: "Dodaj barbera",
     cancel: "Odustani",
     saveChanges: "Sačuvaj promene",
@@ -413,6 +413,8 @@ export const SRB_LOCALIZATION = {
   },
   PASSWORD: {
     label: "Lozinka",
+    newLabel: "Nova lozinka",
+    currentLabel: "Trenutna lozinka",
     placeholder: "Unesite Vašu lozinku",
     errorRegex:
       "Lozinka mora da počne sa slovom i da ima najmanje 8 karaktera, koje čine jedno veliko slovo, broj, i specijalni znak.",

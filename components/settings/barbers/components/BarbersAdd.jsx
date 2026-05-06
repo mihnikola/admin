@@ -184,9 +184,12 @@ export default function BarbersAdd() {
     setSelectedStatus(activeStatus);
   };
 
-  const resetPasswordHandler = () => {
-    //pokrece novi ekran sa otp flow...sve isto kao na client-u
-  }
+  const changePasswordHandler = () => {
+    router.push({
+      pathname: "/(z_auth)/changePassword",
+      params: { email, changeProfile },
+    });
+  };
 
   const removeQuestion = (id) => {
     router.push({
@@ -225,12 +228,15 @@ export default function BarbersAdd() {
 
   return (
     <View style={styles.container}>
-
       <ScrollView
         ref={scrollRef}
         keyboardDismissMode="interactive"
         style={styles.safeArea}
-        contentContainerStyle={{ flexGrow: 1, paddingBottom: 20, marginHorizontal: 12 }}
+        contentContainerStyle={{
+          flexGrow: 1,
+          paddingBottom: 20,
+          marginHorizontal: 12,
+        }}
         keyboardShouldPersistTaps="always"
       >
         {changedImg !== undefined && (
@@ -288,7 +294,8 @@ export default function BarbersAdd() {
             >
               <BarbersInput
                 icon="lock"
-                label={localization.BARBERS.newPassword}
+                lock={localization.BARBERS.changePassword}
+                label={localization.BARBERS.password}
                 value={password}
                 autoCapitalize="none"
                 onChangeText={handlePasswordChange}
@@ -296,6 +303,7 @@ export default function BarbersAdd() {
                 error={passwordError}
                 returnKeyType="next"
                 ref={passwordInputRef}
+                onPress={changePasswordHandler}
                 onSubmitEditing={() => {
                   phoneNumberInputRef.current?.focus();
                   scrollRef.current?.scrollTo({
@@ -348,7 +356,11 @@ export default function BarbersAdd() {
                 ? localization.BARBERS.saveChanges
                 : localization.BARBERS.submitAdd
             }
-            disabled={emailError?.length > 0 || errorPhoneNumber?.length > 0 || passwordError?.length > 0}
+            disabled={
+              emailError?.length > 0 ||
+              errorPhoneNumber?.length > 0 ||
+              passwordError?.length > 0
+            }
           />
           {editingId && changeProfile !== "1" && (
             <SharedButtonRejected
@@ -359,7 +371,6 @@ export default function BarbersAdd() {
           )}
         </View>
       </ScrollView>
-
 
       {isMessage && (
         <SharedMessage
