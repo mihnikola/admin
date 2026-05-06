@@ -184,6 +184,10 @@ export default function BarbersAdd() {
     setSelectedStatus(activeStatus);
   };
 
+  const resetPasswordHandler = () => {
+    //pokrece novi ekran sa otp flow...sve isto kao na client-u
+  }
+
   const removeQuestion = (id) => {
     router.push({
       pathname: "/(tabs)/(03_settings)/removeBarber",

@@ -13,15 +13,18 @@ import {
   StatusBar,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native";
 import useEmail from "./../../components/login/hooks/useEmail";
 import usePassword from "./../../components/login/hooks/usePassword";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocalization } from "@/contexts/LocalizationContext";
+import { SharedQuestion } from "@/shared-components/SharedQuestion";
 
 export default function LoginScreen() {
   const { localization } = useLocalization();
+  const [exit, setExit] = useState(false);
   const {
     loadingLogin,
     isMessage,
@@ -49,21 +52,9 @@ export default function LoginScreen() {
   };
   useEffect(() => {
     const backAction = () => {
-      Alert.alert(localization.EXIT.label, localization.EXIT.question, [
-        {
-          text: localization.EXIT.cancel,
-          onPress: () => null,
-          style: "cancel",
-        },
-        {
-          text: localization.EXIT.confirm,
-          onPress: () => BackHandler.exitApp(),
-        },
-      ]);
-
+      setExit(true);
       return true;
     };
-
     const backHandler = BackHandler.addEventListener(
       "hardwareBackPress",
       backAction,
@@ -71,6 +62,18 @@ export default function LoginScreen() {
 
     return () => backHandler.remove();
   }, []);
+
+  const cancelExitHandler = () => {
+    setExit(false);
+  };
+  const confirmExitHandler = () => {
+    setExit(false);
+    BackHandler.exitApp();
+  }
+
+  const forgotPassHandler = () => {
+    router.push("/(z_auth)/forgotPass");
+  }
 
   return (
     <ScrollView style={styles.safeArea}>
@@ -105,6 +108,10 @@ export default function LoginScreen() {
             onChangeText={handlePasswordChange}
             placeholder={localization.PASSWORD.placeholder}
           />
+
+          <TouchableOpacity style={styles.forgotPassContainer} onPress={forgotPassHandler}>
+            <Text style={styles.forgotPassText}>{localization.LOGIN.forgot}</Text>
+          </TouchableOpacity>
           <SharedButton
             loading={loadingLogin === "login"}
             onPress={handleLogin}
@@ -127,12 +134,42 @@ export default function LoginScreen() {
             buttonText="OK"
           />
         )}
+
+        {exit && (
+          <SharedQuestion
+            isOpen={exit}
+            buttonTextYes={localization.SETTINGS.LOGOUT.leave}
+            onLogOut={confirmExitHandler}
+            onClose={cancelExitHandler}
+            buttonTextNo={localization.SETTINGS.LOGOUT.cancel}
+            icon={
+              <FontAwesome
+                name="close"
+                size={64}
+                color="white"
+              />
+            }
+            title={localization.EXIT.question}
+          />
+        )}
+
       </View>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  forgotPassContainer: {
+    marginVertical: 20,
+    alignItems: "flex-end"
+  },
+  forgotPassText: {
+    color: "#fff",
+    fontSize: 15,
+    fontStyle: "italic",
+    textDecorationLine: "underline",
+    paddingHorizontal: 10
+  },
   safeArea: {
     paddingVertical: 30,
     flex: 1,
