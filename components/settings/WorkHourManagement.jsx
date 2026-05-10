@@ -92,9 +92,17 @@ export default function TimeSettingsScreen({
     setIsDeactivate(false);
     await deactivate(id);
   };
+  const checkValidationAddress = (x) => {
+    if (!x || typeof x !== "string") return "";
+
+    if (!x.includes(",")) return x;
+
+    return x.split(",")[0];
+  };
   const verificationData = () => {
     if (
-      data?.address == streetName &&
+      checkValidationAddress(data?.address) ==
+        checkValidationAddress(streetName) &&
       data.workingHours.start == fromTime &&
       data.workingHours.end == toTime &&
       data.slotDuration == selected
@@ -339,7 +347,7 @@ const styles = StyleSheet.create({
   },
   containerEdit: {
     flex: 4,
-    marginHorizontal: 12
+    marginHorizontal: 12,
   },
   buttonText: {
     color: "#fff",

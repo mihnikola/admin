@@ -142,7 +142,9 @@ function useLocation() {
 
     try {
       const response = await method(url, { data });
-
+      if (response.status === 206) {
+        setError(localization.PLACES.notChange);
+      }
       if (response.status === 200 || response.status === 201) {
         setIsMessage(true);
         setMessage(id ? localization.PLACES.edit : localization.PLACES.add);

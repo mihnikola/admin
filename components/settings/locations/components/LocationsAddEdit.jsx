@@ -67,8 +67,6 @@ export default function LocationsAddEdit() {
       };
       if (addData) {
         addEditLocation(addData);
-      } else {
-        setIsError(localization.PLACES.errorFields);
       }
     }
   };

@@ -92,6 +92,7 @@ export const ENG_LOCALIZATION = {
   },
 
   PLACES: {
+    notChange:`This location can’t be changed while there are active scheduled bookings.`,
     notDelete:`This location can’t be deleted while there are active scheduled bookings.`,
     notDeactivated:`This location can’t be deactivated while there are active scheduled bookings.`,
     workHoursNotFound: "Barber is not currently assigned to a location",

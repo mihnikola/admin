@@ -67,6 +67,7 @@ export const SRB_LOCALIZATION = {
     expired: "Isteklo",
   },
   PLACES: {
+    notChange:"Ova lokacija ne može biti promenjena dok postoje aktivni zakazani termini.",
     notDelete:"Ova lokacija ne može biti obrisana dok postoje aktivni zakazani termini.",
     notDeactivated:"Ova lokacija ne može biti deaktivirana dok postoje aktivni zakazani termini.",
     errorFields: "Popuni sva polja",
