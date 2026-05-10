@@ -18,7 +18,6 @@ const useBarbers = () => {
   const [isMessage, setIsMessage] = useState(false);
   const [message, setMessage] = useState(null);
 
-
   const fetchAllBarbers = async () => {
     setIsLoading("get");
     setError(null);
@@ -40,17 +39,21 @@ const useBarbers = () => {
     setError(null);
     try {
       const response = await put(`admin/users/${id}/softDelete`, { firedDate });
-      setIsMessage(true);
-      setMessage(localization.BARBERS.delete);
-      await fetchAllBarbers();
+      if (response.status === 206) {
+        setError(localization.BARBERS.notDelete);
+
+      }
+      if (response.status === 200) {
+        setIsMessage(true);
+        setMessage(localization.BARBERS.delete);
+        await fetchAllBarbers();
+      }
     } catch (err) {
       setError(localization.BARBERS.errorFetch);
     } finally {
       setIsLoading(null);
     }
   };
-
-
 
   const fetchAllSeniority = async () => {
     setIsLoading("get");
@@ -88,7 +91,6 @@ const useBarbers = () => {
       !data?.seniority?._id ||
       !data?.email ||
       !data?.statusCheck
-
     ) {
       return localization.REGISTER.error;
     }
@@ -108,7 +110,8 @@ const useBarbers = () => {
       const formData = new FormData();
 
       if (userData?.name) formData.append("name", userData.name);
-      if (userData?.password && userData?.password?.length > 0) formData.append("password", userData?.password);
+      if (userData?.password && userData?.password?.length > 0)
+        formData.append("password", userData?.password);
       if (userData?.phoneNumber)
         formData.append("phoneNumber", userData.phoneNumber);
       if (userData?.seniority?._id)
@@ -160,7 +163,6 @@ const useBarbers = () => {
         );
       }
       await fetchAllBarbers();
-
     } catch (err) {
       console.log("POST || PUT ERROR:", err?.response || err);
       setError(localization.BARBERS.errorFetch);
@@ -196,7 +198,6 @@ const useBarbers = () => {
   const confirmHandler = async () => {
     setIsMessage(false);
     router.back();
-
   };
 
   useEffect(() => {

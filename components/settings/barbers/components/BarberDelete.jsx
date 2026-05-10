@@ -27,8 +27,11 @@ function BarberDelete() {
   const [toTime, setToTime] = useState(new Date());
   const params = useLocalSearchParams();
   const { id } = params;
-  const { removeBarber, isLoading, isMessage, message } = useBarbers();
-
+  const { removeBarber, isLoading, isMessage, message, error, setError } =
+    useBarbers();
+  const confirmErrorMessageHandler = () => {
+    setError(null);
+  };
   const removeBarberHandler = () => {
     const localeTimeDate = toTime.toLocaleDateString("en-GB", {
       timeZone: "Europe/Belgrade",
@@ -59,7 +62,10 @@ function BarberDelete() {
     <>
       <View style={styles.container}>
         <StatusBar backgroundColor="black" barStyle="dark-content" />
-        <SharedBackButton onPress={router.back} styleBtn={{ marginLeft: 10, marginTop: 20 }} />
+        <SharedBackButton
+          onPress={router.back}
+          styleBtn={{ marginLeft: 10, marginTop: 20 }}
+        />
 
         <SharedTabHeader
           image={company?.media?.coverImageSettings}
@@ -108,6 +114,16 @@ function BarberDelete() {
           title={message}
         />
       )}
+      {error?.length > 0 && (
+        <SharedMessage
+          isOpen={error?.length > 0}
+          icon={<FontAwesome name="close" size={64} color="white" />}
+          onClose={confirmErrorMessageHandler}
+          onConfirm={confirmErrorMessageHandler}
+          buttonText="Ok"
+          title={error}
+        />
+      )}
     </>
   );
 }
@@ -120,7 +136,6 @@ const styles = StyleSheet.create({
   btnContainer: {
     flex: 0.1,
     margin: 30,
-
   },
   buttonRmv: {
     backgroundColor: "rgb(129, 29, 29)",

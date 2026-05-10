@@ -67,12 +67,14 @@ export const SRB_LOCALIZATION = {
     expired: "Isteklo",
   },
   PLACES: {
+    notDelete:"Ova lokacija ne može biti obrisana dok postoje aktivni zakazani termini.",
+    notDeactivated:"Ova lokacija ne može biti deaktivirana dok postoje aktivni zakazani termini.",
     errorFields: "Popuni sva polja",
     workHoursNotFound: "Barber trenutno nije dodeljen nijednoj lokaciji",
     deactivatedSuccess: "Lokacija je uspešno deaktivirana.",
     deletedSuccess: "Lokacija je uspešno obrisana.",
     undoSuccess: "Lokacija je uspešno aktivirana.",
-    deactivateQuestion: "Da li želite da deaktivirate ili obrišete lokaciju?",
+    deactivateQuestion: "Da li želite da deaktivirate lokaciju?",
     deleteBtn: "Obriši",
     question: "Da li ste sigurni da želite da deaktivirate lokaciju?",
     questionActivate: "Da li ste sigurni da želite da aktivirate lokaciju?",
@@ -99,6 +101,7 @@ export const SRB_LOCALIZATION = {
     notFound: "Nema dostupnih lokacija",
   },
   SERVICES: {
+    notDelete:"Ova usluga ne može biti obrisana dok postoje aktivni zakazani termini.",
     errorImage: "Slika je obavezna",
     removeBtn: "Izbriši uslugu",
     title: "Cenovnik & Usluge",
@@ -206,6 +209,7 @@ export const SRB_LOCALIZATION = {
     error: "Greška prilikom preuzimanja inicijalnih podataka",
   },
   BARBERS: {
+    notDelete:"Frizer ne može biti obrisan dok postoje aktivni zakazani termini.",
     confirmButton: "Ok",
     submitAdd: "Dodaj barbera",
     question: "Da li stvarno želiš da obrišeš ovog barbera?",
@@ -243,7 +247,7 @@ export const SRB_LOCALIZATION = {
     removeLocation: "Ukloni lokaciju",
     infoPrimary: "Uklanjanje zaposlenog vrši se izborom datuma u kalendaru.",
     infoSecondary: "Izaberite datum od kog zaposleni prestaje sa radom.",
-    dateLabel: "Datum prestanka rada:",
+    dateLabel: "Zaposleni radi zaključno sa datumom prestanka:",
     dateLabelStart: "Datum ponovnog rada:",
     infoPrimaryLocation:
       "Uklanjanje lokacije vrši se izborom datuma u kalendaru.",

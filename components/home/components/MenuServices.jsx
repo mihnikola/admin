@@ -61,7 +61,6 @@ export default function MenuServices() {
   const [search, setSearch] = useState("");
   const { locationsData, isLoading, error, fetchLocations } = useFetchPlaces();
   const funcDateTimeReservation = (service) => {
-    console.log("object", service);
     router.push("/(tabs)/(01_home)/calendar");
   };
   const filteredLocation = locations.filter((location) =>

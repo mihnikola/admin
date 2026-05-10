@@ -32,9 +32,14 @@ const useServices = () => {
     setError(null);
     try {
       const response = await deleteRequest(`admin/services/${id}`);
-      setIsMessage(true);
-      setMessage(localization.SERVICES.delete);
-      await fetchAllServices();
+      if (response.status === 206) {
+        setError(localization.SERVICES.notDelete);
+      }
+      if (response.status === 200) {
+        setIsMessage(true);
+        setMessage(localization.SERVICES.delete);
+        await fetchAllServices();
+      }
     } catch (err) {
       setError(localization.SERVICES.errorFetch);
     } finally {

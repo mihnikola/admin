@@ -7,7 +7,11 @@ export default function BarberItem({ item, toggleBarber, isAssigned }) {
 
   return (
     <TouchableOpacity
-      style={[styles.barberItem, isAssigned && styles.barberItemAssigned]}
+      style={[
+        styles.barberItem,
+        isAssigned && styles.barberItemAssigned,
+        item.deletedAt && styles.deletedAt,
+      ]}
       onPress={() => toggleBarber(item)}
       activeOpacity={0.7}
     >
@@ -24,13 +28,18 @@ export default function BarberItem({ item, toggleBarber, isAssigned }) {
           <Text style={styles.barberSeniority}>{item.seniority.title}</Text>
         </View>
       </View>
-      
+
       {/* Akciono dugme: Plus ili Close sa kružnom pozadinom */}
-      <View style={[styles.actionButton, isAssigned ? styles.actionButtonClose : styles.actionButtonPlus]}>
-        <FontAwesome 
-          name={isAssigned ? "close" : "plus"} 
-          size={isAssigned ? 18 : 14} 
-          color="white" 
+      <View
+        style={[
+          styles.actionButton,
+          isAssigned ? styles.actionButtonClose : styles.actionButtonPlus,
+        ]}
+      >
+        <FontAwesome
+          name={isAssigned ? "close" : "plus"}
+          size={isAssigned ? 18 : 14}
+          color="white"
         />
       </View>
     </TouchableOpacity>
@@ -38,7 +47,7 @@ export default function BarberItem({ item, toggleBarber, isAssigned }) {
 }
 
 const styles = StyleSheet.create({
- barberItem: {
+  barberItem: {
     backgroundColor: "#1E1E1E", // Tamnija siva za nedodeljene
     flexDirection: "row",
     justifyContent: "space-between",
@@ -50,6 +59,10 @@ const styles = StyleSheet.create({
     borderColor: "#2A2A2A",
     // Suptilna senka za Android
     elevation: 2,
+  },
+  deletedAt: {
+    backgroundColor: "#000000",
+    opacity: 0.4,
   },
   barberItemAssigned: {
     backgroundColor: "#2A2A2A", // Malo svetlija siva za dodeljene radi kontrasta

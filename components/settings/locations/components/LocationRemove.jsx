@@ -25,7 +25,6 @@ function LocationRemove() {
   const params = useLocalSearchParams();
   const { id, type } = params;
 
-  console.log("object", params);
   const removeLocationHandler = () => {};
   const onChangeTo = (event, selectedDate) => {
     setShowToPicker(Platform.OS === "ios");

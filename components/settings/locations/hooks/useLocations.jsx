@@ -23,20 +23,19 @@ function useLocation() {
     setError(null);
     try {
       const response = await deleteRequest(`/admin/places/${id}`);
-
+      if (response.status === 206) {
+        setError(localization.PLACES.notDelete);
+      }
       if (response.status === 200) {
         setIsMessage(true);
         setMessage(localization.PLACES.deletedSuccess);
       }
     } catch (errorData) {
-
       setIsMessage(true);
       setError(errorData);
     } finally {
       setIsLoading(null);
     }
-
-
   };
 
   const addServiceRouter = () => {
@@ -72,13 +71,14 @@ function useLocation() {
     setError(null);
     try {
       const response = await put(`/admin/places/${id}/deactivate`);
-
+      if (response.status === 206) {
+        setError(localization.PLACES.notDeactivated);
+      }
       if (response.status === 200) {
         setIsMessage(true);
         setMessage(localization.PLACES.deactivatedSuccess);
       }
     } catch (errorData) {
-
       setIsMessage(true);
       setError(errorData);
     } finally {
@@ -95,7 +95,6 @@ function useLocation() {
         setMessage(localization.PLACES.undoSuccess);
       }
     } catch (errorData) {
-
       setIsMessage(true);
       setError(errorData);
     } finally {
@@ -119,26 +118,26 @@ function useLocation() {
     }
   };
 
-
   const verificationData = (data) => {
-    if (data?.close === locationById?.workingHours?.end &&
+    if (
+      data?.close === locationById?.workingHours?.end &&
       data?.open === locationById?.workingHours?.start &&
       data?.streetName === locationById?.address &&
-      data?.minutes === locationById?.slotDuration) {
+      data?.minutes === locationById?.slotDuration
+    ) {
       return false;
     }
     return true;
-  }
+  };
   const addEditLocation = async (data) => {
     const { id } = data;
 
-    if (!verificationData(data)) { return; }
-   
+    if (!verificationData(data)) {
+      return;
+    }
 
     setIsLoading("addEdit");
-    const url = id
-      ? `admin/places/${id}`
-      : `admin/places`;
+    const url = id ? `admin/places/${id}` : `admin/places`;
     const method = id ? put : post;
 
     try {
@@ -196,7 +195,9 @@ function useLocation() {
     getLocationById,
     locationById,
     addEditLocation,
-    deleteLocation
+    deleteLocation,
+    error,
+    setError,
   };
 }
 

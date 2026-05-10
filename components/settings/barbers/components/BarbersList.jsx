@@ -53,7 +53,15 @@ export default function BarbersList() {
   return (
     <View style={styles.container}>
       {/* <Text style={styles.subTitle}>{localization.BARBERS.listBarbers}</Text> */}
-      <View style={{ flexDirection: 'row', alignItems: "center", marginTop: 30, marginLeft: 10, marginBottom: 20 }}>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          marginTop: 30,
+          marginLeft: 10,
+          marginBottom: 20,
+        }}
+      >
         <SharedBackButton onPress={router.back} absolutePosition={false} />
 
         <Text style={styles.subTitle}>{localization.BARBERS.listBarbers}</Text>
@@ -77,13 +85,15 @@ export default function BarbersList() {
             return (
               <TouchableOpacity
                 onPress={() => startEditing(item)}
-                style={styles.barberItem}
+                style={[styles.barberItem, item.deletedAt && styles.deletedAt]}
               >
                 <View style={{ flexDirection: "row" }}>
-
                   {item.image && (
                     <View>
-                      <Image source={{ uri: item.image }} style={styles.image} />
+                      <Image
+                        source={{ uri: item.image }}
+                        style={styles.image}
+                      />
                     </View>
                   )}
 
@@ -107,9 +117,9 @@ export default function BarbersList() {
                   </View>
                 </View>
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <Text style={styles.editHint}>
-                      <FontAwesome name="edit" size={24} color="white" />
-                    </Text>
+                  <Text style={styles.editHint}>
+                    <FontAwesome name="edit" size={24} color="white" />
+                  </Text>
                 </View>
               </TouchableOpacity>
             );
@@ -188,7 +198,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     alignSelf: "center",
     alignItems: "center",
-    width: "80%"
+    width: "80%",
   },
   input: {
     backgroundColor: "#1e1e1e",
@@ -212,6 +222,10 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "#fff",
     fontWeight: "bold",
+  },
+  deletedAt: {
+    backgroundColor: "#000000",
+    opacity: 0.4,
   },
   barberItem: {
     backgroundColor: "#000000",

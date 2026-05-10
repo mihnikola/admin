@@ -11,7 +11,7 @@ export default function BarberItemAssign({ id, item, toggleBarber }) {
 
   return (
     <TouchableOpacity
-      style={styles.barberItem}
+      style={[styles.barberItem, item.deletedAt && styles.deletedAt]}
       onPress={() => checkHandler(item, id)}
     >
       <View style={styles.barberPositionDeatils}>
@@ -35,6 +35,10 @@ export default function BarberItemAssign({ id, item, toggleBarber }) {
 }
 
 const styles = StyleSheet.create({
+  deletedAt: {
+    backgroundColor: "#000000",
+    opacity: 0.4,
+  },
   avatar: {
     width: 50,
     height: 50,

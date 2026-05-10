@@ -3,10 +3,7 @@ import { SharedMessage } from "@/shared-components/SharedMessage";
 import { FontAwesome } from "@expo/vector-icons";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import {
-  StyleSheet,
-  View,
-} from "react-native";
+import { StyleSheet, View } from "react-native";
 import useLocation from "../hooks/useLocations";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import GooglePlace from "./GooglePlace";
@@ -36,8 +33,14 @@ export default function LocationsAddEdit() {
     message,
     deactivateLocation,
     activateLocation,
-    deleteLocation
+    deleteLocation,
+    error,
+    setError,
   } = useLocation();
+
+  const confirmErrorMessageHandler = () => {
+    setError(null);
+  };
 
   const submitHandler = (data) => {
     if (editingId) {
@@ -48,7 +51,7 @@ export default function LocationsAddEdit() {
         lat,
         lng,
         ...data,
-        placeId
+        placeId,
       };
       if (updateLocationData) {
         addEditLocation(updateLocationData);
@@ -60,7 +63,7 @@ export default function LocationsAddEdit() {
         lat,
         lng,
         ...data,
-        placeId
+        placeId,
       };
       if (addData) {
         addEditLocation(addData);
@@ -90,11 +93,9 @@ export default function LocationsAddEdit() {
     }
   }, [locationById]);
 
-
   if (isLoading === "getPlaceById") {
     return <SharedLoader isOpen={isLoading === "getPlaceById"} />;
   }
-
 
   return (
     <View style={styles.container}>
@@ -118,21 +119,22 @@ export default function LocationsAddEdit() {
           />
         )}
       </View>
-      {streetName && <TimeSettingsScreen
-        data={locationById}
-        city={city}
-        streetName={streetName}
-        activateLocation={activateLocation}
-        isLoading={isLoading}
-        deleteLocation={deleteLocation}
-        deactivate={deactivateLocation}
-        workHours={workHours?.workingHours}
-        minutes={slotDuration}
-        active={active}
-        id={id}
-        submitEverything={submitHandler}
-      />
-      }
+      {streetName && (
+        <TimeSettingsScreen
+          data={locationById}
+          city={city}
+          streetName={streetName}
+          activateLocation={activateLocation}
+          isLoading={isLoading}
+          deleteLocation={deleteLocation}
+          deactivate={deactivateLocation}
+          workHours={workHours?.workingHours}
+          minutes={slotDuration}
+          active={active}
+          id={id}
+          submitEverything={submitHandler}
+        />
+      )}
 
       {isMessage && (
         <SharedMessage
@@ -144,7 +146,16 @@ export default function LocationsAddEdit() {
           title={message}
         />
       )}
-
+      {error?.length > 0 && (
+        <SharedMessage
+          isOpen={error?.length > 0}
+          icon={<FontAwesome name="close" size={64} color="white" />}
+          onClose={confirmErrorMessageHandler}
+          onConfirm={confirmErrorMessageHandler}
+          buttonText="Ok"
+          title={error}
+        />
+      )}
     </View>
   );
 }

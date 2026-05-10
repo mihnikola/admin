@@ -37,6 +37,7 @@ export const ENG_LOCALIZATION = {
     cancel: "Cancel",
   },
   BARBERS: {
+    notDelete:`This barber can’t be deleted while there are active scheduled bookings.`,
     question: "Are you sure you want to delete this barber?",
     submitAdd: "Add barber",
     saveChanges: "Save",
@@ -91,6 +92,8 @@ export const ENG_LOCALIZATION = {
   },
 
   PLACES: {
+    notDelete:`This location can’t be deleted while there are active scheduled bookings.`,
+    notDeactivated:`This location can’t be deactivated while there are active scheduled bookings.`,
     workHoursNotFound: "Barber is not currently assigned to a location",
     errorFields: "Fill in all input fields",
     deactivatedSuccess: "Location is successfully deactivated",
@@ -144,6 +147,7 @@ export const ENG_LOCALIZATION = {
     noEvents: "Error while fetching reservations...",
   },
   SERVICES: {
+    notDelete:`This service can’t be deleted while there are active scheduled bookings.`,
     errorImage: "Image is a required",
     removeBtn: "Delete service",
     title: "Pricing & Services",
@@ -250,7 +254,7 @@ export const ENG_LOCALIZATION = {
     deactivateLocation: "Deactivate a location",
     infoPrimary: "Remove an employee by selecting a date in the calendar.",
     infoSecondary: "Choose the date when the employee will stop working.",
-    dateLabel: "End date:",
+    dateLabel: "Employee works through the end date:",
     dateLabelStart: "Select resume date: ",
     infoPrimaryLocation:
       "Remove an location by selecting a date in the calendar.",
