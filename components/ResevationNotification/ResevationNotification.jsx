@@ -204,7 +204,7 @@ function ResevationNotificationScreen() {
           </TouchableOpacity>
         )}
 
-      {reservationData && arrived === "missed" && (
+      {!isLoading && reservationData && arrived === "missed" && (
         <View style={styles.missed}>
           <Text style={styles.textBoldMissed}>
             {localization.STATUS.reservation}
@@ -220,7 +220,7 @@ function ResevationNotificationScreen() {
             </Text>
           </View>
         )}
-      {reservationData?.status === 1 && (
+      {!isLoading && reservationData?.status === 1 && (
         <View style={styles.missed}>
           <Text style={styles.textBoldRejected}>
             {localization.APPOINTMENTS.rejectReservation.info}
