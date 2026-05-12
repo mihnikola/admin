@@ -213,6 +213,7 @@ function ResevationNotificationScreen() {
       )}
       {!isLoading &&
         reservationData?.status === 0 &&
+        arrived === "arrived" &&
         startEndDate() === "completed" && (
           <View style={styles.missed}>
             <Text style={styles.textBoldSuccess}>
