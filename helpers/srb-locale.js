@@ -180,7 +180,7 @@ export const SRB_LOCALIZATION = {
       noButton: "Ne",
       confirmMessage: "Rezervacija je uspešno odbijena",
       errorMessage: "Rezervacija ne postoji",
-      info: "Rezervacija je odbijena",
+      info: "Rezervacija je otkazana",
     },
     approveReservation: {
       approveButton: "Odobri",

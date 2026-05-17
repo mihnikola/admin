@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   Image,
@@ -12,23 +12,29 @@ import usePickImage from "./hooks/usePickImage";
 export default function ImageCompress({ imageValue, handlePickImage }) {
   const { selectedImageUri, pickImage, uploading } = usePickImage(imageValue);
 
+  const [isLoading, setIsLoading] = useState(true);
+  console.log("imageValue", imageValue);
   useEffect(() => {
     if (selectedImageUri) {
       handlePickImage(selectedImageUri);
     }
+
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
   }, [selectedImageUri]);
 
   return (
     <View style={styles.container}>
-      {uploading && <ActivityIndicator size={32} />}
+      {uploading || (isLoading && <ActivityIndicator size={50} />)}
 
-      {!selectedImageUri && (
+      {!selectedImageUri && !isLoading && (
         <TouchableOpacity onPress={pickImage} disabled={uploading}>
           <MaterialIcons name="image" size={120} color="white" />
         </TouchableOpacity>
       )}
 
-      {selectedImageUri && (
+      {selectedImageUri && !isLoading && (
         <View style={styles.imageWrapper}>
           {/* <Image source={{ uri: selectedImageUri }} style={styles.image} /> */}
           {/* <Image

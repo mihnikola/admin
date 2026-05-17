@@ -203,7 +203,7 @@ export const ENG_LOCALIZATION = {
       noButton: "No",
       confirmMessage: "Reservation is rejected successfully",
       errorMessage: "Reservation is not exist",
-      info: "Reservation is rejected",
+      info: "Reservation is cancelled",
     },
     approveReservation: {
       descReservation: "Description of tretman",

@@ -226,84 +226,55 @@ export default function BarbersAdd() {
     );
   }
 
-  return (
-    <View style={styles.container}>
-      <ScrollView
-        ref={scrollRef}
-        keyboardDismissMode="interactive"
-        style={styles.safeArea}
-        contentContainerStyle={{
-          flexGrow: 1,
-          paddingBottom: 20,
-          marginHorizontal: 12,
-        }}
-        keyboardShouldPersistTaps="always"
-      >
-        {changedImg !== undefined && (
-          <View style={styles.containerImage}>
-            <ImageCompress
-              handlePickImage={selectedImgHandler}
-              imageValue={changedImg}
-            />
-          </View>
-        )}
-        <View style={{ flex: 3, marginTop: 20 }}>
-          <BarbersInput
-            autoFocus
-            icon="user"
-            label={localization.BARBERS.name}
-            value={name}
-            onChangeText={setName}
-            onSubmitEditing={() => emailInputRef.current.focus()}
-            ref={refName}
-            returnKeyType="next"
-          />
-
-          <View
-            onLayout={(e) => {
-              emailLayoutY.current = e.nativeEvent.layout.y;
-            }}
-          >
+  if (isLoading !== "getBarber") {
+    return (
+      <View style={styles.container}>
+        <ScrollView
+          ref={scrollRef}
+          keyboardDismissMode="interactive"
+          style={styles.safeArea}
+          contentContainerStyle={{
+            flexGrow: 1,
+            paddingBottom: 20,
+            marginHorizontal: 12,
+          }}
+          keyboardShouldPersistTaps="always"
+        >
+          {changedImg !== undefined && (
+            <View style={styles.containerImage}>
+              <ImageCompress
+                handlePickImage={selectedImgHandler}
+                imageValue={changedImg}
+              />
+            </View>
+          )}
+          <View style={{ flex: 3, marginTop: 20 }}>
             <BarbersInput
-              icon="at"
-              label={localization.BARBERS.email}
-              value={email}
-              autoCapitalize="none"
-              onChangeText={handleEmailChange}
-              keyboardType="email-address"
-              error={emailError}
+              autoFocus
+              icon="user"
+              label={localization.BARBERS.name}
+              value={name}
+              onChangeText={setName}
+              onSubmitEditing={() => emailInputRef.current.focus()}
+              ref={refName}
               returnKeyType="next"
-              ref={emailInputRef}
-              onSubmitEditing={() => {
-                changeProfile === "1"
-                  ? passwordInputRef.current?.focus()
-                  : phoneNumberInputRef.current?.focus();
-                scrollRef.current?.scrollTo({
-                  y: emailLayoutY.current - 20,
-                  animated: true,
-                });
-              }}
             />
-          </View>
 
-          {changeProfile === "1" && (
             <View
               onLayout={(e) => {
-                passwordLayoutY.current = e.nativeEvent.layout.y;
+                emailLayoutY.current = e.nativeEvent.layout.y;
               }}
             >
               <BarbersInput
-                icon="lock"
-                lock={localization.BARBERS.changePassword}
-                label={localization.BARBERS.password}
-                value={password}
+                icon="at"
+                label={localization.BARBERS.email}
+                value={email}
                 autoCapitalize="none"
-                onChangeText={handlePasswordChange}
-                keyboardType="password"
-                error={passwordError}
+                onChangeText={handleEmailChange}
+                keyboardType="email-address"
+                error={emailError}
                 returnKeyType="next"
-                ref={passwordInputRef}
-                onPress={changePasswordHandler}
+                ref={emailInputRef}
                 onSubmitEditing={() => {
                   phoneNumberInputRef.current?.focus();
                   scrollRef.current?.scrollTo({
@@ -313,87 +284,108 @@ export default function BarbersAdd() {
                 }}
               />
             </View>
-          )}
 
-          <View
-            onLayout={(e) => {
-              phoneNumberLayoutY.current = e.nativeEvent.layout.y;
-            }}
-          >
-            <BarbersInput
-              icon="phone"
-              label={localization.BARBERS.phoneNumber}
-              value={phoneNumber}
-              onChangeText={handlePhoneNumberChange}
-              keyboardType="phone-pad"
-              ref={phoneNumberInputRef}
-              error={errorPhoneNumber}
-              dataDetectorTypes="phoneNumber"
-              placeholder="6x xxx xxxx"
+            <View
+              onLayout={(e) => {
+                phoneNumberLayoutY.current = e.nativeEvent.layout.y;
+              }}
+            >
+              <BarbersInput
+                icon="phone"
+                label={localization.BARBERS.phoneNumber}
+                value={phoneNumber}
+                onChangeText={handlePhoneNumberChange}
+                keyboardType="phone-pad"
+                ref={phoneNumberInputRef}
+                error={errorPhoneNumber}
+                dataDetectorTypes="phoneNumber"
+                placeholder="6x xxx xxxx"
+              />
+            </View>
+            <BarbersStatusCheck
+              modalHandler={modalStatusHandler}
+              label={localization.BARBERS.status}
+              selected={
+                localization.code === "sr"
+                  ? selectedStatus?.name?.nameLocal
+                  : selectedStatus?.name?.nameEn
+              }
             />
+            <BarberSeniorityComponent
+              modalHandler={modalHandler}
+              label={localization.BARBERS.seniority}
+              selected={selected?.title}
+            />
+            {changeProfile === "1" && (
+              <View
+                onLayout={(e) => {
+                  passwordLayoutY.current = e.nativeEvent.layout.y;
+                }}
+              >
+                <BarbersInput
+                  icon="lock"
+                  lock={localization.BARBERS.changePassword}
+                  label={localization.BARBERS.password}
+                  value={password}
+                  autoCapitalize="none"
+                  onChangeText={handlePasswordChange}
+                  keyboardType="password"
+                  error={passwordError}
+                  returnKeyType="next"
+                  ref={passwordInputRef}
+                  onPress={changePasswordHandler}
+                />
+              </View>
+            )}
           </View>
-          <BarbersStatusCheck
-            modalHandler={modalStatusHandler}
-            label={localization.BARBERS.status}
-            selected={
-              localization.code === "sr"
-                ? selectedStatus?.name?.nameLocal
-                : selectedStatus?.name?.nameEn
-            }
-          />
-          <BarberSeniorityComponent
-            modalHandler={modalHandler}
-            label={localization.BARBERS.seniority}
-            selected={selected?.title}
-          />
-        </View>
-        <View style={[styles.btnContainer, editingId && styles.btnGap]}>
-          <SharedButtonApproved
-            onPress={addBarber}
-            loading={isLoading === "addEdit"}
-            text={
-              editingId
-                ? localization.BARBERS.saveChanges
-                : localization.BARBERS.submitAdd
-            }
-            disabled={
-              emailError?.length > 0 ||
-              errorPhoneNumber?.length > 0 ||
-              passwordError?.length > 0
-            }
-          />
-          {editingId && changeProfile !== "1" && (
-            <SharedButtonRejected
-              onPress={() => removeQuestion(id)}
-              loading={isLoading === "remove"}
-              text={localization.BARBERS.removeBtn}
+          <View style={[styles.btnContainer, editingId && styles.btnGap]}>
+            <SharedButtonApproved
+              onPress={addBarber}
+              loading={isLoading === "addEdit"}
+              text={
+                editingId
+                  ? localization.BARBERS.saveChanges
+                  : localization.BARBERS.submitAdd
+              }
+              disabled={
+                emailError?.length > 0 ||
+                errorPhoneNumber?.length > 0 ||
+                passwordError?.length > 0
+              }
             />
-          )}
-        </View>
-      </ScrollView>
+            {editingId && changeProfile !== "1" && (
+              <SharedButtonRejected
+                onPress={() => removeQuestion(id)}
+                loading={isLoading === "remove"}
+                text={localization.BARBERS.removeBtn}
+              />
+            )}
+          </View>
+        </ScrollView>
 
-      {isMessage && (
-        <SharedMessage
-          isOpen={isMessage}
-          icon={<FontAwesome name="check-circle-o" size={64} color="white" />}
-          onClose={confirmMessageHandler}
-          onConfirm={confirmMessageHandler}
-          buttonText="Ok"
-          title={message}
-        />
-      )}
-      {error?.length > 0 && (
-        <SharedMessage
-          isOpen={error?.length > 0}
-          icon={<FontAwesome name="close" size={64} color="white" />}
-          onClose={confirmErrorMessageHandler}
-          onConfirm={confirmErrorMessageHandler}
-          buttonText="Ok"
-          title={error}
-        />
-      )}
-    </View>
-  );
+        {isMessage && (
+          <SharedMessage
+            isOpen={isMessage}
+            icon={<FontAwesome name="check-circle-o" size={64} color="white" />}
+            onClose={confirmMessageHandler}
+            onConfirm={confirmMessageHandler}
+            buttonText="Ok"
+            title={message}
+          />
+        )}
+        {error?.length > 0 && (
+          <SharedMessage
+            isOpen={error?.length > 0}
+            icon={<FontAwesome name="close" size={64} color="white" />}
+            onClose={confirmErrorMessageHandler}
+            onConfirm={confirmErrorMessageHandler}
+            buttonText="Ok"
+            title={error}
+          />
+        )}
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({

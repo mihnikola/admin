@@ -12,6 +12,8 @@ import {
 import { CalendarList } from "react-native-calendars";
 import EventTimelineList from "../../EventTimeLineList";
 import { useLocalization } from "@/contexts/LocalizationContext";
+import SharedBackButton from "@/shared-components/SharedBackButton";
+import { router } from "expo-router";
 
 const DateComponent = () => {
   const today = new Date();
@@ -48,7 +50,7 @@ const DateComponent = () => {
       0,
     ).getDate();
 
-    return Math.ceil((firstDay + daysInMonth) / 7) * 50 + 50;
+    return Math.ceil((firstDay + daysInMonth) / 4) * 38 + 50;
   };
   useEffect(() => {
     getDates(checkMonth || localDateString, initialValue);
@@ -99,6 +101,7 @@ const DateComponent = () => {
   if (checkDates) {
     return (
       <View style={styles.container}>
+        <SharedBackButton onPress={router.back} styleBtn={{ marginLeft: 20 }} />
         <StatusBar backgroundColor="black" barStyle="dark-content" />
         <View style={[styles.calendarContainer, { height: calendarHight }]}>
           <CalendarList
@@ -137,7 +140,9 @@ const DateComponent = () => {
                 <TouchableOpacity onPress={() => onDayPressHandler(date)}>
                   <View
                     style={{
-                      borderRadius: 20,
+                      paddingHorizontal: isSelected ? 7 : 0,
+
+                      borderRadius: 50,
                       backgroundColor: isSelected ? "#b6cdd7ff" : "transparent",
                     }}
                   >
@@ -150,23 +155,24 @@ const DateComponent = () => {
                             : "#dfdfdfff",
                         textAlign: "center",
                         fontWeight: "500",
-                        paddingHorizontal: 8,
                       }}
                     >
                       {date.day}
                     </Text>
-                    {checkDates?.[dateStr]?.marked && (
-                      <View
-                        style={{
-                          width: 5,
-                          height: 5,
-                          borderRadius: 2.5,
-                          backgroundColor: isPast ? "#999" : "white",
-                          alignSelf: "center",
-                          marginTop: 2,
-                        }}
-                      />
-                    )}
+
+                    <Text
+                      style={{
+                        color: isPast
+                          ? "#999"
+                          : isSelected
+                            ? "#fff"
+                            : "#dfdfdfff",
+                        textAlign: "center",
+                        fontWeight: "500",
+                      }}
+                    >
+                      {checkDates?.[dateStr]?.marked ? "•" : ""}
+                    </Text>
                   </View>
                 </TouchableOpacity>
               );
@@ -185,7 +191,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 20,
-    minHeight: 150, 
+    minHeight: 150,
   },
   notWorkingDays: {
     display: "flex",
@@ -210,6 +216,7 @@ const styles = StyleSheet.create({
     color: "#333",
   },
   container: {
+    marginTop: 20,
     flex: 1,
     backgroundColor: "#000000",
   },
@@ -217,9 +224,6 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
   },
   calendar: {
-    borderWidth: 1,
-    borderColor: "gray",
-    display: "flex",
     width: "100%",
     backgroundColor: "black",
   },

@@ -1,16 +1,28 @@
 import { View, Text, StyleSheet, Image } from "react-native";
 import React from "react";
 import { useLocalization } from "@/contexts/LocalizationContext";
+import { getInitialsName } from "@/helpers";
 
 const SharedDetailsCustomerCard = ({ user, note }) => {
   const { image, name, _id: id } = user;
-  const {localization} = useLocalization();
+  const { localization } = useLocalization();
+
+  const initials = getInitialsName(name);
+
   return (
     <View key={id} style={styles.card}>
-      {image && <Image source={{ uri: image }} style={styles.profileImage} />}
+      {image ? (
+        <Image source={{ uri: image }} style={styles.profileImage} />
+      ) : (
+        <View style={styles.avatarContainer}>
+          <Text style={styles.avatarText}>{initials}</Text>
+        </View>
+      )}
       <View style={styles.detailsContainer}>
         <Text style={styles.name}>{name}</Text>
-        {note && <Text style={styles.note}>{localization.HOME.commentLabel}</Text>}
+        {note && (
+          <Text style={styles.note}>{localization.HOME.commentLabel}</Text>
+        )}
         {note && <Text style={styles.note}>{note}</Text>}
       </View>
     </View>
@@ -18,6 +30,20 @@ const SharedDetailsCustomerCard = ({ user, note }) => {
 };
 
 const styles = StyleSheet.create({
+  avatarContainer: {
+    backgroundColor: "#000",
+    width: 90,
+    height: 90,
+    borderRadius: 30,
+    marginRight:12,
+    alignItems:"center",
+    justifyContent:"center"
+  },
+  avatarText: {
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 30,
+  },
   card: {
     flexDirection: "row",
     backgroundColor: "#1E1E1E",
