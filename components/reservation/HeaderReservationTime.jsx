@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
   dateData: {
-    fontSize: 25,
+    fontSize: 20,
     color: "#fff",
     fontWeight: "700",
   },

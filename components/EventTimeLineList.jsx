@@ -40,7 +40,7 @@ const EventTimelineList = ({ events, error, criteriaDate }) => {
 
 const styles = StyleSheet.create({
   list: {
-    padding: 2,
+    paddingHorizontal: 10,
   },
   infoDetails: {
     fontSize: 22,

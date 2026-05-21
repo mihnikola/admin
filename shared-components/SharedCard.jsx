@@ -30,6 +30,16 @@ const SharedCard = ({ item, criteriaDate }) => {
     return false;
   };
 
+    const expiredReservation = () => {
+    const now = new Date();
+    const startTimeDate = new Date(item.startTime);
+
+    if (now > startTimeDate) {
+      return true;
+    }
+    return false;
+  };
+
 
   return (
     <TouchableOpacity
@@ -57,8 +67,7 @@ const SharedCard = ({ item, criteriaDate }) => {
         </Text>
         {item.arrived === "arrived" ? (
           <Text style={styles.eventStatus}>
-            {item.status === "pending" && completedReservation() &&  localization.STATUS.expired}
-            {item.status === "pending" &&  !completedReservation() && localization.STATUS.pending}
+            {item.status === "pending" && expiredReservation() ?  localization.STATUS.expired : item.status === "pending" &&  !completedReservation() && localization.STATUS.pending}
             {item.status === "approved" && completedReservation() && localization.STATUS.completed}
             {item.status === "approved" && !completedReservation() && localization.STATUS.approved}
             {item.status === "rejected" && localization.STATUS.rejected}

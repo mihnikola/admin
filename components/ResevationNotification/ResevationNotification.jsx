@@ -120,7 +120,6 @@ function ResevationNotificationScreen() {
       />
     );
   };
-  console.log("reservationData", reservationData);
 
   const finishReservation = (startDateValue) => {
     if (!startDateValue) return null;

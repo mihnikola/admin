@@ -14,6 +14,7 @@ import EventTimelineList from "../../EventTimeLineList";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { router } from "expo-router";
+import { calendarLocales } from "@/helpers/calendarLocales";
 
 const DateComponent = () => {
   const today = new Date();
@@ -43,20 +44,30 @@ const DateComponent = () => {
   const getWeeksInMonth = (dateString) => {
     const date = new Date(dateString);
 
-    const firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
-    const daysInMonth = new Date(
-      date.getFullYear(),
-      date.getMonth() + 1,
-      0,
-    ).getDate();
+    const year = date.getFullYear();
+    const month = date.getMonth();
 
-    return Math.ceil((firstDay + daysInMonth) / 4) * 38 + 50;
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    return Math.ceil((firstDay + daysInMonth) / 7);
+  };
+
+  const getCalendarHeight = (dateString) => {
+    const weeks = getWeeksInMonth(dateString);
+    return weeks * 50 + 40; 
   };
   useEffect(() => {
     getDates(checkMonth || localDateString, initialValue);
-    setCalendarHeight(getWeeksInMonth(checkMonth));
+      setCalendarHeight(getCalendarHeight(checkMonth || localDateString));
+
+    // setCalendarHeight(getWeeksInMonth(checkMonth));
     setInitialValue(false);
   }, [checkMonth]);
+
+  useEffect(() => {
+    calendarLocales(localization.code);
+  }, [localization.code]);
 
   const onDayPressHandler = (date) => {
     setSelectedDate(true);
@@ -105,7 +116,8 @@ const DateComponent = () => {
         <StatusBar backgroundColor="black" barStyle="dark-content" />
         <View style={[styles.calendarContainer, { height: calendarHight }]}>
           <CalendarList
-            key="s"
+            key={localization.code}
+            locale={localization.code}
             style={styles.calendar}
             theme={calendarTheme}
             onVisibleMonthsChange={(months) => {
@@ -141,18 +153,15 @@ const DateComponent = () => {
                   <View
                     style={{
                       paddingHorizontal: isSelected ? 7 : 0,
-
                       borderRadius: 50,
-                      backgroundColor: isSelected ? "#b6cdd7ff" : "transparent",
+                      backgroundColor: isSelected
+                        ? "rgb(255, 255, 255)"
+                        : "transparent",
                     }}
                   >
                     <Text
                       style={{
-                        color: isPast
-                          ? "#999"
-                          : isSelected
-                            ? "#fff"
-                            : "#dfdfdfff",
+                        color: isPast ? "#999" : isSelected ? "#000" : "#fff",
                         textAlign: "center",
                         fontWeight: "500",
                       }}
@@ -162,17 +171,19 @@ const DateComponent = () => {
 
                     <Text
                       style={{
-                        color: isPast
-                          ? "#999"
-                          : isSelected
-                            ? "#fff"
-                            : "#dfdfdfff",
-                        textAlign: "center",
-                        fontWeight: "500",
+                        width: 5,
+                        height: 5,
+                        borderRadius: 2,
+                        backgroundColor:
+                          checkDates?.[dateStr]?.marked && !isSelected
+                            ? "#dfdfdfff"
+                            : checkDates?.[dateStr]?.marked && isSelected
+                              ? "#000"
+                              : "transparent",
+                        marginTop: 2,
+                        alignSelf: "center",
                       }}
-                    >
-                      {checkDates?.[dateStr]?.marked ? "•" : ""}
-                    </Text>
+                    />
                   </View>
                 </TouchableOpacity>
               );
@@ -226,6 +237,7 @@ const styles = StyleSheet.create({
   calendar: {
     width: "100%",
     backgroundColor: "black",
+    marginTop: 7,
   },
   timesAndDetails: {
     flex: 1,
