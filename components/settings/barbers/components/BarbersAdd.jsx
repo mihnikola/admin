@@ -240,11 +240,12 @@ export default function BarbersAdd() {
           }}
           keyboardShouldPersistTaps="always"
         >
-          {changedImg !== undefined && (
+          {changedImg !== undefined && isLoading !== 'getBarber' && (
             <View style={styles.containerImage}>
               <ImageCompress
                 handlePickImage={selectedImgHandler}
                 imageValue={changedImg}
+                
               />
             </View>
           )}

@@ -19,6 +19,7 @@
     "@quidone/react-native-wheel-picker": "^1.6.4",
     "@react-native-async-storage/async-storage": "^2.2.0",
     "@react-native-community/datetimepicker": "8.4.4",
+    "@react-native-community/netinfo": "11.4.1",
     "@react-native-firebase/app": "^23.8.3",
     "@react-native-firebase/messaging": "^23.8.3",
     "@react-native-picker/picker": "2.11.1",

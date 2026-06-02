@@ -1,10 +1,15 @@
 import AppInitialized from "@/components/wrapper/AppInitialized";
+import NoInternetModal from "@/shared-components/InternetModal";
+import useInternetGuard from "@/services/useInternetGuard";
 import { Stack } from "expo-router";
 
 export default function RootLayout() {
+  const isConnected = useInternetGuard();
 
   return (
     <AppInitialized>
+      <NoInternetModal visible={!isConnected} />
+
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen
           name="index"

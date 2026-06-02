@@ -9,6 +9,7 @@ import { AppointmentProvider } from "@/contexts/AppointmentContext";
 import { HomeDataProvider } from "@/contexts/HomeDataContext";
 import { ServicesProvider } from "@/contexts/ServiceContext";
 import { BarbersProvider } from "@/contexts/BarberContext";
+import { InternetProvider } from "@/contexts/InternetContext";
 
 export default function AppInitialized(props) {
   const colorScheme = useColorScheme();
@@ -23,23 +24,25 @@ export default function AppInitialized(props) {
 
   return (
     <ThemeProvider value={MyDarkTheme}>
-      <LocalizationProvider>
-        <CompanyProvider>
-          <AuthProvider>
-            <NotificationWrapper>
-              <HomeDataProvider>
-                <ReservationProvider>
-                  <AppointmentProvider>
-                    <ServicesProvider>
-                      <BarbersProvider>{props.children}</BarbersProvider>
-                    </ServicesProvider>
-                  </AppointmentProvider>
-                </ReservationProvider>
-              </HomeDataProvider>
-            </NotificationWrapper>
-          </AuthProvider>
-        </CompanyProvider>
-      </LocalizationProvider>
+      <InternetProvider>
+        <LocalizationProvider>
+          <CompanyProvider>
+            <AuthProvider>
+              <NotificationWrapper>
+                <HomeDataProvider>
+                  <ReservationProvider>
+                    <AppointmentProvider>
+                      <ServicesProvider>
+                        <BarbersProvider>{props.children}</BarbersProvider>
+                      </ServicesProvider>
+                    </AppointmentProvider>
+                  </ReservationProvider>
+                </HomeDataProvider>
+              </NotificationWrapper>
+            </AuthProvider>
+          </CompanyProvider>
+        </LocalizationProvider>
+      </InternetProvider>
     </ThemeProvider>
   );
 }

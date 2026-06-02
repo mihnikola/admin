@@ -35,17 +35,27 @@ export default function GooglePlace({ onSelect }) {
     setLoading(true);
 
     try {
-      const res = await fetch(
-        `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURIComponent(
-          text,
-        )}&key=${apiKey}&language=${localization.code}&components=country:${company?.country}`,
-      );
+      // const res = await fetch(
+      //   `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURIComponent(
+      //     text,
+      //   )}&key=${apiKey}&language=${localization.code}&components=country:${company?.country}`,
+      // );
+      const url =
+        `https://maps.googleapis.com/maps/api/place/autocomplete/json` +
+        `?input=${encodeURIComponent(text)}` +
+        `&types=geocode` +
+        `&language=${localization.code}` +
+        `&components=country:${company?.country}` +
+        `&key=${apiKey}`;
+
+      const res = await fetch(url);
+
 
       const data = await res.json();
       console.log("res", data);
 
       if (data.status === "OK") {
-        setResults(data.predictions);
+        setResults(data.predictions || []);
       } else {
         console.log("Autocomplete error:", data.status);
         setResults([]);
@@ -61,11 +71,24 @@ export default function GooglePlace({ onSelect }) {
   // Fetch place details (lat/lng, address components)
   const getPlaceDetails = async (placeId) => {
     try {
-      const fields = "geometry,vicinity,address_components,name";
-      const res = await fetch(
-        `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=${fields}&key=${apiKey}`,
-      );
+      // const fields = "place_id,geometry,vicinity,address_components,name";
+      // const res = await fetch(
+      //   `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=${fields}&key=${apiKey}`,
+      // );
+      const fields =
+        "place_id,geometry,vicinity,address_components,name,formatted_address";
+
+      const url =
+        `https://maps.googleapis.com/maps/api/place/details/json` +
+        `?place_id=${placeId}` +
+        `&fields=${fields}` +
+        `&language=${localization.code}` +
+        `&key=${apiKey}`;
+
+      const res = await fetch(url);
+
       const data = await res.json();
+
 
       if (data.status === "OK") {
         //ovde ce da trpa niz lokacija
@@ -79,34 +102,17 @@ export default function GooglePlace({ onSelect }) {
     }
   };
 
-  // Extract street + city from place details
-  //   const extractAddress = (details) => {
-  //     const components = details.address_components;
-  //     let city = "";
-  //     let street = "";
-
-  //     components.forEach((c) => {
-  //       if (c.types.includes("locality")) city = c.long_name;
-  //       if (c.types.includes("route")) street = c.long_name;
-  //       if (c.types.includes("street_number"))
-  //         street = `${c.long_name} ${street}`;
-  //     });
-
-  //     return { city, street };
-  //   };
-
   // Handle selecting a suggestion
   const handleSelect = async (item) => {
     const addressValueData = item?.description.split(",")[0];
-    console.log("handleSelect", item);
     const details = await getPlaceDetails(item.place_id);
-    console.log("handleSelecthandleSelect", details);
 
     if (!details) return;
 
     // const { city, street } = extractAddress(details);
     const [_, city] = details.vicinity.split(",");
     const location = details.geometry.location;
+    const canonicalPlaceId = details.place_id;
 
     // Pass data back to parent
     onSelect({
@@ -114,7 +120,7 @@ export default function GooglePlace({ onSelect }) {
       street: addressValueData,
       lat: location.lat,
       lng: location.lng,
-      place_id: item.place_id,
+      place_id: canonicalPlaceId,
       fullDetails: details,
     });
 

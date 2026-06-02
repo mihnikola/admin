@@ -75,6 +75,10 @@ const useChangePasswordHandler = () => {
         setIsMessage(true);
         setMessage(localization.CHANGE_PASS.success);
       }
+       if (response.status === 202) {
+        setIsMessage(true);
+        setError(localization.CHANGE_PASS.currentError);
+      }
     } catch (err) {
       setError(localization.CHANGE_PASS.error);
       setIsMessage(true);
