@@ -18,6 +18,7 @@ import { router } from "expo-router";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import withKeyboardAvoid from "@/wrapper/WrapperKeyboard";
 import TimeAbsentComponent from "./TimeAbsentComponent";
+import { SharedQuestion } from "@/shared-components/SharedQuestion";
 
 const AbsentHourManagement = () => {
   const {
@@ -31,7 +32,7 @@ const AbsentHourManagement = () => {
     getEmployer,
     workHours,
   } = useAbsentHours();
-  const [activeTab, setActiveTab] = useState("upcoming"); 
+  const [activeTab, setActiveTab] = useState("upcoming");
 
   const [commentDate, setCommentDate] = useState("");
   const [commentTime, setCommentTime] = useState("");
@@ -40,6 +41,7 @@ const AbsentHourManagement = () => {
 
   const [dateFrom, setDateFrom] = useState(new Date());
   const [showFromDate, setShowFromDate] = useState(false);
+  const [isConfirmation, setIsConfirmation] = useState(false);
 
   const [dateTo, setDateTo] = useState(new Date());
   const [showToDate, setShowToDate] = useState(false);
@@ -54,9 +56,13 @@ const AbsentHourManagement = () => {
   }, [isToken]);
 
   useEffect(() => {
-    setFromTime(workHours?.start || "");
-    setToTime(workHours?.end || "");
-  }, [activeTab]);
+    if (workHours) {
+
+      setFromTime(workHours?.start || "");
+      setToTime(workHours?.end || "");
+    }
+
+  }, [workHours]);
 
   useEffect(() => {
     if (dateFrom > dateTo) {
@@ -105,20 +111,30 @@ const AbsentHourManagement = () => {
     return true;
   };
   const submitChanges = () => {
-    if (activeTab === "upcoming") {
-      if (isValidDateRange(dateFrom, dateTo)) {
-        createAbsentHours(dateFrom, dateTo, commentDate, isToken, "upcoming");
-      } else {
-        setError(localization.SETTINGS.ABSENTHOURS.error);
-      }
-    } else {
-      if (isValidTimeRange(fromTime, toTime)) {
-        createAbsentHours(fromTime, toTime, commentTime, isToken, "past");
-      } else {
-        setError(localization.SETTINGS.ABSENTHOURS.error);
-      }
-    }
+    setIsConfirmation(false);
+    // const [startHours, startMinutes] = fromTime.split(":").map(Number);
+    // const [endHours, endMinutes] = toTime.split(":").map(Number);
+    // dateFrom.setUTCHours(startHours, startMinutes, 0, 0);
+    // dateTo.setUTCHours(endHours, endMinutes, 0, 0);
+    // if (isValidDateRange(dateFrom, dateTo) && isValidTimeRange(fromTime, toTime)) {
+    //   createAbsentHours(dateFrom, dateTo, commentDate, isToken);
+    // } else {
+    //   setError(localization.SETTINGS.ABSENTHOURS.error);
+    // }
+
   };
+
+  const verificationData = () => {
+    const [startHours, startMinutes] = fromTime.split(":").map(Number);
+    const [endHours, endMinutes] = toTime.split(":").map(Number);
+    dateFrom.setUTCHours(startHours, startMinutes, 0, 0);
+    dateTo.setUTCHours(endHours, endMinutes, 0, 0);
+
+    formatTimeData(dateFrom);
+    formatTimeData(dateTo);
+
+    setIsConfirmation(true);
+  }
 
   const confirmHandler = () => {
     setIsMessage(false);
@@ -151,105 +167,106 @@ const AbsentHourManagement = () => {
     );
   }
 
+  const formatTimeData = (data) => {
+    
+    if (data instanceof Date) {
+      const datePart = new Intl.DateTimeFormat(localization.code, {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      }).format(data);
+
+      const timePart = new Intl.DateTimeFormat(localization.code, {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+      }).format(data);
+
+      const connector = localization.code === "en" ? "at" : "u";
+
+
+
+      return `${datePart} ${connector} ${timePart}`;
+    }
+
+  }
+
+
+
+  const confirmationEn =
+    `The following time off period will be recorded:\n` +
+    `From: ${formatTimeData(fromTime)}\n` +
+    `To: ${formatTimeData(toTime)}\n`;
+
+
+  const confirmationSr =
+    `Odsustvo će biti evidentirano za: \n` +
+    `Od: ${formatTimeData(fromTime)}\n` +
+    `Do: ${formatTimeData(toTime)}\n`;
+
+
   return (
     <>
       <View style={styles.container}>
         <Text style={styles.title}>
           {localization.SETTINGS.ABSENTHOURS.capture}
         </Text>
-        <View style={styles.tabContainer}>
-          <TouchableOpacity
-            style={[styles.tab, activeTab === "upcoming" && styles.activeTab]}
-            onPress={() => setActiveTab("upcoming")}
-          >
-            <Text
-              style={[
-                styles.tabText,
-                activeTab === "upcoming" && styles.activeText,
-              ]}
-            >
-              {localization.SETTINGS.ABSENTHOURS.tab1}
-            </Text>
-          </TouchableOpacity>
+        <View style={{ flexDirection: 'row', alignContent: 'center', alignSelf: "center", alignItems: "center", justifyContent: 'space-around' }}>
+          <Text style={styles.label}>{localization.SETTINGS.ABSENTHOURS.from}</Text>
 
-          <TouchableOpacity
-            style={[styles.tab, activeTab === "past" && styles.activeTab]}
-            onPress={() => setActiveTab("past")}
-          >
-            <Text
-              style={[
-                styles.tabText,
-                activeTab === "past" && styles.activeText,
-              ]}
-            >
-              {localization.SETTINGS.ABSENTHOURS.tab2}
-            </Text>
-          </TouchableOpacity>
+          <DateAbsentComponent
+            onDateChange={onDateFromChange}
+            setShowDate={setShowFromDate}
+            showDate={showFromDate}
+            date={dateFrom}
+            placeholder={
+              localization.SETTINGS.ABSENTHOURS.startDatePlaceHolder
+            }
+          />
+          <TimeAbsentComponent
+            setShowFromPicker={setShowFromPicker}
+            label={localization.SETTINGS.ABSENTHOURS.from}
+            time={fromTime}
+            placeholder={localization.SETTINGS.WORKHOURS.startTimePlaceHolder}
+          />
+          <FontAwesome name="calendar-o" size={20} color="#aaa" />
+
+        </View>
+        <View style={{ flexDirection: 'row', alignContent: 'center', alignSelf: "center", alignItems: "center", justifyContent: 'space-around' }}>
+          <Text style={styles.label}>{localization.SETTINGS.ABSENTHOURS.to}</Text>
+
+          <DateAbsentComponent
+            label={localization.SETTINGS.ABSENTHOURS.to}
+            onDateChange={onDateToChange}
+            setShowDate={setShowToDate}
+            showDate={showToDate}
+            date={dateTo}
+            placeholder={localization.SETTINGS.ABSENTHOURS.endDatePlaceHolder}
+          />
+          <TimeAbsentComponent
+            setShowFromPicker={setShowToPicker}
+            label={localization.SETTINGS.ABSENTHOURS.to}
+            time={toTime}
+            placeholder={localization.SETTINGS.WORKHOURS.endTimePlaceHolder}
+          />
+          <FontAwesome name="calendar-o" size={20} color="#aaa" />
+
         </View>
 
-        {activeTab === "upcoming" && (
-          <>
-            <DateAbsentComponent
-              label={localization.SETTINGS.ABSENTHOURS.from}
-              onDateChange={onDateFromChange}
-              setShowDate={setShowFromDate}
-              showDate={showFromDate}
-              date={dateFrom}
-              placeholder={
-                localization.SETTINGS.ABSENTHOURS.startDatePlaceHolder
-              }
-            />
-
-            <DateAbsentComponent
-              label={localization.SETTINGS.ABSENTHOURS.to}
-              onDateChange={onDateToChange}
-              setShowDate={setShowToDate}
-              showDate={showToDate}
-              date={dateTo}
-              placeholder={localization.SETTINGS.ABSENTHOURS.endDatePlaceHolder}
-            />
-            <TextInput
-              label={localization.SETTINGS.ABSENTHOURS.to}
-              style={styles.textInput}
-              placeholder={localization.SETTINGS.ABSENTHOURS.comment}
-              multiline
-              numberOfLines={4}
-              value={commentDate}
-              onChangeText={setCommentDate}
-              textAlignVertical="top"
-            />
-          </>
-        )}
-
-        {activeTab === "past" && (
-          <>
-            <TimeAbsentComponent
-              setShowFromPicker={setShowFromPicker}
-              label={localization.SETTINGS.ABSENTHOURS.from}
-              time={fromTime}
-              placeholder={localization.SETTINGS.WORKHOURS.startTimePlaceHolder}
-            />
-            <TimeAbsentComponent
-              setShowFromPicker={setShowToPicker}
-              label={localization.SETTINGS.ABSENTHOURS.to}
-              time={toTime}
-              placeholder={localization.SETTINGS.WORKHOURS.endTimePlaceHolder}
-            />
-            <TextInput
-              style={styles.textInput}
-              placeholder={localization.SETTINGS.ABSENTHOURS.comment}
-              multiline
-              numberOfLines={4}
-              value={commentTime}
-              onChangeText={setCommentTime}
-              textAlignVertical="top"
-            />
-          </>
-        )}
+        <TextInput
+          label={localization.SETTINGS.ABSENTHOURS.to}
+          style={styles.textInput}
+          placeholder={localization.SETTINGS.ABSENTHOURS.comment}
+          multiline
+          numberOfLines={4}
+          value={commentDate}
+          onChangeText={setCommentDate}
+          textAlignVertical="top"
+        />
 
         <View>
           <SharedButton
-            onPress={submitChanges}
+            onPress={verificationData}
             loading={isLoading === "post"}
             text={localization.SETTINGS.ABSENTHOURS.submit}
           />
@@ -270,6 +287,25 @@ const AbsentHourManagement = () => {
             title={error || message}
             buttonText="OK"
           />
+        )}
+        {isConfirmation && (
+          <SharedQuestion
+            isOpen={isConfirmation}
+            onClose={() => setIsConfirmation(false)}
+            onLogOut={submitChanges}
+            buttonTextNo={localization.CLIENTS.cancel}
+            buttonTextYes="OK"
+            icon={
+              <FontAwesome
+                name="question"
+                size={64}
+                color="white"
+              />
+            }
+            title={localization.code === 'en' && isConfirmation ? confirmationEn : isConfirmation && confirmationSr}
+
+          />
+
         )}
         {error?.length > 0 && (
           <SharedMessage
@@ -321,6 +357,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "rgb(255, 255, 255)",
     textAlign: "center",
+  },
+  label: {
+    fontSize: 16,
+    color: "#fff",
   },
   messageContainer: {
     flex: 1,
@@ -379,7 +419,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "700",
-    marginBottom: 30,
     textAlign: "center",
     color: "white",
   },

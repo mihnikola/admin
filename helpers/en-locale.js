@@ -36,6 +36,10 @@ export const ENG_LOCALIZATION = {
     ok: "OK",
     cancel: "Cancel",
   },
+  INTERNET: {
+    error: "Please check your network connection.",
+    title: "No Internet",
+  },
   BARBERS: {
     notDelete: `This barber can’t be deleted while there are active scheduled bookings.`,
     question: "Are you sure you want to delete this barber?",

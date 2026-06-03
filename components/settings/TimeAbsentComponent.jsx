@@ -1,58 +1,33 @@
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
 function TimeAbsentComponent({
   setShowFromPicker,
-  label,
   time,
   placeholder,
 }) {
   return (
-    <View style={styles.row}>
-      <TouchableOpacity
-        style={styles.dateButton}
-        onPress={() => setShowFromPicker(true)}
-        activeOpacity={0.7}
-      >
-        <Text style={styles.label}>{label}</Text>
-
-        <Text style={styles.dateText}>{time || placeholder}</Text>
-
-        <FontAwesome name="calendar-o" size={18} color="#aaa" />
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity
+      style={styles.dateButton}
+      onPress={() => setShowFromPicker(true)}
+      activeOpacity={0.7}
+    >
+      <Text style={styles.dateText}>{time || placeholder}</Text>
+    </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
-  row: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    marginBottom: 15,
-  },
-
-  label: {
-    fontSize: 16,
-    color: "#fff",
-  },
-
   dateButton: {
-    flex: 1,
-
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-
-    paddingVertical: 10,
     paddingHorizontal: 12,
-
+    paddingVertical: 10,
+    margin: 10,
     borderWidth: 1,
-    borderColor: "#868686",
-    borderRadius: 10,
-
-    backgroundColor: "#000000",
+    borderColor: "#838383",
+    borderRadius: 15
   },
 
   dateText: {

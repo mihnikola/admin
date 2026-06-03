@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal, View, Text, StyleSheet } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import { useLocalization } from "@/context/LocalizationContext";
+import { useLocalization } from "@/contexts/LocalizationContext";
 
 export default function NoInternetModal({ visible }) {
   const { localization } = useLocalization();

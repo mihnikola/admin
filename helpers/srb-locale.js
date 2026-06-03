@@ -209,6 +209,10 @@ export const SRB_LOCALIZATION = {
   INITIAL: {
     error: "Greška prilikom preuzimanja inicijalnih podataka",
   },
+  INTERNET: {
+    error: "Proverite da li ste povezani na internet i pokušajte ponovo.",
+    title: "Nema Internet konekcije",
+  },
   BARBERS: {
     notDelete: "Frizer ne može biti obrisan dok postoje aktivni zakazani termini.",
     confirmButton: "Ok",
