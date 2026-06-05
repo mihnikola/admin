@@ -1,12 +1,14 @@
 import { useCompany } from "@/contexts/CompanyContext";
 import { useLocalization } from "@/contexts/LocalizationContext";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { router, useFocusEffect } from "expo-router";
 import { useCallback, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import HomeCoverImage from "./HomeCoverImage";
 import UpcomingAppointmentCard from "./UpcomingAppointmentCard";
 import InProgressAppointmentCard from "./InProgressAppointmentCard";
+import UpcomingAbsenceCard from "./UpcomingAbsenceCard";
+
 import { useHomeData } from "@/contexts/HomeDataContext";
 import HomeLoader from "@/shared-components/HomeLoader";
 
@@ -51,6 +53,7 @@ export default function HomeScreen() {
             {inProgressData && (
               <InProgressAppointmentCard data={inProgressData} />
             )}
+             {/* <UpcomingAbsenceCard data={inProgressData} /> */}
 
             <View style={styles.containerData}>
               <TouchableOpacity
@@ -67,20 +70,32 @@ export default function HomeScreen() {
 
                 <FontAwesome name="chevron-right" size={28} color="white" />
               </TouchableOpacity>
-              {/* <TouchableOpacity
-                onPress={locationHandler}
-                style={styles.btnLocationContent}
-              >
-                <FontAwesome name="map-marker" size={22} color="white" />
 
-                <View style={styles.locationContent}>
-                  <Text style={styles.titleLocation}>
-                    {localization.HOME.location}
-                  </Text>
-                </View>
 
-                <FontAwesome name="chevron-right" size={28} color="white" />
-              </TouchableOpacity> */}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
               <TouchableOpacity
                 onPress={requirementsHandler}
                 style={styles.btnLocationContent}
@@ -99,6 +114,23 @@ export default function HomeScreen() {
                 }
                 <FontAwesome name="chevron-right" size={28} color="white" />
               </TouchableOpacity>
+
+
+
+              <TouchableOpacity
+                onPress={locationHandler}
+                style={styles.btnLocationContent}
+              >
+                <Ionicons name="swap-vertical" size={24} color="#fff" />
+                <View style={styles.locationContent}>
+                  <Text style={styles.titleLocation}>
+                    {localization.HOME.absenceManager}
+                  </Text>
+                </View>
+
+                <FontAwesome name="chevron-right" size={28} color="white" />
+              </TouchableOpacity>
+
             </View>
           </View>
         )}

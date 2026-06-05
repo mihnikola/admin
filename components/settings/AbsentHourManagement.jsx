@@ -35,7 +35,6 @@ const AbsentHourManagement = () => {
   const [activeTab, setActiveTab] = useState("upcoming");
 
   const [commentDate, setCommentDate] = useState("");
-  const [commentTime, setCommentTime] = useState("");
   const [showFromPicker, setShowFromPicker] = useState(false);
   const [showToPicker, setShowToPicker] = useState(false);
 
@@ -47,6 +46,7 @@ const AbsentHourManagement = () => {
   const [showToDate, setShowToDate] = useState(false);
   const [fromTime, setFromTime] = useState("");
   const [toTime, setToTime] = useState("");
+  const [confirmationText, setConfirmationText] = useState("");
 
   const { localization } = useLocalization();
   const { isToken } = useAuth();
@@ -112,28 +112,51 @@ const AbsentHourManagement = () => {
   };
   const submitChanges = () => {
     setIsConfirmation(false);
-    // const [startHours, startMinutes] = fromTime.split(":").map(Number);
-    // const [endHours, endMinutes] = toTime.split(":").map(Number);
-    // dateFrom.setUTCHours(startHours, startMinutes, 0, 0);
-    // dateTo.setUTCHours(endHours, endMinutes, 0, 0);
-    // if (isValidDateRange(dateFrom, dateTo) && isValidTimeRange(fromTime, toTime)) {
-    //   createAbsentHours(dateFrom, dateTo, commentDate, isToken);
-    // } else {
-    //   setError(localization.SETTINGS.ABSENTHOURS.error);
-    // }
+
+    const dateFromValue = new Date(dateFrom);
+    const dateToValue = new Date(dateTo);
+    const [startHours, startMinutes] = fromTime.split(":").map(Number);
+    dateFromValue.setHours(startHours, startMinutes, 0, 0);
+
+    const [endHours, endMinutes] = toTime.split(":").map(Number);
+    dateToValue.setHours(endHours, endMinutes, 0, 0);
+    if (isValidDateRange(dateFromValue, dateToValue)) {
+      // console.log("createAbsentHours", dateFromValue, dateToValue, commentDate, isToken);
+      createAbsentHours(dateFrom, dateTo, commentDate, isToken);
+    } else {
+      setError(localization.SETTINGS.ABSENTHOURS.error);
+    }
+
 
   };
 
   const verificationData = () => {
+    const dateFromValue = new Date(dateFrom);
+    const dateToValue = new Date(dateTo);
+
     const [startHours, startMinutes] = fromTime.split(":").map(Number);
+    dateFromValue.setHours(startHours, startMinutes, 0, 0);
+    const fromValue = formatTimeData(dateFromValue);
+
     const [endHours, endMinutes] = toTime.split(":").map(Number);
-    dateFrom.setUTCHours(startHours, startMinutes, 0, 0);
-    dateTo.setUTCHours(endHours, endMinutes, 0, 0);
+    dateToValue.setHours(endHours, endMinutes, 0, 0);
+    const toValue = formatTimeData(dateToValue);
 
-    formatTimeData(dateFrom);
-    formatTimeData(dateTo);
+    if (fromValue && toValue) {
+      const confirmationEn =
+        `The following time off period will be recorded:\n` +
+        `From: ${fromValue}\n` +
+        `To: ${toValue}\n`;
 
-    setIsConfirmation(true);
+      const confirmationSr =
+        `Odsustvo će biti evidentirano za: \n` +
+        `Od: ${fromValue}\n` +
+        `Do: ${toValue}\n`;
+
+      setIsConfirmation(true);
+      setConfirmationText(localization.code === 'en' ? confirmationEn : confirmationSr)
+    }
+
   }
 
   const confirmHandler = () => {
@@ -168,8 +191,10 @@ const AbsentHourManagement = () => {
   }
 
   const formatTimeData = (data) => {
-    
+
     if (data instanceof Date) {
+
+
       const datePart = new Intl.DateTimeFormat(localization.code, {
         day: "numeric",
         month: "long",
@@ -191,18 +216,9 @@ const AbsentHourManagement = () => {
 
   }
 
-
-
-  const confirmationEn =
-    `The following time off period will be recorded:\n` +
-    `From: ${formatTimeData(fromTime)}\n` +
-    `To: ${formatTimeData(toTime)}\n`;
-
-
-  const confirmationSr =
-    `Odsustvo će biti evidentirano za: \n` +
-    `Od: ${formatTimeData(fromTime)}\n` +
-    `Do: ${formatTimeData(toTime)}\n`;
+  const redirectListAbsence = () => {
+    router.push("/(tabs)/(03_settings)/absenceManagerList");
+  }
 
 
   return (
@@ -211,6 +227,12 @@ const AbsentHourManagement = () => {
         <Text style={styles.title}>
           {localization.SETTINGS.ABSENTHOURS.capture}
         </Text>
+        <TouchableOpacity style={{ flexDirection: 'row', opacity: .7 }} onPress={redirectListAbsence}>
+          <Text style={styles.subTitle}>
+            {localization.SETTINGS.ABSENTHOURS.list}
+          </Text>
+        </TouchableOpacity>
+
         <View style={{ flexDirection: 'row', alignContent: 'center', alignSelf: "center", alignItems: "center", justifyContent: 'space-around' }}>
           <Text style={styles.label}>{localization.SETTINGS.ABSENTHOURS.from}</Text>
 
@@ -302,8 +324,7 @@ const AbsentHourManagement = () => {
                 color="white"
               />
             }
-            title={localization.code === 'en' && isConfirmation ? confirmationEn : isConfirmation && confirmationSr}
-
+            title={confirmationText}
           />
 
         )}
@@ -415,6 +436,13 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: "#000",
     justifyContent: "space-between",
+  },
+  subTitle: {
+    fontSize: 18,
+    fontWeight: "400",
+    textAlign: "center",
+    color: "white",
+    textDecorationLine: "underline",
   },
   title: {
     fontSize: 24,
