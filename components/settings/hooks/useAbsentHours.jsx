@@ -10,7 +10,9 @@ function useAbsentHours() {
   const [message, setMessage] = useState(null);
   const [workHours, setWorkHours] = useState(null);
 
-  const createAbsentHours = async (from, to, comment, token, type) => {
+  const [absenceData, setAbsenceData] = useState([]);
+
+  const createAbsentHours = async (from, to, comment, token) => {
     setIsLoading("post");
     setError(null);
 
@@ -20,7 +22,6 @@ function useAbsentHours() {
         endDate: to,
         token,
         description: comment,
-        type,
       });
 
       setIsMessage(true);
@@ -35,6 +36,25 @@ function useAbsentHours() {
       setIsLoading(null);
     }
   };
+
+
+  const getAbsenceEmployer = async () => {
+    setError(null);
+    setIsLoading("fetchAbsence");
+    console.log("fetchAbsencefetchAbsencefetchAbsencefetchAbsencefetchAbsencefetchAbsence")
+    try {
+      const response = await get(`/admin/availabilities/${new Date()}/absence`);
+      if (response.status === 200) {
+        setAbsenceData(response.data);
+      }
+    } catch (err) {
+      console.log("err",err);
+      
+      setError(localization.PLACES.error);
+    } finally {
+      setIsLoading(null);
+    }
+  }
 
 
   const getEmployer = async (id) => {
@@ -62,7 +82,9 @@ function useAbsentHours() {
     setIsMessage,
     getEmployer,
     workHours,
-    setError
+    setError,
+    getAbsenceEmployer,
+    absenceData
   };
 }
 

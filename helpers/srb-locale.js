@@ -15,6 +15,7 @@ export const SRB_LOCALIZATION = {
 
   code: "sr",
   HOME: {
+    absenceManager: "Upravljanje odsustvima",
     listRequirements: "Lista zahteva",
     missed: "Propušten termin?",
     startBtn: "Započni",
@@ -217,6 +218,10 @@ export const SRB_LOCALIZATION = {
   INITIAL: {
     error: "Greška prilikom preuzimanja inicijalnih podataka",
   },
+  INTERNET: {
+    error: "Proverite da li ste povezani na internet i pokušajte ponovo.",
+    title: "Nema Internet konekcije",
+  },
   BARBERS: {
     notDelete:
       "Frizer ne može biti obrisan dok postoje aktivni zakazani termini.",
@@ -342,8 +347,10 @@ export const SRB_LOCALIZATION = {
       success: "Uspešno ste definisali vremenski period",
     },
     ABSENTHOURS: {
+      errorList: "Trenutno nema dostupnih odsustva",
       title: "Upravljanje odsustvima",
       capture: "Podešavanje odsustva",
+      list: "Lista odsustva",
       submit: "Sačuvaj",
       from: "Od:",
       to: "Do:",

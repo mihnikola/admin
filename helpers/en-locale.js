@@ -10,6 +10,7 @@ export const ENG_LOCALIZATION = {
   },
   code: "en",
   HOME: {
+    absenceManager: "Absence Management",
     listRequirements: "List of requirements",
     missed: "Missed treatman?",
     startBtn: "Get Started",
@@ -35,6 +36,10 @@ export const ENG_LOCALIZATION = {
   BUTTONS: {
     ok: "OK",
     cancel: "Cancel",
+  },
+  INTERNET: {
+    error: "Please check your network connection.",
+    title: "No Internet",
   },
   BARBERS: {
     notDelete: `This barber can’t be deleted while there are active scheduled bookings.`,
@@ -343,8 +348,10 @@ export const ENG_LOCALIZATION = {
       success: "You have successfully set the time period",
     },
     ABSENTHOURS: {
+      errorList: "You don't have any absence",
       title: "Absence management",
       capture: "Set absent time",
+      list: "List of absence",
       submit: "Save",
       from: "From:",
       to: "To:",

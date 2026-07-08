@@ -24,6 +24,7 @@ export default function RootLayoutBarbers() {
       <Stack.Screen name="locationManager" options={headerOptionsFalse} />
 
       <Stack.Screen name="absentManager" options={headerOptions} />
+      <Stack.Screen name="absenceManagerList" options={headerOptionsFalse} />
       <Stack.Screen name="timeManagement" options={headerOptions} />
 
       <Stack.Screen name="locationManagement" options={headerOptionsFalse} />

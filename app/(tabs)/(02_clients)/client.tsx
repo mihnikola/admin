@@ -125,9 +125,10 @@ const UserProfile = () => {
           icon={<FontAwesome name="close" size={64} color="white" />}
           onClose={() => setDialog(false)}
           onLogOut={() => deleteClient(id)}
-          buttonTextYes="OK"
           title={localization.CLIENTS.question}
           buttonTextNo={localization.CLIENTS.cancel}
+          buttonTextYes="OK"
+
         />
       )}
       {isMessage && (
