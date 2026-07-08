@@ -9,7 +9,7 @@ const usePhoneNumber = () => {
   const phoneNumberInputRef = useRef(null);
 
   const { localization } = useLocalization();
-  const serbianPhoneRegex = /^\d{8,9}$/;
+  const serbianPhoneRegex = /^6\d{7,8}$/;
 
   const validateSerbianPhoneNumber = (number) => {
     if (number.length === 0) {

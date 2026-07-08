@@ -80,6 +80,7 @@ export default function BarbersAdd() {
   } = usePhoneNumber();
 
   const selectedImgHandler = (imgData) => {
+    console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
     if (imgData) {
       setChangedImg(imgData);
     }
@@ -88,11 +89,11 @@ export default function BarbersAdd() {
     setTimeout(async () => {
       await fetchAllSeniority();
       await fetchAllStatusChecking();
-    }, 100);
+    }, 1000);
     if (id) {
       setTimeout(async () => {
         await getBarberHandler(id, changeProfile || "");
-      }, 100);
+      }, 50);
     }
   }, [id]);
 
@@ -200,6 +201,7 @@ export default function BarbersAdd() {
   const modalStatusHandler = () => {
     setStatusChecking(true);
   };
+  
   if (isLoading === "getBarber") {
     return <SharedLoader isOpen={isLoading === "getBarber"} />;
   }

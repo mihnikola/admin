@@ -12,6 +12,7 @@ function useLocationBarber() {
   const [locationBarbersData, setLocationBarbersData] = useState([]);
   const [locations, setLocations] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState(null);
+  const [initialBarbers, setInitialBarbers] = useState([]);
 
   const onSelectedLocation = (item) => {
     setSelectedLocation(item);
@@ -27,6 +28,7 @@ function useLocationBarber() {
       const response = await get(`/admin/places/${id}/employers`);
       if (response.status === 200) {
         setLocationBarbersData(response.data);
+        setInitialBarbers(response.data);
       }
     } catch (errorData) {
       setIsMessage(true);
@@ -90,8 +92,10 @@ function useLocationBarber() {
   };
 
   const confirmSubmit = async () => {
+    router.back();
     setMessage(null);
     setIsMessage(false);
+
   };
 
   return {
@@ -109,6 +113,7 @@ function useLocationBarber() {
     submitChanges,
     confirmSubmit,
     getLocations,
+    initialBarbers
   };
 }
 

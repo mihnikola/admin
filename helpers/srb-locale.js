@@ -67,9 +67,12 @@ export const SRB_LOCALIZATION = {
     expired: "Isteklo",
   },
   PLACES: {
-    notChange: "Ova lokacija ne može biti promenjena dok postoje aktivni zakazani termini.",
-    notDelete: "Ova lokacija ne može biti obrisana dok postoje aktivni zakazani termini.",
-    notDeactivated: "Ova lokacija ne može biti deaktivirana dok postoje aktivni zakazani termini.",
+    notChange:
+      "Ova lokacija ne može biti promenjena dok postoje aktivni zakazani termini.",
+    notDelete:
+      "Ova lokacija ne može biti obrisana dok postoje aktivni zakazani termini.",
+    notDeactivated:
+      "Ova lokacija ne može biti deaktivirana dok postoje aktivni zakazani termini.",
     errorFields: "Popuni sva polja",
     workHoursNotFound: "Barber trenutno nije dodeljen nijednoj lokaciji",
     deactivatedSuccess: "Lokacija je uspešno deaktivirana.",
@@ -102,7 +105,8 @@ export const SRB_LOCALIZATION = {
     notFound: "Nema dostupnih lokacija",
   },
   SERVICES: {
-    notDelete: "Ova usluga ne može biti obrisana dok postoje aktivni zakazani termini.",
+    notDelete:
+      "Ova usluga ne može biti obrisana dok postoje aktivni zakazani termini.",
     errorImage: "Slika je obavezna",
     removeBtn: "Izbriši uslugu",
     title: "Cenovnik & Usluge",
@@ -155,6 +159,10 @@ export const SRB_LOCALIZATION = {
     notFound: "Nema zakazanih rezervacija za ovaj datum.",
     noSelected: "Izaberite datum",
     noEvents: "Greška prilikom učitavanja rezervacija...",
+  },
+  INTERNET: {
+    error: "Proverite da li ste povezani na internet i pokušajte ponovo.",
+    title: "Nema Internet konekcije",
   },
   APPOINTMENTS: {
     completed: "Termin je uspešno završen",
@@ -210,7 +218,8 @@ export const SRB_LOCALIZATION = {
     error: "Greška prilikom preuzimanja inicijalnih podataka",
   },
   BARBERS: {
-    notDelete: "Frizer ne može biti obrisan dok postoje aktivni zakazani termini.",
+    notDelete:
+      "Frizer ne može biti obrisan dok postoje aktivni zakazani termini.",
     confirmButton: "Ok",
     submitAdd: "Dodaj barbera",
     question: "Da li stvarno želiš da obrišeš ovog barbera?",
@@ -408,7 +417,7 @@ export const SRB_LOCALIZATION = {
     mainTitle: "Unesite novu lozinku",
     success: "Uspešno ažurirana lozinka",
     error: "Greška u toku promene lozinke",
-    currentError: "Trenutna lozinka nije tačna"
+    currentError: "Trenutna lozinka nije tačna",
   },
   EMAIL: {
     label: "Email",

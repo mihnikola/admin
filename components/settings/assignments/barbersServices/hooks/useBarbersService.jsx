@@ -13,6 +13,7 @@ const useBarbersService = () => {
   const { localization } = useLocalization();
   const [isMessage, setIsMessage] = useState(false);
   const [message, setMessage] = useState(null);
+  const [initialServices, setInitialServices] = useState([]);
 
 
   const getServicesById = async (id) => {
@@ -22,6 +23,7 @@ const useBarbersService = () => {
       const response = await get(`/employersServices/${id}`);
       if (response.status === 200) {
         setServicesByBarbers(response.data.services);
+        setInitialServices(response.data.services);
       }
     } catch (err) {
       setError(localization.SERVICES.errorFetch);
@@ -104,6 +106,8 @@ const useBarbersService = () => {
   };
 
   const confirmHandler = async () => {
+    router.back();
+
     setIsMessage(false);
     await fetchAllBarbers();
   };
@@ -128,7 +132,8 @@ const useBarbersService = () => {
     assignmentHandler,
     toggleService,
     submitChangesServiceToBarber,
-    servicesByBarbers
+    servicesByBarbers,
+    initialServices
   };
 };
 

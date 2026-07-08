@@ -1,4 +1,5 @@
 import { get, delete as deleteRequest, put } from "@/api/apiService";
+import { useAuth } from "@/contexts/AuthContext";
 import { useBarbersStore } from "@/contexts/BarberContext";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import axios from "axios";
@@ -17,6 +18,7 @@ const useBarbers = () => {
   const { localization } = useLocalization();
   const [isMessage, setIsMessage] = useState(false);
   const [message, setMessage] = useState(null);
+  const { logoutFirebase, fetchUserData, userData } = useAuth();
 
   const fetchAllBarbers = async () => {
     setIsLoading("get");
@@ -137,9 +139,11 @@ const useBarbers = () => {
       }
 
       const isEdit = Boolean(userData?.id);
+      const baseUrl = process.env.EXPO_PUBLIC_API_URL.replace(/\/$/, "");
+
       const url = isEdit
-        ? `${process.env.EXPO_PUBLIC_API_URL}/admin/users/${userData.id}`
-        : `${process.env.EXPO_PUBLIC_API_URL}/admin/users`;
+        ? `${baseUrl}/admin/users/${userData.id}`
+        : `${baseUrl}/admin/users`;
 
       const method = isEdit ? "put" : "post";
 
@@ -163,6 +167,7 @@ const useBarbers = () => {
         );
       }
       await fetchAllBarbers();
+      await fetchUserData();
     } catch (err) {
       console.log("POST || PUT ERROR:", err?.response || err);
       setError(localization.BARBERS.errorFetch);

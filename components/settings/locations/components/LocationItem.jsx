@@ -50,13 +50,13 @@ const styles = StyleSheet.create({
     borderColor: "#fff",
   },
   item: {
-    padding: 5,
-    marginVertical: 5,
+    backgroundColor: "#000000",
     flexDirection: "row",
-    alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: "black",
+    padding: 5,
+    borderRadius: 8,
     borderWidth: 1,
+    marginVertical: 5,
     borderColor: "white",
   },
   itemBarber: {

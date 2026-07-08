@@ -95,11 +95,12 @@ const useServices = () => {
       });
     }
     Object.fromEntries(formData._parts);
+    const baseUrl = process.env.EXPO_PUBLIC_API_URL.replace(/\/$/, "");
 
     if (userData?.id) {
       try {
         const response = await axios.put(
-          `${process.env.EXPO_PUBLIC_API_URL}/admin/services/${userData?.id}`,
+          `${baseUrl}/admin/services/${userData?.id}`,
           formData,
           {
             headers: {
@@ -124,7 +125,7 @@ const useServices = () => {
     } else {
       try {
         const response = await axios.post(
-          `${process.env.EXPO_PUBLIC_API_URL}/admin/services`,
+          `${baseUrl}/admin/services`,
           formData,
           {
             headers: {

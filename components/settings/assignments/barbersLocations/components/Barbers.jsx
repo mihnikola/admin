@@ -19,8 +19,9 @@ import BarberItemAssign from "./BarberItemAssign";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import SharedButtonApproved from "@/shared-components/SharedButtonApproved";
 import { SharedLoader } from "@/shared-components/SharedLoader";
+import withKeyboardAvoid from "@/wrapper/WrapperKeyboard";
 
-export default function Barbers() {
+const Barbers = () => {
   const { localization } = useLocalization();
   const { id, address } = useLocalSearchParams();
 
@@ -37,11 +38,40 @@ export default function Barbers() {
     getBarbersById,
     toggleBarber,
     submitChanges,
+    initialBarbers,
   } = useLocationBarber();
   const [search, setSearch] = useState("");
+  const [disabledBtn, setDisabledBtn] = useState(true);
+  const initialNumber = initialBarbers?.filter((item) => {
+    if (item.flag === "T") {
+      return item;
+    }
+  });
+
+  const areListsEqual = (list1, list2) => {
+    if (list1.length !== list2.length) return false;
+
+    const list2Map = new Map(list2.map((item) => [item._id, item]));
+
+    return list1.every((item) => {
+      const other = list2Map.get(item._id);
+
+      if (!other) return false;
+
+      return Object.keys(item).every((key) => item[key] === other[key]);
+    });
+  };
 
   const filterResult = locationBarbersData.filter((item) => item.flag === "T");
   const allResult = locationBarbersData.filter((item) => item.flag !== "T");
+
+  useEffect(() => {
+    if (areListsEqual(initialNumber, filterResult)) {
+      setDisabledBtn(true);
+    } else {
+      setDisabledBtn(false);
+    }
+  }, [locationBarbersData]);
 
   const [isError, setIsError] = useState(null);
 
@@ -127,6 +157,7 @@ export default function Barbers() {
           onPress={() => submitChanges(id)}
           loading={isLoading === "post"}
           text={localization.SERVICES.saveChanges}
+          disabled={disabledBtn}
         />
       </View>
 
@@ -158,10 +189,10 @@ const styles = StyleSheet.create({
   headerComponent: {
     paddingTop: 25,
     paddingBottom: 15,
-    paddingHorizontal: 8, 
+    paddingHorizontal: 8,
     backgroundColor: "#000",
     borderBottomWidth: 1,
-    borderColor: "#1A1A1A", 
+    borderColor: "#1A1A1A",
   },
   headerRow: {
     flexDirection: "row",
@@ -169,11 +200,11 @@ const styles = StyleSheet.create({
   },
   headerTextContainer: {
     flex: 1,
-    marginLeft: 10, 
+    marginLeft: 10,
     justifyContent: "center",
   },
   pageTitleHeader: {
-    fontSize: 20, 
+    fontSize: 20,
     fontWeight: "700",
     color: "#fff",
     letterSpacing: 0.5,
@@ -273,3 +304,6 @@ const styles = StyleSheet.create({
     padding: 8,
   },
 });
+
+
+export default withKeyboardAvoid(Barbers);

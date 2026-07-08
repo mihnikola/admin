@@ -52,7 +52,6 @@ export default function GooglePlace({ onSelect }) {
 
 
       const data = await res.json();
-      console.log("res", data);
 
       if (data.status === "OK") {
         setResults(data.predictions || []);

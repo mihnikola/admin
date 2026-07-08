@@ -19,8 +19,9 @@ import SharedBackButton from "@/shared-components/SharedBackButton";
 import useBarbersService from "../hooks/useBarbersService";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import SharedButtonApproved from "@/shared-components/SharedButtonApproved";
+import withKeyboardAvoid from "@/wrapper/WrapperKeyboard";
 
-export default function Services() {
+const Services = () => {
   const { localization } = useLocalization();
   const { id, name, image, phoneNumber } = useLocalSearchParams();
 
@@ -59,10 +60,42 @@ export default function Services() {
     servicesByBarbers,
     toggleService,
     submitChangesServiceToBarber,
+    initialServices,
   } = useBarbersService();
+
   const [search, setSearch] = useState("");
+
   const filterResult = servicesByBarbers.filter((item) => item.assigned);
   const allResult = servicesByBarbers.filter((item) => !item.assigned);
+
+  const [disabledBtn, setDisabledBtn] = useState(true);
+
+  const initialNumber = initialServices?.filter((item) => {
+    if (item?.assigned) {
+      return item;
+    }
+  });
+
+  const areListsEqual = (list1, list2) => {
+    if (list1.length !== list2.length) return false;
+
+    const list2Map = new Map(list2.map((item) => [item._id, item]));
+
+    return list1.every((item) => {
+      const other = list2Map.get(item._id);
+
+      if (!other) return false;
+
+      return Object.keys(item).every((key) => item[key] === other[key]);
+    });
+  };
+  useEffect(() => {
+    if (areListsEqual(initialNumber, filterResult)) {
+      setDisabledBtn(true);
+    } else {
+      setDisabledBtn(false);
+    }
+  }, [servicesByBarbers]);
 
   const [isError, setIsError] = useState(null);
 
@@ -83,9 +116,11 @@ export default function Services() {
       service.name.nameEn.toLowerCase().includes(search.toLowerCase()) ||
       service.name.nameLocal.toLowerCase().includes(search.toLowerCase()),
   );
+
   if (isLoading === "getServices") {
     return <SharedLoader isOpen={isLoading === "getServices"} />;
   }
+
   return (
     <View style={styles.container}>
       <View style={styles.headerComponent}>
@@ -145,6 +180,7 @@ export default function Services() {
           onPress={() => submitChangesServiceToBarber(id)}
           loading={isLoading === "patch"}
           text={localization.SERVICES.saveChanges}
+          disabled={disabledBtn}
         />
       </View>
 
@@ -170,7 +206,7 @@ export default function Services() {
       )}
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   // Stilovi za NOVI Fiksni Header
@@ -299,3 +335,4 @@ const styles = StyleSheet.create({
     padding: 8,
   },
 });
+export default withKeyboardAvoid(Services);

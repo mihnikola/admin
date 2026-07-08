@@ -25,7 +25,7 @@ export const ENG_LOCALIZATION = {
     signIn: "Sign in",
     calendar: "Calendar",
     location: "Locations",
-    requirements: "Requirements",
+    requirements: "Requests",
     commentLabel: "Treatment description:",
     upcoming: "Upcoming",
     inProgress: "In progress",
@@ -179,6 +179,10 @@ export const ENG_LOCALIZATION = {
     errorFetch: "Errpr while fetching times...",
     title: "Selected time",
   },
+  INTERNET: {
+    error: "Please check your network connection.",
+    title: "No Internet",
+  },
 
   APPOINTMENTS: {
     completed: "Appointment completed successfully",
@@ -188,7 +192,7 @@ export const ENG_LOCALIZATION = {
       yesButton: "Missed",
     },
     cancelBtn: "Cancel appointment",
-    error: "You don't have any requirements",
+    error: "You don't have any requests",
     errorDailyLimit: "You cannot make more reservation this day",
     errorWeeklyLimit: "You cannot make more reservation this week",
     errorMonthlyLimit: "You cannot make more reservation this month",
@@ -392,7 +396,7 @@ export const ENG_LOCALIZATION = {
     mainTitle: "Enter New Password",
     success: "Successfully updated password",
     error: "Error while changing password",
-    currentError: "Current password is not correct"
+    currentError: "Current password is not correct",
   },
   EMAIL: {
     label: "Email",

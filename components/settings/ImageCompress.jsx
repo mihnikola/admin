@@ -216,7 +216,7 @@ export default function ImageCompress({ imageValue, handlePickImage }) {
               <TouchableOpacity
                 style={styles.editButton}
                 onPress={pickImage}
-                disabled={uploading || isPreloading}
+                // disabled={uploading || isPreloading}
                 hitSlop={50}
               >
                 <MaterialCommunityIcons name="pencil" size={25} color="#000" />
