@@ -10,7 +10,7 @@ export default function BarberItem({ id, item, assignmentHandler }) {
 
   return (
     <TouchableOpacity
-      style={[styles.barberItem,item.deletedAt && styles.deletedAt]}
+      style={styles.barberItem}
       onPress={() => checkHandler(item, id)}
     >
       {item.image && (

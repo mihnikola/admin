@@ -7,11 +7,7 @@ export default function BarberItem({ item, toggleBarber, isAssigned }) {
 
   return (
     <TouchableOpacity
-      style={[
-        styles.barberItem,
-        isAssigned && styles.barberItemAssigned,
-        item.deletedAt && styles.deletedAt,
-      ]}
+      style={[styles.barberItem, isAssigned && styles.barberItemAssigned]}
       onPress={() => toggleBarber(item)}
       activeOpacity={0.7}
     >
