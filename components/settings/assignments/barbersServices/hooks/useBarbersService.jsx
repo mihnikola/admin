@@ -70,7 +70,7 @@ const useBarbersService = () => {
     setIsLoading("get");
     setError(null);
     try {
-      const response = await get("/admin/users/employers");
+      const response = await get(`/admin/users/employers/${new Date()}/services`);
       if (response.status === 200) {
         setBarbersData(response.data);
       }

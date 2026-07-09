@@ -11,7 +11,7 @@ export default function BarberItemAssign({ id, item, toggleBarber }) {
 
   return (
     <TouchableOpacity
-      style={[styles.barberItem, item.deletedAt && styles.deletedAt]}
+      style={styles.barberItem}
       onPress={() => checkHandler(item, id)}
     >
       <View style={styles.barberPositionDeatils}>

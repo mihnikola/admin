@@ -21,6 +21,8 @@ const useBarbers = () => {
   const { logoutFirebase, fetchUserData, userData } = useAuth();
 
   const fetchAllBarbers = async () => {
+    
+    console.log("xxxxxx")
     setIsLoading("get");
     setError(null);
     try {
