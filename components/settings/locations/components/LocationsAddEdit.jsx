@@ -32,6 +32,7 @@ export default function LocationsAddEdit() {
     confirmHandler,
     message,
     deactivateLocation,
+    checkReservationIfExists,
     activateLocation,
     deleteLocation,
     error,
@@ -124,6 +125,7 @@ export default function LocationsAddEdit() {
           streetName={streetName}
           activateLocation={activateLocation}
           isLoading={isLoading}
+          checkReservation={checkReservationIfExists}
           deleteLocation={deleteLocation}
           deactivate={deactivateLocation}
           workHours={workHours?.workingHours}

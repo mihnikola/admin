@@ -80,10 +80,14 @@ export const SRB_LOCALIZATION = {
     deletedSuccess: "Lokacija je uspešno obrisana.",
     undoSuccess: "Lokacija je uspešno aktivirana.",
     deactivateQuestion: "Da li želite da deaktivirate lokaciju?",
+    deactivateReservationQuestion:
+      "Da li ste sigurni da želite da otkažete sve aktivne rezervacije i deaktivirate lokaciju?",
     deleteBtn: "Obriši",
     question: "Da li ste sigurni da želite da deaktivirate lokaciju?",
     questionActivate: "Da li ste sigurni da želite da aktivirate lokaciju?",
     deleteQuestion: "Da li ste sigurni da želite da obrišete lokaciju?",
+    deleteReservationQuestion:
+      "Da li ste sigurni da želite da otkažete sve aktivne rezervacije i obrišete lokaciju?",
     confirmButton: "Ok",
     undo: "Aktiviraj",
     add: "Lokacija je uspešno kreirana",

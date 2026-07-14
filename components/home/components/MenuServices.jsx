@@ -14,6 +14,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import SearchInputComponent from "@/components/settings/SearchInputComponent";
 
 const locations = [
   {
@@ -64,7 +65,7 @@ export default function MenuServices() {
     router.push("/(tabs)/(01_home)/calendar");
   };
   const filteredLocation = locations.filter((location) =>
-    location.address.toLowerCase().includes(search.toLowerCase())
+    location.address.toLowerCase().includes(search.toLowerCase()),
   );
   const getClient = (item) => {
     router.push("/(tabs)/(01_home)/calendar");
@@ -92,13 +93,8 @@ export default function MenuServices() {
   return (
     <View style={styles.container}>
       <SharedCarousel title="Locations" />
-      <TextInput
-        style={styles.searchInput}
-        placeholder="Search..."
-        value={search}
-        onChangeText={setSearch}
-        placeholderTextColor="white"
-      />
+      <SearchInputComponent search={search} setSearch={setSearch} />
+
       <FlatList
         data={locationsData}
         keyExtractor={(item) => item.id}
@@ -109,13 +105,6 @@ export default function MenuServices() {
 }
 
 const styles = StyleSheet.create({
-  searchInput: {
-    backgroundColor: "#222",
-    borderRadius: 8,
-    padding: 10,
-    margin: 18,
-    fontSize: 18,
-  },
   detailsContainer: {
     flex: 1,
     justifyContent: "center",

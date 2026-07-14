@@ -6,6 +6,7 @@ import LocationItem from "./LocationItem";
 import { useEffect, useState } from "react";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { router } from "expo-router";
+import SearchInputComponent from "@/components/settings/SearchInputComponent";
 const Locations = () => {
   const { localization } = useLocalization();
   const [search, setSearch] = useState("");
@@ -26,18 +27,22 @@ const Locations = () => {
 
   return (
     <View style={styles.container}>
-      <View style={{ flexDirection: 'row', alignItems: "center", marginTop: 30, marginLeft: 15, marginBottom: 2 }}>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          marginTop: 30,
+          marginLeft: 15,
+          marginBottom: 2,
+        }}
+      >
         <SharedBackButton onPress={router.back} absolutePosition={false} />
 
         <Text style={styles.title}>{localization.PLACES.title}</Text>
       </View>
-      <TextInput
-        style={styles.searchInput}
-        placeholder={localization.CLIENTS.search}
-        value={search}
-        onChangeText={setSearch}
-        placeholderTextColor="white"
-      />
+      <View style={styles.searchInputContainer}>
+        <SearchInputComponent search={search} setSearch={setSearch} />
+      </View>
       <View style={{ flex: 1 }}>
         {isLoading === "getLocations" && (
           <Loader isOpen={isLoading === "getLocations"} />
@@ -73,13 +78,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginTop: 20,
   },
-  searchInput: {
-    backgroundColor: "#222",
-    borderRadius: 8,
-    padding: 20,
-    margin: 18,
-    fontSize: 18,
-    color: "white"
+  searchInputContainer: {
+    marginVertical: 8,
+    marginHorizontal: 20
   },
   container: {
     flex: 1,
@@ -92,7 +93,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     alignSelf: "center",
     alignItems: "center",
-    width: "80%"
+    width: "80%",
   },
 });
 export default Locations;

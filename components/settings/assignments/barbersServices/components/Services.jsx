@@ -20,6 +20,7 @@ import useBarbersService from "../hooks/useBarbersService";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import SharedButtonApproved from "@/shared-components/SharedButtonApproved";
 import withKeyboardAvoid from "@/wrapper/WrapperKeyboard";
+import SearchInputComponent from "@/components/settings/SearchInputComponent";
 
 const Services = () => {
   const { localization } = useLocalization();
@@ -159,13 +160,9 @@ const Services = () => {
           {localization.SETTINGS.SERVICESBARBERS.availableServices} (
           {filteredService.length})
         </Text>
-        <TextInput
-          style={styles.searchInput}
-          placeholder={localization.CLIENTS.search}
-          value={search}
-          onChangeText={setSearch}
-          placeholderTextColor="white"
-        />
+        <View style={styles.searchInputContainer}>
+          <SearchInputComponent search={search} setSearch={setSearch} />
+        </View>
 
         <FlatList
           data={filteredService}
@@ -218,6 +215,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: "#1A1A1A", // Suptilna linija za odvajanje
   },
+  searchInputContainer: {
+    marginVertical: 5,
+  },
   headerRow: {
     flexDirection: "row",
     alignItems: "center",
@@ -242,12 +242,7 @@ const styles = StyleSheet.create({
   loadingContainer: {
     paddingTop: 40,
   },
-  searchInput: {
-    backgroundColor: "#000000",
-    borderRadius: 8,
-    fontSize: 15,
-    color: "#fff",
-  },
+
   itemContent: {
     alignItems: "baseline",
     justifyContent: "flex-start",

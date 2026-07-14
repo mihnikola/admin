@@ -13,6 +13,7 @@ import {
 import useGetClients from "./hooks/useGetClients";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { getInitialsName } from "@/helpers";
+import SearchInputComponent from "../settings/SearchInputComponent";
 
 export default function ClientsScreen() {
   const [search, setSearch] = useState("");
@@ -73,13 +74,10 @@ export default function ClientsScreen() {
         title={localization.TABS.CLIENTS}
         length={clients.length}
       />
-      <TextInput
-        style={styles.searchInput}
-        placeholder={localization.CLIENTS.search}
-        value={search}
-        onChangeText={setSearch}
-        placeholderTextColor="white"
-      />
+   <View style={styles.searchInputContainer}>
+        <SearchInputComponent search={search} setSearch={setSearch} />
+      </View>
+
       <FlatList
         data={filteredClients}
         keyExtractor={(item) => item.id}
@@ -96,13 +94,10 @@ const styles = StyleSheet.create({
     paddingTop: 40,
   },
 
-  searchInput: {
-    backgroundColor: "#222",
-    borderRadius: 8,
-    padding: 10,
-    margin: 18,
-    fontSize: 18,
-  },
+searchInputContainer:{
+  marginHorizontal:18,
+  marginVertical: 10
+},
   clientCard: {
     flexDirection: "row",
     backgroundColor: "#1a1a1a",

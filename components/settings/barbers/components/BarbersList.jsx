@@ -21,6 +21,7 @@ import FloatingButton from "../../FloatingButton";
 import { router } from "expo-router";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { getInitialsName } from "@/helpers";
+import SearchInputComponent from "../../SearchInputComponent";
 
 export default function BarbersList() {
   const { localization } = useLocalization();
@@ -66,13 +67,9 @@ export default function BarbersList() {
 
         <Text style={styles.subTitle}>{localization.BARBERS.listBarbers}</Text>
       </View>
-      <TextInput
-        style={styles.searchInput}
-        placeholder={localization.CLIENTS.search}
-        value={search}
-        onChangeText={setSearch}
-        placeholderTextColor="white"
-      />
+      <View style={styles.searchInputContainer}>
+        <SearchInputComponent search={search} setSearch={setSearch} />
+      </View>
       {isLoading === "get" && <Loader />}
 
       {isLoading !== "get" && (
@@ -171,14 +168,9 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "bold",
   },
-  searchInput: {
-    backgroundColor: "#222",
-    borderRadius: 8,
-    padding: 20,
+  searchInputContainer: {
     marginBottom: 10,
     marginHorizontal: 12,
-    fontSize: 18,
-    color: "#fff",
   },
 
   title: {

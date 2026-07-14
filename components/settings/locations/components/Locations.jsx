@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, TextInput, FlatList } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import Loader from "@/shared-components/Loader";
 import LocationItem from "./LocationItem";
@@ -7,6 +14,8 @@ import FloatingButton from "../../FloatingButton";
 import { useCallback, useState } from "react";
 import { router, useFocusEffect } from "expo-router";
 import SharedBackButton from "@/shared-components/SharedBackButton";
+import { Ionicons } from "@expo/vector-icons";
+import SearchInputComponent from "../../SearchInputComponent";
 
 const Locations = () => {
   const { localization } = useLocalization();
@@ -32,18 +41,22 @@ const Locations = () => {
 
   return (
     <View style={styles.container}>
-      <View style={{ flexDirection: 'row', alignItems: "center", marginTop: 30, marginLeft: 15, marginBottom: 20 }}>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          marginTop: 30,
+          marginLeft: 15,
+          marginBottom: 20,
+        }}
+      >
         <SharedBackButton onPress={router.back} absolutePosition={false} />
 
         <Text style={styles.title}>{localization.PLACES.title}</Text>
       </View>
-      <TextInput
-        style={styles.searchInput}
-        placeholder={localization.CLIENTS.search}
-        value={search}
-        onChangeText={setSearch}
-        placeholderTextColor="white"
-      />
+      <View style={styles.searchInputContainer}>
+        <SearchInputComponent search={search} setSearch={setSearch} />
+      </View>
 
       {isLoading === "getPlaces" ? (
         <Loader />
@@ -54,7 +67,7 @@ const Locations = () => {
           renderItem={({ item }) => (
             <LocationItem item={item} startEditing={startEditing} />
           )}
-          contentContainerStyle={{ padding: 20 }}
+          contentContainerStyle={{ paddingVertical: 5, paddingHorizontal:20 }}
           showsVerticalScrollIndicator={false}
           ListEmptyComponent={
             <Text style={styles.notFound}>{localization.PLACES.notFound}</Text>
@@ -80,16 +93,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginTop: 20,
   },
+  searchInputContainer: {
+    marginHorizontal: 20,
+  },
   contentData: {
     flex: 1,
-  },
-  searchInput: {
-    backgroundColor: "#3f3f3f",
-    borderRadius: 8,
-    padding: 14,
-    marginHorizontal: 20,
-    fontSize: 18,
-    color: "#fff",
   },
 
   title: {
@@ -99,7 +107,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     alignSelf: "center",
     alignItems: "center",
-    width: "80%"
+    width: "80%",
   },
   btn: {
     paddingBottom: 5,

@@ -31,6 +31,7 @@ function useLocation() {
         setMessage(localization.PLACES.deletedSuccess);
       }
     } catch (errorData) {
+      console.log("xxxxxxx", errorData);
       setIsMessage(true);
       setError(errorData);
     } finally {
@@ -67,24 +68,38 @@ function useLocation() {
     }
   };
   const deactivateLocation = async (id) => {
+    console.log("objexxxxxxct", id);
     setIsLoading("deactivate");
     setError(null);
     try {
       const response = await put(`/admin/places/${id}/deactivate`);
-      if (response.status === 206) {
-        setError(localization.PLACES.notDeactivated);
-      }
-      if (response.status === 200) {
+      if (response.status === 200 || response.status === 202) {
         setIsMessage(true);
         setMessage(localization.PLACES.deactivatedSuccess);
       }
     } catch (errorData) {
+      console.log("object", errorData);
       setIsMessage(true);
       setError(errorData);
     } finally {
       setIsLoading(null);
     }
   };
+
+  const checkReservationIfExists = async (id) => {
+    setIsLoading("checkReservation");
+    setError(null);
+    try {
+      const response = await get(`/admin/places/${id}/checkReservation`);
+      console.log("checkReservation",response);
+      return response.status;
+    } catch (errorData) {
+      return errorData;
+    } finally {
+      setIsLoading(null);
+    }
+  };
+
   const activateLocation = async (id) => {
     setIsLoading("activate");
     setError(null);
@@ -193,6 +208,7 @@ function useLocation() {
     addLocationRouter,
     startEditing,
     deactivateLocation,
+    checkReservationIfExists,
     activateLocation,
     getLocationById,
     locationById,

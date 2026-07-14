@@ -20,6 +20,7 @@ import { SharedLoader } from "@/shared-components/SharedLoader";
 import FloatingButton from "../../FloatingButton";
 import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
 import SharedBackButton from "@/shared-components/SharedBackButton";
+import SearchInputComponent from "../../SearchInputComponent";
 
 export default function ServiceManager() {
   const { localization } = useLocalization();
@@ -36,7 +37,6 @@ export default function ServiceManager() {
     fetchAllServices,
     startEditing,
   } = useServices();
-
 
   const [isError, setIsError] = useState(null);
   const [search, setSearch] = useState("");
@@ -57,18 +57,24 @@ export default function ServiceManager() {
   }, []);
   return (
     <View style={styles.container}>
-      <View style={{ flexDirection: 'row', alignItems: "center", marginTop: 30, marginLeft: 10, marginBottom: 20 }}>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          marginTop: 30,
+          marginLeft: 10,
+          marginBottom: 20,
+        }}
+      >
         <SharedBackButton onPress={router.back} absolutePosition={false} />
 
-        <Text style={styles.subTitle}>{localization.SERVICES.listServices}</Text>
+        <Text style={styles.subTitle}>
+          {localization.SERVICES.listServices}
+        </Text>
       </View>
-      <TextInput
-        style={styles.searchInput}
-        placeholder={localization.CLIENTS.search}
-        value={search}
-        onChangeText={setSearch}
-        placeholderTextColor="white"
-      />
+      <View style={styles.searchInputContainer}>
+        <SearchInputComponent search={search} setSearch={setSearch} />
+      </View>
       {isLoading === "get" && <Loader />}
 
       {isLoading !== "get" && (
@@ -137,14 +143,9 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: "#000000",
   },
-  searchInput: {
-    backgroundColor: "#222",
-    borderRadius: 8,
-    padding: 20,
+  searchInputContainer: {
     marginBottom: 10,
     marginHorizontal: 12,
-    fontSize: 18,
-    color: "#fff",
   },
   title: {
     fontSize: 22,
@@ -163,7 +164,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     alignSelf: "center",
     alignItems: "center",
-    width: "80%"
+    width: "80%",
   },
   input: {
     backgroundColor: "#1e1e1e",

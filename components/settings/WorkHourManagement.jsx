@@ -18,6 +18,7 @@ import SharedButtonRejected from "@/shared-components/SharedButtonRejected";
 import SharedButtonDeactivate from "@/shared-components/SharedButtonDeactivate";
 import SharedButtonActivate from "@/shared-components/SharedButtonActivate";
 export default function TimeSettingsScreen({
+  checkReservation,
   isLoading,
   deactivate,
   deleteLocation,
@@ -54,9 +55,21 @@ export default function TimeSettingsScreen({
   const [isUndo, setIsUndo] = useState(false);
   const [disabledBtn, setDisabledBtn] = useState(false);
   const [error, setError] = useState(null);
+  const [responseDataFromServer, setResponseDataFromServer] = useState(0);
 
-  const removeHandler = () => {
+  const removeHandler = async () => {
     setIsRemove(true);
+    const response = await checkReservation(id);
+    console.log("removeHandler", response);
+
+    setResponseDataFromServer(response);
+  };
+  const deactiveHandler = async () => {
+    setIsDeactivate(true);
+
+    const response = await checkReservation(id);
+    console.log("deactiveHandler", response);
+    setResponseDataFromServer(response);
   };
   const removeCancelHandler = () => {
     setIsRemove(false);
@@ -75,14 +88,6 @@ export default function TimeSettingsScreen({
   const undoConfirmlHandler = async (id) => {
     setIsUndo(false);
     await activateLocation(id);
-  };
-
-  const deactiveHandler = () => {
-    setIsDeactivate(true);
-    // router.push({
-    //   pathname: "/(tabs)/(03_settings)/removeLocation",
-    //   params: { id, type: "deactivate" },
-    // });
   };
 
   const deactivateCancelHandler = () => {
@@ -269,7 +274,7 @@ export default function TimeSettingsScreen({
         )}
       </View>
 
-      {isRemove && (
+      {isRemove && responseDataFromServer !== 0 && (
         <SharedQuestion
           isOpen={isRemove}
           onClose={removeCancelHandler}
@@ -277,12 +282,16 @@ export default function TimeSettingsScreen({
           icon={
             <FontAwesome name="question-circle-o" size={64} color="white" />
           }
-          title={localization.PLACES.deleteQuestion}
+          title={
+            responseDataFromServer === 200
+              ? localization.PLACES.deleteQuestion
+              : localization.PLACES.deleteReservationQuestion
+          }
           buttonTextYes={localization.PLACES.deleteBtn}
           buttonTextNo={localization.PLACES.cancel}
         />
       )}
-      {isDeactivate && (
+      {isDeactivate && responseDataFromServer !== 0 && (
         <SharedQuestion
           isOpen={isDeactivate}
           onClose={deactivateCancelHandler}
@@ -290,7 +299,11 @@ export default function TimeSettingsScreen({
           icon={
             <FontAwesome name="question-circle-o" size={64} color="white" />
           }
-          title={localization.PLACES.deactivateQuestion}
+          title={
+            responseDataFromServer === 200
+              ? localization.PLACES.deactivateQuestion
+              : localization.PLACES.deactivateReservationQuestion
+          }
           buttonTextYes={localization.PLACES.deactivateBtn}
           buttonTextNo={localization.PLACES.cancel}
         />

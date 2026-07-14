@@ -55,11 +55,11 @@ const DateComponent = () => {
 
   const getCalendarHeight = (dateString) => {
     const weeks = getWeeksInMonth(dateString);
-    return weeks * 50 + 40; 
+    return weeks * 50 + 40;
   };
   useEffect(() => {
     getDates(checkMonth || localDateString, initialValue);
-      setCalendarHeight(getCalendarHeight(checkMonth || localDateString));
+    setCalendarHeight(getCalendarHeight(checkMonth || localDateString));
 
     // setCalendarHeight(getWeeksInMonth(checkMonth));
     setInitialValue(false);
@@ -149,14 +149,21 @@ const DateComponent = () => {
               const isSelected = checkDates?.[dateStr]?.selected;
 
               return (
-                <TouchableOpacity onPress={() => onDayPressHandler(date)}>
+                <TouchableOpacity
+                  onPress={() => onDayPressHandler(date)}
+                  style={{
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
                   <View
                     style={{
-                      paddingHorizontal: isSelected ? 7 : 0,
-                      borderRadius: 50,
-                      backgroundColor: isSelected
-                        ? "rgb(255, 255, 255)"
-                        : "transparent",
+                      width: 34,
+                      height: 34,
+                      borderRadius: 17,
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: isSelected ? "#fff" : "transparent",
                     }}
                   >
                     <Text
@@ -169,19 +176,17 @@ const DateComponent = () => {
                       {date.day}
                     </Text>
 
-                    <Text
+                    <View
                       style={{
                         width: 5,
                         height: 5,
-                        borderRadius: 2,
-                        backgroundColor:
-                          checkDates?.[dateStr]?.marked && !isSelected
-                            ? "#dfdfdfff"
-                            : checkDates?.[dateStr]?.marked && isSelected
-                              ? "#000"
-                              : "transparent",
+                        borderRadius: 2.5,
+                        backgroundColor: checkDates?.[dateStr]?.marked
+                          ? isSelected
+                            ? "#000"
+                            : "#dfdfdf"
+                          : "transparent",
                         marginTop: 2,
-                        alignSelf: "center",
                       }}
                     />
                   </View>

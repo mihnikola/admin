@@ -20,6 +20,7 @@ import SharedBackButton from "@/shared-components/SharedBackButton";
 import SharedButtonApproved from "@/shared-components/SharedButtonApproved";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import withKeyboardAvoid from "@/wrapper/WrapperKeyboard";
+import SearchInputComponent from "@/components/settings/SearchInputComponent";
 
 const Barbers = () => {
   const { localization } = useLocalization();
@@ -136,14 +137,9 @@ const Barbers = () => {
           {localization.SETTINGS.EMPLOYERSPLACES.availableBarbers} (
           {filteredBarbers.length})
         </Text>
-        <TextInput
-          style={styles.searchInput}
-          placeholder={localization.CLIENTS.search}
-          value={search}
-          onChangeText={setSearch}
-          placeholderTextColor="white"
-        />
-
+        <View style={styles.searchInputContainer}>
+          <SearchInputComponent search={search} setSearch={setSearch} />
+        </View>
         <FlatList
           data={filteredBarbers}
           keyExtractor={(item) => item._id}
@@ -183,7 +179,7 @@ const Barbers = () => {
       )}
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   headerComponent: {
@@ -193,6 +189,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#000",
     borderBottomWidth: 1,
     borderColor: "#1A1A1A",
+  },
+  searchInputContainer: {
+    marginVertical: 5,
   },
   headerRow: {
     flexDirection: "row",
@@ -219,12 +218,7 @@ const styles = StyleSheet.create({
   loadingContainer: {
     paddingTop: 40,
   },
-  searchInput: {
-    backgroundColor: "#000000",
-    borderRadius: 8,
-    fontSize: 16,
-    color: "#fff",
-  },
+
   itemContent: {
     alignItems: "baseline",
     justifyContent: "flex-start",
@@ -304,6 +298,5 @@ const styles = StyleSheet.create({
     padding: 8,
   },
 });
-
 
 export default withKeyboardAvoid(Barbers);

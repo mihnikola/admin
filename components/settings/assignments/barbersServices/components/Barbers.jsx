@@ -14,8 +14,9 @@ import Loader from "../../../../../shared-components/Loader";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { router, useFocusEffect } from "expo-router";
-import BarberItem from './BarberItem';
+import BarberItem from "./BarberItem";
 import SharedBackButton from "@/shared-components/SharedBackButton";
+import SearchInputComponent from "@/components/settings/SearchInputComponent";
 
 export default function Barbers() {
   const { localization } = useLocalization();
@@ -50,18 +51,22 @@ export default function Barbers() {
 
   return (
     <View style={styles.container}>
-       <View style={{ flexDirection: 'row', alignItems: "center", marginTop: 30, marginLeft: 15, marginBottom: 10 }}>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          marginTop: 30,
+          marginLeft: 15,
+          marginBottom: 10,
+        }}
+      >
         <SharedBackButton onPress={router.back} absolutePosition={false} />
 
-      <Text style={styles.subTitle}>{localization.BARBERS.listBarbers}</Text>
+        <Text style={styles.subTitle}>{localization.BARBERS.listBarbers}</Text>
       </View>
-      <TextInput
-        style={styles.searchInput}
-        placeholder={localization.CLIENTS.search}
-        value={search}
-        onChangeText={setSearch}
-        placeholderTextColor="white"
-      />
+      <View style={styles.searchInputContainer}>
+        <SearchInputComponent search={search} setSearch={setSearch} />
+      </View>
       {isLoading === "get" && <Loader />}
 
       {isLoading !== "get" && (
@@ -102,13 +107,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#000000",
   },
-  searchInput: {
-    backgroundColor: "#222",
-    borderRadius: 8,
-    padding: 20,
-    margin: 18,
-    fontSize: 18,
-    color: "white"
+  searchInputContainer: {
+    marginVertical: 8,
+    marginHorizontal: 20,
   },
   image: {
     width: 60,
@@ -121,7 +122,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     alignSelf: "center",
     alignItems: "center",
-    width: "80%"
+    width: "80%",
   },
 
   barberItem: {
