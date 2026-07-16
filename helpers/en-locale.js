@@ -44,6 +44,7 @@ export const ENG_LOCALIZATION = {
   },
   BARBERS: {
     notDelete: `This barber can’t be deleted while there are active scheduled bookings.`,
+    deleteBarberQuestion: `Are you sure you want to delete this barber? This will also cancel all of the barber's active appointments.`,
     question: "Are you sure you want to delete this barber?",
     submitAdd: "Add barber",
     saveChanges: "Save",
@@ -98,8 +99,8 @@ export const ENG_LOCALIZATION = {
   },
 
   PLACES: {
-    startWork:"Set start time",
-    endWork:"Set end time",
+    startWork: "Set start time",
+    endWork: "Set end time",
     notChange: `This location can’t be changed while there are active scheduled bookings.`,
     notDelete: `This location can’t be deleted while there are active scheduled bookings.`,
     notDeactivated: `This location can’t be deactivated while there are active scheduled bookings.`,
@@ -109,9 +110,11 @@ export const ENG_LOCALIZATION = {
     deletedSuccess: "Location is successfully deleted",
     undoSuccess: "Location is successfully activated",
     deleteQuestion: "Are you sure you want to delete location?",
-    deleteReservationQuestion: "Are you sure you want to reject all active reservations and delete location?",
+    deleteReservationQuestion:
+      "Are you sure you want to reject all active reservations and delete location?",
     deactivateQuestion: "Are you sure you want to deactivate location?",
-    deactivateReservationQuestion: "Are you sure you want to reject all active reservations and deactivate location?",
+    deactivateReservationQuestion:
+      "Are you sure you want to reject all active reservations and deactivate location?",
     questionActivate: "Are you sure you want to activate this location?",
     confirmButton: "Save",
     add: "Location is successfully created",

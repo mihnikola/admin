@@ -1,4 +1,4 @@
-import { get, delete as deleteRequest, put } from "@/api/apiService";
+import { get, delete as deleteRequest, put, getData } from "@/api/apiService";
 import { useAuth } from "@/contexts/AuthContext";
 import { useBarbersStore } from "@/contexts/BarberContext";
 import { useLocalization } from "@/contexts/LocalizationContext";
@@ -19,10 +19,9 @@ const useBarbers = () => {
   const [isMessage, setIsMessage] = useState(false);
   const [message, setMessage] = useState(null);
   const { logoutFirebase, fetchUserData, userData } = useAuth();
+  const [requestData, setRequestData] = useState(null);
 
   const fetchAllBarbers = async () => {
-    
-    console.log("xxxxxx")
     setIsLoading("get");
     setError(null);
     try {
@@ -37,16 +36,32 @@ const useBarbers = () => {
     }
   };
 
-  const removeBarber = async (data) => {
+  const checkReservationIfExists = async (data) => {
+    setRequestData(data);
     const { id, firedDate } = data;
+
+    setIsLoading("checkReservation");
+    setError(null);
+    try {
+      const response = await getData(`/admin/users/${id}/checkReservation`, {
+        firedDate,
+      });
+      return response.status;
+    } catch (errorData) {
+      console.log("xxx", errorData);
+
+      return errorData;
+    } finally {
+      setIsLoading(null);
+    }
+  };
+
+  const removeBarber = async () => {
+    const { id, firedDate } = requestData;
     setIsLoading("remove");
     setError(null);
     try {
-      const response = await put(`admin/users/${id}/softDelete`, { firedDate });
-      if (response.status === 206) {
-        setError(localization.BARBERS.notDelete);
-
-      }
+      const response = await put(`/admin/users/${id}/softDelete`, { firedDate });
       if (response.status === 200) {
         setIsMessage(true);
         setMessage(localization.BARBERS.delete);
@@ -230,7 +245,9 @@ const useBarbers = () => {
     seniorityData,
     fetchAllStatusChecking,
     statuses,
+    checkReservationIfExists,
     setError,
+    setIsMessage,
   };
 };
 

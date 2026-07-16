@@ -19,6 +19,7 @@ import useBarbers from "../hooks/useBarbers";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { FontAwesome } from "@expo/vector-icons";
 import SharedButtonRejected from "@/shared-components/SharedButtonRejected";
+import { SharedQuestion } from "@/shared-components/SharedQuestion";
 
 function BarberDelete() {
   const { company } = useCompany();
@@ -27,12 +28,27 @@ function BarberDelete() {
   const [toTime, setToTime] = useState(new Date());
   const params = useLocalSearchParams();
   const { id } = params;
-  const { removeBarber, isLoading, isMessage, message, error, setError } =
-    useBarbers();
+  const [responseDataFromServer, setResponseDataFromServer] = useState(0);
+
+  const {
+    removeBarber,
+    isLoading,
+    isMessage,
+    setIsMessage,
+    message,
+    error,
+    setError,
+    checkReservationIfExists,
+  } = useBarbers();
   const confirmErrorMessageHandler = () => {
     setError(null);
   };
-  const removeBarberHandler = () => {
+
+  const removeBarberDEleteHandler = async () => {
+    setResponseDataFromServer(0);
+    await removeBarber();
+  }
+  const removeBarberHandler = async () => {
     const localeTimeDate = toTime.toLocaleDateString("en-GB", {
       timeZone: "Europe/Belgrade",
       day: "2-digit",
@@ -45,7 +61,8 @@ function BarberDelete() {
       id,
       firedDate: resultDate,
     };
-    removeBarber(putData);
+    const result = await checkReservationIfExists(putData);
+    setResponseDataFromServer(result);
   };
   const onChangeTo = (event, selectedDate) => {
     setShowToPicker(Platform.OS === "ios");
@@ -57,6 +74,9 @@ function BarberDelete() {
   const confirmMessageHandler = () => {
     router.dismissAll(2);
     router.push("/(tabs)/(03_settings)/barbers");
+  };
+  const cancelHandler = () => {
+    setResponseDataFromServer(0);
   };
   return (
     <>
@@ -104,7 +124,24 @@ function BarberDelete() {
           text={localization.BARBERS.removeBtn}
         />
       </View>
-      {isMessage && (
+      {responseDataFromServer !== 0 && (
+        <SharedQuestion
+          isOpen={responseDataFromServer !== 0 }
+          onClose={cancelHandler}
+          onLogOut={removeBarberDEleteHandler}
+          icon={
+            <FontAwesome name="question-circle-o" size={64} color="white" />
+          }
+          title={
+            responseDataFromServer === 201
+              ? localization.BARBERS.deleteBarberQuestion
+              : localization.BARBERS.question
+          }
+          buttonTextYes={localization.PLACES.deleteBtn}
+          buttonTextNo={localization.PLACES.cancel}
+        />
+      )}
+      {isMessage  && (
         <SharedMessage
           isOpen={isMessage}
           icon={<FontAwesome name="check-circle-o" size={64} color="white" />}

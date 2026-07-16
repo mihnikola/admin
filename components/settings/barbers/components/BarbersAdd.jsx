@@ -80,7 +80,6 @@ export default function BarbersAdd() {
   } = usePhoneNumber();
 
   const selectedImgHandler = (imgData) => {
-    console.log("w")
     if (imgData) {
       setChangedImg(imgData);
     }

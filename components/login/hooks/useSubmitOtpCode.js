@@ -42,7 +42,6 @@ const useSubmitOtpCode = () => {
   };
 
   const checkOtpCodeVerification = async (email, password, otpCode) => {
-    console.log("xxxxxxxxxxxx")
     setIsLoading(true);
     setError(null);
 

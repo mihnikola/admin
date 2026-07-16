@@ -232,9 +232,11 @@ export const SRB_LOCALIZATION = {
   BARBERS: {
     notDelete:
       "Frizer ne može biti obrisan dok postoje aktivni zakazani termini.",
+    deleteBarberQuestion:
+      "Da li ste sigurni da želite da obrišete ovog barbera? Time će biti otkazane sve njegove aktivne rezervacije.",
     confirmButton: "Ok",
     submitAdd: "Dodaj barbera",
-    question: "Da li stvarno želiš da obrišeš ovog barbera?",
+    question: "Da li stvarno želite da obrišete ovog barbera?",
     title: "Upravljanje barberima",
     listBarbers: "Lista barbera",
     seniority: "Unesi senioritet",
