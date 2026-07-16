@@ -17,6 +17,7 @@ export const SRB_LOCALIZATION = {
   HOME: {
     absenceManager: "Upravljanje odsustvima",
     listRequirements: "Lista zahteva",
+    listAbsence: "Lista odsustva",
     missed: "Propušten termin?",
     startBtn: "Započni",
     aboutUs: "Posetite nas",
@@ -68,6 +69,8 @@ export const SRB_LOCALIZATION = {
     expired: "Isteklo",
   },
   PLACES: {
+    startWork: "Podesite vreme početka rada",
+    endWork: "Podesite vreme završetka rada",
     notChange:
       "Ova lokacija ne može biti promenjena dok postoje aktivni zakazani termini.",
     notDelete:
@@ -88,7 +91,7 @@ export const SRB_LOCALIZATION = {
     deleteQuestion: "Da li ste sigurni da želite da obrišete lokaciju?",
     deleteReservationQuestion:
       "Da li ste sigurni da želite da otkažete sve aktivne rezervacije i obrišete lokaciju?",
-    confirmButton: "Ok",
+    confirmButton: "Sačuvaj",
     undo: "Aktiviraj",
     add: "Lokacija je uspešno kreirana",
     edit: "Lokacija je uspešno ažurirana",

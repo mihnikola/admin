@@ -1,123 +1,3 @@
-// import { useEffect, useState } from "react";
-// import {
-//   ActivityIndicator,
-//   Image,
-//   StyleSheet,
-//   TouchableOpacity,
-//   View,
-// } from "react-native";
-// import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
-// import usePickImage from "./hooks/usePickImage";
-
-// export default function ImageCompress({ imageValue, handlePickImage }) {
-//   const { selectedImageUri, pickImage, uploading } = usePickImage(imageValue);
-
-//   useEffect(() => {
-//     if (selectedImageUri) {
-//       handlePickImage(selectedImageUri);
-//     }
-
-//   }, [selectedImageUri]);
-
-//   return (
-//     <View style={styles.container}>
-
-//       {!selectedImageUri && (
-//         <TouchableOpacity onPress={pickImage} disabled={uploading}>
-//           <MaterialIcons name="image" size={120} color="white" />
-//         </TouchableOpacity>
-//       )}
-
-//       {selectedImageUri && (
-//         <View style={styles.imageWrapper}>
-//           <View style={styles.defaultImgAvatar}>
-//             <Image source={{ uri: selectedImageUri }} style={styles.image} />
-//             <View style={styles.editButtonContainer}>
-//               <TouchableOpacity
-//                 style={styles.editButton}
-//                 onPress={pickImage}
-//                 disabled={uploading}
-//                 hitSlop={50}
-//               >
-//                 <MaterialCommunityIcons name="pencil" size={25} color="#000" />
-//               </TouchableOpacity>
-//             </View>
-//           </View>
-//         </View>
-//       )}
-//     </View>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     justifyContent: "center",
-//     alignItems: "center",
-//     marginBottom: 25,
-//   },
-//   image: {
-//     width: 125,
-//     height: 125,
-//     borderRadius: 100,
-//     resizeMode: "cover",
-//   },
-//   editButtonContainer: {
-//     position: "absolute",
-//     alignSelf: "flex-end",
-//     alignItems: "flex-start",
-//   },
-//   defaultImgAvatar: {
-//     alignSelf: "baseline",
-//     alignContent: "baseline",
-//     justifyContent: "flex-end",
-//     backgroundColor: "#fff",
-//     borderRadius: 100,
-//     padding: 2,
-//   },
-//   imageWrapper: {
-//     justifyContent: "center",
-//     alignItems: "center",
-//     alignSelf: "center",
-//     alignContent: "center",
-//   },
-//   profileImage: {
-//     width: 125,
-//     height: 125,
-//     borderRadius: 100,
-//     resizeMode: "cover",
-//   },
-
-//   editButton: {
-//     backgroundColor: "#fff",
-//     borderRadius: 20,
-//     padding: 4,
-//   },
-// });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import { useEffect, useState } from "react";
 import {
   Image,
@@ -129,13 +9,19 @@ import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import usePickImage from "./hooks/usePickImage";
 
 export default function ImageCompress({ imageValue, handlePickImage }) {
-  const { selectedImageUri, pickImage, uploading } = usePickImage(imageValue);
+  const { selectedImageUri, pickImage, uploading, setUploading  } = usePickImage(imageValue);
 
   // Na samom početku, ekran je "zamrznut" (komponenta vraća null)
   const [isInitialCheckDone, setIsInitialCheckDone] = useState(false);
   const [renderedUri, setRenderedUri] = useState(null);
   const [isPreloading, setIsPreloading] = useState(false);
 
+
+  const removeImageHandler = () => {
+    setRenderedUri(null)
+    setUploading(false);
+    setIsPreloading(false);
+  }
   // 1. Prvo pokretanje: Proveravamo i učitavamo inicijalnu sliku (imageValue) ako postoji
   useEffect(() => {
     if (imageValue) {
@@ -215,11 +101,13 @@ export default function ImageCompress({ imageValue, handlePickImage }) {
             <View style={styles.editButtonContainer}>
               <TouchableOpacity
                 style={styles.editButton}
-                onPress={pickImage}
+                onPress={removeImageHandler}
+                // onPress={pickImage}
                 // disabled={uploading || isPreloading}
                 hitSlop={50}
               >
-                <MaterialCommunityIcons name="pencil" size={25} color="#000" />
+                {/* <MaterialCommunityIcons name="pencil" size={25} color="#000" /> */}
+                <MaterialCommunityIcons name="trash-can" size={25} color="#000" />
               </TouchableOpacity>
             </View>
 

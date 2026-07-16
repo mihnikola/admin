@@ -220,6 +220,7 @@ export default function TimeSettingsScreen({
         setVisible={setShowFromPicker}
         onCancel={() => setShowFromPicker(false)}
         onConfirm={onChangeFrom}
+        title={localization.PLACES.startWork}
       />
       <TimePickerModal
         visible={showToPicker}
@@ -230,6 +231,8 @@ export default function TimeSettingsScreen({
         setVisible={setShowToPicker}
         onCancel={() => setShowToPicker(false)}
         onConfirm={onChangeTo}
+        title={localization.PLACES.endWork}
+
       />
 
       <Text style={styles.subtitle}>

@@ -12,6 +12,7 @@ export const ENG_LOCALIZATION = {
   HOME: {
     absenceManager: "Absence Management",
     listRequirements: "List of requirements",
+    listAbsence: "List of absences",
     missed: "Missed treatman?",
     startBtn: "Get Started",
     reviews: "Reviews",
@@ -97,6 +98,8 @@ export const ENG_LOCALIZATION = {
   },
 
   PLACES: {
+    startWork:"Set start time",
+    endWork:"Set end time",
     notChange: `This location can’t be changed while there are active scheduled bookings.`,
     notDelete: `This location can’t be deleted while there are active scheduled bookings.`,
     notDeactivated: `This location can’t be deactivated while there are active scheduled bookings.`,
@@ -110,7 +113,7 @@ export const ENG_LOCALIZATION = {
     deactivateQuestion: "Are you sure you want to deactivate location?",
     deactivateReservationQuestion: "Are you sure you want to reject all active reservations and deactivate location?",
     questionActivate: "Are you sure you want to activate this location?",
-    confirmButton: "Ok",
+    confirmButton: "Save",
     add: "Location is successfully created",
     edit: "Location is successfully updated",
     cancel: "Cancel",

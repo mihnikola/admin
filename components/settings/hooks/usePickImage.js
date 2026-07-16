@@ -120,7 +120,7 @@ const usePickImage = (initialImageUri) => {
     }
   }, []);
 
-  return { pickImage, selectedImageUri, uploading, statusMessage };
+  return { pickImage, selectedImageUri, uploading, statusMessage, setUploading};
 };
 
 export default usePickImage;

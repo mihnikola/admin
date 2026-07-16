@@ -76,7 +76,7 @@ export const AuthProvider = ({ children }) => {
       setIsToken(null);
       setIsLoading(false);
       setUserData(null);
-      router.push("/(z_auth)");
+      router.replace("/(z_auth)");
     } catch (error) {
       setError(error);
     }

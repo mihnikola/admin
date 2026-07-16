@@ -21,6 +21,7 @@ export default function HomeScreen() {
     isLoading: isLoadingHome,
     error,
     fetchHomeInfo,
+    absenceData,
   } = useHomeData();
 
   useFocusEffect(
@@ -42,6 +43,11 @@ export default function HomeScreen() {
     router.push("/(tabs)/(01_home)/requirements");
   };
 
+  const absenceHandler = () => {
+    router.push("/(tabs)/(01_home)/absence");
+
+  }
+
   if (company) {
     return (
       <View style={styles.container}>
@@ -53,7 +59,7 @@ export default function HomeScreen() {
             {inProgressData && (
               <InProgressAppointmentCard data={inProgressData} />
             )}
-             {/* <UpcomingAbsenceCard data={inProgressData} /> */}
+            {/* <UpcomingAbsenceCard data={inProgressData} /> */}
 
             <View style={styles.containerData}>
               <TouchableOpacity
@@ -71,31 +77,6 @@ export default function HomeScreen() {
                 <FontAwesome name="chevron-right" size={28} color="white" />
               </TouchableOpacity>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
               <TouchableOpacity
                 onPress={requirementsHandler}
                 style={styles.btnLocationContent}
@@ -107,30 +88,28 @@ export default function HomeScreen() {
                     {localization.HOME.requirements}
                   </Text>
                 </View>
-                {requirementsLength > 0 &&
+                {requirementsLength > 0 && (
                   <View style={styles.badge}>
                     <Text style={styles.badgeText}>{requirementsLength}</Text>
                   </View>
-                }
+                )}
                 <FontAwesome name="chevron-right" size={28} color="white" />
               </TouchableOpacity>
+              {absenceData?.length > 0 && (
+                <TouchableOpacity
+                  onPress={absenceHandler}
+                  style={styles.btnLocationContent}
+                >
+                  <Ionicons name="swap-vertical" size={24} color="#fff" />
+                  <View style={styles.locationContent}>
+                    <Text style={styles.titleLocation}>
+                      {localization.HOME.absenceManager}
+                    </Text>
+                  </View>
 
-
-
-              <TouchableOpacity
-                onPress={locationHandler}
-                style={styles.btnLocationContent}
-              >
-                <Ionicons name="swap-vertical" size={24} color="#fff" />
-                <View style={styles.locationContent}>
-                  <Text style={styles.titleLocation}>
-                    {localization.HOME.absenceManager}
-                  </Text>
-                </View>
-
-                <FontAwesome name="chevron-right" size={28} color="white" />
-              </TouchableOpacity>
-
+                  <FontAwesome name="chevron-right" size={28} color="white" />
+                </TouchableOpacity>
+              )}
             </View>
           </View>
         )}
@@ -141,7 +120,7 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   containerData: {
-    margin: 15
+    margin: 15,
   },
   box: {
     width: 400,
@@ -196,8 +175,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     paddingHorizontal: 20,
     paddingVertical: 5,
-    margin: 5
-
+    margin: 5,
   },
 
   address: {

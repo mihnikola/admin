@@ -121,8 +121,7 @@ const AbsentHourManagement = () => {
     const [endHours, endMinutes] = toTime.split(":").map(Number);
     dateToValue.setHours(endHours, endMinutes, 0, 0);
     if (isValidDateRange(dateFromValue, dateToValue)) {
-      // console.log("createAbsentHours", dateFromValue, dateToValue, commentDate, isToken);
-      createAbsentHours(dateFrom, dateTo, commentDate, isToken);
+      createAbsentHours(dateFromValue, dateToValue, commentDate, isToken);
     } else {
       setError(localization.SETTINGS.ABSENTHOURS.error);
     }
@@ -216,9 +215,9 @@ const AbsentHourManagement = () => {
 
   }
 
-  const redirectListAbsence = () => {
-    router.push("/(tabs)/(03_settings)/absenceManagerList");
-  }
+  // const redirectListAbsence = () => {
+  //   router.push("/(tabs)/(03_settings)/absenceManagerList");
+  // }
 
 
   return (
@@ -227,11 +226,11 @@ const AbsentHourManagement = () => {
         <Text style={styles.title}>
           {localization.SETTINGS.ABSENTHOURS.capture}
         </Text>
-        <TouchableOpacity style={{ flexDirection: 'row', opacity: .7 }} onPress={redirectListAbsence}>
+        {/* <TouchableOpacity style={{ flexDirection: 'row', opacity: .7 }} onPress={redirectListAbsence}>
           <Text style={styles.subTitle}>
             {localization.SETTINGS.ABSENTHOURS.list}
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         <View style={{ flexDirection: 'row', alignContent: 'center', alignSelf: "center", alignItems: "center", justifyContent: 'space-around' }}>
           <Text style={styles.label}>{localization.SETTINGS.ABSENTHOURS.from}</Text>

@@ -46,6 +46,7 @@ const TimePickerModal = ({
   value,
   interval,
   activeTab,
+  title
 }) => {
   const [selectedTime, setSelectedTime] = useState(value);
   const { localization } = useLocalization();
@@ -69,17 +70,8 @@ const TimePickerModal = ({
     >
       <View style={styles.overlay}>
         <View style={styles.modalContent}>
-          <View style={styles.header}>
-            <TouchableOpacity onPress={onCancel}>
-              <Text style={styles.cancel}>{localization.PLACES.cancel}</Text>
-            </TouchableOpacity>
+          <Text style={styles.modalTitle}>{title}</Text>
 
-            <TouchableOpacity onPress={onDone}>
-              <Text style={styles.done}>
-                {localization.PLACES.confirmButton}
-              </Text>
-            </TouchableOpacity>
-          </View>
           <WheelPicker
             data={times}
             value={selectedTime}
@@ -87,6 +79,19 @@ const TimePickerModal = ({
             itemTextStyle={styles.itemText}
             selectedItemTextStyle={styles.selectedItemText}
           />
+          <View style={styles.header}>
+            <TouchableOpacity onPress={onCancel} style={styles.actionButtonNo}>
+              <Text style={styles.actionButtonText}>
+                {localization.PLACES.cancel}
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={onDone} style={styles.actionButton}>
+              <Text style={styles.actionButtonText}>
+                {localization.PLACES.confirmButton}
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </Modal>
@@ -94,17 +99,46 @@ const TimePickerModal = ({
 };
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "rgba(0, 0, 0, 0.75)",
-    justifyContent: "center",
-    padding: 16,
-  },
-
   openBtn: {
     fontSize: 18,
     color: "#007AFF",
   },
-
+  actionButtonText: {
+    color: "#FFFFFF", // Corresponds to text-white
+    fontSize: 18, // Corresponds to text-lg
+    fontWeight: "600", // Corresponds to font-semibold
+    textAlign: "center",
+  },
+    modalTitle: {
+    color: "#FFFFFF", // Corresponds to text-white
+    fontSize: 20, // Corresponds to text-3xl
+    fontWeight: "bold", // Corresponds to font-bold
+    marginBottom: 16, // Corresponds to mb-4
+    textAlign: "center",
+    lineHeight: 36, // Corresponds to leading-tight
+  },
+  actionButton: {
+    width: "50%", // Corresponds to w-full
+    backgroundColor: "black", // Corresponds to bg-blue-600
+    paddingVertical: 16, // Corresponds to py-4
+    borderRadius: 8, // Corresponds to rounded-lg
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5, // For Android shadow
+  },
+  actionButtonNo: {
+    width: "50%", // Corresponds to w-full
+    backgroundColor: "#36454F", // Corresponds to bg-blue-600
+    paddingVertical: 16, // Corresponds to py-4
+    borderRadius: 8, // Corresponds to rounded-lg
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5, // For Android shadow
+  },
   overlay: {
     flex: 1,
     backgroundColor: "rgba(0, 0, 0, 2)",
@@ -113,17 +147,22 @@ const styles = StyleSheet.create({
   },
 
   modalContent: {
-    backgroundColor: "#000000",
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    paddingBottom: 20,
+    backgroundColor: "#433d3c", // Corresponds to bg-gray-800
+    borderRadius: 12, // Corresponds to rounded-xl
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.5,
+    shadowRadius: 20,
+    elevation: 15, // For Android shadow
+    padding: 32, // Corresponds to p-8
+    maxWidth: 384, // Corresponds to max-w-sm
+    width: "100%", // Corresponds to w-full
+    alignItems: "center", // Centers text and icon
   },
 
   header: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+    gap: 20,
   },
 
   cancel: {
@@ -131,6 +170,7 @@ const styles = StyleSheet.create({
     color: "#797979",
     fontWeight: "600",
     padding: 10,
+    letterSpacing: 2,
   },
 
   done: {
@@ -138,10 +178,11 @@ const styles = StyleSheet.create({
     color: "#fdfdfd",
     fontWeight: "600",
     padding: 10,
+    letterSpacing: 2,
   },
 
   itemText: {
-    fontSize: 18,
+    fontSize: 24,
     color: "#ffffff",
   },
 

@@ -1,29 +1,35 @@
+import { useLocalization } from "@/contexts/LocalizationContext";
+import { FontAwesome } from "@expo/vector-icons";
+import { router } from "expo-router";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import AbsenceDateFormatComponent from "./../../components/home/components/AbsenceDateFormatComponent";
-
+import DateFormatComponent from "./DateFormatComponent";
 const AbsenceComponentItem = ({ item }) => {
-  // const goToScreen = (item) => {
-  //     router.push({
-  //         pathname: "/(reservation_notification)/",
-  //         params: {
-  //             itemId: item?.id,
-  //             user: item?.user?.name,
-  //             note: item?.description,
-  //             requirement: true,
-  //         },
-  //     });
-  // };
-
+  const { localization } = useLocalization();
+    console.log("item",item)
   return (
-    <TouchableOpacity key={item._id} style={styles.eventItem}>
+    <TouchableOpacity
+      key={item.id}
+      style={styles.eventItem}
+    >
       <View style={styles.timeBlock}>
-        <AbsenceDateFormatComponent date={item.startDate} />
+        <DateFormatComponent item={item} />
       </View>
       <View style={styles.detailsBlock}>
-        <Text style={styles.eventTitle}>{item.description}</Text>
+        <Text style={styles.eventTitle}>
+          {localization.code === "en" ? item.name.nameEn : item.name.nameLocal}
+        </Text>
+        <Text style={styles.eventUser}>
+          {item.reservation.user
+            ? item.reservation.user
+            : localization.code === "en"
+              ? "unknown user"
+              : "nepoznati korisnik"}
+        </Text>
+
+        <Text style={styles.eventStatus}>{localization.STATUS.pending}</Text>
       </View>
-      <View style={styles.timeBlock}>
-        <AbsenceDateFormatComponent date={item.endDate} />
+      <View style={styles.status}>
+        <FontAwesome size={25} color="white" name="clock-o" />
       </View>
     </TouchableOpacity>
   );
@@ -37,18 +43,22 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: "#262626ff",
     borderRadius: 10,
-    padding: 20,
+    padding: 15,
+    marginVertical: 5,
     shadowColor: "#262626ff",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 3.84,
     elevation: 5,
     alignItems: "center",
-    justifyContent:"space-around"
   },
   timeBlock: {
+    marginRight: 15,
     alignItems: "center",
     justifyContent: "center",
+    borderRightWidth: 1,
+    borderRightColor: "#eee",
+    paddingRight: 15,
   },
   startTime: {
     fontSize: 16,
@@ -62,12 +72,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     color: "#edededff",
-    padding:10
+    marginBottom: 5,
   },
   eventUser: {
     fontSize: 14,
     fontWeight: "500",
     color: "#edededff",
+    marginBottom: 5,
   },
   eventStatus: {
     fontSize: 12,

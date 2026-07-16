@@ -28,11 +28,13 @@ const useChangePasswordHandler = () => {
         return;
       }
 
+
+      console.log("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
       try {
-        const response = await put(`/users/${email}/changePassword`, {
+        const response = await put(`/admin/users/${email}/forgotPassword`, {
           password,
         });
-        if (response.status === 200) {
+        if (response.status === 201) {
           setIsMessage(true);
           setMessage(localization.CHANGE_PASS.success);
         }

@@ -15,6 +15,7 @@ export const HomeDataProvider = ({ children }) => {
   const [inProgressData, setInProgressData] = useState(null);
   const [requirements, setRequirements] = useState([]);
   const [requirementsLength, setRequirementLength] = useState(0);
+  const [absenceData, setAbsenceData] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
   const [error, setError] = useState(null);
 
@@ -27,27 +28,30 @@ export const HomeDataProvider = ({ children }) => {
     if (!res) return null;
     return {
       ...res,
-    
-      arrived: ARRIVED_STATUS_MAP[res.arrived] ?? "unknown" // 'unknown' kao fallback
+
+      arrived: ARRIVED_STATUS_MAP[res.arrived] ?? "unknown", // 'unknown' kao fallback
     };
   };
   const fetchHomeInfo = async () => {
     setIsLoading("getHomeInfo");
     setError(null);
 
-
-
     const id = new Date();
     try {
       const response = await get(`/admin/availabilities/${id}/getHomeInfo`); //fetchInProgressOne
 
       if (response?.status === 200) {
-        const { currentReservation, nextReservation, pendingReservations } =
-          response.data;
+        const {
+          currentReservation,
+          nextReservation,
+          pendingReservations,
+          absenceItemsData,
+        } = response.data;
 
 
         setRequirementLength(pendingReservations?.amount ?? 0);
         setRequirements(pendingReservations?.data ?? []);
+        setAbsenceData(absenceItemsData);
 
         setUpcomingData(formatReservation(nextReservation));
         setInProgressData(formatReservation(currentReservation));
@@ -69,6 +73,7 @@ export const HomeDataProvider = ({ children }) => {
         isLoading,
         error,
         fetchHomeInfo,
+        absenceData
       }}
     >
       {children}

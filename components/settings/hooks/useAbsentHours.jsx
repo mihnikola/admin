@@ -15,7 +15,6 @@ function useAbsentHours() {
   const createAbsentHours = async (from, to, comment, token) => {
     setIsLoading("post");
     setError(null);
-
     try {
       const response = await post("admin/availabilities", {
         startDate: from,
@@ -37,25 +36,25 @@ function useAbsentHours() {
     }
   };
 
-
   const getAbsenceEmployer = async () => {
     setError(null);
     setIsLoading("fetchAbsence");
-    console.log("fetchAbsencefetchAbsencefetchAbsencefetchAbsencefetchAbsencefetchAbsence")
+    console.log(
+      "fetchAbsencefetchAbsencefetchAbsencefetchAbsencefetchAbsencefetchAbsence",
+    );
     try {
       const response = await get(`/admin/availabilities/${new Date()}/absence`);
       if (response.status === 200) {
         setAbsenceData(response.data);
       }
     } catch (err) {
-      console.log("err",err);
-      
+      console.log("err", err);
+
       setError(localization.PLACES.error);
     } finally {
       setIsLoading(null);
     }
-  }
-
+  };
 
   const getEmployer = async (id) => {
     setIsLoading("get");
@@ -71,7 +70,7 @@ function useAbsentHours() {
     } finally {
       setIsLoading(null);
     }
-  }
+  };
 
   return {
     createAbsentHours,
@@ -84,7 +83,7 @@ function useAbsentHours() {
     workHours,
     setError,
     getAbsenceEmployer,
-    absenceData
+    absenceData,
   };
 }
 

@@ -27,6 +27,7 @@ const ForgotPasswordComponent = () => {
     isMessage,
     setIsMessage,
   } = useEmailOtpCode();
+  console.log('xxxxxxxxxxxxxx')
 
   const navHandler = () => {
     checkEmailValidation(email);

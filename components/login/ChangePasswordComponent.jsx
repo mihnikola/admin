@@ -71,7 +71,7 @@ const ChangePasswordComponent = () => {
         <SharedBackButton
           onPress={router.back}
           absolutePosition={false}
-          styleBtn={{ marginBottom: 30 }}
+          styleBtn={{ marginBottom: 20, marginTop: 30 }}
         />
         <View style={{ width: "100%" }}>
           <View>

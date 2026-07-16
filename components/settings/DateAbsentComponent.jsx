@@ -8,26 +8,20 @@ function DateAbsentComponent({
   date,
   showDate,
   onDateChange,
-  placeholder
+  placeholder,
 }) {
   const { localization } = useLocalization();
-  const locale =
-    localization.code === "sr"
-      ? "sr-Latn-RS"
-      : "en-GB";
+  const locale = localization.code === "sr" ? "sr-Latn-RS" : "en-GB";
 
   const datePart = new Intl.DateTimeFormat(locale, {
     day: "numeric",
     month: "long",
     year: "numeric",
-    timeZone: "UTC",
-
   }).format(date);
 
   const formatted = `${datePart}`;
   const handleChange = (event, selectedDate) => {
     setShowDate(false);
-
     if (event.type === "set" && selectedDate) {
       onDateChange(event, selectedDate);
     }
@@ -45,17 +39,15 @@ function DateAbsentComponent({
         </TouchableOpacity>
       </View>
 
-      {
-        showDate && (
-          <DateTimePicker
-            value={date || new Date()}
-            mode="date"
-            display="default"
-            onChange={handleChange}
-            minimumDate={new Date()}
-          />
-        )
-      }
+      {showDate && (
+        <DateTimePicker
+          value={date || new Date()}
+          mode="date"
+          display="default"
+          onChange={handleChange}
+          minimumDate={new Date()}
+        />
+      )}
     </>
   );
 }
@@ -77,7 +69,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#000000",
     borderWidth: 1,
     borderColor: "#838383",
-    borderRadius: 15
+    borderRadius: 15,
   },
   dateText: {
     fontSize: 14,

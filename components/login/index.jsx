@@ -50,26 +50,26 @@ export default function LoginScreen() {
   const cancelHandler = () => {
     setIsMessage(false);
   };
-  useEffect(() => {
-    const backAction = () => {
-      setExit(true);
-      return true;
-    };
-    const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
-      backAction,
-    );
+  // useEffect(() => {
+  //   const backAction = () => {
+  //     setExit(true);
+  //     return true;
+  //   };
+  //   const backHandler = BackHandler.addEventListener(
+  //     "hardwareBackPress",
+  //     backAction,
+  //   );
 
-    return () => backHandler.remove();
-  }, []);
+  //   return () => backHandler.remove();
+  // }, []);
 
-  const cancelExitHandler = () => {
-    setExit(false);
-  };
-  const confirmExitHandler = () => {
-    setExit(false);
-    BackHandler.exitApp();
-  }
+  // const cancelExitHandler = () => {
+  //   setExit(false);
+  // };
+  // const confirmExitHandler = () => {
+  //   setExit(false);
+  //   BackHandler.exitApp();
+  // }
 
   const forgotPassHandler = () => {
     router.push("/(z_auth)/forgotPass");
