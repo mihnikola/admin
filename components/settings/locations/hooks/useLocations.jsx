@@ -23,9 +23,7 @@ function useLocation() {
     setError(null);
     try {
       const response = await deleteRequest(`/admin/places/${id}`);
-      if (response.status === 206) {
-        setError(localization.PLACES.notDelete);
-      }
+     
       if (response.status === 200) {
         setIsMessage(true);
         setMessage(localization.PLACES.deletedSuccess);

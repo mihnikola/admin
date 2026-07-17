@@ -56,17 +56,23 @@ export class NotificationService {
     const unsub = onMessage(getMessaging(),async (remoteMessage) => {
       console.log("📩 Foreground FCM:", remoteMessage);
 
+      //objekat je notification PRVI TEST
+
+      const hasNotification = remoteMessage?.notification?.title || remoteMessage?.notification?.body;
+  
+
+      if (!hasNotification) {
+        return;
+      }
+
       await Notifications.scheduleNotificationAsync({
         content: {
           title:
             remoteMessage.notification?.title ??
-            remoteMessage.data?.title ??
             "Notification",
           body:
             remoteMessage.notification?.body ??
-            remoteMessage.data?.body ??
             "",
-          data: remoteMessage.data,
         },
         trigger: null,
       });
