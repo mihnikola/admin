@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { router } from "expo-router";
 import SearchInputComponent from "@/components/settings/SearchInputComponent";
+import withKeyboardAvoid from "@/wrapper/WrapperKeyboard";
 const Locations = () => {
   const { localization } = useLocalization();
   const [search, setSearch] = useState("");
@@ -96,4 +97,5 @@ const styles = StyleSheet.create({
     width: "80%",
   },
 });
-export default Locations;
+
+export default withKeyboardAvoid(Locations);

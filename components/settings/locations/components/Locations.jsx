@@ -16,6 +16,7 @@ import { router, useFocusEffect } from "expo-router";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { Ionicons } from "@expo/vector-icons";
 import SearchInputComponent from "../../SearchInputComponent";
+import withKeyboardAvoid from "@/wrapper/WrapperKeyboard";
 
 const Locations = () => {
   const { localization } = useLocalization();
@@ -67,7 +68,7 @@ const Locations = () => {
           renderItem={({ item }) => (
             <LocationItem item={item} startEditing={startEditing} />
           )}
-          contentContainerStyle={{ paddingVertical: 5, paddingHorizontal:20 }}
+          contentContainerStyle={{ paddingVertical: 5, paddingHorizontal: 20 }}
           showsVerticalScrollIndicator={false}
           ListEmptyComponent={
             <Text style={styles.notFound}>{localization.PLACES.notFound}</Text>
@@ -114,4 +115,5 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
 });
-export default Locations;
+
+export default withKeyboardAvoid(Locations);

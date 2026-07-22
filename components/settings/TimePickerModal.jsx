@@ -80,15 +80,15 @@ const TimePickerModal = ({
             selectedItemTextStyle={styles.selectedItemText}
           />
           <View style={styles.header}>
-            <TouchableOpacity onPress={onCancel} style={styles.actionButtonNo}>
+            <TouchableOpacity onPress={onDone} style={styles.actionButtonNo}>
               <Text style={styles.actionButtonText}>
-                {localization.PLACES.cancel}
+                {localization.PLACES.confirmButton}
               </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={onDone} style={styles.actionButton}>
+            <TouchableOpacity onPress={onCancel} style={styles.actionButton}>
               <Text style={styles.actionButtonText}>
-                {localization.PLACES.confirmButton}
+                {localization.PLACES.cancel}
               </Text>
             </TouchableOpacity>
           </View>

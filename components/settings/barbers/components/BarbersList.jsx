@@ -22,8 +22,9 @@ import { router } from "expo-router";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { getInitialsName } from "@/helpers";
 import SearchInputComponent from "../../SearchInputComponent";
+import withKeyboardAvoid from "@/wrapper/WrapperKeyboard";
 
-export default function BarbersList() {
+const BarbersList = () => {
   const { localization } = useLocalization();
   const {
     isLoading,
@@ -240,3 +241,4 @@ const styles = StyleSheet.create({
     padding: 8,
   },
 });
+export default withKeyboardAvoid(BarbersList);

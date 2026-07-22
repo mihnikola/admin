@@ -118,6 +118,22 @@ export default function BarbersAdd() {
     setChangedImg(null);
   };
 
+  const validationData = () => {
+    if (
+      barberData?.id === editingId &&
+      barberData?.name === name &&
+      barberData?.email === email &&
+      barberData?.seniority?._id === selected?._id &&
+      barberData?.statusCheck?._id === selectedStatus?._id &&
+      barberData?.phoneNumber === phoneNumber &&
+      barberData?.image === changedImg
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   const addBarber = () => {
     if (editingId) {
       const updateBarber = {
@@ -200,7 +216,7 @@ export default function BarbersAdd() {
   const modalStatusHandler = () => {
     setStatusChecking(true);
   };
-  
+
   if (isLoading === "getBarber") {
     return <SharedLoader isOpen={isLoading === "getBarber"} />;
   }
@@ -241,12 +257,11 @@ export default function BarbersAdd() {
           }}
           keyboardShouldPersistTaps="always"
         >
-          {changedImg !== undefined && isLoading !== 'getBarber' && (
+          {changedImg !== undefined && isLoading !== "getBarber" && (
             <View style={styles.containerImage}>
               <ImageCompress
                 handlePickImage={selectedImgHandler}
                 imageValue={changedImg}
-                
               />
             </View>
           )}
@@ -352,7 +367,8 @@ export default function BarbersAdd() {
               disabled={
                 emailError?.length > 0 ||
                 errorPhoneNumber?.length > 0 ||
-                passwordError?.length > 0
+                passwordError?.length > 0 ||
+                validationData()
               }
             />
             {editingId && changeProfile !== "1" && (

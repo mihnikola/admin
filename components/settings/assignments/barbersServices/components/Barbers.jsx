@@ -17,8 +17,9 @@ import { router, useFocusEffect } from "expo-router";
 import BarberItem from "./BarberItem";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import SearchInputComponent from "@/components/settings/SearchInputComponent";
+import withKeyboardAvoid from "@/wrapper/WrapperKeyboard";
 
-export default function Barbers() {
+const Barbers = () => {
   const { localization } = useLocalization();
 
   const {
@@ -138,3 +139,5 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
 });
+
+export default withKeyboardAvoid(Barbers);

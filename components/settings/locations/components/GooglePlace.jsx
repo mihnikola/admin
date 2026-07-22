@@ -12,6 +12,7 @@ import Constants from "expo-constants";
 import { useLocalization } from "./../../../../contexts/LocalizationContext";
 import { Keyboard } from "react-native";
 import { useCompany } from "@/contexts/CompanyContext";
+import SearchInputComponent from "../../SearchInputComponent";
 
 const apiKey = Constants.expoConfig.extra.API_KEY_MAP;
 
@@ -50,7 +51,6 @@ export default function GooglePlace({ onSelect }) {
 
       const res = await fetch(url);
 
-
       const data = await res.json();
 
       if (data.status === "OK") {
@@ -87,7 +87,6 @@ export default function GooglePlace({ onSelect }) {
       const res = await fetch(url);
 
       const data = await res.json();
-
 
       if (data.status === "OK") {
         //ovde ce da trpa niz lokacija
@@ -141,15 +140,19 @@ export default function GooglePlace({ onSelect }) {
 
   return (
     <View style={styles.container}>
-      <TextInput
+      {/* <TextInput
         style={styles.input}
         placeholder={localization.PLACES.search}
         value={query}
         onChangeText={setQuery}
-      />
+
+      /> */}
+      <View style={styles.searchInputContainer}>
+        <SearchInputComponent search={query} setSearch={setQuery} placeholderText={localization.PLACES.search} />
+      </View>
       {loading && <ActivityIndicator size="small" color="#fff" />}
       <FlatList
-        data={results}
+        data={query?.length && results}
         keyExtractor={(item) => item.place_id}
         keyboardShouldPersistTaps="handled"
         style={styles.list}
@@ -173,6 +176,10 @@ const styles = StyleSheet.create({
     color: "#fff",
     padding: 20,
     borderRadius: 8,
+  },
+  searchInputContainer: {
+    marginHorizontal: 0,
+    marginVertical: 0,
   },
   list: {
     maxHeight: 200,

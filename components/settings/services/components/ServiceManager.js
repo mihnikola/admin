@@ -1,28 +1,24 @@
 import { FontAwesome } from "@expo/vector-icons";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
-  ActivityIndicator,
   FlatList,
   Image,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
-import ImageCompress from "../../ImageCompress";
 import useServices from "../hooks/useServices";
 import Loader from "../../../../shared-components/Loader";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { SharedMessage } from "@/shared-components/SharedMessage";
-import { SharedQuestion } from "@/shared-components/SharedQuestion";
-import { SharedLoader } from "@/shared-components/SharedLoader";
 import FloatingButton from "../../FloatingButton";
 import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import SearchInputComponent from "../../SearchInputComponent";
+import withKeyboardAvoid from "@/wrapper/WrapperKeyboard";
 
-export default function ServiceManager() {
+const ServiceManager = () => {
   const { localization } = useLocalization();
   const {
     isLoading,
@@ -135,7 +131,7 @@ export default function ServiceManager() {
       )}
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -211,3 +207,5 @@ const styles = StyleSheet.create({
     padding: 8,
   },
 });
+
+export default withKeyboardAvoid(ServiceManager);

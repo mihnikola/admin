@@ -60,7 +60,6 @@ export default function AddService() {
       setChangedImg(imgData);
     }
   };
-
   useEffect(() => {
     if (getServiceData) {
       setNameEn(getServiceData?.name?.nameEn);
@@ -71,6 +70,21 @@ export default function AddService() {
       setEditingId(getServiceData?.id);
     }
   }, [getServiceData]);
+
+  const validationData = () => {
+    if (
+      getServiceData?.id === editingId &&
+      getServiceData?.name?.nameEn === nameEn &&
+      getServiceData?.name?.nameLocal === nameLocal &&
+      getServiceData.price?.toString() === price &&
+      getServiceData.duration?.toString() === duration &&
+      getServiceData?.image === changedImg
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   const resetForm = () => {
     setNameEn("");
@@ -135,7 +149,6 @@ export default function AddService() {
       setValue(cleaned);
     };
 
-    
   if (isLoading === "getService") {
     return <SharedLoader isOpen={isLoading === "getService"} />;
   }
@@ -146,7 +159,11 @@ export default function AddService() {
         ref={scrollRef}
         keyboardDismissMode="interactive"
         style={styles.safeArea}
-        contentContainerStyle={{ flexGrow: 1, paddingBottom: 20, marginHorizontal: 12 }}
+        contentContainerStyle={{
+          flexGrow: 1,
+          paddingBottom: 20,
+          marginHorizontal: 12,
+        }}
         keyboardShouldPersistTaps="always"
       >
         <View style={{ flex: 3 }}>
@@ -230,6 +247,7 @@ export default function AddService() {
           <SharedButtonApproved
             onPress={addService}
             loading={isLoading === "addEdit"}
+            disabled={validationData()}
             text={
               editingId
                 ? localization.SERVICES.saveChanges

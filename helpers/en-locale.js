@@ -63,7 +63,7 @@ export const ENG_LOCALIZATION = {
     changePassword: "Change password",
     submit: "Add barber",
     cancel: "Cancel",
-    removeBtn: "Deactivate account",
+    removeBtn: "Delete account",
     status: "Status approval",
     typeApproval: "Types approval",
     listSeniorities: "List of seniority",

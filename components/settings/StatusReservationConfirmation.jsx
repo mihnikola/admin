@@ -1,11 +1,9 @@
 import { useCompany } from "@/contexts/CompanyContext";
 import { useLocalization } from "@/contexts/LocalizationContext";
-import { SharedButton } from "@/shared-components/SharedButton";
 import SharedTabHeader from "@/shared-components/SharedTabHeader";
 import { FontAwesome } from "@expo/vector-icons";
 import {
     FlatList,
-    StatusBar,
     StyleSheet,
     Text,
     TouchableOpacity,
@@ -32,10 +30,9 @@ const StatusReservationConfirmation = () => {
         error,
         message,
         getAllNotificationStatuses,
-        getEmployerCheck
+        getEmployerCheck,
+        currentData
     } = useStatusNotification();
-
-
 
     const { company } = useCompany();
 
@@ -83,6 +80,7 @@ const StatusReservationConfirmation = () => {
             <View style={{ marginHorizontal: 20 }}>
                 <SharedButtonApproved
                     loading={isLoading === 'patch'}
+                    disabled={currentData?._id === notificationData?._id}
                     onPress={patchStatusNotification}
                     text={localization.SETTINGS.NOTIFICATIONSTATUS.saveChanges}
                 />

@@ -252,7 +252,7 @@ export const SRB_LOCALIZATION = {
     submit: "Dodaj barbera",
     cancel: "Odustani",
     saveChanges: "Sačuvaj promene",
-    removeBtn: "Deaktiviraj nalog",
+    removeBtn: "Obriši nalog",
     status: "Status odobravanja",
     typeApproval: "Tipovi odobravanja",
     listSeniorities: "Lista senioriteta",

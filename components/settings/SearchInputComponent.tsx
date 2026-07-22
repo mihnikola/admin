@@ -3,13 +3,13 @@ import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
 
-function SearchInputComponent({ search, setSearch }) {
+function SearchInputComponent({ search, setSearch, placeholderText = null }) {
   const { localization } = useLocalization();
   return (
     <View style={styles.searchContainer}>
       <TextInput
         style={styles.searchInput}
-        placeholder={localization.CLIENTS.search}
+        placeholder={placeholderText || localization.CLIENTS.search}
         value={search}
         onChangeText={setSearch}
         placeholderTextColor="white"
