@@ -89,7 +89,7 @@ export const AuthProvider = ({ children }) => {
         console.log("logoutFirebase++ pre poziva", isToken);
         const response = await post("/admin/users/logout", { token: isToken });
         if (response.status === 200) {
-          logoutHandler();
+          await logoutHandler();
         }
       } else {
         router.push("/(z_auth)");
@@ -165,21 +165,32 @@ export const AuthProvider = ({ children }) => {
         fcmToken: expoToken,
       });
       setIsMessage(true);
-
+      if (responseData.status === 201) {
+        setError(localization.DETERMINATION.error);
+      }
       if (responseData.status === 200) {
         saveStorage(responseData.token);
         setSuccess(localization.LOGIN.success);
         getTokenData();
       }
     } catch (err) {
-      setIsMessage(true);
+      console.log("err", err);
       if (err.status === 304) {
+        setIsMessage(true);
+
         setError(localization.LOGIN.errorFields);
       }
       if (err.status === 400) {
+        setIsMessage(true);
+
         setError(localization.LOGIN.errorPass);
       }
+      // if (err.status === 403) {
+      //   setError(localization.DETERMINATION.error);
+      // }
       if (err.status === 500) {
+        setIsMessage(true);
+
         setError(err);
       }
     } finally {

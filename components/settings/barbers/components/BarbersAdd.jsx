@@ -80,9 +80,9 @@ export default function BarbersAdd() {
   } = usePhoneNumber();
 
   const selectedImgHandler = (imgData) => {
-    if (imgData) {
+    // if (imgData) {
       setChangedImg(imgData);
-    }
+    // }
   };
   useEffect(() => {
     setTimeout(async () => {
@@ -117,7 +117,8 @@ export default function BarbersAdd() {
     setEditingId(null);
     setChangedImg(null);
   };
-
+// console.log("barberData image",barberData?.image);
+// console.log("changedImg",changedImg);
   const validationData = () => {
     if (
       barberData?.id === editingId &&
@@ -146,6 +147,7 @@ export default function BarbersAdd() {
         image: changedImg === imageValue ? null : changedImg,
         statusCheck: selectedStatus?._id,
       };
+      console.log("updateBarber",updateBarber)
       if (updateBarber) {
         addEditBarber(updateBarber);
       }
@@ -262,6 +264,7 @@ export default function BarbersAdd() {
               <ImageCompress
                 handlePickImage={selectedImgHandler}
                 imageValue={changedImg}
+                imageState={setChangedImg}
               />
             </View>
           )}

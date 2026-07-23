@@ -10,6 +10,8 @@ import { HomeDataProvider } from "@/contexts/HomeDataContext";
 import { ServicesProvider } from "@/contexts/ServiceContext";
 import { BarbersProvider } from "@/contexts/BarberContext";
 import { InternetProvider } from "@/contexts/InternetContext";
+import { GlobalErrorProvider } from "@/contexts/GlobalErrorContext";
+import GlobalErrorHandler from "@/shared-components/GlobalErrorHandler";
 
 export default function AppInitialized(props) {
   const colorScheme = useColorScheme();
@@ -29,15 +31,18 @@ export default function AppInitialized(props) {
           <CompanyProvider>
             <AuthProvider>
               <NotificationWrapper>
-                <HomeDataProvider>
-                  <ReservationProvider>
-                    <AppointmentProvider>
-                      <ServicesProvider>
-                        <BarbersProvider>{props.children}</BarbersProvider>
-                      </ServicesProvider>
-                    </AppointmentProvider>
-                  </ReservationProvider>
-                </HomeDataProvider>
+                <GlobalErrorProvider>
+                  <GlobalErrorHandler />
+                  <HomeDataProvider>
+                    <ReservationProvider>
+                      <AppointmentProvider>
+                        <ServicesProvider>
+                          <BarbersProvider>{props.children}</BarbersProvider>
+                        </ServicesProvider>
+                      </AppointmentProvider>
+                    </ReservationProvider>
+                  </HomeDataProvider>
+                </GlobalErrorProvider>
               </NotificationWrapper>
             </AuthProvider>
           </CompanyProvider>

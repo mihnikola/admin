@@ -61,7 +61,9 @@ const useBarbers = () => {
     setIsLoading("remove");
     setError(null);
     try {
-      const response = await put(`/admin/users/${id}/softDelete`, { firedDate });
+      const response = await put(`/admin/users/${id}/softDelete`, {
+        firedDate,
+      });
       if (response.status === 200) {
         setIsMessage(true);
         setMessage(localization.BARBERS.delete);
@@ -153,7 +155,10 @@ const useBarbers = () => {
           name: filename || "photo.jpg",
           type: mimeTypes[ext] || "image/jpeg",
         });
+      } else {
+        formData.append("image", null);
       }
+
 
       const isEdit = Boolean(userData?.id);
       const baseUrl = process.env.EXPO_PUBLIC_API_URL.replace(/\/$/, "");

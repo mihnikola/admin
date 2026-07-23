@@ -2,7 +2,7 @@
 import { getLanguageValue } from "@/helpers/language";
 import { getStorage } from "@/helpers/token";
 import axios from "axios";
-import { showError } from "@/helpers/error-handler";
+import { showGlobalMessage } from "@/helpers/error-handler";
 
 const instance = axios.create({
   baseURL: process.env.EXPO_PUBLIC_API_URL,
@@ -11,7 +11,6 @@ const instance = axios.create({
     "Content-Type": "application/json",
   },
 });
-
 
 // Request interceptor to inject the token and timezone
 instance.interceptors.request.use(
@@ -36,7 +35,7 @@ instance.interceptors.request.use(
   (error) => {
     console.error("Request Interceptor Error:", error);
     return Promise.reject(error);
-  }
+  },
 );
 
 // Response interceptor to handle errors globally (optional)
@@ -44,12 +43,20 @@ instance.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response && error.response.data && error.response.data.message) {
-      if (error.response.data.status === 401) {
-        showError(401);
+      if (error.response.data?.code === "UNAUTHORIZED_TOKEN") {
+        showGlobalMessage({
+          type: "UNAUTHORIZED_TOKEN",
+        });
       }
+      console.log("xxxxxxxxxx",error.response.data?.code)
+      if (error.response?.data?.code === "ACCOUNT_DELETED") {
+        showGlobalMessage({
+          type: "ACCOUNT_DELETED",
+        });
+      }
+      return Promise.reject(error);
     }
-    return Promise.reject(error);
-  }
+  },
 );
 
 const get = async (url, config = {}) => {

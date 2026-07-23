@@ -1,10 +1,11 @@
-// error-handler.js
-let showErrorFn = () => {};
+// global-handler.js
 
-export const registerErrorHandler = (fn) => {
-  showErrorFn = fn;
+let handler = () => {};
+
+export const registerGlobalHandler = (fn) => {
+  handler = fn;
 };
 
-export const showError = (title) => {
-  showErrorFn(title);
+export const showGlobalMessage = (data) => {
+  handler(data);
 };

@@ -5,8 +5,11 @@ export const ENG_LOCALIZATION = {
     APPOINTMENTS: "Appointments",
     SETTINGS: "Settings",
   },
-  Authorization: {
+  AUTHORIZATION: {
     error: "You are logged in on another device.",
+  },
+  DETERMINATION: {
+    error: "Your account has been deleted.",
   },
   code: "en",
   HOME: {

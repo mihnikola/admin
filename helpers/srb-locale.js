@@ -5,8 +5,11 @@ export const SRB_LOCALIZATION = {
     APPOINTMENTS: "Rezervacije",
     SETTINGS: "Podešavanje",
   },
-  Authorization: {
+  AUTHORIZATION: {
     error: "Ulogovani ste na drugom uredjaju",
+  },
+  DETERMINATION: {
+    error: "Pristup vašem nalogu je onemogućen.",
   },
   BUTTONS: {
     ok: "OK",

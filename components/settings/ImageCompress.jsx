@@ -8,7 +8,7 @@ import {
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import usePickImage from "./hooks/usePickImage";
 
-export default function ImageCompress({ imageValue, handlePickImage }) {
+export default function ImageCompress({ imageValue, imageState, handlePickImage }) {
   const { selectedImageUri, pickImage, uploading, setUploading  } = usePickImage(imageValue);
 
   // Na samom početku, ekran je "zamrznut" (komponenta vraća null)
@@ -21,6 +21,7 @@ export default function ImageCompress({ imageValue, handlePickImage }) {
     setRenderedUri(null)
     setUploading(false);
     setIsPreloading(false);
+    imageState(null);
   }
   // 1. Prvo pokretanje: Proveravamo i učitavamo inicijalnu sliku (imageValue) ako postoji
   useEffect(() => {
