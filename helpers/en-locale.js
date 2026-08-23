@@ -346,7 +346,7 @@ export const ENG_LOCALIZATION = {
     WORKHOURS: {
       title: "Work hours management",
       capture: "Set work hours limitation",
-      subCapture: "Appointments are scheduled in 10-minute intervals",
+      subCapture: "Time slot interval",
       from: "Open:",
       to: "Close:",
       startTimePlaceHolder: "Choose time",

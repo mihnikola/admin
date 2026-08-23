@@ -264,7 +264,7 @@ export default function BarbersAdd() {
               <ImageCompress
                 handlePickImage={selectedImgHandler}
                 imageValue={changedImg}
-                imageState={setChangedImg}
+                // imageState={setChangedImg}
               />
             </View>
           )}

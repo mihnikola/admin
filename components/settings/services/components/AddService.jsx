@@ -71,6 +71,7 @@ export default function AddService() {
     }
   }, [getServiceData]);
 
+  console.log("changedImg",changedImg)
   const validationData = () => {
     if (
       getServiceData?.id === editingId &&
@@ -171,6 +172,7 @@ export default function AddService() {
             <ImageCompress
               handlePickImage={selectedImgHandler}
               imageValue={changedImg}
+              setImageValue={setChangedImg}
             />
           </View>
           {/* ovo ti je za lokalni jezik - srpski nameLocal */}

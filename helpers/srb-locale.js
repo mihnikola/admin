@@ -346,7 +346,7 @@ export const SRB_LOCALIZATION = {
     WORKHOURS: {
       title: "Upravljanje radnim vremenom",
       capture: "Podešavanje radnog vremena",
-      subCapture: "Termini su dostupni na svakih 10 minuta",
+      subCapture: "Izaberi razmak između termina",
       from: "Otvoreno:",
       to: "Zatvoreno:",
       startTimePlaceHolder: "Izaberi vreme",

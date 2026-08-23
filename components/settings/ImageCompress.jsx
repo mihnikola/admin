@@ -1,28 +1,31 @@
 import { useEffect, useState } from "react";
-import {
-  Image,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import usePickImage from "./hooks/usePickImage";
 
-export default function ImageCompress({ imageValue, imageState, handlePickImage }) {
-  const { selectedImageUri, pickImage, uploading, setUploading  } = usePickImage(imageValue);
+export default function ImageCompress({
+  imageValue,
+  handlePickImage,
+  setImageValue,
+}) {
+  const { selectedImageUri, pickImage, uploading, setUploading } =
+    usePickImage(imageValue);
 
   // Na samom početku, ekran je "zamrznut" (komponenta vraća null)
   const [isInitialCheckDone, setIsInitialCheckDone] = useState(false);
   const [renderedUri, setRenderedUri] = useState(null);
   const [isPreloading, setIsPreloading] = useState(false);
 
-
   const removeImageHandler = () => {
-    setRenderedUri(null)
+    setRenderedUri(null);
     setUploading(false);
     setIsPreloading(false);
-    imageState(null);
-  }
+    // console.log("imageValue", imageValue);
+    if(imageValue){
+      setImageValue(null);
+    }
+    // imageState(null);
+  };
   // 1. Prvo pokretanje: Proveravamo i učitavamo inicijalnu sliku (imageValue) ako postoji
   useEffect(() => {
     if (imageValue) {
@@ -32,8 +35,7 @@ export default function ImageCompress({ imageValue, imageState, handlePickImage 
       // Ako nema slike uopšte, odmah dozvoli prikaz ikonice (nema šta da se čeka)
       setTimeout(() => {
         setIsInitialCheckDone(true);
-
-      }, 50)
+      }, 50);
     }
   }, []);
 
@@ -53,7 +55,7 @@ export default function ImageCompress({ imageValue, imageState, handlePickImage 
         {/* Nevidljivo učitavanje inicijalne slike */}
         <Image
           source={{ uri: imageValue }}
-          style={{ width: 1, height: 1, opacity: 0, position: 'absolute' }}
+          style={{ width: 1, height: 1, opacity: 0, position: "absolute" }}
           onLoadEnd={() => {
             setRenderedUri(imageValue);
             setIsInitialCheckDone(true);
@@ -69,7 +71,6 @@ export default function ImageCompress({ imageValue, imageState, handlePickImage 
 
   return (
     <View style={styles.container}>
-
       {/* Skriveni preloader za sve NAKNADNE izmene slike (iz galerije/kamere) */}
       {isPreloading && selectedImageUri && (
         <Image
@@ -84,7 +85,10 @@ export default function ImageCompress({ imageValue, imageState, handlePickImage 
 
       {/* PRVI SLUČAJ: Prikazuje se TEK kada smo 100% sigurni da slika ne postoji */}
       {!renderedUri && isInitialCheckDone && (
-        <TouchableOpacity onPress={pickImage} disabled={uploading || isPreloading}>
+        <TouchableOpacity
+          onPress={pickImage}
+          disabled={uploading || isPreloading}
+        >
           <MaterialIcons name="image" size={120} color="white" />
         </TouchableOpacity>
       )}
@@ -93,11 +97,7 @@ export default function ImageCompress({ imageValue, imageState, handlePickImage 
       {renderedUri && (
         <View style={styles.imageWrapper}>
           <View style={styles.defaultImgAvatar}>
-
-            <Image
-              source={{ uri: renderedUri }}
-              style={styles.image}
-            />
+            <Image source={{ uri: renderedUri }} style={styles.image} />
 
             <View style={styles.editButtonContainer}>
               <TouchableOpacity
@@ -108,10 +108,13 @@ export default function ImageCompress({ imageValue, imageState, handlePickImage 
                 hitSlop={50}
               >
                 {/* <MaterialCommunityIcons name="pencil" size={25} color="#000" /> */}
-                <MaterialCommunityIcons name="trash-can" size={25} color="#000" />
+                <MaterialCommunityIcons
+                  name="trash-can"
+                  size={25}
+                  color="#000"
+                />
               </TouchableOpacity>
             </View>
-
           </View>
         </View>
       )}

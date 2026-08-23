@@ -50,12 +50,12 @@ const DateComponent = () => {
     const firstDay = new Date(year, month, 1).getDay();
     const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-    return Math.ceil((firstDay + daysInMonth) / 7);
+    return Math.ceil((firstDay + daysInMonth) / 6);
   };
 
   const getCalendarHeight = (dateString) => {
     const weeks = getWeeksInMonth(dateString);
-    return weeks * 50 + 40;
+    return weeks * 50 + 20;
   };
   useEffect(() => {
     getDates(checkMonth || localDateString, initialValue);
