@@ -1,7 +1,11 @@
-
-import { getInitialNotification, getMessaging, getToken, onMessage, onNotificationOpenedApp } from '@react-native-firebase/messaging';
+import {
+  getInitialNotification,
+  getMessaging,
+  getToken,
+  onMessage,
+  onNotificationOpenedApp,
+} from "@react-native-firebase/messaging";
 import * as Notifications from "expo-notifications";
-
 
 export class NotificationService {
   deviceToken: string = "";
@@ -9,7 +13,6 @@ export class NotificationService {
   hasReceivedForeground = false;
   hasHandledInitial = false; // ⚡ Ključni flag – sprečava pogrešne triggere
 
-  
   constructor() {
     this.setForegroundHandler();
   }
@@ -39,10 +42,9 @@ export class NotificationService {
       if (token) {
         this.deviceToken = token;
         // setTimeout(async () => {
-          // console.log("token getToken",token)
-          // await saveExpoTokenStorage(token);
+        // console.log("token getToken",token)
+        // await saveExpoTokenStorage(token);
         // }, 1000);
-     
       }
     } catch (err) {
       console.log("Error getting FCM token", err);
@@ -53,31 +55,38 @@ export class NotificationService {
 
   // FOREGROUND
   listenToForegroundMessages() {
-    const unsub = onMessage(getMessaging(),async (remoteMessage) => {
-      console.log("📩 Foreground FCM:", remoteMessage);
+    const unsub = onMessage(getMessaging(), async (remoteMessage) => {
+      console.log("📩 Foreground FCM received:", remoteMessage);
 
-      //objekat je notification PRVI TEST
+      const title =
+        remoteMessage.notification?.title ||
+        remoteMessage.data?.title ||
+        "Nova poruka";
+      const body =
+        remoteMessage.notification?.body || remoteMessage.data?.body || "";
 
-      const hasNotification = remoteMessage?.notification?.title || remoteMessage?.notification?.body;
-  
+      // ⚡ OVDE UZIMAŠ DATA IZ FIREBASE PORUKE
+      // const dataValue = remoteMessage.data || { url: "6a8b7583864824feca583510" };
+      const dataValue = remoteMessage.data;
+      // const dataValue = { url: "6a8b7583864824feca583510" };
 
-      if (!hasNotification) {
-        return;
+      try {
+        await Notifications.scheduleNotificationAsync({
+          content: {
+            title: title,
+            body: body,
+            data: dataValue, // ⚡ OVDE PROSLEĐUJEŠ DATA U LOKALNU NOTIFIKACIJU
+          },
+          trigger: null,
+        });
+
+        this.hasReceivedForeground = true;
+      } catch (error) {
+        console.log(
+          "Error scheduling local notification in foreground:",
+          error,
+        );
       }
-
-      await Notifications.scheduleNotificationAsync({
-        content: {
-          title:
-            remoteMessage.notification?.title ??
-            "Notification",
-          body:
-            remoteMessage.notification?.body ??
-            "",
-        },
-        trigger: null,
-      });
-
-      this.hasReceivedForeground = true;
     });
 
     this.subscriptions.push(unsub);
@@ -97,7 +106,7 @@ export class NotificationService {
 
   // BACKGROUND STATE
   listenToBackgroundOpens(callback: (data: any) => void) {
-    const unsub = onNotificationOpenedApp(getMessaging(),(msg) => {
+    const unsub = onNotificationOpenedApp(getMessaging(), (msg) => {
       if (!msg?.data) return;
 
       // Firebase GARANTUJE: ovo se okida SAMO iz BACKGROUNDA
@@ -134,7 +143,7 @@ export class NotificationService {
 
         onClick(data);
         this.hasReceivedForeground = false;
-      }
+      },
     );
 
     this.subscriptions.push(() => clickListener.remove());

@@ -79,6 +79,7 @@ export const AppointmentProvider = ({ children }) => {
       const response = await put(`admin/availabilities/${id}`, {
         status,
       });
+      console.log("xxx",response);
       if (response.status === 200) {
         setIsModal(true);
         setMessage(

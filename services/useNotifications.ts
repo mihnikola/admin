@@ -5,16 +5,15 @@ import NotificationService from "./NotificationService";
 export default function useNotifications() {
   const router = useRouter();
   const segments = useSegments();
-  const isRouterReady = segments.length > 0; 
+  const isRouterReady = segments.length > 0;
 
-  
   useEffect(() => {
     if (!isRouterReady) return;
 
-
     const onClick = (data?: any) => {
+      // console.log("url", data);
       if (!data?.url) return;
-     
+
       router.push({
         pathname: "/(reservation_notification)/",
         params: {

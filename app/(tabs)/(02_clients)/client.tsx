@@ -1,6 +1,7 @@
 import useChangeUser from "@/components/clients/hooks/useChangeUser";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { getInitialsName } from "@/helpers";
+import { SharedLoader } from "@/shared-components/SharedLoader";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import {
@@ -45,6 +46,9 @@ const UserProfile = () => {
     setIsMessage(false);
     router.back();
   };
+  if (isLoading) {
+    return <SharedLoader isOpen={isLoading} />;
+  }
   return (
     <View style={styles.container}>
       <View style={styles.profileHeader}>
@@ -64,7 +68,9 @@ const UserProfile = () => {
             onPress={() => makePhoneCall(phoneNumber)}
           >
             <Feather name="phone" size={24} color="#fff" />
-            <Text style={styles.actionText}>{localization.CLIENTS.contact}</Text>
+            <Text style={styles.actionText}>
+              {localization.CLIENTS.contact}
+            </Text>
           </TouchableOpacity>
         )}
 
@@ -97,7 +103,9 @@ const UserProfile = () => {
       <View style={styles.divider} />
 
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>{localization.CLIENTS.contactInfo}</Text>
+        <Text style={styles.sectionTitle}>
+          {localization.CLIENTS.contactInfo}
+        </Text>
         <View style={styles.contactItem}>
           <Feather
             name="phone-call"
@@ -116,7 +124,9 @@ const UserProfile = () => {
             color="#666"
             style={styles.contactIcon}
           />
-          <Text style={styles.contactText}>{email || localization.CLIENTS.notAvailable}</Text>
+          <Text style={styles.contactText}>
+            {email || localization.CLIENTS.notAvailable}
+          </Text>
         </View>
       </View>
       {dialog && (
@@ -128,7 +138,6 @@ const UserProfile = () => {
           title={localization.CLIENTS.question}
           buttonTextNo={localization.CLIENTS.cancel}
           buttonTextYes="OK"
-
         />
       )}
       {isMessage && (
