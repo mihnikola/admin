@@ -243,6 +243,7 @@ export const SRB_LOCALIZATION = {
     title: "Upravljanje barberima",
     listBarbers: "Lista barbera",
     seniority: "Unesi senioritet",
+    removed: "Zaposleni je obrisan",
     email: "Unesi email",
     phoneNumber: "Unesi broj telefona",
     name: "Unesi ime",

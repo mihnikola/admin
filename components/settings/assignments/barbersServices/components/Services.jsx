@@ -65,7 +65,7 @@ const Services = () => {
   } = useBarbersService();
 
   const [search, setSearch] = useState("");
-
+  const [isFocused, setIsFocused] = useState(false);
   const filterResult = servicesByBarbers.filter((item) => item.assigned);
   const allResult = servicesByBarbers.filter((item) => !item.assigned);
 
@@ -139,29 +139,42 @@ const Services = () => {
           </View>
         </View>
       </View>
+      {!isFocused && (
+        <View style={{ flex: 1.5, paddingHorizontal: 12, paddingBottom: 24 }}>
+          <Text style={styles.addressBarbersX}>
+            {localization.SETTINGS.SERVICESBARBERS.servicesLength} (
+            {filterResult.length})
+          </Text>
 
-      <View style={{ flex: 2, paddingHorizontal: 12, paddingBottom: 24 }}>
-        <Text style={styles.addressBarbersX}>
-          {localization.SETTINGS.SERVICESBARBERS.servicesLength} (
-          {filterResult.length})
-        </Text>
-
-        <FlatList
-          data={filterResult}
-          keyExtractor={(item) => item._id}
-          renderItem={({ item }) => (
-            <ServiceItemAssign item={item} toggleService={toggleService} />
-          )}
-        />
-      </View>
+          <FlatList
+            data={filterResult}
+            keyExtractor={(item) => item._id}
+            renderItem={({ item }) => (
+              <ServiceItemAssign item={item} toggleService={toggleService} />
+            )}
+          />
+        </View>
+      )}
 
       <View style={{ flex: 1.5, paddingHorizontal: 12, paddingBottom: 5 }}>
-        <Text style={styles.addressBarbers}>
-          {localization.SETTINGS.SERVICESBARBERS.availableServices} (
-          {filteredService.length})
-        </Text>
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <Text style={styles.addressBarbers}>
+            {localization.SETTINGS.SERVICESBARBERS.availableServices} (
+            {filteredService.length})
+          </Text>
+          {isFocused && (
+            <TouchableOpacity onPress={() => setIsFocused(false)}>
+              <FontAwesome size={20} name="chevron-down" color={"white"} />
+            </TouchableOpacity>
+          )}
+        </View>
+
         <View style={styles.searchInputContainer}>
-          <SearchInputComponent search={search} setSearch={setSearch} />
+          <SearchInputComponent
+            onFocus={() => setIsFocused(true)}
+            search={search}
+            setSearch={setSearch}
+          />
         </View>
 
         <FlatList

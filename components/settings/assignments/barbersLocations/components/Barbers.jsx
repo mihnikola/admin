@@ -42,6 +42,8 @@ const Barbers = () => {
     initialBarbers,
   } = useLocationBarber();
   const [search, setSearch] = useState("");
+  const [isFocused, setIsFocused] = useState(false);
+
   const [disabledBtn, setDisabledBtn] = useState(true);
   const initialNumber = initialBarbers?.filter((item) => {
     if (item.flag === "T") {
@@ -110,35 +112,51 @@ const Barbers = () => {
         </View>
       </View>
 
-      <View
-        style={{
-          flex: 2,
-          marginVertical: 5,
-          paddingHorizontal: 12,
-          paddingBottom: 24,
-        }}
-      >
-        <Text style={styles.addressBarbers}>
-          {localization.SETTINGS.EMPLOYERSPLACES.barbersLength} (
-          {filterResult.length})
-        </Text>
+      {!isFocused && (
+        <View
+          style={{
+            flex: 2,
+            marginVertical: 5,
+            paddingHorizontal: 12,
+            paddingBottom: 24,
+          }}
+        >
+          <Text style={styles.addressBarbers}>
+            {localization.SETTINGS.EMPLOYERSPLACES.barbersLength} (
+            {filterResult.length})
+          </Text>
 
-        <FlatList
-          data={filterResult}
-          keyExtractor={(item) => item._id}
-          renderItem={({ item }) => (
-            <BarberItemAssign item={item} toggleBarber={toggleBarber} />
-          )}
-        />
-      </View>
+          <FlatList
+            data={filterResult}
+            keyExtractor={(item) => item._id}
+            renderItem={({ item }) => (
+              <BarberItemAssign item={item} toggleBarber={toggleBarber} />
+            )}
+          />
+        </View>
+      )}
 
       <View style={{ flex: 2, paddingHorizontal: 12, paddingBottom: 24 }}>
-        <Text style={styles.addressBarbers}>
-          {localization.SETTINGS.EMPLOYERSPLACES.availableBarbers} (
-          {filteredBarbers.length})
-        </Text>
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <View>
+            <Text style={styles.addressBarbers}>
+              {localization.SETTINGS.EMPLOYERSPLACES.availableBarbers} (
+              {filteredBarbers.length})
+            </Text>
+          </View>
+          {isFocused && (
+            <TouchableOpacity onPress={() => setIsFocused(false)}>
+              <FontAwesome size={20} name="chevron-down" color={"white"} />
+            </TouchableOpacity>
+          )}
+        </View>
+
         <View style={styles.searchInputContainer}>
-          <SearchInputComponent search={search} setSearch={setSearch} />
+          <SearchInputComponent
+            onFocus={() => setIsFocused(true)}
+            search={search}
+            setSearch={setSearch}
+          />
         </View>
         <FlatList
           data={filteredBarbers}

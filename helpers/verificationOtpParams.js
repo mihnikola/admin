@@ -8,7 +8,6 @@ export const getOtpParamsStorage = async () => {
   }
 };
 export const saveOtpParamsStorage = async (value) => {
-  console.log("saveOtpParamsStorage++", value)
   try {
     return await AsyncStorage.setItem("otpParams", JSON.stringify(value));
   } catch (e) {

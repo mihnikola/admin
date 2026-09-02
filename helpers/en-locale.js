@@ -54,6 +54,7 @@ export const ENG_LOCALIZATION = {
     confirmButton: "Ok",
     title: "Manage barbers",
     listBarbers: "List barbers",
+    removed:"Employer is deleted",
     email: "Enter email",
     phoneNumber: "Enter phone number",
     seniority: "Enter seniority",

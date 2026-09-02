@@ -1,17 +1,13 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-} from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import useEmail from "./hooks/useEmail";
 import { useLocalization } from "@/contexts/LocalizationContext";
-import useEmailOtpCode from './hooks/useEmailOtpCode';
-import WrapperAuth from './../../wrapper/WrapperAuth';
+import useEmailOtpCode from "./hooks/useEmailOtpCode";
+import WrapperAuth from "./../../wrapper/WrapperAuth";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { SharedInput } from "@/shared-components/SharedInput";
 import { SharedButton } from "@/shared-components/SharedButton";
 import { SharedMessage } from "@/shared-components/SharedMessage";
-import  FontAwesome  from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 import { router } from "expo-router";
 
 const ForgotPasswordComponent = () => {
@@ -19,24 +15,17 @@ const ForgotPasswordComponent = () => {
 
   const { localization } = useLocalization();
 
-  const {
-    checkEmailValidation,
-    error,
-    setError,
-    isLoading,
-    isMessage,
-    setIsMessage,
-  } = useEmailOtpCode();
-  console.log('xxxxxxxxxxxxxx')
+  const { checkEmailValidation, error, setError, isLoading } =
+    useEmailOtpCode();
 
   const navHandler = () => {
     checkEmailValidation(email);
   };
 
   const confirmHandler2 = () => {
-    setIsMessage(false);
     setError(null);
   };
+  console.log("xxxxxxxxxxxx", error);
   return (
     <WrapperAuth>
       <SharedBackButton
@@ -78,12 +67,18 @@ const ForgotPasswordComponent = () => {
         />
       </View>
 
-      {error && (
+      {Boolean(error) && (
         <SharedMessage
-          isOpen={isMessage || error}
-          onClose={error && confirmHandler2}
-          onConfirm={error && confirmHandler2}
-          icon={<FontAwesome name="close" size={64} color="white" />}
+          isOpen={error?.length > 0 ? true : false}
+          onClose={confirmHandler2}
+          onConfirm={confirmHandler2}
+          icon={
+            <FontAwesome
+              name={error?.length && "close"}
+              size={64}
+              color="white"
+            />
+          }
           title={error}
           buttonText={localization.OK.label}
         />

@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { getData } from "@/api/apiService";
 import { router } from "expo-router";
 import { saveOtpParamsStorage } from "@/helpers/verificationOtpParams";
@@ -9,13 +9,11 @@ const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const useEmailOtpCode = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [isMessage, setIsMessage] = useState(false);
 
   const { localization } = useLocalization();
 
   const checkEmailValidation = async (email) => {
     setError(null);
-    setIsMessage(true);
     if (!email || email.trim().length === 0) {
       setError(localization.EMAIL.errorEmpty);
       return;
@@ -31,7 +29,17 @@ const useEmailOtpCode = () => {
       const response = await getData(`/admin/users/${email}/email`, {
         params: { email },
       });
+
+      if (response.status === 201) {
+        // console.log("x", response);
+        setError(localization.BARBERS.removed);
+
+        // setError(localization.EMAIL.errorValid);
+        // return;
+      }
       if (response.status === 200) {
+        console.log("x2222");
+
         if (response.success) {
           const verifyData = { email };
           await saveOtpParamsStorage(verifyData);
@@ -39,8 +47,6 @@ const useEmailOtpCode = () => {
         } else {
           setError(localization.EMAIL.errorFound);
         }
-      } else {
-        setError(localization.SERVER_RESPONSE.error);
       }
     } catch (err) {
       setError(localization.SERVER_RESPONSE.error);
@@ -54,8 +60,6 @@ const useEmailOtpCode = () => {
     error,
     setError,
     checkEmailValidation,
-    isMessage,
-    setIsMessage,
   };
 };
 
