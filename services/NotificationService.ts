@@ -1,9 +1,12 @@
+import { put } from "@/api/apiService";
 import {
+  deleteToken,
   getInitialNotification,
   getMessaging,
   getToken,
   onMessage,
   onNotificationOpenedApp,
+  onTokenRefresh,
 } from "@react-native-firebase/messaging";
 import * as Notifications from "expo-notifications";
 
@@ -33,24 +36,21 @@ export class NotificationService {
   }
 
   async getFCMToken() {
-    if (this.deviceToken) return this.deviceToken;
+    const messaging = getMessaging();
 
     try {
-      // const token = await messaging().getToken();
-      const token = await getToken(getMessaging());
+      await deleteToken(messaging);
 
-      if (token) {
-        this.deviceToken = token;
-        // setTimeout(async () => {
-        // console.log("token getToken",token)
-        // await saveExpoTokenStorage(token);
-        // }, 1000);
-      }
-    } catch (err) {
-      console.log("Error getting FCM token", err);
+      console.log("🗑️ Stari FCM token obrisan");
+
+      const newToken = await getToken(messaging);
+
+      console.log("🆕 NOVI FCM TOKEN:", newToken);
+
+      return newToken;
+    } catch (error) {
+      console.log("❌ FCM regenerate error:", error);
     }
-
-    return this.deviceToken;
   }
 
   // FOREGROUND
@@ -118,10 +118,36 @@ export class NotificationService {
     this.subscriptions.push(unsub);
   }
 
+  listenToTokenRefresh() {
+    const messaging = getMessaging();
+
+    const unsub = onTokenRefresh(messaging, async (token) => {
+      console.log("🔄 Novi FCM token:", token);
+
+      this.deviceToken = token;
+
+      try {
+        const responseData = await put("/admin/users/upgradeToken", {
+          tokenData: token,
+        });
+
+        console.log("Novi FCM token response ", responseData);
+      } catch (err) {
+        console.log("Greška pri čuvanju novog tokena:", err);
+      }
+    });
+
+    this.subscriptions.push(unsub);
+  }
+
   initializeListeners(onClick: (data?: any) => void) {
     // 1) Permissions + token
 
     this.requestPermission();
+    // 2) Prvo postavi refresh listener
+    this.listenToTokenRefresh();
+
+    // 3) Onda uzmi trenutni token
     this.getFCMToken();
 
     // 2) KILLED state
@@ -147,23 +173,7 @@ export class NotificationService {
     );
 
     this.subscriptions.push(() => clickListener.remove());
-
-    // 6) Token refresh
-    // this.listenToTokenRefresh();
   }
-
-  // listenToTokenRefresh() {
-  //   const unsub = messaging().onTokenRefresh((token) => {
-  //     setTimeout(async () => {
-  //       await saveExpoTokenStorage(token);
-  //     }, 1000);
-
-  //     this.deviceToken = token;
-  //     console.log("🔄 New FCM token:", token);
-  //   });
-
-  //   this.subscriptions.push(unsub);
-  // }
 
   cleanup() {
     this.subscriptions.forEach((u) => {

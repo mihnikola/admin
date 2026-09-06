@@ -54,7 +54,7 @@ export const ENG_LOCALIZATION = {
     confirmButton: "Ok",
     title: "Manage barbers",
     listBarbers: "List barbers",
-    removed:"Employer is deleted",
+    removed: "Employer is deleted",
     email: "Enter email",
     phoneNumber: "Enter phone number",
     seniority: "Enter seniority",
@@ -217,6 +217,9 @@ export const ENG_LOCALIZATION = {
     errorId: "Reservation id is not provided.",
     title: "Reservations",
     postError: "Error while submitting your reservation.",
+    cancelReservation: {
+      errorMessage: "Error on qstash service",
+    },
     rejectReservation: {
       rejectButton: "Rejected",
       rejectQuestion: "Are you sure you want to reject this reservation?",
@@ -416,6 +419,7 @@ export const ENG_LOCALIZATION = {
     success: "Successfully updated password",
     error: "Error while changing password",
     currentError: "Current password is not correct",
+    errorFields: "Fill in all input fields",
   },
   EMAIL: {
     label: "Email",

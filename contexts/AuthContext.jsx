@@ -1,4 +1,4 @@
-import { get, getData, post } from "@/api/apiService";
+import { get, getData, post, put } from "@/api/apiService";
 import { getStorage, removeStorage, saveStorage } from "@/helpers/token";
 import { saveOtpParamsStorage } from "@/helpers/verificationOtpParams";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -7,6 +7,7 @@ import { router } from "expo-router";
 import NotificationService from "@/services/NotificationService";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useLocalization } from "./LocalizationContext";
+import { getExpoTokenStorage } from "@/helpers/expoToken";
 
 // Create the context with a default value of false
 export const AuthContext = createContext(null);
@@ -146,11 +147,32 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
+  const getFcmToken = async () => {
+    const fcmToken = await NotificationService.getFCMToken();
+
+    if (!fcmToken || fcmToken === "") {
+      setIsMessage(true);
+      setError("nema fcm token");
+      return;
+    }
+    try {
+      const responseData = await put("/admin/users/upgradeToken", {
+        tokenData: fcmToken,
+      });
+      console.log("Novi FCM token response ", responseData);
+      // setIsMessage(true);
+    } catch (err) {
+      console.log("Greška pri čuvanju novog tokena:", err);
+    }
+  };
+
   const loginAdmin = async (email, password) => {
     setLoadingLogin("login");
     setError(null);
 
-    const expoToken = await NotificationService.getFCMToken();
+    // const fcmToken = await NotificationService.listenToTokenRefresh();
+    // const fcmToken = await NotificationService.listenToTokenRefresh();
+    // const expoToken = await getExpoTokenStorage();
 
     if (!email || !password) {
       setLoadingLogin(null);
@@ -162,16 +184,17 @@ export const AuthProvider = ({ children }) => {
       const responseData = await post("/admin/users/login", {
         email,
         password,
-        fcmToken: expoToken,
       });
       setIsMessage(true);
       if (responseData.status === 201) {
         setError(localization.DETERMINATION.error);
       }
       if (responseData.status === 200) {
+        await NotificationService.initializeListeners();
         saveStorage(responseData.token);
         setSuccess(localization.LOGIN.success);
         getTokenData();
+        getFcmToken();
       }
     } catch (err) {
       console.log("err", err);

@@ -201,6 +201,9 @@ export const SRB_LOCALIZATION = {
       errorMessage: "Rezervacija ne postoji",
       info: "Rezervacija je otkazana",
     },
+    cancelReservation: {
+      errorMessage: "Greska na qstash servisu",
+    },
     approveReservation: {
       approveButton: "Odobri",
       approveQuestion:
@@ -438,6 +441,7 @@ export const SRB_LOCALIZATION = {
     success: "Uspešno ažurirana lozinka",
     error: "Greška u toku promene lozinke",
     currentError: "Trenutna lozinka nije tačna",
+    errorFields: "Popuni sva polja",
   },
   EMAIL: {
     label: "Email",

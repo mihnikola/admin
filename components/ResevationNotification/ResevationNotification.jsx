@@ -254,7 +254,7 @@ function ResevationNotificationScreen() {
 
       {isModal && (
         <SharedMessage
-          isOpen={isModal && !isLoading}
+          isOpen={isModal}
           onClose={confirmHandler}
           onConfirm={confirmHandler}
           icon={

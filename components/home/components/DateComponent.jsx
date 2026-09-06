@@ -50,12 +50,17 @@ const DateComponent = () => {
     const firstDay = new Date(year, month, 1).getDay();
     const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-    return Math.ceil((firstDay + daysInMonth) / 6);
+    console.log("firstDay",firstDay)
+    console.log("daysInMonth",daysInMonth)
+
+    return Math.ceil((firstDay + daysInMonth) / 7);
+    // return 6.2;
   };
 
   const getCalendarHeight = (dateString) => {
     const weeks = getWeeksInMonth(dateString);
-    return weeks * 50 + 20;
+    // return weeks * 50 + 20;
+    return weeks * 60 + 25; // Povećano sa 50 na 60 po nedelji, i osnovni offset na 90
   };
   useEffect(() => {
     getDates(checkMonth || localDateString, initialValue);

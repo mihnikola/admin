@@ -17,7 +17,7 @@ const useChangePasswordHandler = () => {
 
       if (password.length === 0 || confirmPassword.length === 0) {
         setIsMessage(true);
-        setError(localization.LOGIN.error);
+        setError(localization.CHANGE_PASS.errorFields);
         setIsLoading(false);
         return;
       }
