@@ -1,4 +1,9 @@
-import { FontAwesome } from "@expo/vector-icons";
+import {
+  Feather,
+  FontAwesome,
+  Ionicons,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 import { useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
@@ -30,6 +35,7 @@ import useEmail from "@/components/login/hooks/useEmail";
 import usePassword from "@/components/login/hooks/usePassword";
 import usePhoneNumber from "@/components/login/hooks/usePhoneNumber";
 import { SharedInput } from "@/shared-components/SharedInput";
+import SharedBackButton from "@/shared-components/SharedBackButton";
 
 export default function BarbersAdd() {
   const { localization } = useLocalization();
@@ -53,6 +59,7 @@ export default function BarbersAdd() {
     seniorityData,
     statuses,
     fetchAllStatusChecking,
+    navigateToService,
   } = useBarbers();
 
   const [name, setName] = useState("");
@@ -81,7 +88,7 @@ export default function BarbersAdd() {
 
   const selectedImgHandler = (imgData) => {
     // if (imgData) {
-      setChangedImg(imgData);
+    setChangedImg(imgData);
     // }
   };
   useEffect(() => {
@@ -117,8 +124,8 @@ export default function BarbersAdd() {
     setEditingId(null);
     setChangedImg(null);
   };
-// console.log("barberData image",barberData?.image);
-// console.log("changedImg",changedImg);
+  // console.log("barberData image",barberData?.image);
+  // console.log("changedImg",changedImg);
   const validationData = () => {
     if (
       barberData?.id === editingId &&
@@ -147,7 +154,7 @@ export default function BarbersAdd() {
         image: changedImg === imageValue ? null : changedImg,
         statusCheck: selectedStatus?._id,
       };
-      console.log("updateBarber",updateBarber)
+      console.log("updateBarber", updateBarber);
       if (updateBarber) {
         addEditBarber(updateBarber);
       }
@@ -248,6 +255,27 @@ export default function BarbersAdd() {
   if (isLoading !== "getBarber") {
     return (
       <View style={styles.container}>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            marginTop: 30,
+            marginHorizontal: 15,
+          }}
+        >
+          <View>
+            <SharedBackButton onPress={router.back} absolutePosition={false} />
+          </View>
+          {id && (
+            <TouchableOpacity onPress={() => navigateToService(barberData)}>
+              <MaterialCommunityIcons
+                name="playlist-plus"
+                size={32}
+                color="#fff"
+              />
+            </TouchableOpacity>
+          )}
+        </View>
         <ScrollView
           ref={scrollRef}
           keyboardDismissMode="interactive"
@@ -268,6 +296,7 @@ export default function BarbersAdd() {
               />
             </View>
           )}
+
           <View style={{ flex: 3, marginTop: 20 }}>
             <BarbersInput
               autoFocus

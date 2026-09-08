@@ -31,18 +31,18 @@ export const getSettingsOptions = (localization: any) => [
     icon: "duplicate-outline",
     route: "/(tabs)/(03_settings)/locationManager",
   },
-  {
-    id: "12",
-    title: localization.SETTINGS.SERVICESBARBERS.title,
-    icon: "attach-sharp",
-    route: "/(tabs)/(03_settings)/barbersServices",
-  },
-  {
-    id: "151482",
-    title: localization.SETTINGS.LOCATIONSBARBERS.title,
-    icon: "repeat-sharp",
-    route: "/(tabs)/(03_settings)/locationManagement",
-  },
+  // {
+  //   id: "12",
+  //   title: localization.SETTINGS.SERVICESBARBERS.title,
+  //   icon: "attach-sharp",
+  //   route: "/(tabs)/(03_settings)/barbersServices",
+  // },
+  // {
+  //   id: "151482",
+  //   title: localization.SETTINGS.LOCATIONSBARBERS.title,
+  //   icon: "repeat-sharp",
+  //   route: "/(tabs)/(03_settings)/locationManagement",
+  // },
   {
     id: "xcasdqwe232sewdssd",
     title: localization.SETTINGS.NOTIFICATIONSTATUS.title,

@@ -1,14 +1,15 @@
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { SharedMessage } from "@/shared-components/SharedMessage";
-import { FontAwesome } from "@expo/vector-icons";
-import { useLocalSearchParams } from "expo-router";
+import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
+import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 import useLocation from "../hooks/useLocations";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import GooglePlace from "./GooglePlace";
 import LocationInput from "./LocationInput";
 import TimeSettingsScreen from "../../WorkHourManagement";
+import SharedBackButton from "@/shared-components/SharedBackButton";
 
 export default function LocationsAddEdit() {
   const [city, setCity] = useState("");
@@ -37,6 +38,7 @@ export default function LocationsAddEdit() {
     deleteLocation,
     error,
     setError,
+    navigateToBarbers
   } = useLocation();
 
   const confirmErrorMessageHandler = () => {
@@ -98,6 +100,27 @@ export default function LocationsAddEdit() {
 
   return (
     <View style={styles.container}>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          marginTop: 30,
+          marginHorizontal: 15,
+        }}
+      >
+        <View>
+          <SharedBackButton onPress={router.back} absolutePosition={false} />
+        </View>
+        {id && (
+          <TouchableOpacity onPress={() => navigateToBarbers(locationById)}>
+            <MaterialCommunityIcons
+              name="account-plus-outline"
+              size={28}
+              color="#fff"
+            />
+          </TouchableOpacity>
+        )}
+      </View>
       <View style={{ flex: 1, margin: 10, gap: 10 }}>
         <GooglePlace
           onSelect={({ city, street, lat, lng, place_id }) => {

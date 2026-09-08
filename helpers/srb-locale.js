@@ -263,6 +263,7 @@ export const SRB_LOCALIZATION = {
     status: "Status odobravanja",
     typeApproval: "Tipovi odobravanja",
     listSeniorities: "Lista senioriteta",
+    errorExist: "Email vec postoji",
   },
   SETTINGS: {
     EMPLOYERSPLACES: {

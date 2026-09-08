@@ -159,7 +159,6 @@ const useBarbers = () => {
         formData.append("image", null);
       }
 
-
       const isEdit = Boolean(userData?.id);
       const baseUrl = process.env.EXPO_PUBLIC_API_URL.replace(/\/$/, "");
 
@@ -178,15 +177,26 @@ const useBarbers = () => {
           "Accept-Language": localization.code,
         },
       });
-
+      if (response.status === 202) {
+        setError(localization.BARBERS.errorExist);
+        return;
+      }
       if (
         (isEdit && response.status === 200) ||
         (!isEdit && response.status === 201)
       ) {
-        setIsMessage(true);
-        setMessage(
-          isEdit ? localization.BARBERS.edit : localization.BARBERS.add,
-        );
+        if (isEdit) {
+          setIsMessage(true);
+          setMessage(localization.BARBERS.edit);
+        } else {
+          router.replace({
+            pathname: "/(tabs)/(03_settings)/servicesBarbers",
+            params: {
+              id: response.data.barberId,
+              name: userData.name,
+            },
+          });
+        }
       }
       await fetchAllBarbers();
       await fetchUserData();
@@ -231,6 +241,19 @@ const useBarbers = () => {
     fetchAllBarbers();
   }, []);
 
+  const navigateToService = (barber) => {
+    console.log("barber", barber);
+    router.push({
+      pathname: "/(tabs)/(03_settings)/servicesBarbers",
+      params: {
+        id: barber.id,
+        name: barber.name,
+        image: barber.image,
+        phoneNumber: barber?.phoneNumber,
+      },
+    });
+  };
+
   return {
     isLoading,
     error,
@@ -253,6 +276,7 @@ const useBarbers = () => {
     checkReservationIfExists,
     setError,
     setIsMessage,
+    navigateToService,
   };
 };
 

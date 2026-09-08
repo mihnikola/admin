@@ -13,7 +13,6 @@ import { useLocalization } from "@/contexts/LocalizationContext";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { router, useLocalSearchParams } from "expo-router";
 import Loader from "@/shared-components/Loader";
-import ServiceItemAssign from "./ServiceItemAssign";
 import ServiceItem from "./ServiceItem";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import useBarbersService from "../hooks/useBarbersService";
@@ -25,7 +24,7 @@ import SearchInputComponent from "@/components/settings/SearchInputComponent";
 const Services = () => {
   const { localization } = useLocalization();
   const { id, name, image, phoneNumber } = useLocalSearchParams();
-
+  console.log("xxxxxxxxxx", id, name, image, phoneNumber);
   const itemData = {
     id,
     name,
@@ -67,7 +66,6 @@ const Services = () => {
   const [search, setSearch] = useState("");
   const [isFocused, setIsFocused] = useState(false);
   const filterResult = servicesByBarbers.filter((item) => item.assigned);
-  const allResult = servicesByBarbers.filter((item) => !item.assigned);
 
   const [disabledBtn, setDisabledBtn] = useState(true);
 
@@ -112,7 +110,7 @@ const Services = () => {
     }
   }, [id]);
 
-  const filteredService = allResult.filter(
+  const servicesByBarbersFiltered = servicesByBarbers.filter(
     (service) =>
       service.name.nameEn.toLowerCase().includes(search.toLowerCase()) ||
       service.name.nameLocal.toLowerCase().includes(search.toLowerCase()),
@@ -139,36 +137,8 @@ const Services = () => {
           </View>
         </View>
       </View>
-      {!isFocused && (
-        <View style={{ flex: 1.5, paddingHorizontal: 12, paddingBottom: 24 }}>
-          <Text style={styles.addressBarbersX}>
-            {localization.SETTINGS.SERVICESBARBERS.servicesLength} (
-            {filterResult.length})
-          </Text>
-
-          <FlatList
-            data={filterResult}
-            keyExtractor={(item) => item._id}
-            renderItem={({ item }) => (
-              <ServiceItemAssign item={item} toggleService={toggleService} />
-            )}
-          />
-        </View>
-      )}
 
       <View style={{ flex: 1.5, paddingHorizontal: 12, paddingBottom: 5 }}>
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <Text style={styles.addressBarbers}>
-            {localization.SETTINGS.SERVICESBARBERS.availableServices} (
-            {filteredService.length})
-          </Text>
-          {isFocused && (
-            <TouchableOpacity onPress={() => setIsFocused(false)}>
-              <FontAwesome size={20} name="chevron-down" color={"white"} />
-            </TouchableOpacity>
-          )}
-        </View>
-
         <View style={styles.searchInputContainer}>
           <SearchInputComponent
             onFocus={() => setIsFocused(true)}
@@ -178,7 +148,7 @@ const Services = () => {
         </View>
 
         <FlatList
-          data={filteredService}
+          data={servicesByBarbersFiltered}
           keyExtractor={(item) => item._id}
           renderItem={({ item }) => (
             <ServiceItem item={item} toggleService={toggleService} />

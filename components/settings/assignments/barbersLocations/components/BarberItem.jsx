@@ -2,12 +2,11 @@ import { getInitialsName } from "@/helpers";
 import { FontAwesome } from "@expo/vector-icons";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-export default function BarberItem({ item, toggleBarber, isAssigned }) {
+export default function BarberItem({ item, toggleBarber }) {
   const initials = getInitialsName(item.name);
-
   return (
     <TouchableOpacity
-      style={[styles.barberItem, isAssigned && styles.barberItemAssigned]}
+      style={styles.barberItem}
       onPress={() => toggleBarber(item)}
       activeOpacity={0.7}
     >
@@ -25,18 +24,10 @@ export default function BarberItem({ item, toggleBarber, isAssigned }) {
         </View>
       </View>
 
-      {/* Akciono dugme: Plus ili Close sa kružnom pozadinom */}
-      <View
-        style={[
-          styles.actionButton,
-          isAssigned ? styles.actionButtonClose : styles.actionButtonPlus,
-        ]}
-      >
-        <FontAwesome
-          name={isAssigned ? "close" : "plus"}
-          size={isAssigned ? 18 : 14}
-          color="white"
-        />
+      <View style={styles.actionButton}>
+        {item.flag === "T" && (
+          <FontAwesome name="check-circle" size={32} color="white" />
+        )}
       </View>
     </TouchableOpacity>
   );

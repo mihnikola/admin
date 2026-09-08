@@ -1,11 +1,9 @@
 import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
 import {
-  ActivityIndicator,
   FlatList,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -13,10 +11,7 @@ import useLocationBarber from "./../hooks/useLocationBarber";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { router, useLocalSearchParams } from "expo-router";
-import Loader from "@/shared-components/Loader";
 import BarberItem from "./BarberItem";
-import BarberItemAssign from "./BarberItemAssign";
-import SharedBackButton from "@/shared-components/SharedBackButton";
 import SharedButtonApproved from "@/shared-components/SharedButtonApproved";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import withKeyboardAvoid from "@/wrapper/WrapperKeyboard";
@@ -42,7 +37,6 @@ const Barbers = () => {
     initialBarbers,
   } = useLocationBarber();
   const [search, setSearch] = useState("");
-  const [isFocused, setIsFocused] = useState(false);
 
   const [disabledBtn, setDisabledBtn] = useState(true);
   const initialNumber = initialBarbers?.filter((item) => {
@@ -66,7 +60,6 @@ const Barbers = () => {
   };
 
   const filterResult = locationBarbersData.filter((item) => item.flag === "T");
-  const allResult = locationBarbersData.filter((item) => item.flag !== "T");
 
   useEffect(() => {
     if (areListsEqual(initialNumber, filterResult)) {
@@ -89,7 +82,7 @@ const Barbers = () => {
       }, 100);
     }
   }, [id]);
-  const filteredBarbers = allResult.filter((barber) =>
+  const filteredBarbers = locationBarbersData.filter((barber) =>
     barber.name.toLowerCase().includes(search.toLowerCase()),
   );
   if (isLoading === "getBarbers") {
@@ -112,48 +105,9 @@ const Barbers = () => {
         </View>
       </View>
 
-      {!isFocused && (
-        <View
-          style={{
-            flex: 2,
-            marginVertical: 5,
-            paddingHorizontal: 12,
-            paddingBottom: 24,
-          }}
-        >
-          <Text style={styles.addressBarbers}>
-            {localization.SETTINGS.EMPLOYERSPLACES.barbersLength} (
-            {filterResult.length})
-          </Text>
-
-          <FlatList
-            data={filterResult}
-            keyExtractor={(item) => item._id}
-            renderItem={({ item }) => (
-              <BarberItemAssign item={item} toggleBarber={toggleBarber} />
-            )}
-          />
-        </View>
-      )}
-
-      <View style={{ flex: 2, paddingHorizontal: 12, paddingBottom: 24 }}>
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <View>
-            <Text style={styles.addressBarbers}>
-              {localization.SETTINGS.EMPLOYERSPLACES.availableBarbers} (
-              {filteredBarbers.length})
-            </Text>
-          </View>
-          {isFocused && (
-            <TouchableOpacity onPress={() => setIsFocused(false)}>
-              <FontAwesome size={20} name="chevron-down" color={"white"} />
-            </TouchableOpacity>
-          )}
-        </View>
-
+      <View style={{ flex: 1, paddingHorizontal: 12, paddingBottom: 24 }}>
         <View style={styles.searchInputContainer}>
           <SearchInputComponent
-            onFocus={() => setIsFocused(true)}
             search={search}
             setSearch={setSearch}
           />

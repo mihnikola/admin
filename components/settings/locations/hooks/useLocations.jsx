@@ -23,7 +23,7 @@ function useLocation() {
     setError(null);
     try {
       const response = await deleteRequest(`/admin/places/${id}`);
-     
+
       if (response.status === 200) {
         setIsMessage(true);
         setMessage(localization.PLACES.deletedSuccess);
@@ -89,7 +89,7 @@ function useLocation() {
     setError(null);
     try {
       const response = await get(`/admin/places/${id}/checkReservation`);
-      console.log("checkReservation",response);
+      console.log("checkReservation", response);
       return response.status;
     } catch (errorData) {
       return errorData;
@@ -159,8 +159,15 @@ function useLocation() {
         setError(localization.PLACES.notChange);
       }
       if (response.status === 200 || response.status === 201) {
-        setIsMessage(true);
-        setMessage(id ? localization.PLACES.edit : localization.PLACES.add);
+        if (id) {
+          setIsMessage(true);
+          setMessage(localization.PLACES.edit);
+        } else {
+          router.replace({
+            pathname: "/(tabs)/(03_settings)/barbersLocations",
+            params: { id: response.data._id, address: response.data.address },
+          });
+        }
       }
     } catch (err) {
       setError(localization.PLACES.errorFetch);
@@ -191,6 +198,13 @@ function useLocation() {
     setIsMessage(false);
   };
 
+  const navigateToBarbers = (item) => {
+    router.push({
+      pathname: "/(tabs)/(03_settings)/barbersLocations",
+      params: { id: item._id, address: item.address },
+    });
+  };
+
   return {
     isLoading,
     error,
@@ -214,6 +228,7 @@ function useLocation() {
     deleteLocation,
     error,
     setError,
+    navigateToBarbers,
   };
 }
 

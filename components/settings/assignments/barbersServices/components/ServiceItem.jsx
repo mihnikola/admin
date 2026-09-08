@@ -24,7 +24,7 @@ const ServiceItem = ({ item, toggleService }) => {
         </View>
       </View>
       <View style={styles.actionButton}>
-        <FontAwesome name="plus" size={18} color="white" />
+        {item.assigned &&   <FontAwesome name="check-circle" size={32} color="white" />}
       </View>
     </TouchableOpacity>
   );
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#85b2bd", // Akcentovana boja za dodavanje
+    // backgroundColor: "#85b2bd", // Akcentovana boja za dodavanje
   },
 });
 

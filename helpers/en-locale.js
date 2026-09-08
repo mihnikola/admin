@@ -71,6 +71,7 @@ export const ENG_LOCALIZATION = {
     status: "Status approval",
     typeApproval: "Types approval",
     listSeniorities: "List of seniority",
+    errorExist:"Email already exists",
   },
   COMPANY: {
     error: "Error while fetching company data...",

@@ -30,13 +30,13 @@ export default function RootLayoutBarbers() {
       <Stack.Screen name="locationManagement" options={headerOptionsFalse} />
 
       <Stack.Screen name="addServices" options={headerOptions} />
-      <Stack.Screen name="addBarbers" options={headerOptions} />
+      <Stack.Screen name="addBarbers" options={headerOptionsFalse} />
       <Stack.Screen name="barbers" options={headerOptionsFalse} />
       <Stack.Screen name="barbersLocations" options={headerOptionsFalse} />
       <Stack.Screen name="barbersServices" options={headerOptionsFalse} />
       <Stack.Screen name="locationBarbers" options={headerOptionsFalse} />
       <Stack.Screen name="servicesBarbers" options={headerOptionsFalse} />
-      <Stack.Screen name="addLocation" options={headerOptions} />
+      <Stack.Screen name="addLocation" options={headerOptionsFalse} />
     </Stack>
   );
 }
