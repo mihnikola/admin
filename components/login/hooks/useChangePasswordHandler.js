@@ -56,9 +56,9 @@ const useChangePasswordHandler = () => {
     setIsLoading(true);
     setError(null);
 
-    if (newPassword.length === 0 || confirmNewPassword.length === 0) {
+    if (currentPassword.length === 0 || newPassword.length === 0 || confirmNewPassword.length === 0) {
       setIsMessage(true);
-      setError(localization.LOGIN.error);
+      setError(localization.PLACES.errorFields);
       setIsLoading(false);
       return;
     }

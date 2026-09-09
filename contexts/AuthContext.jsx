@@ -148,7 +148,11 @@ export const AuthProvider = ({ children }) => {
   };
 
   const getFcmToken = async () => {
+    await NotificationService.initializeListeners();
+
     const fcmToken = await NotificationService.getFCMToken();
+
+    await getTokenData();
 
     if (!fcmToken || fcmToken === "") {
       setIsMessage(true);
@@ -160,9 +164,23 @@ export const AuthProvider = ({ children }) => {
         tokenData: fcmToken,
       });
       console.log("Novi FCM token response ", responseData);
+
       // setIsMessage(true);
     } catch (err) {
       console.log("Greška pri čuvanju novog tokena:", err);
+    }
+  };
+  const confirmHandler = async () => {
+    setIsMessage(false);
+
+    if (router.canGoBack()) {
+      router.back();
+    } else {
+      router.replace("/(tabs)/(01_home)");
+
+      setTimeout(async () => {
+        await getFcmToken();
+      }, 2000);
     }
   };
 
@@ -190,11 +208,8 @@ export const AuthProvider = ({ children }) => {
         setError(localization.DETERMINATION.error);
       }
       if (responseData.status === 200) {
-        await NotificationService.initializeListeners();
         saveStorage(responseData.token);
         setSuccess(localization.LOGIN.success);
-        getTokenData();
-        getFcmToken();
       }
     } catch (err) {
       console.log("err", err);
@@ -246,6 +261,7 @@ export const AuthProvider = ({ children }) => {
         success,
         message,
         loadingLogin,
+        confirmHandler,
       }}
     >
       {children}

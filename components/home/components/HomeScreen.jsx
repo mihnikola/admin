@@ -2,7 +2,7 @@ import { useCompany } from "@/contexts/CompanyContext";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { router, useFocusEffect } from "expo-router";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import HomeCoverImage from "./HomeCoverImage";
 import UpcomingAppointmentCard from "./UpcomingAppointmentCard";
@@ -11,6 +11,7 @@ import UpcomingAbsenceCard from "./UpcomingAbsenceCard";
 
 import { useHomeData } from "@/contexts/HomeDataContext";
 import HomeLoader from "@/shared-components/HomeLoader";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function HomeScreen() {
   const {
@@ -24,11 +25,23 @@ export default function HomeScreen() {
     absenceData,
   } = useHomeData();
 
+  const { isToken } = useAuth();
   useFocusEffect(
     useCallback(() => {
       fetchHomeInfo();
     }, []),
   );
+  useEffect(() => {
+    // Proverava na svakih 500ms dok isToken ne postane dostupan
+    const interval = setInterval(() => {
+      if (isToken) {
+        fetchHomeInfo();
+        clearInterval(interval); // Prekida dalje proveravanje čim ga nađe
+      }
+    }, 500);
+
+    return () => clearInterval(interval); // Cleanup pri unmountu
+  }, [isToken]);
 
   const { company, isLoading } = useCompany();
   const { localization } = useLocalization();
@@ -45,8 +58,7 @@ export default function HomeScreen() {
 
   const absenceHandler = () => {
     router.push("/(tabs)/(01_home)/absence");
-
-  }
+  };
 
   if (company) {
     return (

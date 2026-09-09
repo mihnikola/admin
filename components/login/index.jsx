@@ -18,35 +18,22 @@ import {
 } from "react-native";
 import useEmail from "./../../components/login/hooks/useEmail";
 import usePassword from "./../../components/login/hooks/usePassword";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
 
 export default function LoginScreen() {
   const { localization } = useLocalization();
   const [exit, setExit] = useState(false);
-  const {
-    loadingLogin,
-    isMessage,
-    setIsMessage,
-    loginAdmin,
-    error,
-    success,
-  } = useAuth();
+  const { loadingLogin, isMessage, setIsMessage, loginAdmin, error, success, confirmHandler } =
+    useAuth();
   const { email, handleEmailChange, emailError } = useEmail();
   const { password, handlePasswordChange } = usePassword();
 
   const handleLogin = () => {
     loginAdmin(email, password);
   };
-  const confirmHandler = () => {
-    setIsMessage(false);
-    if (router.canGoBack()) {
-      router.back();
-    } else {
-      router.replace("/(tabs)/(01_home)");
-    }
-  };
+
   const cancelHandler = () => {
     setIsMessage(false);
   };
@@ -73,7 +60,10 @@ export default function LoginScreen() {
 
   const forgotPassHandler = () => {
     router.push("/(z_auth)/forgotPass");
-  }
+  };
+
+  const passwordInputRef = useRef();
+  const passwordLayout = useRef(0);
 
   return (
     <ScrollView style={styles.safeArea}>
@@ -96,21 +86,34 @@ export default function LoginScreen() {
             value={email}
             onChangeText={handleEmailChange}
             placeholder={localization.EMAIL.placeholder}
+            onSubmitEditing={() => passwordInputRef.current.focus()}
             keyboardType="email-address"
             autoCapitalize="none"
             style={styles.input}
             error={emailError}
+            returnKeyType="next"
           />
+          <View
+            onLayout={(e) => {
+              passwordLayout.current = e.nativeEvent.layout.y;
+            }}
+          >
+            <SharedPassword
+              label={localization.PASSWORD.label}
+              value={password}
+              ref={passwordInputRef}
+              onChangeText={handlePasswordChange}
+              placeholder={localization.PASSWORD.placeholder}
+            />
+          </View>
 
-          <SharedPassword
-            label={localization.PASSWORD.label}
-            value={password}
-            onChangeText={handlePasswordChange}
-            placeholder={localization.PASSWORD.placeholder}
-          />
-
-          <TouchableOpacity style={styles.forgotPassContainer} onPress={forgotPassHandler}>
-            <Text style={styles.forgotPassText}>{localization.LOGIN.forgot}</Text>
+          <TouchableOpacity
+            style={styles.forgotPassContainer}
+            onPress={forgotPassHandler}
+          >
+            <Text style={styles.forgotPassText}>
+              {localization.LOGIN.forgot}
+            </Text>
           </TouchableOpacity>
           <SharedButton
             loading={loadingLogin === "login"}
@@ -142,17 +145,10 @@ export default function LoginScreen() {
             onLogOut={confirmExitHandler}
             onClose={cancelExitHandler}
             buttonTextNo={localization.SETTINGS.LOGOUT.cancel}
-            icon={
-              <FontAwesome
-                name="close"
-                size={64}
-                color="white"
-              />
-            }
+            icon={<FontAwesome name="close" size={64} color="white" />}
             title={localization.EXIT.question}
           />
         )}
-
       </View>
     </ScrollView>
   );
@@ -161,14 +157,14 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   forgotPassContainer: {
     marginVertical: 20,
-    alignItems: "flex-end"
+    alignItems: "flex-end",
   },
   forgotPassText: {
     color: "#fff",
     fontSize: 15,
     fontStyle: "italic",
     textDecorationLine: "underline",
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
   },
   safeArea: {
     paddingVertical: 30,

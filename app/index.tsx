@@ -2,12 +2,20 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router, useRootNavigationState } from "expo-router";
 import React, { useEffect } from "react";
 import { Image, View } from "react-native";
+import {
+  setBackgroundMessageHandler,
+  getMessaging,
+} from "@react-native-firebase/messaging";
 
+// Obavezno staviti na sam vrh fajla, van bilo koje komponente
+setBackgroundMessageHandler(getMessaging(), async (remoteMessage) => {
+  console.log("🌙 Message handled in the background!", remoteMessage);
+});
 const SplashScreen = () => {
   const navigationState = useRootNavigationState();
 
   useEffect(() => {
-    if (!navigationState?.key) return; 
+    if (!navigationState?.key) return;
 
     const checkToken = async () => {
       const token = await AsyncStorage.getItem("token");
