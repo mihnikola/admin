@@ -12,14 +12,12 @@ import {
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
-import {
-  FontAwesome,
-  MaterialCommunityIcons,
-} from "@expo/vector-icons";
+import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import { useEffect, useState } from "react";
 import SettingsItem from "../../SettingsItem";
 import { getInitialsName } from "@/helpers";
+import { ColorsBarber } from "@/constants/Colors";
 
 export default function SettingsComponent() {
   const { localization } = useLocalization();
@@ -62,10 +60,10 @@ export default function SettingsComponent() {
       <StatusBar backgroundColor="black" barStyle="light-content" />
       <View style={styles.imageContainer}>
         <Image
-          source={require("@/assets/images/coverImage.jpg")}
+          source={require("@/assets/images/frizerskiSalon1.png")}
           style={styles.coverImage}
         />
-        {userData?.image ?
+        {userData?.image ? (
           <TouchableOpacity
             style={styles.defaultImgAvatar}
             onPress={editProfileBarber}
@@ -73,12 +71,15 @@ export default function SettingsComponent() {
             <Image source={{ uri: userData?.image }} style={styles.image} />
             <View style={styles.editButtonContainer}>
               <View style={styles.editButton}>
-                <MaterialCommunityIcons name="pencil" size={25} color="#000" />
+                <MaterialCommunityIcons
+                  name="pencil"
+                  size={25}
+                  color={ColorsBarber.light.textColor}
+                />
               </View>
             </View>
           </TouchableOpacity>
-          :
-
+        ) : (
           <TouchableOpacity
             style={styles.initialContainer}
             onPress={editProfileBarber}
@@ -88,11 +89,15 @@ export default function SettingsComponent() {
             </View>
             <View style={styles.editButtonContainer}>
               <View style={styles.editButton}>
-                <MaterialCommunityIcons name="pencil" size={25} color="#000" />
+                <MaterialCommunityIcons
+                  name="pencil"
+                  size={25}
+                  color={ColorsBarber.light.textColor}
+                />
               </View>
             </View>
           </TouchableOpacity>
-        }
+        )}
         <View style={{ marginTop: 20 }}>
           <Text style={styles.avatarText}>{userData?.name}</Text>
         </View>
@@ -122,7 +127,11 @@ export default function SettingsComponent() {
           onClose={logoutCancelHandler}
           onLogOut={logoutConfirmHandler}
           icon={
-            <FontAwesome name="question-circle-o" size={64} color="white" />
+            <FontAwesome
+              name="question-circle-o"
+              size={64}
+              color={ColorsBarber.light.textColor}
+            />
           }
           title={localization.SETTINGS.LOGOUT.question}
           buttonTextYes={localization.SETTINGS.LOGOUT.title}
@@ -139,7 +148,7 @@ const styles = StyleSheet.create({
     padding: 35,
     borderRadius: 100,
     borderWidth: 1,
-    borderColor: "#fff",
+    borderColor: ColorsBarber.light.background,
   },
 
   defaultImgAvatar: {
@@ -148,7 +157,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     backgroundColor: "transparent",
     borderWidth: 3,
-    borderColor: "#fff",
+    borderColor: ColorsBarber.light.background,
     borderRadius: 100,
   },
   initialContainer: {
@@ -161,17 +170,18 @@ const styles = StyleSheet.create({
   editButtonContainer: {
     position: "absolute",
     alignSelf: "flex-end",
-    alignContent: "flex-end"
+    alignContent: "flex-end",
   },
   editButton: {
-    backgroundColor: "#fff",
+    backgroundColor: ColorsBarber.light.background,
     borderRadius: 20,
     padding: 4,
   },
   container: {
     flex: 1,
-    backgroundColor: "#000",
-    marginBottom:20
+    backgroundColor: ColorsBarber.light.background,
+    // marginBottom:20
+    paddingBottom: 20,
   },
   image: {
     width: 125,
@@ -182,11 +192,11 @@ const styles = StyleSheet.create({
   coverImage: {
     width: "100%",
     height: "100%",
-    opacity: 0.2,
+    opacity: 0.4,
     position: "absolute",
   },
   avatarText: {
-    color: "#fff",
+    color: ColorsBarber.light.textColor,
     fontWeight: "700",
     fontSize: 23,
     letterSpacing: 2,
@@ -195,8 +205,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     letterSpacing: 2,
     fontWeight: "700",
-    color: "#ffffff",
-
+    color: ColorsBarber.light.textColor,
   },
   imageContainer: {
     height: 250,

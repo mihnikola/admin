@@ -9,6 +9,7 @@ import { SharedButton } from "@/shared-components/SharedButton";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { FontAwesome } from "@expo/vector-icons";
 import { router } from "expo-router";
+import { ColorsBarber } from "@/constants/Colors";
 
 const ForgotPasswordComponent = () => {
   const { email, emailError, handleEmailChange } = useEmail();
@@ -76,7 +77,7 @@ const ForgotPasswordComponent = () => {
             <FontAwesome
               name={error?.length && "close"}
               size={64}
-              color="white"
+              color={ColorsBarber.light.textColor}
             />
           }
           title={error}
@@ -116,7 +117,7 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: "white",
-    color: "black",
+   color:ColorsBarber.light.item,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,

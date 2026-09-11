@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { StyleSheet, Text, View } from "react-native";
 
 function SharedTitle({ title }) {
@@ -14,7 +15,7 @@ const styles = StyleSheet.create({
   },
   capture: {
     fontSize: 32,
-    color: "white",
+   color:ColorsBarber.light.textColor,
     fontWeight: "500",
     paddingVertical: 143,
   },

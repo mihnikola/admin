@@ -15,6 +15,7 @@ import { useState } from "react";
 import { SharedButton } from "@/shared-components/SharedButton";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { router, useLocalSearchParams } from "expo-router";
+import { ColorsBarber } from "@/constants/Colors";
 
 function LocationRemove() {
   const { company } = useCompany();
@@ -132,14 +133,14 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   info: {
-    color: "white",
+   color:ColorsBarber.light.textColor,
     padding: 10,
     marginHorizontal: 10,
     fontSize: 20,
     textAlign: "center",
   },
   dateLabel: {
-    color: "white",
+   color:ColorsBarber.light.textColor,
     paddingTop: 10,
     fontSize: 20,
     textAlign: "center",

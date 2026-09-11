@@ -1,12 +1,7 @@
 import { useState } from "react";
-import {
-  Modal,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { Modal, Pressable, StyleSheet, Text, View } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
+import { ColorsBarber } from "@/constants/Colors";
 
 const ThreeDotsMenu = ({ onView, onEdit, onCancel }) => {
   const [visible, setVisible] = useState(false);
@@ -15,7 +10,11 @@ const ThreeDotsMenu = ({ onView, onEdit, onCancel }) => {
     <>
       {/* Dots */}
       <Pressable onPress={() => setVisible(true)}>
-        <FontAwesome name="ellipsis-v" size={20} color="white" />
+        <FontAwesome
+          name="ellipsis-v"
+          size={20}
+          color={ColorsBarber.light.textColor}
+        />
       </Pressable>
 
       {/* Dropdown */}
@@ -25,10 +24,7 @@ const ThreeDotsMenu = ({ onView, onEdit, onCancel }) => {
         animationType="fade"
         onRequestClose={() => setVisible(false)}
       >
-        <Pressable
-          style={styles.overlay}
-          onPress={() => setVisible(false)}
-        >
+        <Pressable style={styles.overlay} onPress={() => setVisible(false)}>
           <View style={styles.menu}>
             <Pressable
               style={styles.item}
@@ -85,10 +81,9 @@ const styles = StyleSheet.create({
     padding: 12,
   },
   text: {
-    color: "white",
+   color:ColorsBarber.light.textColor,
     fontSize: 14,
   },
 });
-
 
 export default ThreeDotsMenu;

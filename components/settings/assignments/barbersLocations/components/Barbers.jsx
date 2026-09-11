@@ -16,6 +16,8 @@ import SharedButtonApproved from "@/shared-components/SharedButtonApproved";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import withKeyboardAvoid from "@/wrapper/WrapperKeyboard";
 import SearchInputComponent from "@/components/settings/SearchInputComponent";
+import { ColorsBarber } from "@/constants/Colors";
+
 
 const Barbers = () => {
   const { localization } = useLocalization();
@@ -93,7 +95,7 @@ const Barbers = () => {
       <View style={styles.headerComponent}>
         <View style={styles.headerRow}>
           <TouchableOpacity hitSlop={20} onPress={router.back}>
-            <MaterialIcons name="arrow-back" size={25} color="white" />
+            <MaterialIcons name="arrow-back" size={25} color={ColorsBarber.light.textColor} />
           </TouchableOpacity>
 
           <View style={styles.headerTextContainer}>
@@ -132,7 +134,7 @@ const Barbers = () => {
       {isMessage && (
         <SharedMessage
           isOpen={isMessage}
-          icon={<FontAwesome name="check-circle-o" size={64} color="white" />}
+          icon={<FontAwesome name="check-circle-o" size={64} color={ColorsBarber.light.textColor} />}
           onClose={confirmSubmit}
           onConfirm={confirmSubmit}
           buttonText="Ok"
@@ -142,7 +144,7 @@ const Barbers = () => {
       {isError?.length > 0 && (
         <SharedMessage
           isOpen={isError?.length > 0}
-          icon={<FontAwesome name="close" size={64} color="white" />}
+          icon={<FontAwesome name="close" size={64} color={ColorsBarber.light.textColor} />}
           onClose={cancelHandler}
           onConfirm={cancelHandler}
           buttonText="Ok"
@@ -225,7 +227,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     alignItems: "center",
     justifyContent: "space-between",
-    color: "white",
+   color:ColorsBarber.light.textColor,
   },
 
   subTitle: {

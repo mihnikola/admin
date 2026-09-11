@@ -3,11 +3,12 @@ import { router } from "expo-router";
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useLocalization } from "@/contexts/LocalizationContext";
+import { ColorsBarber } from "@/constants/Colors";
 
 export default function UpcomingAppointmentCard({ data }) {
   const { user, service, place, startDate, endDate, arrived } = data;
 
-    const { localization } = useLocalization();
+  const { localization } = useLocalization();
   const goToScreen = () => {
     router.push({
       pathname: "/(reservation_notification)/",
@@ -15,7 +16,7 @@ export default function UpcomingAppointmentCard({ data }) {
         itemId: data?._id,
         user: data?.user?.name,
         note: data?.description,
-        arrived: data?.arrived
+        arrived: data?.arrived,
       },
     });
   };
@@ -33,7 +34,9 @@ export default function UpcomingAppointmentCard({ data }) {
         </View>
       </View>
 
-      <Text style={styles.datetime}>{convertReadDateTime(startDate,endDate)}</Text>
+      <Text style={styles.datetime}>
+        {convertReadDateTime(startDate, endDate)}
+      </Text>
 
       {/* {place?.address && <Text style={styles.location}>{place?.address}</Text>} */}
     </TouchableOpacity>
@@ -41,7 +44,7 @@ export default function UpcomingAppointmentCard({ data }) {
 }
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#222224",
+    backgroundColor: ColorsBarber.light.textColor,
     borderRadius: 16,
     padding: 16,
     marginHorizontal: 15,
@@ -52,14 +55,14 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   upcomingCard: {
-    backgroundColor: "#b1b1b1",
+    backgroundColor: ColorsBarber.light.textColor,
     borderRadius: 16,
     padding: 16,
     borderWidth: 1,
     borderColor: "#e2d6d6",
   },
   pendingCard: {
-    backgroundColor: "#494949",
+    backgroundColor: ColorsBarber.light.textColor,
     borderRadius: 16,
     padding: 16,
     borderWidth: 1,
@@ -109,19 +112,19 @@ const styles = StyleSheet.create({
     borderRadius: 30,
   },
   badgeText: {
-    fontSize: 12,
-    fontWeight: "500",
-    color: "#ffffff",
+    fontSize: 14,
+    fontWeight: "900",
+    color: ColorsBarber.light.textColor,
     textTransform: "capitalize",
   },
   upcoming: {
-    backgroundColor: "#858585",
+    backgroundColor: ColorsBarber.light.item,
   },
   completed: {
-    backgroundColor: "#10B981",
+    backgroundColor: ColorsBarber.light.textColor,
   },
   inProgress: {
-    backgroundColor: "#858585",
+    backgroundColor: ColorsBarber.light.textColor,
   },
   cancelled: {
     backgroundColor: "#EF4444",

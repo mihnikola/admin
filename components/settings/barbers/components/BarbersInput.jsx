@@ -8,13 +8,18 @@ import {
 } from "react-native";
 import { Feather, FontAwesome } from "@expo/vector-icons";
 import { forwardRef, useState } from "react";
+import { ColorsBarber } from "@/constants/Colors";
 
 const BarbersInput = forwardRef((props, ref) => {
   const [isFocused, setIsFocused] = useState(false);
   return (
     <View style={[styles.container, props.error && styles.error]}>
       <View style={styles.iconContainer}>
-        <FontAwesome name={props.icon} size={20} color="#aaa" />
+        <FontAwesome
+          name={props.icon}
+          size={20}
+          color={ColorsBarber.light.textColor}
+        />
       </View>
 
       <View style={styles.viewContainer}>
@@ -44,14 +49,18 @@ const BarbersInput = forwardRef((props, ref) => {
               onBlur={() => setIsFocused(false)}
               onChangeText={props.onChangeText}
               placeholder={props.placeholder}
-              placeholderTextColor="#777"
+              placeholderTextColor={ColorsBarber.light.inActiveTextColor}
               keyboardType={props.keyboardType}
             />
           )}
           {props.lock && (
             <TouchableOpacity style={styles.lockRow} onPress={props.onPress}>
               <Text style={styles.lock}>{props.lock}</Text>
-              <Feather name="chevron-right" size={25} color="#777" />
+              <Feather
+                name="chevron-right"
+                size={25}
+                color={ColorsBarber.light.textColor}
+              />
             </TouchableOpacity>
           )}
         </View>
@@ -82,7 +91,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
   },
   lock: {
-    color: "#fff",
+    color: ColorsBarber.light.textColor,
     fontSize: 15,
   },
   phoneNumberContainer: {
@@ -94,7 +103,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#1c1c1c",
+    backgroundColor: ColorsBarber.light.item,
     borderRadius: 16,
     padding: 12,
     marginBottom: 7,
@@ -105,10 +114,10 @@ const styles = StyleSheet.create({
     borderRadius: 2, // Slightly rounded corners for the flag
   },
   prefixText: {
-    color: "grey",
-    fontSize: 16,
+    color: ColorsBarber.light.inActiveTextColor,
+    fontSize: 18,
     marginRight: 8,
-    fontWeight: "medium", // Make prefix stand out
+    fontWeight: "800", // Make prefix stand out
   },
   error: {
     borderWidth: 1,
@@ -120,13 +129,15 @@ const styles = StyleSheet.create({
   },
 
   label: {
-    color: "#9e9e9e",
+    // color: "#9e9e9e",
+    color: ColorsBarber.light.textColor,
+
     fontSize: 12,
     marginBottom: 2,
   },
 
   input: {
-    color: "#fff",
+    color: ColorsBarber.light.textColor,
     fontSize: 16,
     padding: 0,
     width: "100%",

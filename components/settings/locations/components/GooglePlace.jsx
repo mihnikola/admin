@@ -13,6 +13,7 @@ import { useLocalization } from "./../../../../contexts/LocalizationContext";
 import { Keyboard } from "react-native";
 import { useCompany } from "@/contexts/CompanyContext";
 import SearchInputComponent from "../../SearchInputComponent";
+import { ColorsBarber } from "@/constants/Colors";
 
 const apiKey = Constants.expoConfig.extra.API_KEY_MAP;
 
@@ -150,7 +151,7 @@ export default function GooglePlace({ onSelect }) {
       <View style={styles.searchInputContainer}>
         <SearchInputComponent search={query} setSearch={setQuery} placeholderText={localization.PLACES.search} />
       </View>
-      {loading && <ActivityIndicator size="small" color="#fff" />}
+      {loading && <ActivityIndicator size="small" color={ColorsBarber.light.textColor} />}
       <FlatList
         data={query?.length && results}
         keyExtractor={(item) => item.place_id}
@@ -183,10 +184,10 @@ const styles = StyleSheet.create({
   },
   list: {
     maxHeight: 200,
-    backgroundColor: "#2a2a2a",
+    backgroundColor: ColorsBarber.light.item,
     borderRadius: 8,
     marginTop: 5,
   },
   item: { padding: 10, borderBottomColor: "#444", borderBottomWidth: 1 },
-  itemText: { color: "#fff" },
+  itemText: { color:ColorsBarber.light.textColor },
 });

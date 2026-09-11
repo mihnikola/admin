@@ -1,6 +1,13 @@
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { router, useLocalSearchParams } from "expo-router";
-import { View, Text, StyleSheet, findNodeHandle, ScrollView, Platform } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  findNodeHandle,
+  ScrollView,
+  Platform,
+} from "react-native";
 import usePassword from "./hooks/usePassword";
 import useConfirmPassword from "./hooks/useConfirmPassword";
 import useChangePasswordHandler from "./hooks/useChangePasswordHandler";
@@ -14,6 +21,7 @@ import { SharedMessage } from "@/shared-components/SharedMessage";
 import { FontAwesome } from "@expo/vector-icons";
 import withKeyboardAvoid from "@/wrapper/WrapperKeyboard";
 import { useRef } from "react";
+import { ColorsBarber } from "@/constants/Colors";
 
 const ChangePasswordComponent = () => {
   const { data, email, changeProfile } = useLocalSearchParams();
@@ -151,7 +159,7 @@ const ChangePasswordComponent = () => {
             <FontAwesome
               name={error ? "close" : "check-circle-o"}
               size={64}
-              color="white"
+              color={ColorsBarber.light.textColor}
             />
           }
           title={error || message}
@@ -159,14 +167,13 @@ const ChangePasswordComponent = () => {
         />
       )}
     </View>
-
   );
 };
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 20,
-    paddingTop: Platform.OS === 'ios' ? 20 : 10,
+    paddingTop: Platform.OS === "ios" ? 20 : 10,
     backgroundColor: "#000",
   },
   passContainer: {
@@ -190,7 +197,7 @@ const styles = StyleSheet.create({
   },
   passwordInput: {
     backgroundColor: "white",
-    color: "black",
+   color:ColorsBarber.light.item,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
@@ -209,7 +216,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     backgroundColor: "white",
-    color: "black",
+   color:ColorsBarber.light.item,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
@@ -222,7 +229,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignContent: "center",
   },
-
 
   image: {
     resizeMode: "cover",

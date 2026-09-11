@@ -2,6 +2,7 @@ import React from "react";
 import { Modal, View, Text, StyleSheet } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useLocalization } from "@/contexts/LocalizationContext";
+import { ColorsBarber } from "@/constants/Colors";
 
 export default function NoInternetModal({ visible }) {
   const { localization } = useLocalization();
@@ -13,7 +14,7 @@ export default function NoInternetModal({ visible }) {
           <MaterialIcons
             name="signal-wifi-off"
             size={80}
-            color="grey"
+           color={ColorsBarber.light.textColor}
             style={{ marginBottom: 20 }}
           />
           <Text style={styles.title}> {localization.INTERNET.title}</Text>

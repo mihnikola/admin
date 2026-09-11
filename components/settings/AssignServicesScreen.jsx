@@ -13,6 +13,7 @@ import { SharedMessage } from "@/shared-components/SharedMessage";
 import { SharedButton } from "@/shared-components/SharedButton";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import Loader from "@/shared-components/Loader";
+import { ColorsBarber } from "@/constants/Colors";
 
 const AssignServicesScree = () => {
   const { localization } = useLocalization();
@@ -46,8 +47,16 @@ const AssignServicesScree = () => {
             marginTop: 10,
           }}
         >
-          <FontAwesome5 name="male" size={35} color="white" />
-          <FontAwesome5 name="search-location" size={35} color="white" />
+          <FontAwesome5
+            name="male"
+            size={35}
+            color={ColorsBarber.light.textColor}
+          />
+          <FontAwesome5
+            name="search-location"
+            size={35}
+            color={ColorsBarber.light.textColor}
+          />
         </View>
         {/* Choose Barber Section */}
         <View style={{ padding: 20 }}>
@@ -55,7 +64,7 @@ const AssignServicesScree = () => {
             style={{
               fontSize: 18,
               fontWeight: "600",
-              color: "white",
+             color:ColorsBarber.light.textColor,
               marginBottom: 10,
             }}
           >
@@ -79,7 +88,7 @@ const AssignServicesScree = () => {
                         style={styles.profileImage}
                       />
                     )}
-                    <Text style={{ color: "white", padding: 10 }}>
+                    <Text style={{color:ColorsBarber.light.textColor, padding: 10 }}>
                       {item.name}
                     </Text>
                     <FontAwesome
@@ -87,7 +96,7 @@ const AssignServicesScree = () => {
                         item._id === selectedBarber?._id && "check-circle-o"
                       }
                       size={28}
-                      color="white"
+                      color={ColorsBarber.light.textColor}
                     />
                   </TouchableOpacity>
                 ))}
@@ -102,7 +111,7 @@ const AssignServicesScree = () => {
 
         {isLoading !== "getServices" && barberServicesData?.length > 0 && (
           <View style={{ paddingHorizontal: 10 }}>
-            <Text style={{ fontSize: 18, fontWeight: "600", color: "white" }}>
+            <Text style={{ fontSize: 18, fontWeight: "600",color:ColorsBarber.light.textColor }}>
               Choose barber
             </Text>
             <View
@@ -123,9 +132,9 @@ const AssignServicesScree = () => {
                         />
                       )}
                       <View>
-                        <Text style={{ color: "white" }}> {item.name}</Text>
+                        <Text style={{color:ColorsBarber.light.textColor }}> {item.name}</Text>
                         {item.seniority && (
-                          <Text style={{ color: "white" }}>
+                          <Text style={{color:ColorsBarber.light.textColor }}>
                             {item.seniority.title}
                           </Text>
                         )}
@@ -133,7 +142,7 @@ const AssignServicesScree = () => {
                       <FontAwesome
                         name={item.flag === "T" && "check-circle-o"}
                         size={28}
-                        color="white"
+                        color={ColorsBarber.light.textColor}
                       />
                     </TouchableOpacity>
                   ))}
@@ -156,7 +165,13 @@ const AssignServicesScree = () => {
       {isMessage && (
         <SharedMessage
           isOpen={isMessage}
-          icon={<FontAwesome name="check-circle-o" size={64} color="white" />}
+          icon={
+            <FontAwesome
+              name="check-circle-o"
+              size={64}
+              color={ColorsBarber.light.textColor}
+            />
+          }
           onClose={confirmSubmit}
           onConfirm={confirmSubmit}
           buttonText="Ok"

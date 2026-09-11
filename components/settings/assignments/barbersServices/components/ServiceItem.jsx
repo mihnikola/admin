@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { FontAwesome } from "@expo/vector-icons";
 import { TouchableOpacity, View, Image, Text } from "react-native";
@@ -24,7 +25,13 @@ const ServiceItem = ({ item, toggleService }) => {
         </View>
       </View>
       <View style={styles.actionButton}>
-        {item.assigned &&   <FontAwesome name="check-circle" size={32} color="white" />}
+        {item.assigned && (
+          <FontAwesome
+            name="check-circle"
+            size={32}
+            color={ColorsBarber.light.textColor}
+          />
+        )}
       </View>
     </TouchableOpacity>
   );
@@ -32,7 +39,7 @@ const ServiceItem = ({ item, toggleService }) => {
 
 const styles = StyleSheet.create({
   serviceItem: {
-    backgroundColor: "#1E1E1E", // Tamnija siva za nedodeljene
+    backgroundColor: ColorsBarber.light.item,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -40,7 +47,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: "#2A2A2A",
+    borderColor: ColorsBarber.light.inActiveTextColor,
     // Suptilna senka za Android
     elevation: 2,
   },
@@ -61,7 +68,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   serviceText: {
-    color: "#fff",
+    color: ColorsBarber.light.textColor,
     fontSize: 12,
   },
   actionButton: {

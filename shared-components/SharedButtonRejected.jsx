@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import {
   Text,
   TouchableOpacity,
@@ -13,7 +14,7 @@ const SharedButtonRejected = (props) => {
       onPress={props.onPress}
     >
       {!props.loading && <Text style={styles.btnText}>{props.text}</Text>}
-      {props.loading && <ActivityIndicator size={24} color="white" />}
+      {props.loading && <ActivityIndicator size={24} color={ColorsBarber.light.textColor} />}
     </TouchableOpacity>
   );
 };

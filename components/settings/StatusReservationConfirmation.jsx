@@ -16,6 +16,7 @@ import { SharedLoader } from "@/shared-components/SharedLoader";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { useEffect } from "react";
 import SharedButtonApproved from "@/shared-components/SharedButtonApproved";
+import { ColorsBarber } from "@/constants/Colors";
 
 const StatusReservationConfirmation = () => {
     const { localization } = useLocalization();
@@ -50,7 +51,7 @@ const StatusReservationConfirmation = () => {
 
     return (
         <View style={styles.container}>
-            <SharedBackButton onPress={router.back} />
+            <SharedBackButton onPress={router.back} styleBtn={{marginLeft:10}} />
             <SharedTabHeader
                 image={company?.media?.coverImageSettings}
                 title={localization.SETTINGS.NOTIFICATIONSTATUS.capture}
@@ -70,14 +71,14 @@ const StatusReservationConfirmation = () => {
                         <FontAwesome
                             name={item._id === notificationData?._id && "check-circle-o"}
                             size={28}
-                            color="white"
+                            color={ColorsBarber.light.textColor}
                         />
                     </TouchableOpacity>
                 )}
             />
 
 
-            <View style={{ marginHorizontal: 20 }}>
+            <View style={{ marginHorizontal: 20, paddingVertical: 20 }}>
                 <SharedButtonApproved
                     loading={isLoading === 'patch'}
                     disabled={currentData?._id === notificationData?._id}
@@ -94,7 +95,7 @@ const StatusReservationConfirmation = () => {
                         <FontAwesome
                             name={error ? "close" : "check-circle-o"}
                             size={64}
-                            color="white"
+                            color={ColorsBarber.light.textColor}
                         />
                     }
                     title={error || message}
@@ -108,7 +109,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         marginTop: 10,
-        backgroundColor: "black",
+        backgroundColor: ColorsBarber.light.background,
     },
     captureContainer: {
         marginHorizontal: 15,
@@ -116,16 +117,16 @@ const styles = StyleSheet.create({
     headerImage: {
         width: "100%",
         height: 180,
-        opacity: 0.2,
+        opacity: 0.4,
     },
     capture: {
         fontSize: 25,
-        color: "white",
+       color:ColorsBarber.light.textColor,
         fontWeight: "500",
         paddingVertical: 130,
     },
     search: {
-        color: "white",
+       color:ColorsBarber.light.textColor,
         borderColor: "grey",
         borderWidth: 1,
         borderRadius: 8,
@@ -142,9 +143,9 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        backgroundColor: "black",
+        backgroundColor:  ColorsBarber.light.item,
         borderWidth: 1,
-        borderColor: 'white'
+        borderColor: ColorsBarber.light.inActiveTextColor,
     },
     languageText: {
         fontSize: 18,

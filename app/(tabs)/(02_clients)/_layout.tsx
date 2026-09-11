@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
 import { router, Stack } from "expo-router";
 import { TouchableOpacity, View } from "react-native";
@@ -13,9 +14,9 @@ export default function RootLayoutBarbers() {
           title: "",
           headerShown: true,
           headerStyle: {
-            backgroundColor: "black",
+            backgroundColor: ColorsBarber.light.background,
           },
-          headerTintColor: "white",
+          headerTintColor: ColorsBarber.light.textColor,
           headerLeft: () => <CustomBackButton />,
         }}
       />
@@ -25,7 +26,7 @@ export default function RootLayoutBarbers() {
 function CustomBackButton() {
   return (
     <TouchableOpacity onPress={() => router.back()}>
-      <Ionicons name="arrow-back" size={24} color="white" />
+      <Ionicons name="arrow-back" size={24} color={ColorsBarber.light.textColor} />
     </TouchableOpacity>
   );
 }

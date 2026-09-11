@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { useState } from "react";
 import {
   FlatList,
@@ -22,7 +23,7 @@ const CustomDropDownPicker = ({
   };
 
   const selectedLabel = options.find(
-    (opt) => opt.value === selectedValue
+    (opt) => opt.value === selectedValue,
   )?.label;
 
   return (
@@ -80,22 +81,21 @@ const styles = StyleSheet.create({
   dropdownButton: {
     paddingVertical: 10,
     borderRadius: 8,
-    backgroundColor: "#272727ff",
+    backgroundColor: ColorsBarber.light.item,
     justifyContent: "center",
-    flexDirection:"row",
+    flexDirection: "row",
     alignContent: "center",
-    alignItems:"center",
+    alignItems: "center",
   },
   dropdownButtonText: {
     textAlign: "center",
     fontSize: 18,
-    color: "#ffffffff",
-    fontWeight: "bold"
-
+    color: ColorsBarber.light.textColor,
+    fontWeight: "bold",
   },
   placeholder: {
     color: "#ffffffff",
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   modalOverlay: {
     flex: 1,
@@ -104,17 +104,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 40,
   },
   modalContent: {
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.item,
   },
   optionButton: {
     paddingVertical: 15,
     borderWidth: 1,
-    borderColor: "#ecececff",
+    borderColor: ColorsBarber.light.inActiveTextColor,
   },
   optionText: {
     fontSize: 18,
     textAlign: "center",
-    color: "#ffffffff",
+    color: ColorsBarber.light.textColor,
     fontWeight: "bold",
   },
 });

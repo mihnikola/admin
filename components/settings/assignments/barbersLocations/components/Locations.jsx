@@ -8,6 +8,8 @@ import SharedBackButton from "@/shared-components/SharedBackButton";
 import { router } from "expo-router";
 import SearchInputComponent from "@/components/settings/SearchInputComponent";
 import withKeyboardAvoid from "@/wrapper/WrapperKeyboard";
+import { ColorsBarber } from "@/constants/Colors";
+
 const Locations = () => {
   const { localization } = useLocalization();
   const [search, setSearch] = useState("");
@@ -74,7 +76,7 @@ const Locations = () => {
 };
 const styles = StyleSheet.create({
   notFound: {
-    color: "white",
+   color:ColorsBarber.light.textColor,
     textAlign: "center",
     fontSize: 20,
     marginTop: 20,

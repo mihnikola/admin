@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import {
   Text,
   TouchableOpacity,
@@ -19,30 +20,30 @@ const SharedButtonApproved = (props) => {
           {props.text}
         </Text>
       )}
-      {props.loading && <ActivityIndicator size={24} color="white" />}
+      {props.loading && <ActivityIndicator size={24} color={ColorsBarber.light.textColor} />}
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   btnText: {
-    color: "#fff",
+    color: ColorsBarber.light.textColor,
     fontSize: 18,
     fontWeight: "bold",
   },
   btnTextDisabled: {
-    color: "#3f3f3fff",
+    color: ColorsBarber.light.textColor,
     fontSize: 18,
     fontWeight: "bold",
   },
   btnDisabled: {
-    borderColor: "grey",
-    backgroundColor: "#8b8b8bff",
-    color: "#3f3f3fff",
+    borderColor: ColorsBarber.light.inActiveTextColor,
+    backgroundColor: ColorsBarber.light.btnBgColorDisabled,
+    color: ColorsBarber.light.inActiveTextColor,
   },
 
   btn: {
-    backgroundColor: "#1C1C1E",
+    backgroundColor: ColorsBarber.light.item,
     paddingVertical: 15,
     borderRadius: 8,
     borderWidth: 1,

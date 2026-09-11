@@ -15,6 +15,7 @@ import { useLocalization } from "@/contexts/LocalizationContext";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { router } from "expo-router";
 import { calendarLocales } from "@/helpers/calendarLocales";
+import { ColorsBarber } from "@/constants/Colors";
 
 const DateComponent = () => {
   const today = new Date();
@@ -50,8 +51,8 @@ const DateComponent = () => {
     const firstDay = new Date(year, month, 1).getDay();
     const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-    console.log("firstDay",firstDay)
-    console.log("daysInMonth",daysInMonth)
+    console.log("firstDay", firstDay);
+    console.log("daysInMonth", daysInMonth);
 
     return Math.ceil((firstDay + daysInMonth) / 7);
     // return 6.2;
@@ -87,7 +88,7 @@ const DateComponent = () => {
           <ActivityIndicator
             size={40}
             style={{ paddingVertical: 20 }}
-            color="white"
+            color={ColorsBarber.light.textColor}
           />
         </View>
       );
@@ -227,7 +228,7 @@ const styles = StyleSheet.create({
   },
   notWorkingDaysContent: {
     fontSize: 20,
-    color: "white",
+   color:ColorsBarber.light.textColor,
     padding: 20,
   },
   listTitle: {

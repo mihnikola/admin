@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import AbsenceDateFormatComponent from "./../../components/home/components/AbsenceDateFormatComponent";
 
@@ -74,7 +75,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "bold",
     textTransform: "uppercase",
-    color: "white",
+   color:ColorsBarber.light.textColor,
   },
 });
 

@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export const SharedQuestion = ({
@@ -44,7 +45,7 @@ const styles = StyleSheet.create({
     },
   container: {
     flex: 1, // Takes up the whole screen
-    backgroundColor: "#1F2937", // Corresponds to bg-gray-900
+    backgroundColor: ColorsBarber.light.background, // Corresponds to bg-gray-900
     alignItems: "center", // Centers content horizontally
     justifyContent: "center", // Centers content vertically
     padding: 16,
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   modalContent: {
-    backgroundColor: "#433d3c", // Corresponds to bg-gray-800
+    backgroundColor: ColorsBarber.light.background,
     borderRadius: 12, // Corresponds to rounded-xl
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 10 },
@@ -88,7 +89,7 @@ const styles = StyleSheet.create({
   iconContainer: {
     width: 96, // Corresponds to w-24
     height: 96, // Corresponds to h-24
-    backgroundColor: "black", // Corresponds to bg-blue-900 bg-opacity-30
+    backgroundColor: ColorsBarber.light.item, // Corresponds to bg-blue-900 bg-opacity-30
     borderRadius: 9999, // Corresponds to rounded-full
     justifyContent: "center",
     alignItems: "center",
@@ -96,7 +97,7 @@ const styles = StyleSheet.create({
     
   },
   modalTitle: {
-    color: "#FFFFFF", // Corresponds to text-white
+    color: ColorsBarber.light.textColor, // Corresponds to text-white
     fontSize: 20, // Corresponds to text-3xl
     fontWeight: "bold", // Corresponds to font-bold
     marginBottom: 16, // Corresponds to mb-4
@@ -111,7 +112,7 @@ const styles = StyleSheet.create({
   },
   actionButton: {
     width: "50%", // Corresponds to w-full
-    backgroundColor: "black", // Corresponds to bg-blue-600
+    backgroundColor: ColorsBarber.light.btnBgColorDisabled,
     paddingVertical: 16, // Corresponds to py-4
     borderRadius: 8, // Corresponds to rounded-lg
     shadowColor: "#000",
@@ -122,7 +123,7 @@ const styles = StyleSheet.create({
   },
   actionButtonNo: {
     width: "50%", // Corresponds to w-full
-    backgroundColor: "#36454F", // Corresponds to bg-blue-600
+    backgroundColor: ColorsBarber.light.inActiveTextColor,
     paddingVertical: 16, // Corresponds to py-4
     borderRadius: 8, // Corresponds to rounded-lg
     shadowColor: "#000",
@@ -132,7 +133,7 @@ const styles = StyleSheet.create({
     elevation: 5, // For Android shadow
   },
   actionButtonText: {
-    color: "#FFFFFF", // Corresponds to text-white
+    color: ColorsBarber.light.textColor, 
     fontSize: 18, // Corresponds to text-lg
     fontWeight: "600", // Corresponds to font-semibold
     textAlign: "center",

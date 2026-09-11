@@ -1,10 +1,11 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { Image, StyleSheet, Text, View } from "react-native";
 
 const SharedCarousel = ({title, length}) => {
   return (
     <View>
       <Image
-        source={require("@/assets/images/coverImage.jpg")}
+        source={require("@/assets/images/frizerskiSalon1.png")}
         style={styles.coverImage}
       />
       <View style={styles.captureContainer}>
@@ -21,7 +22,7 @@ const styles = StyleSheet.create({
   coverImage: {
     width: "100%",
     height: 210,
-    opacity: 0.2,
+    opacity: 0.4,
   },
   captureContainer: {
     position: "absolute",
@@ -32,7 +33,8 @@ const styles = StyleSheet.create({
   },
   capture: {
     fontSize: 32, // Veličina fonta
-    color: "white", // Bela boja teksta
+    //color:ColorsBarber.light.textColor, // Bela boja teksta
+    color: ColorsBarber.light.textColor,
     fontWeight: "500", // Debeli font
   },
   header: {

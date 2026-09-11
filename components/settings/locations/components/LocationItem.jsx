@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { FontAwesome } from "@expo/vector-icons";
 import { TouchableOpacity, Text, StyleSheet, View } from "react-native";
 
@@ -23,7 +24,11 @@ const LocationItem = ({ item, startEditing }) => {
           <FontAwesome
             name="edit"
             size={24}
-            color={item.active === 0 ? "grey" : "white"}
+            color={
+              item.active === 0
+                ? ColorsBarber.light.inActiveTextColor
+                : ColorsBarber.light.textColor
+            }
           />
         </Text>
       </View>
@@ -33,7 +38,7 @@ const LocationItem = ({ item, startEditing }) => {
 
 const styles = StyleSheet.create({
   address: {
-    color: "white",
+    color: ColorsBarber.light.textColor,
     padding: 10,
   },
   editHint: {
@@ -47,17 +52,17 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     marginRight: 15,
     borderWidth: 1,
-    borderColor: "#fff",
+    borderColor: ColorsBarber.light.inActiveTextColor,
   },
   item: {
-    backgroundColor: "#000000",
+    backgroundColor: ColorsBarber.light.item,
     flexDirection: "row",
     justifyContent: "space-between",
     padding: 5,
     borderRadius: 8,
     borderWidth: 1,
     marginVertical: 5,
-    borderColor: "white",
+    borderColor: ColorsBarber.light.inActiveTextColor,
   },
   itemBarber: {
     marginVertical: 8,
@@ -68,17 +73,17 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     backgroundColor: "black",
     borderWidth: 1,
-    borderColor: "white",
+    borderColor: ColorsBarber.light.inActiveTextColor,
   },
   deactivated: {
-    borderColor: "grey",
+    borderColor: ColorsBarber.light.inActiveTextColor,
   },
   deactivatedText: {
-    color: "#585858",
+    color: ColorsBarber.light.inActiveTextColor,
   },
   undo: {
     fontSize: 12,
-    color: "#272626",
+    color: ColorsBarber.light.inActiveTextColor,
     padding: 8,
   },
 });

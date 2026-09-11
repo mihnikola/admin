@@ -1,6 +1,7 @@
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { forwardRef } from "react";
+import { ColorsBarber } from "@/constants/Colors";
 
 const ServiceInput = forwardRef((props, ref) => {
   return (
@@ -9,7 +10,7 @@ const ServiceInput = forwardRef((props, ref) => {
         <FontAwesome
           name={props.icon}
           size={props.icon === "history" ? 24 : 20}
-          color="#aaa"
+          color={ColorsBarber.light.textColor}
         />
       </View>
 
@@ -27,7 +28,7 @@ const ServiceInput = forwardRef((props, ref) => {
               : props.onChangeText
           }
           placeholder={props.placeholder}
-          placeholderTextColor="#777"
+          placeholderTextColor={ColorsBarber.light.inActiveTextColor}
           keyboardType={props.keyboardType}
         />
       </View>
@@ -38,7 +39,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#1c1c1c",
+    backgroundColor: ColorsBarber.light.item,
     borderRadius: 16,
     padding: 12,
     marginBottom: 7,
@@ -53,13 +54,13 @@ const styles = StyleSheet.create({
   },
 
   label: {
-    color: "#9e9e9e",
+    color: ColorsBarber.light.textColor,
     fontSize: 12,
     marginBottom: 2,
   },
 
   input: {
-    color: "#fff",
+    color: ColorsBarber.light.textColor,
     fontSize: 16,
     padding: 0,
   },

@@ -1,6 +1,7 @@
 import { getInitialsName } from "@/helpers";
 import { FontAwesome } from "@expo/vector-icons";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ColorsBarber } from "@/constants/Colors";
 
 export default function BarberItem({ item, toggleBarber }) {
   const initials = getInitialsName(item.name);
@@ -26,7 +27,7 @@ export default function BarberItem({ item, toggleBarber }) {
 
       <View style={styles.actionButton}>
         {item.flag === "T" && (
-          <FontAwesome name="check-circle" size={32} color="white" />
+          <FontAwesome name="check-circle" size={32} color={ColorsBarber.light.textColor} />
         )}
       </View>
     </TouchableOpacity>

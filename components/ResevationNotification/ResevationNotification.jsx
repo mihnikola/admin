@@ -24,6 +24,7 @@ import HeaderReservationTime from "@/components/reservation/HeaderReservationTim
 
 import { useAppointment } from "@/contexts/AppointmentContext";
 import { convertNowDateTimestamp } from "@/helpers";
+import { ColorsBarber } from "@/constants/Colors";
 
 function ResevationNotificationScreen() {
   const { localization } = useLocalization();
@@ -113,7 +114,13 @@ function ResevationNotificationScreen() {
         isOpen={isModalQuestion && !isLoading}
         onClose={() => setIsModalQuestion(false)}
         onLogOut={submitAppointment}
-        icon={<FontAwesome name="question-circle-o" size={64} color="white" />}
+        icon={
+          <FontAwesome
+            name="question-circle-o"
+            size={64}
+            color={ColorsBarber.light.textColor}
+          />
+        }
         title={titleQuestion}
         buttonTextYes={questionButtonYes}
         buttonTextNo={questionButtonNo}
@@ -160,10 +167,7 @@ function ResevationNotificationScreen() {
           contentContainerStyle={styles.scrollContent}
         >
           <SharedCoverImage image={company?.media?.coverImageAppointments} />
-          <SharedBackButton
-            onPress={router.back}
-            styleBtn={{ margin: 10 }}
-          />
+          <SharedBackButton onPress={router.back} styleBtn={{ margin: 10 }} />
 
           <HeaderReservationTime data={reservationData} />
 
@@ -197,7 +201,7 @@ function ResevationNotificationScreen() {
             <FontAwesome5
               name="calendar-times"
               size={60}
-              color="#c38d8d"
+              color={ColorsBarber.light.textColor}
               solid
             />
           </TouchableOpacity>
@@ -228,27 +232,31 @@ function ResevationNotificationScreen() {
         </View>
       )}
 
-      {!isLoading && reservationData?.status === 2 && !finishReservation(reservationData?.startDate) && (
-        <View style={styles.bottomButtons}>
-          <SharedApprovedReservationButton
-            onPress={() => modalReservationHandler("approved")}
-            text={localization.APPOINTMENTS.approveReservation.approveButton}
-          />
-          <View style={{ marginTop: 20 }}>
-            <SharedDeclinedReservationButton
-              onPress={() => modalReservationHandler("rejected")}
-              text={localization.APPOINTMENTS.rejectReservation.rejectButton}
+      {!isLoading &&
+        reservationData?.status === 2 &&
+        !finishReservation(reservationData?.startDate) && (
+          <View style={styles.bottomButtons}>
+            <SharedApprovedReservationButton
+              onPress={() => modalReservationHandler("approved")}
+              text={localization.APPOINTMENTS.approveReservation.approveButton}
             />
+            <View style={{ marginTop: 20 }}>
+              <SharedDeclinedReservationButton
+                onPress={() => modalReservationHandler("rejected")}
+                text={localization.APPOINTMENTS.rejectReservation.rejectButton}
+              />
+            </View>
           </View>
-        </View>
-      )}
-      {!isLoading && reservationData?.status === 2 && finishReservation(reservationData?.startDate) && (
-        <View style={styles.missed}>
-          <Text style={styles.textBoldSuccess}>
-            {localization.APPOINTMENTS.expired}
-          </Text>
-        </View>
-      )}
+        )}
+      {!isLoading &&
+        reservationData?.status === 2 &&
+        finishReservation(reservationData?.startDate) && (
+          <View style={styles.missed}>
+            <Text style={styles.textBoldSuccess}>
+              {localization.APPOINTMENTS.expired}
+            </Text>
+          </View>
+        )}
 
       {isModalQuestion && renderQuestion()}
 
@@ -261,7 +269,7 @@ function ResevationNotificationScreen() {
             <FontAwesome
               name={error ? "close" : "check-circle-o"}
               size={64}
-              color="white"
+              color={ColorsBarber.light.textColor}
             />
           }
           title={error || message}
@@ -276,7 +284,7 @@ function ResevationNotificationScreen() {
 
 const styles = StyleSheet.create({
   textBold: {
-    color: "white",
+   color:ColorsBarber.light.textColor,
     fontSize: 22,
   },
   textBoldMissed: {
@@ -290,7 +298,7 @@ const styles = StyleSheet.create({
   textBoldSuccess: {
     color: "grey",
     fontSize: 24,
-    textAlign: "center"
+    textAlign: "center",
   },
   missed: {
     flex: 2,

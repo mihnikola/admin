@@ -1,4 +1,5 @@
 import useChangeUser from "@/components/clients/hooks/useChangeUser";
+import { ColorsBarber } from "@/constants/Colors";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { getInitialsName } from "@/helpers";
 import { SharedLoader } from "@/shared-components/SharedLoader";
@@ -67,7 +68,11 @@ const UserProfile = () => {
             style={styles.actionButton}
             onPress={() => makePhoneCall(phoneNumber)}
           >
-            <Feather name="phone" size={24} color="#fff" />
+            <Feather
+              name="phone"
+              size={24}
+              color={ColorsBarber.light.textColor}
+            />
             <Text style={styles.actionText}>
               {localization.CLIENTS.contact}
             </Text>
@@ -78,14 +83,20 @@ const UserProfile = () => {
           style={styles.actionButton}
           onPress={() => setDialog(true)}
         >
-          <Feather name="slash" size={24} color="#d9534f" />
+          <Feather
+            name="slash"
+            size={24}
+            color={ColorsBarber.light.textColor}
+          />
           <Text style={styles.actionText}>{localization.CLIENTS.block}</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.section}>
         <View style={styles.statItem}>
           <Text style={styles.statLabel}>{localization.CLIENTS.missed}</Text>
-          <Text style={[styles.statValue, { color: "#d9534f" }]}>
+          <Text
+            style={[styles.statValue, { color: ColorsBarber.light.textColor }]}
+          >
             {skippedCount || 0}
           </Text>
         </View>
@@ -110,7 +121,7 @@ const UserProfile = () => {
           <Feather
             name="phone-call"
             size={20}
-            color="#666"
+            color={ColorsBarber.light.textColor}
             style={styles.contactIcon}
           />
           <Text style={styles.contactText}>
@@ -121,7 +132,7 @@ const UserProfile = () => {
           <MaterialCommunityIcons
             name="email-outline"
             size={20}
-            color="#666"
+            color={ColorsBarber.light.textColor}
             style={styles.contactIcon}
           />
           <Text style={styles.contactText}>
@@ -132,7 +143,7 @@ const UserProfile = () => {
       {dialog && (
         <SharedQuestion
           isOpen={dialog}
-          icon={<FontAwesome name="close" size={64} color="white" />}
+          icon={<FontAwesome name="close" size={64} color={ColorsBarber.light.textColor} />}
           onClose={() => setDialog(false)}
           onLogOut={() => deleteClient(id)}
           title={localization.CLIENTS.question}
@@ -143,7 +154,13 @@ const UserProfile = () => {
       {isMessage && (
         <SharedMessage
           isOpen={isMessage}
-          icon={<FontAwesome name="check-circle-o" size={64} color="white" />}
+          icon={
+            <FontAwesome
+              name="check-circle-o"
+              size={64}
+              color={ColorsBarber.light.textColor}
+            />
+          }
           onClose={refreshHandler}
           onConfirm={refreshHandler}
           buttonText="Ok"
@@ -175,7 +192,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: "#000",
+    backgroundColor: ColorsBarber.light.background,
   },
   navBar: {
     flexDirection: "row",
@@ -189,11 +206,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   navText: {
-    color: "#fff",
+    color: ColorsBarber.light.textColor,
     fontSize: 16,
     marginLeft: 5,
   },
   profileHeader: {
+    marginTop:20,
     alignItems: "center",
   },
   photoPlaceholder: {
@@ -203,7 +221,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#d9534f",
   },
   nameText: {
-    color: "#fff",
+    color: ColorsBarber.light.textColor,
     fontSize: 24,
     fontWeight: "bold",
     marginTop: 10,
@@ -217,7 +235,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   actionText: {
-    color: "#fff",
+    color: ColorsBarber.light.textColor,
     fontSize: 12,
     marginTop: 5,
   },
@@ -226,7 +244,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   sectionTitle: {
-    color: "#888",
+    color: ColorsBarber.light.textColor,
     fontSize: 14,
     marginBottom: 10,
   },
@@ -236,11 +254,11 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
   },
   statLabel: {
-    color: "#fff",
+    color: ColorsBarber.light.textColor,
     fontSize: 16,
   },
   statValue: {
-    color: "#fff",
+    color: ColorsBarber.light.textColor,
     fontSize: 16,
   },
   totalIncome: {
@@ -249,7 +267,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   incomeValue: {
-    color: "#fff",
+    color: ColorsBarber.light.textColor,
     fontSize: 16,
     fontWeight: "bold",
   },
@@ -267,7 +285,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   contactText: {
-    color: "#fff",
+    color: ColorsBarber.light.textColor,
     fontSize: 16,
   },
 });

@@ -14,6 +14,7 @@ import useGetClients from "./hooks/useGetClients";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { getInitialsName } from "@/helpers";
 import SearchInputComponent from "../settings/SearchInputComponent";
+import { ColorsBarber } from "@/constants/Colors";
 
 export default function ClientsScreen() {
   const [search, setSearch] = useState("");
@@ -74,7 +75,7 @@ export default function ClientsScreen() {
         title={localization.TABS.CLIENTS}
         length={clients.length}
       />
-   <View style={styles.searchInputContainer}>
+      <View style={styles.searchInputContainer}>
         <SearchInputComponent search={search} setSearch={setSearch} />
       </View>
 
@@ -90,17 +91,18 @@ export default function ClientsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#111",
-    paddingTop: 40,
+    // backgroundColor: "#111",
+    backgroundColor: ColorsBarber.light.background,
   },
 
-searchInputContainer:{
-  marginHorizontal:18,
-  marginVertical: 10
-},
+  searchInputContainer: {
+    marginHorizontal: 18,
+    marginVertical: 10,
+  },
   clientCard: {
     flexDirection: "row",
-    backgroundColor: "#1a1a1a",
+    // backgroundColor: "#1a1a1a",
+    backgroundColor: ColorsBarber.light.item,
     borderRadius: 8,
     padding: 20,
     marginHorizontal: 20,
@@ -110,8 +112,9 @@ searchInputContainer:{
   avatar: {
     width: 48,
     height: 48,
-    borderRadius: 24,
-    backgroundColor: "#333",
+    borderRadius: 50,
+    // backgroundColor: "#333",
+    backgroundColor: ColorsBarber.light.textColor,
     justifyContent: "center",
     alignItems: "center",
     marginRight: 12,
@@ -131,25 +134,31 @@ searchInputContainer:{
   },
   clientInfo: { flex: 1 },
   name: {
-    color: "#fff",
+    // color: "#fff",
+    color: ColorsBarber.light.textColor,
+
     fontWeight: "bold",
   },
   phone: {
-    color: "#aaa",
+    color: ColorsBarber.light.textColor,
     fontSize: 12,
   },
   details: {
-    color: "#ccc",
+    color: ColorsBarber.light.textColor,
     fontSize: 12,
   },
   done: {
-    color: "lightgreen",
+    // color: "lightgreen",
+    color: ColorsBarber.light.textColor,
+
   },
   missed: {
-    color: "tomato",
+    // color: "tomato",
+    color: ColorsBarber.light.textColor,
+
   },
   income: {
-    color: "#fff",
+    color: ColorsBarber.light.textColor,
     fontWeight: "bold",
   },
 });

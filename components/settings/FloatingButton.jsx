@@ -2,6 +2,7 @@ import React from "react";
 import { TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { ColorsBarber } from "@/constants/Colors";
 
 export default function FloatingButton({ onPress }) {
   const insets = useSafeAreaInsets();
@@ -17,7 +18,7 @@ export default function FloatingButton({ onPress }) {
         },
       ]}
     >
-      <Ionicons name="add" size={26} color="#fff" />
+      <Ionicons name="add" size={26} color={ColorsBarber.light.textColor} />
     </TouchableOpacity>
   );
 }
@@ -30,8 +31,8 @@ const styles = StyleSheet.create({
     height: 56,
     borderRadius: 35,
     borderWidth: 1,
-    borderColor: "white",
-    backgroundColor: "#000000",
+    borderColor:ColorsBarber.light.textColor,
+    backgroundColor: ColorsBarber.light.item,
     justifyContent: "center",
     alignItems: "center",
     shadowColor: "#ffffff",

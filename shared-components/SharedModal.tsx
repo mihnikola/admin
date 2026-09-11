@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     modalTitle: {
         fontSize: 18,
         fontWeight: "bold",
-        color: "white",
+       color:ColorsBarber.light.textColor,
         marginBottom: 10,
     },
     modalText: {
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     closeButtonText: {
-        color: "white",
+       color:ColorsBarber.light.textColor,
         fontWeight: "bold",
         padding: 10
     },
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
     },
 
     buttonText: {
-        color: "white",
+       color:ColorsBarber.light.textColor,
         fontWeight: "bold",
         fontSize: 14,
     },

@@ -19,6 +19,7 @@ import { SharedLoader } from "@/shared-components/SharedLoader";
 import withKeyboardAvoid from "@/wrapper/WrapperKeyboard";
 import TimeAbsentComponent from "./TimeAbsentComponent";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
+import { ColorsBarber } from "@/constants/Colors";
 
 const AbsentHourManagement = () => {
   const {
@@ -57,11 +58,9 @@ const AbsentHourManagement = () => {
 
   useEffect(() => {
     if (workHours) {
-
       setFromTime(workHours?.start || "");
       setToTime(workHours?.end || "");
     }
-
   }, [workHours]);
 
   useEffect(() => {
@@ -125,8 +124,6 @@ const AbsentHourManagement = () => {
     } else {
       setError(localization.SETTINGS.ABSENTHOURS.error);
     }
-
-
   };
 
   const verificationData = () => {
@@ -153,10 +150,11 @@ const AbsentHourManagement = () => {
         `Do: ${toValue}\n`;
 
       setIsConfirmation(true);
-      setConfirmationText(localization.code === 'en' ? confirmationEn : confirmationSr)
+      setConfirmationText(
+        localization.code === "en" ? confirmationEn : confirmationSr,
+      );
     }
-
-  }
+  };
 
   const confirmHandler = () => {
     setIsMessage(false);
@@ -190,10 +188,7 @@ const AbsentHourManagement = () => {
   }
 
   const formatTimeData = (data) => {
-
     if (data instanceof Date) {
-
-
       const datePart = new Intl.DateTimeFormat(localization.code, {
         day: "numeric",
         month: "long",
@@ -208,17 +203,13 @@ const AbsentHourManagement = () => {
 
       const connector = localization.code === "en" ? "at" : "u";
 
-
-
       return `${datePart} ${connector} ${timePart}`;
     }
-
-  }
+  };
 
   // const redirectListAbsence = () => {
   //   router.push("/(tabs)/(03_settings)/absenceManagerList");
   // }
-
 
   return (
     <>
@@ -232,17 +223,25 @@ const AbsentHourManagement = () => {
           </Text>
         </TouchableOpacity> */}
 
-        <View style={{ flexDirection: 'row', alignContent: 'center', alignSelf: "center", alignItems: "center", justifyContent: 'space-around' }}>
-          <Text style={styles.label}>{localization.SETTINGS.ABSENTHOURS.from}</Text>
+        <View
+          style={{
+            flexDirection: "row",
+            alignContent: "center",
+            alignSelf: "center",
+            alignItems: "center",
+            justifyContent: "space-around",
+          }}
+        >
+          <Text style={styles.label}>
+            {localization.SETTINGS.ABSENTHOURS.from}
+          </Text>
 
           <DateAbsentComponent
             onDateChange={onDateFromChange}
             setShowDate={setShowFromDate}
             showDate={showFromDate}
             date={dateFrom}
-            placeholder={
-              localization.SETTINGS.ABSENTHOURS.startDatePlaceHolder
-            }
+            placeholder={localization.SETTINGS.ABSENTHOURS.startDatePlaceHolder}
           />
           <TimeAbsentComponent
             setShowFromPicker={setShowFromPicker}
@@ -250,11 +249,24 @@ const AbsentHourManagement = () => {
             time={fromTime}
             placeholder={localization.SETTINGS.WORKHOURS.startTimePlaceHolder}
           />
-          <FontAwesome name="calendar-o" size={20} color="#aaa" />
-
+          <FontAwesome
+            name="calendar-o"
+            size={20}
+            color={ColorsBarber.light.textColor}
+          />
         </View>
-        <View style={{ flexDirection: 'row', alignContent: 'center', alignSelf: "center", alignItems: "center", justifyContent: 'space-around' }}>
-          <Text style={styles.label}>{localization.SETTINGS.ABSENTHOURS.to}</Text>
+        <View
+          style={{
+            flexDirection: "row",
+            alignContent: "center",
+            alignSelf: "center",
+            alignItems: "center",
+            justifyContent: "space-around",
+          }}
+        >
+          <Text style={styles.label}>
+            {localization.SETTINGS.ABSENTHOURS.to}
+          </Text>
 
           <DateAbsentComponent
             label={localization.SETTINGS.ABSENTHOURS.to}
@@ -270,8 +282,11 @@ const AbsentHourManagement = () => {
             time={toTime}
             placeholder={localization.SETTINGS.WORKHOURS.endTimePlaceHolder}
           />
-          <FontAwesome name="calendar-o" size={20} color="#aaa" />
-
+          <FontAwesome
+            name="calendar-o"
+            size={20}
+            color={ColorsBarber.light.textColor}
+          />
         </View>
 
         <TextInput
@@ -302,7 +317,7 @@ const AbsentHourManagement = () => {
               <FontAwesome
                 name={error ? "close" : "check-circle-o"}
                 size={64}
-                color="white"
+                color={ColorsBarber.light.textColor}
               />
             }
             title={error || message}
@@ -320,17 +335,22 @@ const AbsentHourManagement = () => {
               <FontAwesome
                 name="question"
                 size={64}
-                color="white"
+                color={ColorsBarber.light.textColor}
               />
             }
             title={confirmationText}
           />
-
         )}
         {error?.length > 0 && (
           <SharedMessage
             isOpen={error?.length > 0}
-            icon={<FontAwesome name="close" size={64} color="white" />}
+            icon={
+              <FontAwesome
+                name="close"
+                size={64}
+                color={ColorsBarber.light.textColor}
+              />
+            }
             onClose={cancelErrorHandler}
             onConfirm={cancelErrorHandler}
             buttonText="Ok"
@@ -392,7 +412,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 18,
     flex: 1,
-    color: "white",
+   color:ColorsBarber.light.textColor,
   },
   tabContainer: {
     flexDirection: "row",
@@ -440,20 +460,20 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "400",
     textAlign: "center",
-    color: "white",
+   color:ColorsBarber.light.textColor,
     textDecorationLine: "underline",
   },
   title: {
     fontSize: 24,
     fontWeight: "700",
     textAlign: "center",
-    color: "white",
+   color:ColorsBarber.light.textColor,
   },
 
   textInput: {
     borderWidth: 1,
     borderColor: "#fff",
-    color: "white",
+   color:ColorsBarber.light.textColor,
     borderRadius: 8,
     padding: 10,
     fontSize: 16,

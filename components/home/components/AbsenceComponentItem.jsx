@@ -29,7 +29,7 @@ const AbsenceComponentItem = ({ item }) => {
         <Text style={styles.eventStatus}>{localization.STATUS.pending}</Text>
       </View>
       <View style={styles.status}>
-        <FontAwesome size={25} color="white" name="clock-o" />
+        <FontAwesome size={25} color={ColorsBarber.light.textColor} name="clock-o" />
       </View>
     </TouchableOpacity>
   );
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "bold",
     textTransform: "uppercase",
-    color: "white",
+   color:ColorsBarber.light.textColor,
   },
 });
 

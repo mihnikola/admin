@@ -1,17 +1,20 @@
 import { useLocalization } from "@/contexts/LocalizationContext";
-import { getOtpParamsStorage, removeOtpParamsStorage } from "@/helpers/verificationOtpParams";
+import {
+  getOtpParamsStorage,
+  removeOtpParamsStorage,
+} from "@/helpers/verificationOtpParams";
 import { View, Text, StyleSheet } from "react-native";
-import useSubmitOtpCode from './hooks/useSubmitOtpCode';
+import useSubmitOtpCode from "./hooks/useSubmitOtpCode";
 import { router } from "expo-router";
 import SharedBackButton from "@/shared-components/SharedBackButton";
-import WrapperAuth from './../../wrapper/WrapperAuth';
+import WrapperAuth from "./../../wrapper/WrapperAuth";
 import { SharedButton } from "@/shared-components/SharedButton";
-import OtpInput from './OtpCodeInput';
-import ResendOtpCodeTimer from './ResendOtpCodeTimer';
+import OtpInput from "./OtpCodeInput";
+import ResendOtpCodeTimer from "./ResendOtpCodeTimer";
 import { useEffect, useState } from "react";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { FontAwesome } from "@expo/vector-icons";
-
+import { ColorsBarber } from "@/constants/Colors";
 
 const OtpCodeComponent = () => {
   const [code, setCode] = useState(Array(6).fill(""));
@@ -106,8 +109,8 @@ const OtpCodeComponent = () => {
     setIsMessage(false);
   };
 
-  console.log("isMessage",isMessage);
-  console.log("message",message);
+  console.log("isMessage", isMessage);
+  console.log("message", message);
 
   if (verifyData) {
     return (
@@ -153,7 +156,7 @@ const OtpCodeComponent = () => {
               <FontAwesome
                 name={error ? "close" : "check-circle-o"}
                 size={64}
-                color="white"
+                color={ColorsBarber.light.textColor}
               />
             }
             title={error || message}

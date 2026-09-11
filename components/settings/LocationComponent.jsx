@@ -8,78 +8,116 @@ import {
   View,
   Image,
 } from "react-native";
-import useLocationBarber from './hooks/useLocationBarber';
+import useLocationBarber from "./hooks/useLocationBarber";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { SharedButton } from "@/shared-components/SharedButton";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import Loader from "@/shared-components/Loader";
+import { ColorsBarber } from "@/constants/Colors";
 
 const LocationComponent = () => {
   const { localization } = useLocalization();
-  const { onSelectedLocation, isLoading, error, isMessage, message, setIsMessage, locationBarbersData, locations, toggleBarber, submitChanges, selectedLocation, confirmSubmit } = useLocationBarber();
-
-
-
-
+  const {
+    onSelectedLocation,
+    isLoading,
+    error,
+    isMessage,
+    message,
+    setIsMessage,
+    locationBarbersData,
+    locations,
+    toggleBarber,
+    submitChanges,
+    selectedLocation,
+    confirmSubmit,
+  } = useLocationBarber();
 
   return (
     <View style={{ flex: 1, backgroundColor: "black" }}>
       <ScrollView style={{ flex: 1 }}>
         {/* Header Icons */}
-        <View style={{ flexDirection: "row", gap: 20, justifyContent: "center", marginTop: 10 }}>
-          <FontAwesome5 name="male" size={35} color="white" />
-          <FontAwesome5 name="search-location" size={35} color="white" />
+        <View
+          style={{
+            flexDirection: "row",
+            gap: 20,
+            justifyContent: "center",
+            marginTop: 10,
+          }}
+        >
+          <FontAwesome5
+            name="male"
+            size={35}
+            color={ColorsBarber.light.textColor}
+          />
+          <FontAwesome5
+            name="search-location"
+            size={35}
+            color={ColorsBarber.light.textColor}
+          />
         </View>
         {/* Choose Location Section */}
         <View style={{ padding: 20 }}>
-          <Text style={{ fontSize: 18, fontWeight: "600", color: "white", marginBottom: 10, textAlign: 'center' }}>
+          <Text
+            style={{
+              fontSize: 18,
+              fontWeight: "600",
+             color:ColorsBarber.light.textColor,
+              marginBottom: 10,
+              textAlign: "center",
+            }}
+          >
             Choose location
           </Text>
           <View style={{ maxHeight: 160 }}>
-            {isLoading === "getLocations" && <Loader isOpen={isLoading === "getLocations"} />}
+            {isLoading === "getLocations" && (
+              <Loader isOpen={isLoading === "getLocations"} />
+            )}
             <ScrollView>
-              {isLoading !== "getLocations" && locations.map((item) => (
-                <TouchableOpacity
-                  key={item.id}
-                  style={styles.item}
-                  onPress={() => onSelectedLocation(item)}
-                >
-                  <Text style={{ color: "white", padding: 10 }}>{item.address}</Text>
-                  <FontAwesome
-                    name={item.id === selectedLocation?.id && "check-circle-o"}
-                    size={28}
-                    color="white"
-                  />
-                </TouchableOpacity>
-              ))}
+              {isLoading !== "getLocations" &&
+                locations.map((item) => (
+                  <TouchableOpacity
+                    key={item.id}
+                    style={styles.item}
+                    onPress={() => onSelectedLocation(item)}
+                  >
+                    <Text style={{color:ColorsBarber.light.textColor, padding: 10 }}>
+                      {item.address}
+                    </Text>
+                    <FontAwesome
+                      name={
+                        item.id === selectedLocation?.id && "check-circle-o"
+                      }
+                      size={28}
+                      color={ColorsBarber.light.textColor}
+                    />
+                  </TouchableOpacity>
+                ))}
             </ScrollView>
           </View>
         </View>
-
-    
       </ScrollView>
 
-      {locationBarbersData?.length > 0 &&
+      {locationBarbersData?.length > 0 && (
         <View style={{ paddingBottom: 5, marginHorizontal: 20 }}>
           <SharedButton
-            loading={isLoading === 'post'}
+            loading={isLoading === "post"}
             onPress={submitChanges}
             text={localization.SETTINGS.EMPLOYERSPLACES.submit}
           />
         </View>
-      }
+      )}
 
       {isMessage && (
         <SharedMessage
           isOpen={isMessage}
-          icon={<FontAwesome name="check-circle-o" size={64} color="white" />}
+          icon={<FontAwesome name="check-circle-o" size={64} color={ColorsBarber.light.textColor} />}
           onClose={confirmSubmit}
           onConfirm={confirmSubmit}
           buttonText="Ok"
           title={message}
         />
       )}
-    </View >
+    </View>
   );
 };
 const styles = StyleSheet.create({

@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { ColorsBarber } from "@/constants/Colors";
 
 function BarbersSeniority({
   seniorityData,
@@ -53,7 +54,7 @@ function BarbersSeniority({
                     <FontAwesome
                       name={item._id === selected._id && "check-circle-o"}
                       size={20}
-                      color="white"
+                      color={ColorsBarber.light.textColor}
                     />
                   )}
                 </TouchableOpacity>
@@ -71,13 +72,14 @@ function BarbersSeniority({
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: "rgba(0, 0, 0, 0.98)",
+    backgroundColor: ColorsBarber.light.background,
+    opacity: 0.8,
     alignItems: "center",
     justifyContent: "center",
     padding: 16,
   },
   modalContent: {
-    backgroundColor: "#433d3c",
+    backgroundColor: ColorsBarber.light.background,
     borderRadius: 12,
     shadowColor: "#000",
     padding: 32,
@@ -93,11 +95,11 @@ const styles = StyleSheet.create({
   itemSubtitle: {
     flex: 2,
     fontSize: 16,
-    color: "white",
+    color: ColorsBarber.light.textColor,
   },
 
   modalTitle: {
-    color: "#FFFFFF",
+    color: ColorsBarber.light.textColor,
     fontSize: 22,
     fontWeight: "bold",
     textAlign: "center",
@@ -106,18 +108,14 @@ const styles = StyleSheet.create({
   },
   actionButton: {
     width: "100%",
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.item,
     paddingVertical: 16,
     marginTop: 20,
     borderRadius: 8,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+   
   },
   actionButtonText: {
-    color: "#FFFFFF",
+    color: ColorsBarber.light.textColor,
     fontSize: 22,
     fontWeight: "600",
     textAlign: "center",

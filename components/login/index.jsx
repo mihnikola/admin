@@ -21,12 +21,20 @@ import usePassword from "./../../components/login/hooks/usePassword";
 import { useEffect, useRef, useState } from "react";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
+import { ColorsBarber } from "@/constants/Colors";
 
 export default function LoginScreen() {
   const { localization } = useLocalization();
   const [exit, setExit] = useState(false);
-  const { loadingLogin, isMessage, setIsMessage, loginAdmin, error, success, confirmHandler } =
-    useAuth();
+  const {
+    loadingLogin,
+    isMessage,
+    setIsMessage,
+    loginAdmin,
+    error,
+    success,
+    confirmHandler,
+  } = useAuth();
   const { email, handleEmailChange, emailError } = useEmail();
   const { password, handlePasswordChange } = usePassword();
 
@@ -130,7 +138,7 @@ export default function LoginScreen() {
               <FontAwesome
                 name={error ? "close" : "check-circle-o"}
                 size={64}
-                color="white"
+                color={ColorsBarber.light.textColor}
               />
             }
             title={error || success}
@@ -145,7 +153,13 @@ export default function LoginScreen() {
             onLogOut={confirmExitHandler}
             onClose={cancelExitHandler}
             buttonTextNo={localization.SETTINGS.LOGOUT.cancel}
-            icon={<FontAwesome name="close" size={64} color="white" />}
+            icon={
+              <FontAwesome
+                name="close"
+                size={64}
+                color={ColorsBarber.light.textColor}
+              />
+            }
             title={localization.EXIT.question}
           />
         )}
@@ -206,7 +220,7 @@ const styles = StyleSheet.create({
 
   input: {
     backgroundColor: "white",
-    color: "black",
+   color:ColorsBarber.light.item,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
@@ -226,7 +240,7 @@ const styles = StyleSheet.create({
   },
   passwordInput: {
     backgroundColor: "white",
-    color: "black",
+   color:ColorsBarber.light.item,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,

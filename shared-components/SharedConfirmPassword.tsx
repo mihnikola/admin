@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { FontAwesome } from "@expo/vector-icons";
 import { forwardRef, useState } from "react";
 import {
@@ -32,7 +33,7 @@ const SharedConfirmPassword = forwardRef((props: any, ref) => {
           onBlur={() => setIsFocused(false)}
           secureTextEntry={!isPasswordVisible}
           ref={ref}
-          placeholderTextColor="grey"
+          placeholderTextColor={ColorsBarber.light.inActiveTextColor}
         />
 
         <TouchableOpacity
@@ -42,7 +43,7 @@ const SharedConfirmPassword = forwardRef((props: any, ref) => {
           <FontAwesome
             name={isPasswordVisible ? "eye" : "eye-slash"}
             size={24}
-            color="grey"
+            color={ColorsBarber.light.textColor}
           />
         </TouchableOpacity>
       </View>
@@ -66,7 +67,7 @@ const styles = StyleSheet.create({
   },
   passwordInput: {
     backgroundColor: "white", // Dark input background
-    color: "black",
+    color: ColorsBarber.light.item,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,

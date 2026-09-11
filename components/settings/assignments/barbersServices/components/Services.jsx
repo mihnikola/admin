@@ -20,6 +20,7 @@ import { SharedLoader } from "@/shared-components/SharedLoader";
 import SharedButtonApproved from "@/shared-components/SharedButtonApproved";
 import withKeyboardAvoid from "@/wrapper/WrapperKeyboard";
 import SearchInputComponent from "@/components/settings/SearchInputComponent";
+import { ColorsBarber } from "@/constants/Colors";
 
 const Services = () => {
   const { localization } = useLocalization();
@@ -125,7 +126,7 @@ const Services = () => {
       <View style={styles.headerComponent}>
         <View style={styles.headerRow}>
           <TouchableOpacity hitSlop={20} onPress={router.back}>
-            <MaterialIcons name="arrow-back" size={25} color="white" />
+            <MaterialIcons name="arrow-back" size={25} color={ColorsBarber.light.textColor} />
           </TouchableOpacity>
 
           {/* Kolona sa Naslovom i Adresom desno od strelice */}
@@ -155,7 +156,7 @@ const Services = () => {
           )}
         />
       </View>
-      <View style={{ marginHorizontal: 12 }}>
+      <View style={{ paddingHorizontal: 12 }}>
         <SharedButtonApproved
           onPress={() => submitChangesServiceToBarber(id)}
           loading={isLoading === "patch"}
@@ -167,7 +168,7 @@ const Services = () => {
       {isMessage && (
         <SharedMessage
           isOpen={isMessage}
-          icon={<FontAwesome name="check-circle-o" size={64} color="white" />}
+          icon={<FontAwesome name="check-circle-o" size={64} color={ColorsBarber.light.textColor} />}
           onClose={confirmHandler}
           onConfirm={confirmHandler}
           buttonText="Ok"
@@ -177,7 +178,7 @@ const Services = () => {
       {isError?.length > 0 && (
         <SharedMessage
           isOpen={isError?.length > 0}
-          icon={<FontAwesome name="close" size={64} color="white" />}
+          icon={<FontAwesome name="close" size={64} color={ColorsBarber.light.textColor} />}
           onClose={cancelHandler}
           onConfirm={cancelHandler}
           buttonText="Ok"
@@ -189,17 +190,14 @@ const Services = () => {
 };
 
 const styles = StyleSheet.create({
-  // Stilovi za NOVI Fiksni Header
   headerComponent: {
     paddingTop: 25,
     paddingBottom: 15,
-    paddingHorizontal: 16, // Dodat padding nazad ovde
-    backgroundColor: "#000", // Osigurava da se ne providi
-    borderBottomWidth: 1,
-    borderColor: "#1A1A1A", // Suptilna linija za odvajanje
+    paddingHorizontal: 16, 
+    backgroundColor: ColorsBarber.light.background,
   },
   searchInputContainer: {
-    marginVertical: 5,
+    marginVertical: 15,
   },
   headerRow: {
     flexDirection: "row",
@@ -213,11 +211,11 @@ const styles = StyleSheet.create({
   pageTitleHeader: {
     fontSize: 18, // Malo manji, ali i dalje dominantan
     fontWeight: "700",
-    color: "#fff",
+    color: ColorsBarber.light.textColor,
     letterSpacing: 0.5,
   },
   addressHeader: {
-    color: "#AAA", // Svetlije siva za adresu
+    color: ColorsBarber.light.inActiveTextColor,
     fontSize: 14,
     fontWeight: "400",
     marginTop: 2,
@@ -253,8 +251,8 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    margin: 10,
-    backgroundColor: "#000",
+    padding: 10,
+    backgroundColor: ColorsBarber.light.background,
   },
   title: {
     fontSize: 22,
@@ -268,7 +266,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     alignItems: "center",
     justifyContent: "space-between",
-    color: "white",
+   color:ColorsBarber.light.textColor,
   },
 
   subTitle: {
@@ -286,31 +284,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderRadius: 8,
   },
-  button: {
-    backgroundColor: "rgb(0, 0, 0)",
-    padding: 12,
-    borderRadius: 8,
-    alignItems: "center",
-    borderColor: "white",
-    borderWidth: 1,
-    marginTop: 20,
-  },
-  cancelButton: {
-    backgroundColor: "#525252",
-  },
-  buttonText: {
-    color: "#fff",
-    fontWeight: "bold",
-  },
 
-  serviceText: {
-    color: "#fff",
-    fontSize: 15,
-  },
-  editHint: {
-    fontSize: 12,
-    color: "#aaa",
-    padding: 8,
-  },
+ 
 });
 export default withKeyboardAvoid(Services);

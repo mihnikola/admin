@@ -1,9 +1,10 @@
 import { StyleSheet, TouchableWithoutFeedback } from "react-native";
 import Animated, {
-    useAnimatedStyle,
-    withSpring,
-    withTiming,
+  useAnimatedStyle,
+  withSpring,
+  withTiming,
 } from "react-native-reanimated";
+import { ColorsBarber } from "@/constants/Colors";
 
 import getStartedIcon from "@/assets/images/arrowImg.png";
 import { useLocalization } from "@/contexts/LocalizationContext";
@@ -95,7 +96,7 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   textButton: {
-    color: "white",
+    color: ColorsBarber.light.textColor,
     fontSize: 18,
     fontWeight: "800",
     position: "absolute",

@@ -9,6 +9,7 @@ import Loader from "../../../shared-components/Loader";
 import SharedCoverImage from "../../../shared-components/SharedCoverImage";
 import SharedTitle from "../../../shared-components/SharedTitle";
 import useFetchLocations from "../../../shared-hooks/useFetchLocations";
+import { ColorsBarber } from "@/constants/Colors";
 
 const Locations = () => {
     const { reservation, updateReservation } = useContext(ReservationContext);
@@ -29,6 +30,7 @@ const Locations = () => {
     return (
         <ScrollView style={styles.container}>
             <SharedCoverImage image={company?.media?.coverImageAppointments} />
+            {/* <SharedCoverImage image={company?.media?.coverImageAppointments} /> */}
             {!isLoading && <SharedTitle title={localization.PLACES.title} />}
             {isLoading && <Loader />}
             {!isLoading && locationsData?.length > 0 && (
@@ -62,13 +64,13 @@ const styles = StyleSheet.create({
     coverImage: {
         width: "100%",
         height: 200,
-        opacity: 0.2,
+        opacity: 0.4,
     },
     capture: {
         fontSize: 20,
         textAlign: "center",
         padding: 20,
-        color: "white",
+       color:ColorsBarber.light.textColor,
     },
 
     contentContainer: {

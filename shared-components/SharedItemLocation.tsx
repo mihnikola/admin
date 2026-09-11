@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { FontAwesome, FontAwesome6 } from "@expo/vector-icons";
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
@@ -6,7 +7,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 const SharedItemLocation = (props: any) => {
   const { redirectHandler, data } = props;
   const { id, address } = data;
-//   const { localization } = useLocalization();
+  //   const { localization } = useLocalization();
 
   return (
     <TouchableOpacity
@@ -14,11 +15,19 @@ const SharedItemLocation = (props: any) => {
       onPress={() => redirectHandler(data)}
       style={styles.card}
     >
-      <FontAwesome6 name="location-dot" size={30} color="red" />
+      <FontAwesome6
+        name="location-dot"
+        size={30}
+        color={ColorsBarber.light.textColor}
+      />
       <View style={styles.detailsContainer}>
         <Text style={styles.address}>{address}</Text>
       </View>
-       <FontAwesome name="chevron-right" size={32} color="gray" />
+      <FontAwesome
+        name="chevron-right"
+        size={32}
+        color={ColorsBarber.light.textColor}
+      />
     </TouchableOpacity>
   );
 };
@@ -36,9 +45,9 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    gap:20,
-    alignContent:"center",
-    alignSelf: 'center',
+    gap: 20,
+    alignContent: "center",
+    alignSelf: "center",
     elevation: 5, // For Android shadow
   },
 

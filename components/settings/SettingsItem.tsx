@@ -1,12 +1,13 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
 export default function SettingsItem({ title, icon, onPress }) {
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
-      <Ionicons name={icon} size={24} color="#fff" />
+      <Ionicons name={icon} size={24} color={ColorsBarber.light.textColor} />
       <Text style={styles.text}>{title}</Text>
-      <Ionicons name="chevron-forward" size={20} color="#fff" />
+      <Ionicons name="chevron-forward" size={20} color={ColorsBarber.light.textColor} />
     </TouchableOpacity>
   );
 }
@@ -14,7 +15,7 @@ export default function SettingsItem({ title, icon, onPress }) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    backgroundColor: "#1a1a1a",
+    backgroundColor: ColorsBarber.light.item,
     padding: 18,
     borderRadius: 8,
     marginHorizontal: 12,
@@ -22,7 +23,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   text: {
-    color: "#fff",
+    color: ColorsBarber.light.textColor,
     marginLeft: 12,
     flex: 1,
     fontSize: 17,

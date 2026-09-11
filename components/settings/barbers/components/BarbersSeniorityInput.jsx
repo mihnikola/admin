@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Feather, FontAwesome } from "@expo/vector-icons";
+import { ColorsBarber } from "@/constants/Colors";
 
 export default function BarberSeniorityComponent({
   selected,
@@ -9,9 +10,12 @@ export default function BarberSeniorityComponent({
 }) {
   return (
     <TouchableOpacity onPress={modalHandler} style={styles.container}>
-      
       <View style={styles.icon}>
-        <FontAwesome name="scissors" size={20} color="#aaa" />
+        <FontAwesome
+          name="scissors"
+          size={20}
+          color={ColorsBarber.light.textColor}
+        />
       </View>
 
       <View style={styles.textContainer}>
@@ -20,15 +24,22 @@ export default function BarberSeniorityComponent({
         <Text
           style={[
             styles.value,
-            { color: selected ? "#fff" : "#777" },
+            {
+              color: selected
+                ? ColorsBarber.light.textColor
+                : ColorsBarber.light.inActiveTextColor,
+            },
           ]}
         >
           {selected || ""}
         </Text>
       </View>
 
-      <Feather name="chevron-right" size={20} color="#777" />
-
+      <Feather
+        name="chevron-right"
+        size={20}
+        color={ColorsBarber.light.textColor}
+      />
     </TouchableOpacity>
   );
 }
@@ -37,7 +48,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#1c1c1c",
+    backgroundColor: ColorsBarber.light.item,
     borderRadius: 16,
     padding: 16,
     marginBottom: 14,
@@ -52,7 +63,7 @@ const styles = StyleSheet.create({
   },
 
   label: {
-    color: "#9e9e9e",
+    color: ColorsBarber.light.textColor,
     fontSize: 12,
     marginBottom: 2,
   },

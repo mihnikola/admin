@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import SharedCoverImage from "./SharedCoverImage";
+import { ColorsBarber } from "@/constants/Colors";
 
 function SharedTabHeader({ image, title }) {
   return (
@@ -19,8 +20,8 @@ const styles = StyleSheet.create({
   },
   capture: {
     fontSize: 32,
-    color: "white",
-    fontWeight: "500",
+    color: ColorsBarber.light.textColor,
+    fontWeight: "800",
     paddingVertical: 143,
   },
 });

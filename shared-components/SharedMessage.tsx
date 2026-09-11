@@ -1,10 +1,11 @@
+import { ColorsBarber } from "@/constants/Colors";
 import {
-    ActivityIndicator,
-    Modal,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  ActivityIndicator,
+  Modal,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 
 export const SharedMessage = ({
@@ -16,7 +17,6 @@ export const SharedMessage = ({
   onConfirm,
   isLoading,
 }) => {
-  
   return (
     <Modal
       animationType="fade"
@@ -30,7 +30,12 @@ export const SharedMessage = ({
 
           <Text style={styles.modalTitle}>{title}</Text>
           <TouchableOpacity onPress={onConfirm} style={styles.actionButton}>
-            {isLoading && <ActivityIndicator size={25} color="white" />}
+            {isLoading && (
+              <ActivityIndicator
+                size={25}
+                color={ColorsBarber.light.textColor}
+              />
+            )}
             {!isLoading && (
               <Text style={styles.actionButtonText}>{buttonText}</Text>
             )}
@@ -50,7 +55,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   modalContent: {
-    backgroundColor: "#433d3c", // Corresponds to bg-gray-800
+    backgroundColor: ColorsBarber.light.background,
     borderRadius: 12,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 10 },
@@ -66,7 +71,7 @@ const styles = StyleSheet.create({
   iconContainer: {
     width: 96,
     height: 96,
-    backgroundColor: "black", // Corresponds to bg-blue-900 bg-opacity-30
+    backgroundColor: ColorsBarber.light.item, // Corresponds to bg-blue-900 bg-opacity-30
     borderRadius: 9999,
     justifyContent: "center",
     alignItems: "center",
@@ -74,7 +79,7 @@ const styles = StyleSheet.create({
   },
 
   modalTitle: {
-    color: "#FFFFFF",
+    color: ColorsBarber.light.textColor, // Corresponds to bg-blue-900 bg-opacity-30
     fontSize: 16,
     fontWeight: "bold",
     marginBottom: 16,
@@ -83,7 +88,7 @@ const styles = StyleSheet.create({
   },
   actionButton: {
     width: "100%",
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.inActiveTextColor,
     paddingVertical: 16,
     borderRadius: 8,
     shadowColor: "#000",
@@ -93,7 +98,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   actionButtonText: {
-    color: "#FFFFFF",
+    color: ColorsBarber.light.textColor, // Corresponds to bg-blue-900 bg-opacity-30
     fontSize: 22,
     fontWeight: "600",
     textAlign: "center",

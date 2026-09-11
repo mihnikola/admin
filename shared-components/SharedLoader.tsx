@@ -1,15 +1,7 @@
-import {
-  ActivityIndicator,
-  Modal,
-  StyleSheet,
-  View,
-} from "react-native";
+import { ColorsBarber } from "@/constants/Colors";
+import { ActivityIndicator, Modal, StyleSheet, View } from "react-native";
 
-export const SharedLoader = ({
-  isOpen,
-  onConfirm,
-}) => {
-
+export const SharedLoader = ({ isOpen, onConfirm }) => {
   return (
     <Modal
       animationType="fade"
@@ -19,7 +11,7 @@ export const SharedLoader = ({
     >
       <View style={styles.overlay}>
         <View style={styles.modalContent}>
-          <ActivityIndicator size={32} color="white" />
+          <ActivityIndicator size={32} color={ColorsBarber.light.textColor} />
         </View>
       </View>
     </Modal>
@@ -29,13 +21,13 @@ export const SharedLoader = ({
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: "rgba(0, 0, 0, 0.75)",
+    backgroundColor: ColorsBarber.light.background,
     alignItems: "center",
     justifyContent: "center",
     padding: 16,
   },
   modalContent: {
-    backgroundColor: "#433d3c", // Corresponds to bg-gray-800
+    backgroundColor: ColorsBarber.light.item,
     borderRadius: 12,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 10 },

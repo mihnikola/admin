@@ -3,12 +3,13 @@ import React from "react";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { FontAwesome } from "@expo/vector-icons";
 import { useLocalization } from "@/contexts/LocalizationContext";
+import { ColorsBarber } from "@/constants/Colors";
 
 const SharedDetailsServiceCard = (props) => {
   const { data } = props;
   const { id, image, name, duration, price } = data;
   const { localization } = useLocalization();
-  
+
   return (
     <View key={id} style={styles.card}>
       {image && <Image source={{ uri: image }} style={styles.profileImage} />}
@@ -17,7 +18,11 @@ const SharedDetailsServiceCard = (props) => {
           {localization.code === "en" ? name?.nameEn : name?.nameLocal}
         </Text>
         <View style={styles.locationContainer}>
-          <FontAwesome name={"clock-o"} size={16} color="#CCCCCC" />
+          <FontAwesome
+            name={"clock-o"}
+            size={16}
+            color={ColorsBarber.light.textColor}
+          />
           <Text style={styles.locationText}>
             {`${localization.DETAILS.duration} ${
               duration || data?.serviceDuration
@@ -25,7 +30,11 @@ const SharedDetailsServiceCard = (props) => {
           </Text>
         </View>
         <View style={styles.ratingContainer}>
-          <MaterialIcons name={"price-change"} size={16} color="#FFD700" />
+          <MaterialIcons
+            name={"price-change"}
+            size={16}
+            color={ColorsBarber.light.textColor}
+          />
           <Text style={styles.reviewText}>
             {`${localization.DETAILS.price} ${price || data?.servicePrice}`}
           </Text>

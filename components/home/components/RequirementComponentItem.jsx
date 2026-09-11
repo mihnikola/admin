@@ -3,6 +3,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import DateFormatComponent from "./DateFormatComponent";
+import { ColorsBarber } from "@/constants/Colors";
 const RequirementComponentItem = ({ item }) => {
   const { localization } = useLocalization();
 
@@ -18,8 +19,6 @@ const RequirementComponentItem = ({ item }) => {
     });
   };
 
-  
-  
   return (
     <TouchableOpacity
       key={item.id}
@@ -44,7 +43,11 @@ const RequirementComponentItem = ({ item }) => {
         <Text style={styles.eventStatus}>{localization.STATUS.pending}</Text>
       </View>
       <View style={styles.status}>
-        <FontAwesome size={25} color="white" name="clock-o" />
+        <FontAwesome
+          size={25}
+          color={ColorsBarber.light.textColor}
+          name="clock-o"
+        />
       </View>
     </TouchableOpacity>
   );
@@ -99,7 +102,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "bold",
     textTransform: "uppercase",
-    color: "white",
+   color:ColorsBarber.light.textColor,
   },
 });
 

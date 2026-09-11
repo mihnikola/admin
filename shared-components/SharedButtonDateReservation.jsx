@@ -1,4 +1,9 @@
-import { Text, TouchableOpacity, StyleSheet, ActivityIndicator } from "react-native";
+import {
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ActivityIndicator,
+} from "react-native";
 
 const SharedButtonDateReservation = (props) => {
   return (
@@ -8,14 +13,14 @@ const SharedButtonDateReservation = (props) => {
       onPress={props.onPress}
     >
       {!props.loading && <Text style={styles.btnText}>{props.text}</Text>}
-      {props.loading && <ActivityIndicator size={25} color="white" />}
+      {props.loading && <ActivityIndicator size={25} color={ColorsBarber.light.textColor} />}
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   btnText: {
-    color: "#fff",
+    color: ColorsBarber.light.textColor,
     fontSize: 18,
     fontWeight: "bold",
   },
@@ -28,7 +33,7 @@ const styles = StyleSheet.create({
     borderColor: "white",
     alignItems: "center",
     marginTop: 20,
-    padding: 30
+    padding: 30,
   },
 });
 export default SharedButtonDateReservation;

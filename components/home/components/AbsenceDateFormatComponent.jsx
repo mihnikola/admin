@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { StyleSheet, Text, View } from "react-native";
 import { convertTimeHandler, convertToDay, convertToMonthName } from "./../../../helpers";
 
@@ -24,14 +25,14 @@ const styles = StyleSheet.create({
   },
   captureDate: {
     fontSize: 18,
-    color: "white",
+   color:ColorsBarber.light.textColor,
     textAlign: "center",
     fontWeight: "500",
   },
 
   captureDateBold: {
     fontSize: 20,
-    color: "white",
+   color:ColorsBarber.light.textColor,
     fontWeight: "900",
   },
 });

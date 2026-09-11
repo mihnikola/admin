@@ -17,9 +17,10 @@ import useManagerReservation from "./hooks/useManagerReservation";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import LimitComponent from "./LimitComponent";
 import LimitDescription from "./LimitDescription";
-const THEME = {
-  accentTeal: "#9da0a0", // Light Teal
-};
+import { ColorsBarber } from "@/constants/Colors";
+import SharedBackButton from "@/shared-components/SharedBackButton";
+import { router } from "expo-router";
+
 export default function ManagerReservation() {
   const { localization } = useLocalization();
   const {
@@ -55,7 +56,14 @@ export default function ManagerReservation() {
       style={styles.containerKeyboard}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
+      <SharedBackButton
+          onPress={router.back}
+          absolutePosition={false}
+          styleBtn={{ marginTop: 40, marginHorizontal: 15 }}
+        />
       <ScrollView contentContainerStyle={styles.container}>
+        
+
         <LimitDescription
           title={localization.SETTINGS.LIMIT.capture}
           subTitle={localization.SETTINGS.LIMIT.subTitle}
@@ -67,7 +75,7 @@ export default function ManagerReservation() {
             <MaterialCommunityIcons
               name="weather-sunset-up"
               size={28}
-              color={THEME.accentTeal}
+              color={ColorsBarber.light.textColor}
             />
           }
           value={dailyLimit}
@@ -76,7 +84,13 @@ export default function ManagerReservation() {
         />
         <LimitComponent
           label={localization.SETTINGS.LIMIT.week}
-          icon={<Octicons name="calendar" size={26} color={THEME.accentTeal} />}
+          icon={
+            <Octicons
+              name="calendar"
+              size={26}
+              color={ColorsBarber.light.textColor}
+            />
+          }
           value={weeklyLimit}
           setValue={setWeeklyLimit}
           onChangeValueLimit={handleNumberInput}
@@ -87,7 +101,7 @@ export default function ManagerReservation() {
             <MaterialCommunityIcons
               name="progress-clock"
               size={28}
-              color={THEME.accentTeal}
+              color={ColorsBarber.light.textColor}
             />
           }
           value={monthlyLimit}
@@ -106,7 +120,13 @@ export default function ManagerReservation() {
         <SharedMessage
           isOpen={isMessage}
           buttonText="OK"
-          icon={<FontAwesome name="check-circle-o" size={64} color="white" />}
+          icon={
+            <FontAwesome
+              name="check-circle-o"
+              size={64}
+              color={ColorsBarber.light.textColor}
+            />
+          }
           title={lastResponse}
           onClose={() => setIsMessage(false)}
           onConfirm={refreshHandler}
@@ -116,7 +136,13 @@ export default function ManagerReservation() {
         <SharedMessage
           isOpen={error?.length > 0}
           buttonText="OK"
-          icon={<FontAwesome name="close" size={64} color="white" />}
+          icon={
+            <FontAwesome
+              name="close"
+              size={64}
+              color={ColorsBarber.light.textColor}
+            />
+          }
           title={error}
           onClose={() => setError(null)}
           onConfirm={() => setError(null)}
@@ -129,10 +155,12 @@ export default function ManagerReservation() {
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 24,
-    backgroundColor: "#000",
+    marginTop: 15,
+    backgroundColor: ColorsBarber.light.background,
     justifyContent: "center",
   },
   containerKeyboard: {
     flex: 1,
+    backgroundColor: ColorsBarber.light.background,
   },
 });

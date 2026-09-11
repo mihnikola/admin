@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import usePickImage from "./hooks/usePickImage";
+import { ColorsBarber } from "@/constants/Colors";
 
 export default function ImageCompress({
   imageValue,
@@ -21,7 +22,7 @@ export default function ImageCompress({
     setUploading(false);
     setIsPreloading(false);
     // console.log("imageValue", imageValue);
-    if(imageValue){
+    if (imageValue) {
       setImageValue(null);
     }
     // imageState(null);
@@ -89,7 +90,11 @@ export default function ImageCompress({
           onPress={pickImage}
           disabled={uploading || isPreloading}
         >
-          <MaterialIcons name="image" size={120} color="white" />
+          <MaterialIcons
+            name="image"
+            size={120}
+            color={ColorsBarber.light.textColor}
+          />
         </TouchableOpacity>
       )}
 
@@ -107,11 +112,10 @@ export default function ImageCompress({
                 // disabled={uploading || isPreloading}
                 hitSlop={50}
               >
-                {/* <MaterialCommunityIcons name="pencil" size={25} color="#000" /> */}
                 <MaterialCommunityIcons
                   name="trash-can"
                   size={25}
-                  color="#000"
+                  color={ColorsBarber.light.textColor}
                 />
               </TouchableOpacity>
             </View>

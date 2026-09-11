@@ -20,6 +20,7 @@ import { SharedMessage } from "@/shared-components/SharedMessage";
 import { FontAwesome } from "@expo/vector-icons";
 import SharedButtonRejected from "@/shared-components/SharedButtonRejected";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
+import { ColorsBarber } from "@/constants/Colors";
 
 function BarberDelete() {
   const { company } = useCompany();
@@ -47,7 +48,7 @@ function BarberDelete() {
   const removeBarberDEleteHandler = async () => {
     setResponseDataFromServer(0);
     await removeBarber();
-  }
+  };
   const removeBarberHandler = async () => {
     const localeTimeDate = toTime.toLocaleDateString("en-GB", {
       timeZone: "Europe/Belgrade",
@@ -126,11 +127,15 @@ function BarberDelete() {
       </View>
       {responseDataFromServer !== 0 && (
         <SharedQuestion
-          isOpen={responseDataFromServer !== 0 }
+          isOpen={responseDataFromServer !== 0}
           onClose={cancelHandler}
           onLogOut={removeBarberDEleteHandler}
           icon={
-            <FontAwesome name="question-circle-o" size={64} color="white" />
+            <FontAwesome
+              name="question-circle-o"
+              size={64}
+              color={ColorsBarber.light.textColor}
+            />
           }
           title={
             responseDataFromServer === 201
@@ -141,10 +146,16 @@ function BarberDelete() {
           buttonTextNo={localization.PLACES.cancel}
         />
       )}
-      {isMessage  && (
+      {isMessage && (
         <SharedMessage
           isOpen={isMessage}
-          icon={<FontAwesome name="check-circle-o" size={64} color="white" />}
+          icon={
+            <FontAwesome
+              name="check-circle-o"
+              size={64}
+              color={ColorsBarber.light.textColor}
+            />
+          }
           onClose={confirmMessageHandler}
           onConfirm={confirmMessageHandler}
           buttonText="Ok"
@@ -154,7 +165,13 @@ function BarberDelete() {
       {error?.length > 0 && (
         <SharedMessage
           isOpen={error?.length > 0}
-          icon={<FontAwesome name="close" size={64} color="white" />}
+          icon={
+            <FontAwesome
+              name="close"
+              size={64}
+              color={ColorsBarber.light.textColor}
+            />
+          }
           onClose={confirmErrorMessageHandler}
           onConfirm={confirmErrorMessageHandler}
           buttonText="Ok"
@@ -168,11 +185,14 @@ function BarberDelete() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
   },
   btnContainer: {
     flex: 0.1,
-    margin: 30,
+    backgroundColor: ColorsBarber.light.background,
+    padding: 30,
+    // flex: 0.1,
+    // margin: 30,
   },
   buttonRmv: {
     backgroundColor: "rgb(129, 29, 29)",
@@ -189,7 +209,7 @@ const styles = StyleSheet.create({
   },
   dateText: {
     fontSize: 16,
-    color: "#fff",
+    color: ColorsBarber.light.textColor,
     textAlign: "center",
   },
   dateButton: {
@@ -198,18 +218,18 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingVertical: 14,
     paddingHorizontal: 10,
-    backgroundColor: "#000",
+    backgroundColor: ColorsBarber.light.item,
     margin: 30,
   },
   info: {
-    color: "white",
+    color: ColorsBarber.light.textColor,
     padding: 10,
     margin: 20,
     fontSize: 20,
     textAlign: "center",
   },
   dateLabel: {
-    color: "white",
+    color: ColorsBarber.light.textColor,
     paddingTop: 10,
     marginTop: 20,
     fontSize: 20,

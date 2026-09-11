@@ -3,6 +3,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { convertTimeHandler } from "../helpers";
+import { ColorsBarber } from "@/constants/Colors";
 
 const SharedCard = ({ item, criteriaDate }) => {
   const { localization } = useLocalization();
@@ -15,12 +16,12 @@ const SharedCard = ({ item, criteriaDate }) => {
         user: item?.reservation?.user,
         note: item?.reservation?.note,
         arrived: item?.arrived,
-        criteriaDate: criteriaDate?.dateString
+        criteriaDate: criteriaDate?.dateString,
       },
     });
   };
 
-   const completedReservation = () => {
+  const completedReservation = () => {
     const now = new Date();
     const endTimeDate = new Date(item.endTime);
 
@@ -30,7 +31,7 @@ const SharedCard = ({ item, criteriaDate }) => {
     return false;
   };
 
-    const expiredReservation = () => {
+  const expiredReservation = () => {
     const now = new Date();
     const startTimeDate = new Date(item.startTime);
 
@@ -39,7 +40,6 @@ const SharedCard = ({ item, criteriaDate }) => {
     }
     return false;
   };
-
 
   return (
     <TouchableOpacity
@@ -67,9 +67,17 @@ const SharedCard = ({ item, criteriaDate }) => {
         </Text>
         {item.arrived === "arrived" ? (
           <Text style={styles.eventStatus}>
-            {item.status === "pending" && expiredReservation() ?  localization.STATUS.expired : item.status === "pending" &&  !completedReservation() && localization.STATUS.pending}
-            {item.status === "approved" && completedReservation() && localization.STATUS.completed}
-            {item.status === "approved" && !completedReservation() && localization.STATUS.approved}
+            {item.status === "pending" && expiredReservation()
+              ? localization.STATUS.expired
+              : item.status === "pending" &&
+                !completedReservation() &&
+                localization.STATUS.pending}
+            {item.status === "approved" &&
+              completedReservation() &&
+              localization.STATUS.completed}
+            {item.status === "approved" &&
+              !completedReservation() &&
+              localization.STATUS.approved}
             {item.status === "rejected" && localization.STATUS.rejected}
           </Text>
         ) : (
@@ -78,23 +86,47 @@ const SharedCard = ({ item, criteriaDate }) => {
           </Text>
         )}
       </View>
-        <View style={styles.status}>
-          {item.status === "pending" && (
-            <FontAwesome size={25} color="white" name="clock-o" />
+      <View style={styles.status}>
+        {item.status === "pending" && (
+          <FontAwesome
+            size={25}
+            color={ColorsBarber.light.textColor}
+            name="clock-o"
+          />
+        )}
+        {item.status === "approved" &&
+          item.arrived !== "missed" &&
+          completedReservation() && (
+            <FontAwesome
+              size={25}
+              color={ColorsBarber.light.textColor}
+              name="check-circle-o"
+            />
           )}
-          {item.status === "approved" && item.arrived !== 'missed' && completedReservation() && (
-            <FontAwesome size={25} color="white" name="check-circle-o" />
+        {item.status === "approved" &&
+          item.arrived !== "missed" &&
+          !completedReservation() && (
+            <FontAwesome
+              size={25}
+              color={ColorsBarber.light.textColor}
+              name="thumbs-up"
+            />
           )}
-          {item.status === "approved" && item.arrived !== 'missed' && !completedReservation()  && (
-            <FontAwesome size={25} color="white" name="thumbs-up" />
-          )}
-          {item.arrived === "missed" && (
-            <FontAwesome size={25} color="white" name="close" />
-          )}
-          {item.status === "rejected" && (
-            <FontAwesome size={25} color="white" name="close" />
-          )}
-        </View>
+        {item.arrived === "missed" && (
+          <FontAwesome
+            size={25}
+            color={ColorsBarber.light.textColor}
+            name="close"
+          />
+        )}
+        {item.status === "rejected" && (
+          <FontAwesome
+            size={25}
+            color={ColorsBarber.light.textColor}
+            name="close"
+          />
+        )}
+      </View>
     </TouchableOpacity>
   );
 };
@@ -131,7 +163,7 @@ const styles = StyleSheet.create({
     color: "#e2e2e2ff",
   },
   detailsBlock: {
-    flex: 1, 
+    flex: 1,
   },
   eventTitle: {
     fontSize: 16,
@@ -149,7 +181,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "bold",
     textTransform: "uppercase",
-    color: "white",
+   color:ColorsBarber.light.textColor,
   },
 });
 

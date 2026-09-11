@@ -82,7 +82,7 @@ const Barbers = () => {
       {isMessage && (
         <SharedMessage
           isOpen={isMessage}
-          icon={<FontAwesome name="check-circle-o" size={64} color="white" />}
+          icon={<FontAwesome name="check-circle-o" size={64} color={ColorsBarber.light.textColor} />}
           onClose={confirmHandler}
           onConfirm={confirmHandler}
           buttonText="Ok"
@@ -92,7 +92,7 @@ const Barbers = () => {
       {isError?.length > 0 && (
         <SharedMessage
           isOpen={isError?.length > 0}
-          icon={<FontAwesome name="close" size={64} color="white" />}
+          icon={<FontAwesome name="close" size={64} color={ColorsBarber.light.textColor} />}
           onClose={cancelHandler}
           onConfirm={cancelHandler}
           buttonText="Ok"

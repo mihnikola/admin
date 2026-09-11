@@ -13,7 +13,7 @@ const SharedButtonDeactivate = (props) => {
       onPress={props.onPress}
     >
       {!props.loading && <Text style={styles.btnText}>{props.text}</Text>}
-      {props.loading && <ActivityIndicator size={25} color="white" />}
+      {props.loading && <ActivityIndicator size={25} color={ColorsBarber.light.textColor} />}
     </TouchableOpacity>
   );
 };

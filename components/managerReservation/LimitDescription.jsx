@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import React from "react";
 import { StyleSheet, Text } from "react-native";
 
@@ -15,20 +16,22 @@ const styles = StyleSheet.create({
     fontSize: 22,
     marginBottom: 20,
     textAlign: "center",
-    fontWeight: "bold",
-    color: "#cecece",
+    fontWeight: "900",
+    color: ColorsBarber.light.inActiveTextColor,
   },
   subTitle: {
     fontSize: 14,
     marginBottom: 20,
     textAlign: "center",
-    color: "#949393",
+    fontWeight: "700",
+
+    color: ColorsBarber.light.inActiveTextColor,
     lineHeight: 23,
   },
   description: {
     fontWeight: "bold",
     marginBottom: 20,
-    color: "#cecece",
+    color: ColorsBarber.light.inActiveTextColor,
     fontSize: 19,
   },
 });

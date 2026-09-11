@@ -10,6 +10,7 @@ import GooglePlace from "./GooglePlace";
 import LocationInput from "./LocationInput";
 import TimeSettingsScreen from "../../WorkHourManagement";
 import SharedBackButton from "@/shared-components/SharedBackButton";
+import { ColorsBarber } from "@/constants/Colors";
 
 export default function LocationsAddEdit() {
   const [city, setCity] = useState("");
@@ -116,7 +117,7 @@ export default function LocationsAddEdit() {
             <MaterialCommunityIcons
               name="account-plus-outline"
               size={28}
-              color="#fff"
+              color={ColorsBarber.light.textColor}
             />
           </TouchableOpacity>
         )}
@@ -162,7 +163,7 @@ export default function LocationsAddEdit() {
       {isMessage && (
         <SharedMessage
           isOpen={isMessage}
-          icon={<FontAwesome name="check-circle-o" size={64} color="white" />}
+          icon={<FontAwesome name="check-circle-o" size={64} color={ColorsBarber.light.textColor} />}
           onClose={confirmHandler}
           onConfirm={confirmHandler}
           buttonText="Ok"
@@ -172,7 +173,7 @@ export default function LocationsAddEdit() {
       {error?.length > 0 && (
         <SharedMessage
           isOpen={error?.length > 0}
-          icon={<FontAwesome name="close" size={64} color="white" />}
+          icon={<FontAwesome name="close" size={64} color={ColorsBarber.light.textColor} />}
           onClose={confirmErrorMessageHandler}
           onConfirm={confirmErrorMessageHandler}
           buttonText="Ok"
@@ -194,12 +195,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: "#000000",
+    // backgroundColor: "#000000",
+    backgroundColor: ColorsBarber.light.background,
   },
   title: {
     fontSize: 22,
     fontWeight: "bold",
-    color: "#fff",
+    color:  ColorsBarber.light.textColor,
     marginBottom: 10,
   },
   image: {
@@ -209,19 +211,19 @@ const styles = StyleSheet.create({
   subTitle: {
     fontSize: 18,
     fontWeight: "600",
-    color: "#fff",
+    color:  ColorsBarber.light.textColor,
     marginTop: 20,
     marginBottom: 10,
   },
   input: {
-    backgroundColor: "#c7c7c7",
+    backgroundColor: ColorsBarber.light.item,
     color: "#fff",
     padding: 10,
     marginBottom: 10,
     borderRadius: 8,
   },
   button: {
-    backgroundColor: "rgb(0, 0, 0)",
+    backgroundColor: ColorsBarber.light.item,
     padding: 12,
     borderRadius: 8,
     alignItems: "center",
@@ -235,7 +237,7 @@ const styles = StyleSheet.create({
   },
 
   serviceItem: {
-    backgroundColor: "#2a2a2a",
+    backgroundColor:  ColorsBarber.light.item,
     flexDirection: "row",
     justifyContent: "space-between",
     padding: 20,

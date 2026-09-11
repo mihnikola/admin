@@ -15,6 +15,7 @@ import {
   View,
 } from "react-native";
 import SearchInputComponent from "@/components/settings/SearchInputComponent";
+import { ColorsBarber } from "@/constants/Colors";
 
 const locations = [
   {
@@ -85,7 +86,11 @@ export default function MenuServices() {
           <Text style={styles.name}>{item.address}</Text>
         </View>
         <View style={styles.locationContainer}>
-          <FontAwesome name={"arrow-right"} size={25} color="#CCCCCC" />
+          <FontAwesome
+            name={"arrow-right"}
+            size={25}
+            color={ColorsBarber.light.textColor}
+          />
         </View>
       </TouchableOpacity>
     );

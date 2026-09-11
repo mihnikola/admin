@@ -6,6 +6,7 @@ import RequirementComponentItem from "./RequirementComponentItem";
 import { useCallback } from "react";
 import { router, useFocusEffect } from "expo-router";
 import SharedBackButton from "@/shared-components/SharedBackButton";
+import { ColorsBarber } from "@/constants/Colors";
 export default function RequirementComponent() {
   const { isLoading, requirements, fetchRequirements } = useRequirements();
 
@@ -59,7 +60,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 20,
-    backgroundColor: "#000",
+    backgroundColor:  ColorsBarber.light.background,
     margin: 15
   },
   header: {
@@ -68,11 +69,11 @@ const styles = StyleSheet.create({
   subTitle: {
     fontSize: 18,
     fontWeight: "600",
-    color: "#fff",
+    color:  ColorsBarber.light.textColor,
     textAlign: "center",
   },
   card: {
-    backgroundColor: "#000",
+    backgroundColor:  ColorsBarber.light.background,
     flex: 1,
     flexDirection: "column",
   },
@@ -80,6 +81,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: "center",
     fontWeight: "900",
-    color: "#fff",
+    color:  ColorsBarber.light.textColor,
   },
 });

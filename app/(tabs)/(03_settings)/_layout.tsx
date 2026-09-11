@@ -17,8 +17,8 @@ export default function RootLayoutBarbers() {
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="index" />
       <Stack.Screen name="settings" />
-      <Stack.Screen name="changeLanguage" options={headerOptions} />
-      <Stack.Screen name="managerReservation" options={headerOptions} />
+      <Stack.Screen name="changeLanguage" options={headerOptionsFalse} />
+      <Stack.Screen name="managerReservation" options={headerOptionsFalse} />
 
       <Stack.Screen name="serviceManager" options={headerOptionsFalse} />
       <Stack.Screen name="locationManager" options={headerOptionsFalse} />
@@ -29,7 +29,7 @@ export default function RootLayoutBarbers() {
 
       <Stack.Screen name="locationManagement" options={headerOptionsFalse} />
 
-      <Stack.Screen name="addServices" options={headerOptions} />
+      <Stack.Screen name="addServices" options={headerOptionsFalse} />
       <Stack.Screen name="addBarbers" options={headerOptionsFalse} />
       <Stack.Screen name="barbers" options={headerOptionsFalse} />
       <Stack.Screen name="barbersLocations" options={headerOptionsFalse} />

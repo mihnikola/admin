@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
@@ -18,7 +19,7 @@ function SearchInputComponent({
         placeholder={placeholderText || localization.CLIENTS.search}
         value={search}
         onChangeText={setSearch}
-        placeholderTextColor="white"
+        placeholderTextColor={ColorsBarber.light.inActiveTextColor}
         onFocus={onFocus} // <-- prosleđeno
         onBlur={onBlur} // <-- prosleđeno
       />
@@ -28,7 +29,7 @@ function SearchInputComponent({
           onPress={() => setSearch("")}
           style={styles.clearButton}
         >
-          <Ionicons name="close-circle" size={22} color="white" />
+          <Ionicons name="close-circle" size={22} color={ColorsBarber.light.textColor} />
         </TouchableOpacity>
       )}
     </View>
@@ -37,15 +38,19 @@ function SearchInputComponent({
 const styles = StyleSheet.create({
   searchContainer: {
     justifyContent: "center",
+    
   },
 
   searchInput: {
-    backgroundColor: "#3f3f3f",
+    // backgroundColor: "#3f3f3f",
+    backgroundColor: ColorsBarber.light.background,
+    borderWidth: 1,
+    borderColor: ColorsBarber.light.inActiveTextColor,
     borderRadius: 8,
     padding: 14,
     paddingRight: 45, // prostor za X ikonu
     fontSize: 18,
-    color: "#fff",
+    color: ColorsBarber.light.textColor
   },
 
   clearButton: {

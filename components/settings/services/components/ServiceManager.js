@@ -17,6 +17,7 @@ import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import SearchInputComponent from "../../SearchInputComponent";
 import withKeyboardAvoid from "@/wrapper/WrapperKeyboard";
+import { ColorsBarber } from "@/constants/Colors";
 
 const ServiceManager = () => {
   const { localization } = useLocalization();
@@ -100,7 +101,11 @@ const ServiceManager = () => {
               <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <View>
                   <Text style={styles.editHint}>
-                    <FontAwesome name="edit" size={24} color="white" />
+                    <FontAwesome
+                      name="edit"
+                      size={24}
+                      color={ColorsBarber.light.textColor}
+                    />
                   </Text>
                 </View>
               </View>
@@ -112,7 +117,13 @@ const ServiceManager = () => {
       {isMessage && (
         <SharedMessage
           isOpen={isMessage}
-          icon={<FontAwesome name="check-circle-o" size={64} color="white" />}
+          icon={
+            <FontAwesome
+              name="check-circle-o"
+              size={64}
+              color={ColorsBarber.light.textColor}
+            />
+          }
           onClose={confirmHandler}
           onConfirm={confirmHandler}
           buttonText="Ok"
@@ -122,7 +133,13 @@ const ServiceManager = () => {
       {isError?.length > 0 && (
         <SharedMessage
           isOpen={isError?.length > 0}
-          icon={<FontAwesome name="close" size={64} color="white" />}
+          icon={
+            <FontAwesome
+              name="close"
+              size={64}
+              color={ColorsBarber.light.textColor}
+            />
+          }
           onClose={cancelHandler}
           onConfirm={cancelHandler}
           buttonText="Ok"
@@ -137,7 +154,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: "#000000",
+    backgroundColor: ColorsBarber.light.background,
   },
   searchInputContainer: {
     marginBottom: 10,
@@ -155,8 +172,8 @@ const styles = StyleSheet.create({
   },
   subTitle: {
     fontSize: 18,
-    fontWeight: "600",
-    color: "#fff",
+    fontWeight: "800",
+    color: ColorsBarber.light.textColor,
     textAlign: "center",
     alignSelf: "center",
     alignItems: "center",
@@ -186,19 +203,19 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   serviceItem: {
-    backgroundColor: "#000000",
+    backgroundColor: ColorsBarber.light.item,
     flexDirection: "row",
     justifyContent: "space-between",
     borderWidth: 1,
-
-    borderColor: "white",
+    borderColor: ColorsBarber.light.inActiveTextColor,
     padding: 20,
     borderRadius: 8,
     marginHorizontal: 12,
     marginBottom: 10,
   },
   serviceText: {
-    color: "#fff",
+    color: ColorsBarber.light.textColor,
+
     fontSize: 15,
   },
   editHint: {

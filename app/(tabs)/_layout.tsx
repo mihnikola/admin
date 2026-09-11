@@ -1,19 +1,20 @@
 import { IconSymbol } from "@/components/ui/IconSymbol";
+import { ColorsBarber } from "@/constants/Colors";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { Tabs } from "expo-router";
 import React from "react";
 
-
 export default function TabLayout() {
-    const { localization } = useLocalization();
+  const { localization } = useLocalization();
 
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: "white",
+        tabBarActiveTintColor: ColorsBarber.light.textColor,
+        tabBarInactiveTintColor: ColorsBarber.light.inActiveTextColor,
         tabBarStyle: {
-          backgroundColor: "black", // Set the background color to black
+          backgroundColor: ColorsBarber.light.background,
         },
       }}
     >
@@ -21,8 +22,14 @@ export default function TabLayout() {
         name="(01_home)"
         options={{
           title: localization.TABS.HOME,
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="house.fill" color={color} />
+          tabBarIcon: ({ color, focused }) => (
+            <IconSymbol
+              size={28}
+              name="house.fill"
+              color={
+                focused ? ColorsBarber.light.textColor : ColorsBarber.light.inActiveTextColor
+              }
+            />
           ),
         }}
       />
@@ -31,8 +38,14 @@ export default function TabLayout() {
         name="(02_clients)"
         options={{
           title: localization.TABS.CLIENTS,
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="group.fill" color={color} />
+          tabBarIcon: ({ color, focused }) => (
+            <IconSymbol
+              size={28}
+              name="group.fill"
+              color={
+                focused ? ColorsBarber.light.textColor : ColorsBarber.light.inActiveTextColor
+              }
+            />
           ),
         }}
       />
@@ -40,8 +53,14 @@ export default function TabLayout() {
         name="(03_settings)"
         options={{
           title: localization.TABS.SETTINGS,
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="settings.fill" color={color} />
+          tabBarIcon: ({ color, focused }) => (
+            <IconSymbol
+              size={28}
+              name={"settings.fill"} // Menja ikonicu na osnovu fokusa
+              color={
+                focused ? ColorsBarber.light.textColor : ColorsBarber.light.inActiveTextColor
+              }
+            />
           ),
         }}
       />

@@ -17,6 +17,9 @@ import TimePickerModal from "./TimePickerModal";
 import SharedButtonRejected from "@/shared-components/SharedButtonRejected";
 import SharedButtonDeactivate from "@/shared-components/SharedButtonDeactivate";
 import SharedButtonActivate from "@/shared-components/SharedButtonActivate";
+import { ColorsBarber } from "@/constants/Colors";
+import SharedButtonApproved from "@/shared-components/SharedButtonApproved";
+
 export default function TimeSettingsScreen({
   checkReservation,
   isLoading,
@@ -176,7 +179,11 @@ export default function TimeSettingsScreen({
       </Text>
       <View style={styles.containerData}>
         <View style={styles.row}>
-          <FontAwesome name="clock-o" size={24} color="grey" />
+          <FontAwesome
+            name="clock-o"
+            size={24}
+            color={ColorsBarber.light.textColor}
+          />
 
           <Text style={styles.label}>
             {localization.SETTINGS.WORKHOURS.from}
@@ -195,7 +202,11 @@ export default function TimeSettingsScreen({
         </View>
 
         <View style={styles.row}>
-          <FontAwesome name="clock-o" size={24} color="grey" />
+          <FontAwesome
+            name="clock-o"
+            size={24}
+            color={ColorsBarber.light.textColor}
+          />
           <Text style={styles.label}>{localization.SETTINGS.WORKHOURS.to}</Text>
           <TouchableOpacity
             onPress={() => setShowToPicker(true)}
@@ -232,7 +243,6 @@ export default function TimeSettingsScreen({
         onCancel={() => setShowToPicker(false)}
         onConfirm={onChangeTo}
         title={localization.PLACES.endWork}
-
       />
 
       <Text style={styles.subtitle}>
@@ -246,13 +256,19 @@ export default function TimeSettingsScreen({
         placeholder={selected || localization.SETTINGS.WORKHOURS.gap}
       />
 
-      <View style={{ flex: !id ? 0.4 : 1.5, gap: 10 }}>
-        <SharedButton
+      <View style={{ flex: !id ? 0.4 : 1.8, gap: 10 }}>
+        {/* <SharedButton
           loading={isLoading === "addEdit"}
           disabled={disabledBtn}
           onPress={submitHandler}
           text={localization.SETTINGS.WORKHOURS.submit}
           margin
+        /> */}
+        <SharedButtonApproved
+          loading={isLoading === "addEdit"}
+          disabled={disabledBtn}
+          onPress={submitHandler}
+          text={localization.SETTINGS.WORKHOURS.submit}
         />
         {id && (
           <SharedButtonRejected
@@ -283,7 +299,11 @@ export default function TimeSettingsScreen({
           onClose={removeCancelHandler}
           onLogOut={() => removeConfirmHandler(id)}
           icon={
-            <FontAwesome name="question-circle-o" size={64} color="white" />
+            <FontAwesome
+              name="question-circle-o"
+              size={64}
+              color={ColorsBarber.light.textColor}
+            />
           }
           title={
             responseDataFromServer === 200
@@ -300,7 +320,11 @@ export default function TimeSettingsScreen({
           onClose={deactivateCancelHandler}
           onLogOut={() => deactivateConfirmHandler(id)}
           icon={
-            <FontAwesome name="question-circle-o" size={64} color="white" />
+            <FontAwesome
+              name="question-circle-o"
+              size={64}
+              color={ColorsBarber.light.textColor}
+            />
           }
           title={
             responseDataFromServer === 200
@@ -317,7 +341,11 @@ export default function TimeSettingsScreen({
           onClose={undoCancelHandler}
           onLogOut={() => undoConfirmlHandler(id)}
           icon={
-            <FontAwesome name="question-circle-o" size={64} color="white" />
+            <FontAwesome
+              name="question-circle-o"
+              size={64}
+              color={ColorsBarber.light.textColor}
+            />
           }
           title={localization.PLACES.questionActivate}
           buttonTextYes={localization.PLACES.undo}
@@ -332,7 +360,7 @@ export default function TimeSettingsScreen({
             <FontAwesome
               name={error ? "close" : "check-circle-o"}
               size={64}
-              color="white"
+              color={ColorsBarber.light.textColor}
             />
           }
           title={message}
@@ -343,7 +371,13 @@ export default function TimeSettingsScreen({
         <SharedMessage
           isOpen={error?.length > 0}
           onConfirm={() => setError(null)}
-          icon={<FontAwesome name="close" size={64} color="white" />}
+          icon={
+            <FontAwesome
+              name="close"
+              size={64}
+              color={ColorsBarber.light.textColor}
+            />
+          }
           title={error}
           buttonText="Ok"
         />
@@ -358,7 +392,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 2,
-    backgroundColor: "#000",
+    backgroundColor: ColorsBarber.light.background,
     marginHorizontal: 10,
   },
   containerEdit: {
@@ -366,7 +400,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 12,
   },
   buttonText: {
-    color: "#fff",
+    color: ColorsBarber.light.textColor,
     fontWeight: "bold",
     fontSize: 18,
   },
@@ -375,13 +409,13 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     marginBottom: 10,
     textAlign: "center",
-    color: "#fff",
+    color: ColorsBarber.light.textColor,
   },
   subtitle: {
     fontSize: 18,
     fontWeight: "400",
     textAlign: "center",
-    color: "#919191",
+    color: ColorsBarber.light.textColor,
     marginVertical: 15,
   },
   row: {
@@ -393,20 +427,20 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 18,
     flex: 1,
-    color: "white",
+    color: ColorsBarber.light.textColor,
   },
   timeButton: {
     borderWidth: 1,
-    borderColor: "rgb(0, 0, 0)",
+    borderColor: ColorsBarber.light.inActiveTextColor,
     borderRadius: 8,
     paddingVertical: 5,
     paddingHorizontal: 20,
-    backgroundColor: "rgb(48, 48, 48)",
+    backgroundColor: ColorsBarber.light.item,
     fontWeight: "bold",
   },
   timeText: {
     fontSize: 18,
-    color: "#ffffffff",
+    color: ColorsBarber.light.textColor,
     textAlign: "center",
   },
 
@@ -414,7 +448,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     fontSize: 18,
     textAlign: "center",
-    color: "white",
+    color: ColorsBarber.light.textColor,
   },
   buttonRmv: {
     backgroundColor: "rgb(129, 29, 29)",

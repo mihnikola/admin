@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { FontAwesome } from "@expo/vector-icons";
 import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
@@ -19,7 +20,11 @@ const SharedItem = (props: any) => {
         <Text style={styles.name}>{address}</Text>
       </View>
       <View style={styles.locationContainer}>
-        <FontAwesome name={"arrow-right"} size={25} color="#CCCCCC" />
+        <FontAwesome
+          name={"arrow-right"}
+          size={25}
+          color={ColorsBarber.light.textColor}
+        />
       </View>
     </TouchableOpacity>
   );

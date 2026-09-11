@@ -1,9 +1,10 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 
 const Loader = () => {
   return (
     <View style={styles.container}>
-      <ActivityIndicator size="large" color="#b9b9b9ff" />
+      <ActivityIndicator size="large" color={ColorsBarber.light.textColor} />
     </View>
   );
 };
@@ -14,7 +15,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "black"
+    backgroundColor: ColorsBarber.light.background,
   },
 });
 

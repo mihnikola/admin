@@ -1,10 +1,11 @@
 import React from "react";
 import { Image, StyleSheet } from "react-native";
 
-function SharedCoverImage({image}) {
+function SharedCoverImage({ image }) {
   return (
     <Image
-      source={{uri:image}}
+      // source={{ uri: image }}
+      source={require("@/assets/images/frizerskiSalon1.png")}
       style={styles.coverImage}
     />
   );

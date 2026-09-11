@@ -4,10 +4,8 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { Ionicons } from "@expo/vector-icons";
 import { roundValue } from "@/helpers";
 
-
 const SharedDetailsEmployerCard = ({ data }) => {
   const { _id, image, name, averageRating, userCount, seniority } = data;
-
 
   return (
     <View key={_id} style={styles.card}>
@@ -15,18 +13,28 @@ const SharedDetailsEmployerCard = ({ data }) => {
       <View style={styles.detailsContainer}>
         <Text style={styles.name}>{name}</Text>
         <View style={styles.locationContainer}>
-          <Text style={styles.locationText}>{seniority?.title || seniority}</Text>
+          <Text style={styles.locationText}>
+            {seniority?.title || seniority}
+          </Text>
         </View>
         <View style={styles.dataContainer}>
           <View style={styles.ratingContainer}>
-            <MaterialIcons name={"star"} size={16} color="#FFD700" />
+            <MaterialIcons
+              name={"star"}
+              size={16}
+              color={ColorsBarber.light.textColor}
+            />
             <Text style={styles.reviewText}>{`${roundValue(
-              averageRating
+              averageRating,
             )}/5`}</Text>
           </View>
 
           <View style={styles.ratingContainer}>
-            <Ionicons name={"person"} size={16} color="#FFD700" />
+            <Ionicons
+              name={"person"}
+              size={16}
+              color={ColorsBarber.light.textColor}
+            />
             <Text style={styles.reviewText}>{userCount || 0}</Text>
           </View>
         </View>

@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
 
 const LocationItem = ({ item, onSelectedLocation }) => {
@@ -18,7 +19,7 @@ const LocationItem = ({ item, onSelectedLocation }) => {
 
 const styles = StyleSheet.create({
   address: {
-    color: "white",
+   color:ColorsBarber.light.textColor,
     padding: 10,
   },
   profileImage: {

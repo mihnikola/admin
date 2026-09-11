@@ -12,6 +12,7 @@ import UpcomingAbsenceCard from "./UpcomingAbsenceCard";
 import { useHomeData } from "@/contexts/HomeDataContext";
 import HomeLoader from "@/shared-components/HomeLoader";
 import { useAuth } from "@/contexts/AuthContext";
+import { ColorsBarber } from "@/constants/Colors";
 
 export default function HomeScreen() {
   const {
@@ -78,7 +79,7 @@ export default function HomeScreen() {
                 onPress={calendarHandler}
                 style={styles.btnLocationContent}
               >
-                <FontAwesome name="calendar" size={20} color="white" />
+                <FontAwesome name="calendar" size={20} color={ColorsBarber.light.textColor} />
 
                 <View style={styles.locationContent}>
                   <Text style={styles.titleLocation}>
@@ -86,14 +87,14 @@ export default function HomeScreen() {
                   </Text>
                 </View>
 
-                <FontAwesome name="chevron-right" size={28} color="white" />
+                <FontAwesome name="chevron-right" size={28} color={ColorsBarber.light.textColor} />
               </TouchableOpacity>
 
               <TouchableOpacity
                 onPress={requirementsHandler}
                 style={styles.btnLocationContent}
               >
-                <FontAwesome name="paper-plane" size={22} color="white" />
+                <FontAwesome name="paper-plane" size={22} color={ColorsBarber.light.textColor} />
 
                 <View style={styles.locationContent}>
                   <Text style={styles.titleLocation}>
@@ -106,21 +107,21 @@ export default function HomeScreen() {
                     <Text style={styles.badgeText}>{requirementsLength}</Text>
                   </View>
                 )}
-                <FontAwesome name="chevron-right" size={28} color="white" />
+                <FontAwesome name="chevron-right" size={28} color={ColorsBarber.light.textColor} />
               </TouchableOpacity>
               {absenceData?.length > 0 && (
                 <TouchableOpacity
                   onPress={absenceHandler}
                   style={styles.btnLocationContent}
                 >
-                  <Ionicons name="swap-vertical" size={24} color="#fff" />
+                  <Ionicons name="swap-vertical" size={24} color={ColorsBarber.light.textColor} />
                   <View style={styles.locationContent}>
                     <Text style={styles.titleLocation}>
                       {localization.HOME.absenceManager}
                     </Text>
                   </View>
 
-                  <FontAwesome name="chevron-right" size={28} color="white" />
+                  <FontAwesome name="chevron-right" size={28} color={ColorsBarber.light.textColor} />
                 </TouchableOpacity>
               )}
             </View>
@@ -157,13 +158,13 @@ const styles = StyleSheet.create({
   },
 
   badgeText: {
-    color: "#fff",
+    color: ColorsBarber.light.textColor,
     fontSize: 12,
     fontWeight: "600",
   },
   container: {
     flex: 1,
-    backgroundColor: "#000000",
+    backgroundColor: ColorsBarber.light.item,
   },
 
   boxBook: {
@@ -181,7 +182,7 @@ const styles = StyleSheet.create({
   },
   btnLocationContent: {
     width: "100%",
-    backgroundColor: "#222224",
+    backgroundColor: ColorsBarber.light.item,
     justifyContent: "space-between",
     alignItems: "center",
     alignSelf: "center",
@@ -197,7 +198,7 @@ const styles = StyleSheet.create({
   },
   titleLocation: {
     fontSize: 22,
-    color: "white",
+    color: ColorsBarber.light.textColor,
     textAlign: "center",
   },
 

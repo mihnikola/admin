@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import {
@@ -57,11 +58,19 @@ const LimitComponent = ({
 
         <View style={styles.stepperButtons}>
           <TouchableOpacity onPress={decrement} style={styles.stepperButton}>
-            <Ionicons name="remove" size={20} color="#fff" />
+            <Ionicons
+              name="remove"
+              size={20}
+              color={ColorsBarber.light.textColor}
+            />
           </TouchableOpacity>
           <View style={styles.stepperSeparator} />
           <TouchableOpacity onPress={increment} style={styles.stepperButton}>
-            <Ionicons name="add" size={20} color="#fff" />
+            <Ionicons
+              name="add"
+              size={20}
+              color={ColorsBarber.light.textColor}
+            />
           </TouchableOpacity>
         </View>
       </View>
@@ -72,7 +81,7 @@ const LimitComponent = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: THEME.background,
+    backgroundColor: ColorsBarber.light.background,
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
 
@@ -81,15 +90,15 @@ const styles = StyleSheet.create({
   },
   limitLabel: {
     fontSize: 14,
-    color: THEME.textPrimary,
+    color: ColorsBarber.light.textColor,
     marginBottom: 8,
     fontWeight: "500",
   },
   stepperWrapper: {
     flexDirection: "row",
-    backgroundColor: THEME.inputBackground,
+    backgroundColor: ColorsBarber.light.background,
     borderWidth: 1,
-    borderColor: THEME.inputBorder,
+    borderColor: ColorsBarber.light.inActiveTextColor,
     borderRadius: 12,
     alignItems: "center",
     justifyContent: "space-between",
@@ -106,7 +115,7 @@ const styles = StyleSheet.create({
 
   valueText: {
     fontSize: 20,
-    color: THEME.textPrimary,
+    color: ColorsBarber.light.textColor,
     fontWeight: "700",
     letterSpacing: 0.5,
     paddingRight: 50,
@@ -116,9 +125,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     borderWidth: 1,
-    borderColor: THEME.inputBorder,
+    borderColor: ColorsBarber.light.textColor,
     borderRadius: 8,
-    backgroundColor: "#222",
+    backgroundColor: ColorsBarber.light.background,
   },
   stepperButton: {
     padding: 10,
@@ -128,7 +137,7 @@ const styles = StyleSheet.create({
   stepperSeparator: {
     width: 1,
     height: 20,
-    backgroundColor: THEME.inputBorder,
+    backgroundColor: ColorsBarber.light.textColor,
   },
 });
 

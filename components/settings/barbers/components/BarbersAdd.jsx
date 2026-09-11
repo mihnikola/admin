@@ -36,6 +36,7 @@ import usePassword from "@/components/login/hooks/usePassword";
 import usePhoneNumber from "@/components/login/hooks/usePhoneNumber";
 import { SharedInput } from "@/shared-components/SharedInput";
 import SharedBackButton from "@/shared-components/SharedBackButton";
+import { ColorsBarber } from "@/constants/Colors";
 
 export default function BarbersAdd() {
   const { localization } = useLocalization();
@@ -271,7 +272,7 @@ export default function BarbersAdd() {
               <MaterialCommunityIcons
                 name="playlist-plus"
                 size={32}
-                color="#fff"
+                color={ColorsBarber.light.textColor}
               />
             </TouchableOpacity>
           )}
@@ -416,7 +417,13 @@ export default function BarbersAdd() {
         {isMessage && (
           <SharedMessage
             isOpen={isMessage}
-            icon={<FontAwesome name="check-circle-o" size={64} color="white" />}
+            icon={
+              <FontAwesome
+                name="check-circle-o"
+                size={64}
+                color={ColorsBarber.light.textColor}
+              />
+            }
             onClose={confirmMessageHandler}
             onConfirm={confirmMessageHandler}
             buttonText="Ok"
@@ -426,7 +433,13 @@ export default function BarbersAdd() {
         {error?.length > 0 && (
           <SharedMessage
             isOpen={error?.length > 0}
-            icon={<FontAwesome name="close" size={64} color="white" />}
+            icon={
+              <FontAwesome
+                name="close"
+                size={64}
+                color={ColorsBarber.light.textColor}
+              />
+            }
             onClose={confirmErrorMessageHandler}
             onConfirm={confirmErrorMessageHandler}
             buttonText="Ok"
@@ -472,7 +485,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: "#000000",
+    backgroundColor: ColorsBarber.light.background,
   },
   title: {
     fontSize: 22,

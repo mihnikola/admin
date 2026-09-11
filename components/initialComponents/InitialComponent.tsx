@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
 import { StyleSheet, Text, View, useWindowDimensions } from "react-native";
 import Animated, {
-    Extrapolation,
-    interpolate,
-    useAnimatedRef,
-    useAnimatedScrollHandler,
-    useAnimatedStyle,
-    useSharedValue,
+  Extrapolation,
+  interpolate,
+  useAnimatedRef,
+  useAnimatedScrollHandler,
+  useAnimatedStyle,
+  useSharedValue,
 } from "react-native-reanimated";
+import { ColorsBarber } from "@/constants/Colors";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "../Custom/Custom";
@@ -25,9 +26,6 @@ const InitialComponent = () => {
   useEffect(() => {
     getInitialData();
   }, []);
-
-
-
 
   const onViewableItemsChanged = ({ viewableItems }) => {
     if (
@@ -56,7 +54,7 @@ const InitialComponent = () => {
           (index + 1) * SCREEN_WIDTH,
         ],
         [0, 1, 0],
-        Extrapolation.CLAMP
+        Extrapolation.CLAMP,
       );
       const translateYAnimation = interpolate(
         x.value,
@@ -66,7 +64,7 @@ const InitialComponent = () => {
           (index + 1) * SCREEN_WIDTH,
         ],
         [100, 0, 100],
-        Extrapolation.CLAMP
+        Extrapolation.CLAMP,
       );
       return {
         opacity: opacityAnimation,
@@ -85,7 +83,7 @@ const InitialComponent = () => {
           (index + 1) * SCREEN_WIDTH,
         ],
         [0, 1, 0],
-        Extrapolation.CLAMP
+        Extrapolation.CLAMP,
       );
       const translateYAnimation = interpolate(
         x.value,
@@ -95,7 +93,7 @@ const InitialComponent = () => {
           (index + 1) * SCREEN_WIDTH,
         ],
         [100, 0, 100],
-        Extrapolation.CLAMP
+        Extrapolation.CLAMP,
       );
 
       return {
@@ -116,8 +114,6 @@ const InitialComponent = () => {
       </View>
     );
   };
-
-
 
   if (initialData?.length) {
     return (
@@ -172,12 +168,12 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: "bold",
     marginBottom: 10,
-    color: "white",
+    color: ColorsBarber.light.textColor,
   },
   itemText: {
     textAlign: "center",
     marginHorizontal: 35,
-    color: "white",
+    color: ColorsBarber.light.textColor,
     lineHeight: 20,
   },
   bottomContainer: {

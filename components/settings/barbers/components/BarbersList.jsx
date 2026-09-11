@@ -16,7 +16,7 @@ import Loader from "../../../../shared-components/Loader";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
-import { SharedLoader } from "@/shared-components/SharedLoader";
+import { ColorsBarber } from "@/constants/Colors";
 import FloatingButton from "../../FloatingButton";
 import { router } from "expo-router";
 import SharedBackButton from "@/shared-components/SharedBackButton";
@@ -116,7 +116,11 @@ const BarbersList = () => {
                 </View>
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                   <Text style={styles.editHint}>
-                    <FontAwesome name="edit" size={24} color="white" />
+                    <FontAwesome
+                      name="edit"
+                      size={24}
+                      color={ColorsBarber.light.textColor}
+                    />
                   </Text>
                 </View>
               </TouchableOpacity>
@@ -128,7 +132,13 @@ const BarbersList = () => {
       {isMessage && (
         <SharedMessage
           isOpen={isMessage}
-          icon={<FontAwesome name="check-circle-o" size={64} color="white" />}
+          icon={
+            <FontAwesome
+              name="check-circle-o"
+              size={64}
+              color={ColorsBarber.light.textColor}
+            />
+          }
           onClose={confirmHandler}
           onConfirm={confirmHandler}
           buttonText="Ok"
@@ -138,7 +148,13 @@ const BarbersList = () => {
       {isError?.length > 0 && (
         <SharedMessage
           isOpen={isError?.length > 0}
-          icon={<FontAwesome name="close" size={64} color="white" />}
+          icon={
+            <FontAwesome
+              name="close"
+              size={64}
+              color={ColorsBarber.light.textColor}
+            />
+          }
           onClose={cancelHandler}
           onConfirm={cancelHandler}
           buttonText="Ok"
@@ -147,26 +163,26 @@ const BarbersList = () => {
       )}
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: "#000000",
+    backgroundColor: ColorsBarber.light.background,
   },
   avatar: {
     width: 48,
     height: 48,
     borderRadius: 24,
-    backgroundColor: "#333",
+    backgroundColor:ColorsBarber.light.background,
     justifyContent: "center",
     alignItems: "center",
     marginRight: 12,
     position: "relative",
   },
   avatarText: {
-    color: "#fff",
+    color: ColorsBarber.light.textColor,
     fontWeight: "bold",
   },
   searchInputContainer: {
@@ -177,7 +193,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 22,
     fontWeight: "bold",
-    color: "#fff",
+    color: ColorsBarber.light.textColor,
     marginBottom: 10,
   },
   image: {
@@ -187,7 +203,7 @@ const styles = StyleSheet.create({
   subTitle: {
     fontSize: 18,
     fontWeight: "600",
-    color: "#fff",
+    color: ColorsBarber.light.textColor,
     textAlign: "center",
     alignSelf: "center",
     alignItems: "center",
@@ -221,7 +237,7 @@ const styles = StyleSheet.create({
     opacity: 0.4,
   },
   barberItem: {
-    backgroundColor: "#000000",
+    backgroundColor: ColorsBarber.light.item,
     flexDirection: "row",
     justifyContent: "space-between",
     padding: 20,
@@ -229,10 +245,10 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginHorizontal: 15,
     borderWidth: 1,
-    borderColor: "white",
+    borderColor: ColorsBarber.light.inActiveTextColor,
   },
   serviceText: {
-    color: "#fff",
+    color: ColorsBarber.light.textColor,
     fontSize: 15,
   },
   editHint: {

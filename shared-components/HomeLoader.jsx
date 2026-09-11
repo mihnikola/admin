@@ -1,9 +1,10 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 
 const HomeLoader = () => {
   return (
     <View style={styles.container}>
-      <ActivityIndicator size={80} color="#b9b9b9ff" />
+      <ActivityIndicator size={80} color={ColorsBarber.light.textColor} />
     </View>
   );
 };

@@ -1,7 +1,10 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { useCompany } from "@/contexts/CompanyContext";
 import { useLocalization } from "@/contexts/LocalizationContext";
+import SharedBackButton from "@/shared-components/SharedBackButton";
 import SharedTabHeader from "@/shared-components/SharedTabHeader";
 import { FontAwesome } from "@expo/vector-icons";
+import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import {
   FlatList,
@@ -37,7 +40,7 @@ const changeLanguage = () => {
   const handleSearch = (text) => {
     setSearch(text);
     const filtered = LANGUAGES.filter((lang) =>
-      lang.label.toLowerCase().includes(text.toLowerCase())
+      lang.label.toLowerCase().includes(text.toLowerCase()),
     );
     setFilteredLanguages(filtered);
   };
@@ -48,7 +51,8 @@ const changeLanguage = () => {
 
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor="black" barStyle="dark-content" />
+      {/* <StatusBar backgroundColor="white" barStyle="light-content" /> */}
+      <SharedBackButton onPress={router.back} styleBtn={{ marginTop: 10, marginLeft: 10 }} />
 
       <SharedTabHeader
         image={company?.media?.coverImageSettings}
@@ -57,7 +61,7 @@ const changeLanguage = () => {
       <TextInput
         style={styles.search}
         placeholder={localization?.SETTINGS?.changeLanguage.filterCapture}
-        placeholderTextColor="gray"
+        placeholderTextColor={ColorsBarber.light.inActiveTextColor}
         value={search}
         onChangeText={handleSearch}
       />
@@ -73,7 +77,7 @@ const changeLanguage = () => {
             <FontAwesome
               name={localization.code === item.code && "check-circle-o"}
               size={28}
-              color="white"
+              color={ColorsBarber.light.textColor}
             />
           </TouchableOpacity>
         )}
@@ -84,7 +88,7 @@ const changeLanguage = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
   },
   captureContainer: {
     position: "absolute",
@@ -93,18 +97,18 @@ const styles = StyleSheet.create({
   headerImage: {
     width: "100%",
     height: 180,
-    opacity: 0.2,
+    opacity: 0.8,
   },
   capture: {
     fontSize: 25,
-    color: "white",
+    color: ColorsBarber.light.textColor,
     fontWeight: "500",
     paddingVertical: 130,
   },
 
   search: {
-    color: "white",
-    borderColor: "grey",
+    color: ColorsBarber.light.textColor,
+    borderColor: ColorsBarber.light.inActiveTextColor,
     borderWidth: 1,
     borderRadius: 8,
     padding: 10,
@@ -120,14 +124,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: "black",
-    borderWidth:1,
-    borderColor: 'white'
+    backgroundColor: ColorsBarber.light.item,
+    borderWidth: 1,
+    borderColor: ColorsBarber.light.textColor,
   },
   languageText: {
     fontSize: 18,
     fontWeight: "500",
-    color: "#fff",
+    color: ColorsBarber.light.textColor,
   },
 });
 

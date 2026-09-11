@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import React from "react";
 import {
   ActivityIndicator,
@@ -17,7 +18,9 @@ export function SharedButton(props: any) {
       disabled={props.loading || props.disabled}
       onPress={props.onPress}
     >
-      {props.loading && <ActivityIndicator size={24} color="white" />}
+      {props.loading && (
+        <ActivityIndicator size={24} color={ColorsBarber.light.textColor} />
+      )}
       {!props.loading && (
         <Text
           style={[styles.btnText, props.disabled && styles.btnTextDisabled]}
@@ -31,13 +34,13 @@ export function SharedButton(props: any) {
 
 const styles = StyleSheet.create({
   btnText: {
-    color: "#fff",
+    color: ColorsBarber.light.textColor,
     fontSize: 18,
     fontWeight: "bold",
   },
   btnDisabled: {
     borderColor: "grey",
-    backgroundColor: "rgb(82, 81, 81)",
+    backgroundColor: ColorsBarber.light.background,
   },
   btnTextDisabled: {
     color: "rgb(32, 32, 32)",
@@ -46,13 +49,13 @@ const styles = StyleSheet.create({
   },
 
   btn: {
-    backgroundColor: "#1C1C1E",
+    backgroundColor: ColorsBarber.light.item,
     paddingVertical: 15,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: "white",
+    borderColor: ColorsBarber.light.textColor,
     alignItems: "center",
-    justifyContent: "center", 
+    justifyContent: "center",
     marginTop: 20,
     marginBottom: 30,
     minHeight: 50,

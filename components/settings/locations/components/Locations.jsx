@@ -17,6 +17,7 @@ import SharedBackButton from "@/shared-components/SharedBackButton";
 import { Ionicons } from "@expo/vector-icons";
 import SearchInputComponent from "../../SearchInputComponent";
 import withKeyboardAvoid from "@/wrapper/WrapperKeyboard";
+import { ColorsBarber } from "@/constants/Colors";
 
 const Locations = () => {
   const { localization } = useLocalization();
@@ -83,13 +84,13 @@ const Locations = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#000",
+    backgroundColor:ColorsBarber.light.background,
   },
   content: {
     padding: 20,
   },
   notFound: {
-    color: "white",
+   color:ColorsBarber.light.textColor,
     textAlign: "center",
     fontSize: 20,
     marginTop: 20,
@@ -104,7 +105,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: "600",
-    color: "#fff",
+       color: ColorsBarber.light.textColor,
+
     textAlign: "center",
     alignSelf: "center",
     alignItems: "center",

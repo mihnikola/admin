@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { MaterialIcons } from "@expo/vector-icons";
 import { StyleSheet, TouchableOpacity } from "react-native";
 
@@ -8,7 +9,7 @@ const SharedBackButton = ({ onPress, styleBtn, absolutePosition = true }) => {
       hitSlop={20}
       onPress={onPress}
     >
-      <MaterialIcons name="arrow-back" size={25} color="white" />
+      <MaterialIcons name="arrow-back" size={25} color={ColorsBarber.light.textColor}   />
     </TouchableOpacity>
   );
 };

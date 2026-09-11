@@ -11,6 +11,8 @@ import { router, useLocalSearchParams } from "expo-router";
 import ServiceInput from "./ServiceInput";
 import SharedButtonRejected from "@/shared-components/SharedButtonRejected";
 import SharedButtonApproved from "@/shared-components/SharedButtonApproved";
+import { ColorsBarber } from "@/constants/Colors";
+import SharedBackButton from "@/shared-components/SharedBackButton";
 
 export default function AddService() {
   const { localization } = useLocalization();
@@ -71,7 +73,7 @@ export default function AddService() {
     }
   }, [getServiceData]);
 
-  console.log("changedImg",changedImg)
+  console.log("changedImg", changedImg);
   const validationData = () => {
     if (
       getServiceData?.id === editingId &&
@@ -156,6 +158,7 @@ export default function AddService() {
 
   return (
     <View style={styles.container}>
+
       <ScrollView
         ref={scrollRef}
         keyboardDismissMode="interactive"
@@ -167,6 +170,8 @@ export default function AddService() {
         }}
         keyboardShouldPersistTaps="always"
       >
+      <SharedBackButton onPress={router.back} absolutePosition={false} styleBtn={{marginTop:20}} />
+
         <View style={{ flex: 3 }}>
           <View style={styles.containerImage}>
             <ImageCompress
@@ -269,7 +274,13 @@ export default function AddService() {
       {isMessage && (
         <SharedMessage
           isOpen={isMessage}
-          icon={<FontAwesome name="check-circle-o" size={64} color="white" />}
+          icon={
+            <FontAwesome
+              name="check-circle-o"
+              size={64}
+              color={ColorsBarber.light.textColor}
+            />
+          }
           onClose={confirmMessageHandler}
           onConfirm={confirmMessageHandler}
           buttonText="Ok"
@@ -282,7 +293,11 @@ export default function AddService() {
           onClose={removeCancelHandler}
           onLogOut={removeConfirmHandler}
           icon={
-            <FontAwesome name="question-circle-o" size={64} color="white" />
+            <FontAwesome
+              name="question-circle-o"
+              size={64}
+              color={ColorsBarber.light.textColor}
+            />
           }
           title={localization.SERVICES.question}
           buttonTextYes={localization.SERVICES.confirmButton}
@@ -292,7 +307,13 @@ export default function AddService() {
       {error?.length > 0 && (
         <SharedMessage
           isOpen={error?.length > 0}
-          icon={<FontAwesome name="close" size={64} color="white" />}
+          icon={
+            <FontAwesome
+              name="close"
+              size={64}
+              color={ColorsBarber.light.textColor}
+            />
+          }
           onClose={confirmErrorMessageHandler}
           onConfirm={confirmErrorMessageHandler}
           buttonText="Ok"
@@ -316,7 +337,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: "#000000",
+    backgroundColor: ColorsBarber.light.background,
   },
   title: {
     fontSize: 22,
@@ -336,8 +357,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   input: {
-    backgroundColor: "#1e1e1e",
-    color: "#fff",
+    backgroundColor: ColorsBarber.light.item,
+    color: ColorsBarber.light.textColor,
     padding: 10,
     marginBottom: 10,
     borderRadius: 8,

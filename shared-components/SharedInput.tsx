@@ -1,13 +1,14 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { useState } from "react";
 import {
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
 
-export function SharedInput(props: any){
+export function SharedInput(props: any) {
   const [isFocused, setIsFocused] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const togglePasswordVisibility = () => {
@@ -28,7 +29,6 @@ export function SharedInput(props: any){
         {!props.stylePassword && (
           <Text style={styles.inputLabel}>{props.label}</Text>
         )}
-       
 
         <TextInput
           {...props}
@@ -39,7 +39,7 @@ export function SharedInput(props: any){
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           secureTextEntry={props.stylePassword && !isPasswordVisible}
-          placeholderTextColor="grey"
+          placeholderTextColor={ColorsBarber.light.inActiveTextColor}
         />
         {props.stylePassword && !props.dataDetectorTypes && (
           <TouchableOpacity
@@ -57,10 +57,10 @@ export function SharedInput(props: any){
       ) : null}
     </>
   );
-};
+}
 const styles = StyleSheet.create({
   prefixText: {
-    color: "black",
+    color: ColorsBarber.light.item,
     fontSize: 16,
     marginRight: 8,
     fontWeight: "medium", // Make prefix stand out
@@ -87,4 +87,3 @@ const styles = StyleSheet.create({
     borderRadius: 2, // Slightly rounded corners for the flag
   },
 });
-
