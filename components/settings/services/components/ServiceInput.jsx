@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.light.inputField,
     borderRadius: 16,
     padding: 12,
     marginBottom: 7,
@@ -57,12 +57,14 @@ const styles = StyleSheet.create({
     color: ColorsBarber.light.textColor,
     fontSize: 12,
     marginBottom: 2,
+    fontFamily: "OldStandard-Bold",
   },
 
   input: {
     color: ColorsBarber.light.textColor,
     fontSize: 16,
     padding: 0,
+    fontFamily: "OldStandard-Regular",
   },
 });
 

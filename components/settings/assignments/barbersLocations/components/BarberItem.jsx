@@ -27,7 +27,11 @@ export default function BarberItem({ item, toggleBarber }) {
 
       <View style={styles.actionButton}>
         {item.flag === "T" && (
-          <FontAwesome name="check-circle" size={32} color={ColorsBarber.light.textColor} />
+          <FontAwesome
+            name="check-circle"
+            size={32}
+            color={ColorsBarber.light.textColor}
+          />
         )}
       </View>
     </TouchableOpacity>
@@ -36,7 +40,7 @@ export default function BarberItem({ item, toggleBarber }) {
 
 const styles = StyleSheet.create({
   barberItem: {
-    backgroundColor: "#1E1E1E", // Tamnija siva za nedodeljene
+    backgroundColor: ColorsBarber.light.item,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -65,15 +69,15 @@ const styles = StyleSheet.create({
   avatar: {
     width: 50,
     height: 50,
-    borderRadius: 25,
-    backgroundColor: "#333",
+    borderRadius: 50,
+    backgroundColor: ColorsBarber.light.background,
     justifyContent: "center",
     alignItems: "center",
     marginRight: 12,
   },
   avatarText: {
-    color: "#fff",
-    fontWeight: "bold",
+    color: ColorsBarber.light.inActiveTextColor,
+    fontFamily: "OldStandard-Regular",
     fontSize: 16,
   },
   barberPositionDeatils: {
@@ -86,14 +90,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   barberName: {
-    color: "#fff",
-    fontSize: 17,
-    fontWeight: "600",
+    color: ColorsBarber.light.textColor,
+    fontSize: 16,
     marginBottom: 2,
+    fontFamily: "OldStandard-Regular",
   },
   barberSeniority: {
-    color: "#AAA", // Svetlija siva za titulu
+    color: ColorsBarber.light.textColor,
     fontSize: 14,
+    fontFamily: "OldStandard-Regular",
   },
   actionButton: {
     width: 36,

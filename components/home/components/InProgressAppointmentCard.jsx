@@ -2,6 +2,7 @@ import { router } from "expo-router";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { convertReadDateTime } from "../../../helpers";
+import { ColorsBarber } from "@/constants/Colors";
 
 export default function InProgressAppointmentCard({ data }) {
   const { user, service, place, startDate, endDate, arrived } = data;
@@ -19,7 +20,6 @@ export default function InProgressAppointmentCard({ data }) {
     });
   };
 
-
   return (
     <TouchableOpacity
       activeOpacity={0.8}
@@ -33,7 +33,9 @@ export default function InProgressAppointmentCard({ data }) {
         </View>
       </View>
 
-      <Text style={styles.datetime}>{convertReadDateTime(startDate, endDate)}</Text>
+      <Text style={styles.datetime}>
+        {convertReadDateTime(startDate, endDate)}
+      </Text>
 
       {/* {place?.address && <Text style={styles.location}>{place?.address}</Text>} */}
     </TouchableOpacity>
@@ -41,7 +43,7 @@ export default function InProgressAppointmentCard({ data }) {
 }
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#222224",
+    backgroundColor: ColorsBarber.light.item,
     borderRadius: 16,
     padding: 16,
     marginHorizontal: 15,
@@ -52,18 +54,18 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   upcomingCard: {
-    backgroundColor: "#b1b1b1",
+    backgroundColor: ColorsBarber.light.item,
     borderRadius: 16,
     padding: 16,
     borderWidth: 1,
     borderColor: "#e2d6d6",
   },
   pendingCard: {
-    backgroundColor: "#494949",
+    backgroundColor: ColorsBarber.light.background,
     borderRadius: 16,
     padding: 16,
     borderWidth: 1,
-    borderColor: "#D4D4D4",
+    borderColor: ColorsBarber.light.inActiveTextColor,
   },
   upcomingBadge: {
     backgroundColor: "#111111",
@@ -77,8 +79,6 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
 
-
-
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -86,13 +86,14 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 16,
-    fontWeight: "600",
-    color: "#fff",
+    fontFamily: "OldStandard-Bold",
+    color: ColorsBarber.light.textColor,
   },
   datetime: {
     marginTop: 8,
     fontSize: 14,
-    color: "#fff",
+    fontFamily: "OldStandard-Bold",
+    color: ColorsBarber.light.textColor,
   },
   location: {
     marginTop: 4,
@@ -105,18 +106,18 @@ const styles = StyleSheet.create({
     borderRadius: 30,
   },
   badgeText: {
-    fontSize: 12,
-    fontWeight: "500",
-    color: "#fff",
+    fontSize: 15,
+    fontFamily: "OldStandard-Bold",
+    color: ColorsBarber.light.textColor,
   },
   upcoming: {
-    backgroundColor: "#858585",
+    backgroundColor: ColorsBarber.light.background,
   },
   completed: {
     backgroundColor: "#10B981",
   },
   inProgress: {
-    backgroundColor: "#858585",
+    backgroundColor: ColorsBarber.light.item,
   },
   cancelled: {
     backgroundColor: "#EF4444",

@@ -1,5 +1,9 @@
 import { StyleSheet, Text, View } from "react-native";
-import { convertTimeHandler, convertToDay, convertToMonthName } from "./../../../helpers";
+import {
+  convertTimeHandler,
+  convertToDay,
+  convertToMonthName,
+} from "./../../../helpers";
 import { ColorsBarber } from "@/constants/Colors";
 
 const DateFormatComponent = ({ item }) => {
@@ -20,26 +24,20 @@ const DateFormatComponent = ({ item }) => {
 
 const styles = StyleSheet.create({
   dateContainer: {
-    borderWidth: 1,
-    borderColor: "white",
-    borderLeftWidth: 3,
-    borderLeftColor: "green",
-    display: "flex",
     justifyContent: "center",
     alignItems: "center",
     padding: 10,
   },
   captureDate: {
     fontSize: 18,
-   color:ColorsBarber.light.textColor,
+    color: ColorsBarber.light.textColor,
     textAlign: "center",
-    fontWeight: "500",
+    fontFamily: "OldStandard-Bold",
   },
-
   captureDateBold: {
     fontSize: 20,
-   color:ColorsBarber.light.textColor,
-    fontWeight: "900",
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Bold",
   },
 });
 

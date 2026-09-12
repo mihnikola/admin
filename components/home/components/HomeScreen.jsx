@@ -61,6 +61,7 @@ export default function HomeScreen() {
     router.push("/(tabs)/(01_home)/absence");
   };
 
+
   if (company) {
     return (
       <View style={styles.container}>
@@ -79,7 +80,11 @@ export default function HomeScreen() {
                 onPress={calendarHandler}
                 style={styles.btnLocationContent}
               >
-                <FontAwesome name="calendar" size={20} color={ColorsBarber.light.textColor} />
+                <FontAwesome
+                  name="calendar"
+                  size={20}
+                  color={ColorsBarber.light.textColor}
+                />
 
                 <View style={styles.locationContent}>
                   <Text style={styles.titleLocation}>
@@ -87,14 +92,22 @@ export default function HomeScreen() {
                   </Text>
                 </View>
 
-                <FontAwesome name="chevron-right" size={28} color={ColorsBarber.light.textColor} />
+                <FontAwesome
+                  name="chevron-right"
+                  size={28}
+                  color={ColorsBarber.light.textColor}
+                />
               </TouchableOpacity>
 
               <TouchableOpacity
                 onPress={requirementsHandler}
                 style={styles.btnLocationContent}
               >
-                <FontAwesome name="paper-plane" size={22} color={ColorsBarber.light.textColor} />
+                <FontAwesome
+                  name="paper-plane"
+                  size={22}
+                  color={ColorsBarber.light.textColor}
+                />
 
                 <View style={styles.locationContent}>
                   <Text style={styles.titleLocation}>
@@ -107,21 +120,33 @@ export default function HomeScreen() {
                     <Text style={styles.badgeText}>{requirementsLength}</Text>
                   </View>
                 )}
-                <FontAwesome name="chevron-right" size={28} color={ColorsBarber.light.textColor} />
+                <FontAwesome
+                  name="chevron-right"
+                  size={28}
+                  color={ColorsBarber.light.textColor}
+                />
               </TouchableOpacity>
               {absenceData?.length > 0 && (
                 <TouchableOpacity
                   onPress={absenceHandler}
                   style={styles.btnLocationContent}
                 >
-                  <Ionicons name="swap-vertical" size={24} color={ColorsBarber.light.textColor} />
+                  <Ionicons
+                    name="swap-vertical"
+                    size={24}
+                    color={ColorsBarber.light.textColor}
+                  />
                   <View style={styles.locationContent}>
                     <Text style={styles.titleLocation}>
                       {localization.HOME.absenceManager}
                     </Text>
                   </View>
 
-                  <FontAwesome name="chevron-right" size={28} color={ColorsBarber.light.textColor} />
+                  <FontAwesome
+                    name="chevron-right"
+                    size={28}
+                    color={ColorsBarber.light.textColor}
+                  />
                 </TouchableOpacity>
               )}
             </View>
@@ -148,7 +173,7 @@ const styles = StyleSheet.create({
     minWidth: 22,
     height: 22,
     borderRadius: 11,
-    backgroundColor: "#EF4444",
+    backgroundColor: ColorsBarber.light.textColor,
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 6,
@@ -158,13 +183,13 @@ const styles = StyleSheet.create({
   },
 
   badgeText: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.light.background,
     fontSize: 12,
     fontWeight: "600",
   },
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.light.background,
   },
 
   boxBook: {
@@ -199,6 +224,7 @@ const styles = StyleSheet.create({
   titleLocation: {
     fontSize: 22,
     color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Bold",
     textAlign: "center",
   },
 

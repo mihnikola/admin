@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   capture: {
     fontSize: 32,
     color: ColorsBarber.light.textColor,
-    fontWeight: "800",
+    fontFamily: "OldStandard-Bold",
     paddingVertical: 143,
   },
 });

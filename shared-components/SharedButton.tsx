@@ -36,16 +36,18 @@ const styles = StyleSheet.create({
   btnText: {
     color: ColorsBarber.light.textColor,
     fontSize: 18,
-    fontWeight: "bold",
+    fontFamily: "OldStandard-Bold", // Ključ iz useFonts
   },
   btnDisabled: {
-    borderColor: "grey",
+    borderColor: ColorsBarber.light.inActiveTextColor,
     backgroundColor: ColorsBarber.light.background,
   },
   btnTextDisabled: {
     color: "rgb(32, 32, 32)",
     fontSize: 18,
     fontWeight: "bold",
+    fontFamily: "OldStandard-Bold",
+
   },
 
   btn: {

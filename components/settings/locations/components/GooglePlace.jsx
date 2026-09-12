@@ -177,6 +177,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     padding: 20,
     borderRadius: 8,
+    fontFamily: "OldStandard-Bold",
   },
   searchInputContainer: {
     marginHorizontal: 0,
@@ -187,7 +188,9 @@ const styles = StyleSheet.create({
     backgroundColor: ColorsBarber.light.item,
     borderRadius: 8,
     marginTop: 5,
+    fontFamily: "OldStandard-Bold",
   },
-  item: { padding: 10, borderBottomColor: "#444", borderBottomWidth: 1 },
-  itemText: { color:ColorsBarber.light.textColor },
+  item: { padding: 10, borderBottomColor: "#444", borderBottomWidth: 1,fontFamily: "OldStandard-Bold", },
+    
+  itemText: { color:ColorsBarber.light.textColor, fontFamily: "OldStandard-Bold",},
 });

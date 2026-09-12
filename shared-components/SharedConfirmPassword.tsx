@@ -63,20 +63,20 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 2,
 
-    borderColor: "#333",
+    borderColor: ColorsBarber.light.inActiveTextColor,
   },
   passwordInput: {
-    backgroundColor: "white", // Dark input background
+    backgroundColor: "white", 
     color: ColorsBarber.light.item,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
-    borderWidth: 2,
-    borderColor: "white",
     width: "80%",
+    fontFamily:"OldStandard-Bold",
   },
   inputLabel: {
-    color: "#ccc",
+    color: ColorsBarber.light.textColor,
+    fontFamily:"OldStandard-Bold",
     fontSize: 14,
     marginTop: 10,
   },
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     color: "red",
   },
   textInputFocused: {
-    borderColor: "#2596be",
+    borderColor:  ColorsBarber.light.textColor,
   },
   passwordToggle: {
     padding: 10,

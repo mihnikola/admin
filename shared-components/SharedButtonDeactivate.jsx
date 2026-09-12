@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import {
   Text,
   TouchableOpacity,
@@ -13,17 +14,19 @@ const SharedButtonDeactivate = (props) => {
       onPress={props.onPress}
     >
       {!props.loading && <Text style={styles.btnText}>{props.text}</Text>}
-      {props.loading && <ActivityIndicator size={25} color={ColorsBarber.light.textColor} />}
+      {props.loading && (
+        <ActivityIndicator size={25} color={ColorsBarber.light.textColor} />
+      )}
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   btnText: {
-    color: "#FFFFFF",
-    fontSize: 16,
-    fontWeight: "600",
+    color: ColorsBarber.light.item,
+    fontSize: 18,
     letterSpacing: 0.5,
+    fontFamily: "OldStandard-Bold",
   },
 
   btn: {
@@ -34,7 +37,7 @@ const styles = StyleSheet.create({
     borderColor: "white",
     alignItems: "center",
     padding: 60,
+    fontFamily: "OldStandard-Bold",
   },
- 
 });
 export default SharedButtonDeactivate;

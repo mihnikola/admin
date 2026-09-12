@@ -60,30 +60,30 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 8,
     borderWidth: 2,
-
-    borderColor: "#333",
+    borderColor: ColorsBarber.light.inActiveTextColor,
   },
   passwordInput: {
-    backgroundColor: "white", // Dark input background
     color: ColorsBarber.light.item,
+    fontFamily: "OldStandard-Bold", // Ključ iz useFonts
+    
     padding: 15,
-    borderRadius: 8,
+    // borderRadius: 8,
     fontSize: 16,
-    borderWidth: 2,
-    borderColor: "white",
     width: "80%",
   },
   inputLabel: {
-    color: "#ccc",
+    color: ColorsBarber.light.textColor,
     fontSize: 14,
     marginBottom: 8,
     marginTop: 15,
+    fontFamily: "OldStandard-Bold", // Ključ iz useFonts
+
   },
   errorText: {
     color: "red",
   },
   textInputFocused: {
-    borderColor: "#2596be",
+    borderColor: ColorsBarber.light.textColor,
   },
   passwordToggle: {
     padding: 10,

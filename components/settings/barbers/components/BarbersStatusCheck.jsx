@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.light.inputField,
 
     borderRadius: 16,
     padding: 16,

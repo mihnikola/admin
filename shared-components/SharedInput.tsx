@@ -66,16 +66,19 @@ const styles = StyleSheet.create({
     fontWeight: "medium", // Make prefix stand out
   },
   inputLabel: {
-    color: "#ccc",
+    color: ColorsBarber.light.textColor,
     fontSize: 14,
     marginBottom: 8,
     marginTop: 15,
+    fontFamily: "OldStandard-Bold", // Ključ iz useFonts
   },
   errorText: {
     color: "red",
+    fontFamily: "OldStandard-Bold", // Ključ iz useFonts
+
   },
   textInputFocused: {
-    borderColor: "#2596be",
+    borderColor: ColorsBarber.light.inActiveTextColor,
   },
   passwordToggle: {
     padding: 10,

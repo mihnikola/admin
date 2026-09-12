@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import React from "react";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { getInitialsName } from "@/helpers";
+import { ColorsBarber } from "@/constants/Colors";
 
 const SharedDetailsCustomerCard = ({ user, note }) => {
   const { image, name, _id: id } = user;
@@ -31,7 +32,7 @@ const SharedDetailsCustomerCard = ({ user, note }) => {
 
 const styles = StyleSheet.create({
   avatarContainer: {
-    backgroundColor: "#000",
+    backgroundColor: ColorsBarber.light.background,
     width: 90,
     height: 90,
     borderRadius: 30,
@@ -40,13 +41,13 @@ const styles = StyleSheet.create({
     justifyContent:"center"
   },
   avatarText: {
-    color: "#fff",
+    color: ColorsBarber.light.textColor,
     fontWeight: "bold",
     fontSize: 30,
   },
   card: {
     flexDirection: "row",
-    backgroundColor: "#1E1E1E",
+    backgroundColor: ColorsBarber.light.item,
     borderRadius: 12,
     padding: 15,
     marginVertical: 8,
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     marginRight: 15,
     borderWidth: 1,
-    borderColor: "#333",
+    color: ColorsBarber.light.inActiveTextColor,
   },
   detailsContainer: {
     flex: 1,
@@ -78,7 +79,7 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#FFFFFF",
+    color: ColorsBarber.light.textColor,
     marginBottom: 4,
   },
   locationContainer: {
@@ -88,7 +89,7 @@ const styles = StyleSheet.create({
   },
   locationText: {
     fontSize: 14,
-    color: "#CCCCCC",
+    color: ColorsBarber.light.textColor,
   },
   ratingContainer: {
     gap: 5,
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
 
   note: {
     fontSize: 14,
-    color: "#CCCCCC",
+    color: ColorsBarber.light.textColor,
   },
 });
 

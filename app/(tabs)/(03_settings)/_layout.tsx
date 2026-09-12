@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { Stack } from "expo-router";
 
 const headerOptions = {
@@ -14,7 +15,14 @@ const headerOptionsFalse = {
 
 export default function RootLayoutBarbers() {
   return (
-    <Stack screenOptions={{ headerShown: false }}>
+    <Stack
+      screenOptions={{
+        headerShown: false,
+        contentStyle: {
+          backgroundColor: ColorsBarber.light.background, // Fiksira pozadinu same tranzicije
+        },
+      }}
+    >
       <Stack.Screen name="index" />
       <Stack.Screen name="settings" />
       <Stack.Screen name="changeLanguage" options={headerOptionsFalse} />
@@ -23,9 +31,9 @@ export default function RootLayoutBarbers() {
       <Stack.Screen name="serviceManager" options={headerOptionsFalse} />
       <Stack.Screen name="locationManager" options={headerOptionsFalse} />
 
-      <Stack.Screen name="absentManager" options={headerOptions} />
+      <Stack.Screen name="absentManager" options={headerOptionsFalse} />
       <Stack.Screen name="absenceManagerList" options={headerOptionsFalse} />
-      <Stack.Screen name="timeManagement" options={headerOptions} />
+      <Stack.Screen name="timeManagement" options={headerOptionsFalse} />
 
       <Stack.Screen name="locationManagement" options={headerOptionsFalse} />
 

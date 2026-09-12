@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useLocalization } from "@/contexts/LocalizationContext";
+import { ColorsBarber } from "@/constants/Colors";
 
 function DateAbsentComponent({
   setShowDate,
@@ -66,14 +67,15 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 30,
     marginHorizontal: 10,
-    backgroundColor: "#000000",
+    backgroundColor: ColorsBarber.light.item,
     borderWidth: 1,
-    borderColor: "#838383",
+    borderColor: ColorsBarber.light.inActiveTextColor,
     borderRadius: 15,
   },
   dateText: {
-    fontSize: 14,
-    color: "#fff",
+    fontSize: 15,
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Regular",
   },
 });
 

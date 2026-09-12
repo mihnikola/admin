@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: ColorsBarber.light.textColor,
     marginBottom: 8,
-    fontWeight: "500",
+    fontFamily: "OldStandard-Bold",
   },
   stepperWrapper: {
     flexDirection: "row",
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   valueText: {
     fontSize: 20,
     color: ColorsBarber.light.textColor,
-    fontWeight: "700",
+    fontFamily: "OldStandard-Bold",
     letterSpacing: 0.5,
     paddingRight: 50,
   },

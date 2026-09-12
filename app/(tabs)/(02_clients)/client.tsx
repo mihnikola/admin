@@ -178,8 +178,8 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   avatarText: {
-    color: "#fff",
-    fontWeight: "bold",
+    color: ColorsBarber.light.textColor,
+    fontFamily:"OldStandard-Bold",
     fontSize: 30,
   },
   profileImage: {
@@ -207,6 +207,8 @@ const styles = StyleSheet.create({
   },
   navText: {
     color: ColorsBarber.light.textColor,
+    fontFamily:"OldStandard-Bold",
+
     fontSize: 16,
     marginLeft: 5,
   },
@@ -223,19 +225,24 @@ const styles = StyleSheet.create({
   nameText: {
     color: ColorsBarber.light.textColor,
     fontSize: 24,
-    fontWeight: "bold",
+    fontFamily:"OldStandard-Bold",
     marginTop: 10,
   },
   actionButtonsContainer: {
+    fontFamily:"OldStandard-Bold",
+
     flexDirection: "row",
     justifyContent: "space-around",
     paddingVertical: 15,
   },
   actionButton: {
     alignItems: "center",
+    fontFamily:"OldStandard-Bold",
+
   },
   actionText: {
     color: ColorsBarber.light.textColor,
+    fontFamily:"OldStandard-Bold",
     fontSize: 12,
     marginTop: 5,
   },
@@ -247,6 +254,8 @@ const styles = StyleSheet.create({
     color: ColorsBarber.light.textColor,
     fontSize: 14,
     marginBottom: 10,
+    fontFamily:"OldStandard-Bold",
+
   },
   statItem: {
     flexDirection: "row",
@@ -256,10 +265,14 @@ const styles = StyleSheet.create({
   statLabel: {
     color: ColorsBarber.light.textColor,
     fontSize: 16,
+    fontFamily:"OldStandard-Bold",
+
   },
   statValue: {
     color: ColorsBarber.light.textColor,
     fontSize: 16,
+    fontFamily:"OldStandard-Bold",
+
   },
   totalIncome: {
     flexDirection: "row",
@@ -269,7 +282,7 @@ const styles = StyleSheet.create({
   incomeValue: {
     color: ColorsBarber.light.textColor,
     fontSize: 16,
-    fontWeight: "bold",
+    fontFamily:"OldStandard-Bold",
   },
   divider: {
     height: 1,
@@ -287,6 +300,8 @@ const styles = StyleSheet.create({
   contactText: {
     color: ColorsBarber.light.textColor,
     fontSize: 16,
+    fontFamily:"OldStandard-Bold",
+
   },
 });
 

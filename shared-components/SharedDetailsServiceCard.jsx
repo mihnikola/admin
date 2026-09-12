@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   },
   card: {
     flexDirection: "row",
-    backgroundColor: "#1E1E1E",
+    backgroundColor: ColorsBarber.light.item,
     borderRadius: 12,
     padding: 15,
     marginVertical: 8,
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#FFFFFF", // White text color
+    color: ColorsBarber.light.textColor,
     marginBottom: 4,
   },
   locationContainer: {
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
   },
   locationText: {
     fontSize: 14,
-    color: "#CCCCCC", // Lighter grey for location
+    color: ColorsBarber.light.textColor,
     marginLeft: 5,
   },
   ratingContainer: {
@@ -111,12 +111,12 @@ const styles = StyleSheet.create({
   ratingText: {
     fontSize: 14,
     fontWeight: "bold",
-    color: "#FFD700", // Gold color for rating number
+    color: ColorsBarber.light.textColor,
     marginLeft: 5,
   },
   reviewText: {
     fontSize: 14,
-    color: "#CCCCCC", // Lighter grey for review count
+    color: ColorsBarber.light.textColor,
     marginLeft: 5,
   },
 });

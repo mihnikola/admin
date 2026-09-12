@@ -21,20 +21,21 @@ const SharedButtonRejected = (props) => {
 
 const styles = StyleSheet.create({
   btnText: {
-    color: "#fff",
-    fontSize: 18,
-    fontWeight: "bold",
+    color: ColorsBarber.light.item,
+    fontSize: 20,
+    fontFamily: "OldStandard-Bold",
+
+
   },
 
   btn: {
-    backgroundColor: "#B22222", // Elegantnija tamno crvena
+    backgroundColor: "#aa2323", // Elegantnija tamno crvena
     paddingVertical: 15,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: "white",
+    borderColor:ColorsBarber.light.inActiveTextColor,
     alignItems: "center",
 
-    borderColor: "white",
     alignItems: "center",
     justifyContent: "center",
     minHeight: 50,

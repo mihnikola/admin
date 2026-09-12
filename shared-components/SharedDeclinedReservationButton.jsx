@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import {
   Text,
   TouchableOpacity,
@@ -13,27 +14,28 @@ const SharedDeclinedReservationButton = (props) => {
       onPress={props.onPress}
     >
       {!props.loading && <Text style={styles.btnText}>{props.text}</Text>}
-      {props.loading && <ActivityIndicator size={24} color={ColorsBarber.light.textColor} />}
+      {props.loading && (
+        <ActivityIndicator size={24} color={ColorsBarber.light.textColor} />
+      )}
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   btnText: {
-    color: "#fff",
+    color: ColorsBarber.light.inActiveTextColor,
     fontSize: 18,
-    fontWeight: "bold",
+    fontFamily: "OldStandard-Bold",
   },
 
   btn: {
-    backgroundColor: "#B22222", // Elegantnija tamno crvena
+    backgroundColor: ColorsBarber.light.textColor,
     paddingVertical: 15,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: "white",
+    borderColor: ColorsBarber.light.inActiveTextColor,
     alignItems: "center",
     padding: 40,
-    borderColor: "white",
     alignItems: "center",
     justifyContent: "center",
     minHeight: 50,

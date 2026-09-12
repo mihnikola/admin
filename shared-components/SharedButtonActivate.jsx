@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import {
   Text,
   TouchableOpacity,
@@ -20,9 +21,9 @@ const SharedButtonActivate = (props) => {
 
 const styles = StyleSheet.create({
   btnText: {
-    color: "#494949",
+    color: ColorsBarber.light.textColor,
     fontSize: 16,
-    fontWeight: "600",
+    fontFamily:"OldStandard-Bold",
     letterSpacing: 0.5,
   },
 
@@ -34,8 +35,8 @@ const styles = StyleSheet.create({
     padding: 60,
     backgroundColor: "transparent",
     borderWidth: 1.5,
-    borderColor: "#FFFFFF",
-    backgroundColor:"#d3ddd7"
+    borderColor: ColorsBarber.light.inActiveTextColor,
+    backgroundColor:ColorsBarber.light.item,
   },
 });
 export default SharedButtonActivate;

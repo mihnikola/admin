@@ -200,9 +200,10 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 22,
-    fontWeight: "bold",
     color:  ColorsBarber.light.textColor,
     marginBottom: 10,
+    fontFamily: "OldStandard-Bold",
+
   },
   image: {
     width: 60,
@@ -210,7 +211,7 @@ const styles = StyleSheet.create({
   },
   subTitle: {
     fontSize: 18,
-    fontWeight: "600",
+    fontFamily: "OldStandard-Bold",
     color:  ColorsBarber.light.textColor,
     marginTop: 20,
     marginBottom: 10,
@@ -221,6 +222,8 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 10,
     borderRadius: 8,
+    fontFamily: "OldStandard-Bold",
+
   },
   button: {
     backgroundColor: ColorsBarber.light.item,
@@ -230,10 +233,14 @@ const styles = StyleSheet.create({
     borderColor: "white",
     borderWidth: 1,
     margin: 20,
+    fontFamily: "OldStandard-Bold",
+
   },
 
   cancelButton: {
     backgroundColor: "#525252",
+    fontFamily: "OldStandard-Bold",
+
   },
 
   serviceItem: {
@@ -243,14 +250,20 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 8,
     marginBottom: 10,
+    fontFamily: "OldStandard-Bold",
+
   },
   serviceText: {
     color: "#fff",
     fontSize: 15,
+    fontFamily: "OldStandard-Bold",
+
   },
   editHint: {
     fontSize: 12,
     color: "#aaa",
     padding: 8,
+    fontFamily: "OldStandard-Bold",
+
   },
 });

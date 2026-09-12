@@ -39,6 +39,8 @@ const LocationItem = ({ item, startEditing }) => {
 const styles = StyleSheet.create({
   address: {
     color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Bold",
+
     padding: 10,
   },
   editHint: {
@@ -63,6 +65,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginVertical: 5,
     borderColor: ColorsBarber.light.inActiveTextColor,
+    fontFamily: "OldStandard-Bold",
+
   },
   itemBarber: {
     marginVertical: 8,
@@ -77,9 +81,13 @@ const styles = StyleSheet.create({
   },
   deactivated: {
     borderColor: ColorsBarber.light.inActiveTextColor,
+    fontFamily: "OldStandard-Bold",
+
   },
   deactivatedText: {
     color: ColorsBarber.light.inActiveTextColor,
+    fontFamily: "OldStandard-Bold",
+
   },
   undo: {
     fontSize: 12,

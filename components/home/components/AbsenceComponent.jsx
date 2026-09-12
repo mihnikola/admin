@@ -23,7 +23,10 @@ export default function AbsenceComponent() {
   }
   return (
     <View style={styles.container}>
-      <SharedBackButton onPress={router.back} styleBtn={{ marginTop: 20 }} />
+      <SharedBackButton
+        onPress={router.back}
+        styleBtn={{ marginTop: 20, marginLeft: 10 }}
+      />
       <View style={styles.header}>
         <Text style={styles.subTitle}>{localization.HOME.listAbsence}</Text>
       </View>
@@ -46,28 +49,18 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    paddingTop: 20,
+    paddingVertical: 20,
     backgroundColor: ColorsBarber.light.background,
-    margin: 15,
+    paddingHorizontal: 15,
   },
   header: {
     marginVertical: 20,
   },
   subTitle: {
     fontSize: 18,
-    fontWeight: "600",
-    color:  ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Bold",
+    color: ColorsBarber.light.textColor,
     textAlign: "center",
   },
-  card: {
-    backgroundColor: ColorsBarber.light.background,
-    flex: 1,
-    flexDirection: "column",
-  },
-  capture: {
-    fontSize: 20,
-    textAlign: "center",
-    fontWeight: "900",
-    color:  ColorsBarber.light.textColor,
-  },
+ 
 });

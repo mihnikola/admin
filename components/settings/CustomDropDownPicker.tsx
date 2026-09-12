@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 18,
     color: ColorsBarber.light.textColor,
-    fontWeight: "bold",
+    fontFamily: "OldStandard-Bold",
   },
   placeholder: {
     color: "#ffffffff",
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: "center",
     color: ColorsBarber.light.textColor,
-    fontWeight: "bold",
+    fontFamily: "OldStandard-Bold",
   },
 });
 

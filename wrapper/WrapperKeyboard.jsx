@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { ComponentType } from "react";
 import { KeyboardAvoidingView, Platform, StyleSheet } from "react-native";
 // import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -23,6 +24,6 @@ export default function withKeyboardAvoid<T>(
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
   },
 });

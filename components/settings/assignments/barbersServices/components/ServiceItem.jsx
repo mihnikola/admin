@@ -15,7 +15,7 @@ const ServiceItem = ({ item, toggleService }) => {
       <View style={styles.servicePositionDeatils}>
         <Image source={{ uri: item.image }} style={styles.image} />
         <View style={styles.serviceInfo}>
-          <Text style={styles.serviceText}>
+          <Text style={styles.serviceTextName}>
             {localization.code === "en"
               ? item.name.nameEn
               : item.name.nameLocal}
@@ -60,8 +60,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   image: {
-    width: 60,
-    height: 60,
+    width: 75,
+    height: 75,
     borderRadius: 20,
   },
   serviceInfo: {
@@ -69,7 +69,14 @@ const styles = StyleSheet.create({
   },
   serviceText: {
     color: ColorsBarber.light.textColor,
-    fontSize: 12,
+  },
+  serviceTextName: {
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Bold",
+    fontSize: 14,
+    flexWrap: "wrap",
+    flexShrink: 1,
+    maxWidth: 200,
   },
   actionButton: {
     width: 36,

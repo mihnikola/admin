@@ -155,13 +155,13 @@ export default InitialComponent;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
   },
   itemContainer: {
     flex: 1,
     justifyContent: "space-around",
     alignItems: "center",
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
   },
   itemTitle: {
     textAlign: "center",

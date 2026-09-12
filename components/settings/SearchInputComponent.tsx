@@ -50,7 +50,8 @@ const styles = StyleSheet.create({
     padding: 14,
     paddingRight: 45, // prostor za X ikonu
     fontSize: 18,
-    color: ColorsBarber.light.textColor
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Bold",
   },
 
   clearButton: {

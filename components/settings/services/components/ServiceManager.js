@@ -87,7 +87,7 @@ const ServiceManager = () => {
                 <Image source={{ uri: item.image }} style={styles.image} />
                 <View style={{ marginLeft: 10 }}>
                   <View>
-                    <Text style={styles.serviceText}>{item.name}</Text>
+                    <Text style={styles.serviceTextName}>{item.name}</Text>
                   </View>
                   <View>
                     <Text style={styles.serviceText}>{item.price} RSD</Text>
@@ -167,17 +167,17 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   image: {
-    width: 60,
-    height: 60,
+    width: 75,
+    height: 75,
   },
   subTitle: {
     fontSize: 18,
-    fontWeight: "800",
     color: ColorsBarber.light.textColor,
     textAlign: "center",
     alignSelf: "center",
     alignItems: "center",
     width: "80%",
+    fontFamily: "OldStandard-Bold",
   },
   input: {
     backgroundColor: "#1e1e1e",
@@ -185,16 +185,9 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 10,
     borderRadius: 8,
+    fontFamily: "OldStandard-Bold",
   },
-  button: {
-    backgroundColor: "rgb(0, 0, 0)",
-    padding: 12,
-    borderRadius: 8,
-    alignItems: "center",
-    borderColor: "#fff",
-    borderWidth: 1,
-    marginTop: 5,
-  },
+
   cancelButton: {
     backgroundColor: "#525252",
   },
@@ -215,8 +208,17 @@ const styles = StyleSheet.create({
   },
   serviceText: {
     color: ColorsBarber.light.textColor,
-
+    fontFamily: "OldStandard-Bold",
     fontSize: 15,
+  },
+  serviceTextName: {
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Bold",
+
+    fontSize: 14,
+    flexWrap: "wrap",
+    flexShrink: 1,
+    maxWidth: 200,
   },
   editHint: {
     fontSize: 12,

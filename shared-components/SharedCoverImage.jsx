@@ -5,7 +5,7 @@ function SharedCoverImage({ image }) {
   return (
     <Image
       // source={{ uri: image }}
-      source={require("@/assets/images/frizerskiSalon1.png")}
+      source={require("@/assets/images/slikaFrizerCoverImage.jpeg")}
       style={styles.coverImage}
     />
   );

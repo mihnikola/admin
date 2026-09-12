@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import {
   Text,
   TouchableOpacity,
@@ -18,17 +19,17 @@ const SharedButtonCancel = (props) => {
 
 const styles = StyleSheet.create({
   btnText: {
-    color: "#fff",
+    color: ColorsBarber.light.textColor,
+    fontFamily:"OldStandard-Bold",
     fontSize: 18,
-    fontWeight: "bold",
   },
 
   btn: {
-    backgroundColor: "#1C1C1E",
+    backgroundColor: ColorsBarber.light.item,
     paddingVertical: 15,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: "white",
+    borderColor: ColorsBarber.light.inActiveTextColor,
     alignItems: "center",
     marginTop: 20,
     padding: 30,

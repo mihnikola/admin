@@ -401,19 +401,19 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: ColorsBarber.light.textColor,
-    fontWeight: "bold",
+    fontFamily: "OldStandard-Bold",
     fontSize: 18,
   },
   title: {
     fontSize: 22,
-    fontWeight: "700",
+    fontFamily: "OldStandard-Bold",
     marginBottom: 10,
     textAlign: "center",
     color: ColorsBarber.light.textColor,
   },
   subtitle: {
     fontSize: 18,
-    fontWeight: "400",
+    fontFamily: "OldStandard-Bold",
     textAlign: "center",
     color: ColorsBarber.light.textColor,
     marginVertical: 15,
@@ -428,6 +428,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     flex: 1,
     color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Bold",
   },
   timeButton: {
     borderWidth: 1,
@@ -437,11 +438,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     backgroundColor: ColorsBarber.light.item,
     fontWeight: "bold",
+    fontFamily: "OldStandard-Bold",
   },
   timeText: {
     fontSize: 18,
     color: ColorsBarber.light.textColor,
     textAlign: "center",
+    fontFamily: "OldStandard-Bold",
   },
 
   selectedText: {
@@ -449,6 +452,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: "center",
     color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Bold",
   },
   buttonRmv: {
     backgroundColor: "rgb(129, 29, 29)",
@@ -465,6 +469,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderColor: "white",
     borderWidth: 1,
+    fontFamily: "OldStandard-Bold",
   },
   buttonUndo: {
     backgroundColor: "rgb(148, 148, 148)",
@@ -473,5 +478,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderColor: "white",
     borderWidth: 1,
+    fontFamily: "OldStandard-Bold",
   },
 });

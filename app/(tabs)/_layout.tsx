@@ -1,13 +1,17 @@
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import { ColorsBarber } from "@/constants/Colors";
 import { useLocalization } from "@/contexts/LocalizationContext";
-import { Tabs } from "expo-router";
-import React from "react";
+import { SplashScreen, Tabs } from "expo-router";
+import React, { useEffect } from "react";
+import { StyleSheet, View } from "react-native";
 
 export default function TabLayout() {
   const { localization } = useLocalization();
-
+  useEffect(() => {
+    SplashScreen.hideAsync();
+  }, []);
   return (
+    <View style={styles.container}>
     <Tabs
       screenOptions={{
         headerShown: false,
@@ -15,6 +19,10 @@ export default function TabLayout() {
         tabBarInactiveTintColor: ColorsBarber.light.inActiveTextColor,
         tabBarStyle: {
           backgroundColor: ColorsBarber.light.background,
+        },
+        tabBarLabelStyle: {
+          fontFamily: "OldStandard-Regular",
+          fontSize: 12,
         },
       }}
     >
@@ -27,7 +35,9 @@ export default function TabLayout() {
               size={28}
               name="house.fill"
               color={
-                focused ? ColorsBarber.light.textColor : ColorsBarber.light.inActiveTextColor
+                focused
+                  ? ColorsBarber.light.textColor
+                  : ColorsBarber.light.inActiveTextColor
               }
             />
           ),
@@ -38,12 +48,15 @@ export default function TabLayout() {
         name="(02_clients)"
         options={{
           title: localization.TABS.CLIENTS,
+
           tabBarIcon: ({ color, focused }) => (
             <IconSymbol
               size={28}
               name="group.fill"
               color={
-                focused ? ColorsBarber.light.textColor : ColorsBarber.light.inActiveTextColor
+                focused
+                  ? ColorsBarber.light.textColor
+                  : ColorsBarber.light.inActiveTextColor
               }
             />
           ),
@@ -58,12 +71,22 @@ export default function TabLayout() {
               size={28}
               name={"settings.fill"} // Menja ikonicu na osnovu fokusa
               color={
-                focused ? ColorsBarber.light.textColor : ColorsBarber.light.inActiveTextColor
+                focused
+                  ? ColorsBarber.light.textColor
+                  : ColorsBarber.light.inActiveTextColor
               }
             />
           ),
         }}
       />
     </Tabs>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: ColorsBarber.light.background,
+  },
+});

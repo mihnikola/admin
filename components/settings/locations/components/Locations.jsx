@@ -84,16 +84,17 @@ const Locations = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.light.background,
   },
   content: {
     padding: 20,
   },
   notFound: {
-   color:ColorsBarber.light.textColor,
+    color: ColorsBarber.light.textColor,
     textAlign: "center",
     fontSize: 20,
     marginTop: 20,
+    fontFamily: "OldStandard-Bold",
   },
   searchInputContainer: {
     marginHorizontal: 20,
@@ -103,10 +104,9 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontSize: 18,
-    fontWeight: "600",
-       color: ColorsBarber.light.textColor,
-
+    fontSize: 20,
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Bold",
     textAlign: "center",
     alignSelf: "center",
     alignItems: "center",

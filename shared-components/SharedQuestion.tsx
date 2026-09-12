@@ -38,11 +38,11 @@ export const SharedQuestion = ({
 };
 
 const styles = StyleSheet.create({
-    buttons:{
-        display: 'flex',
-        flexDirection: 'row',
-        gap: 20
-    },
+  buttons: {
+    display: "flex",
+    flexDirection: "row",
+    gap: 20,
+  },
   container: {
     flex: 1, // Takes up the whole screen
     backgroundColor: ColorsBarber.light.background, // Corresponds to bg-gray-900
@@ -50,22 +50,7 @@ const styles = StyleSheet.create({
     justifyContent: "center", // Centers content vertically
     padding: 16,
   },
-  openButton: {
-    paddingHorizontal: 24, // Corresponds to px-6
-    paddingVertical: 12, // Corresponds to py-3
-    backgroundColor: "black", // Corresponds to bg-blue-600
-    borderRadius: 8, // Corresponds to rounded-lg
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 6,
-    elevation: 8, // For Android shadow
-  },
-  openButtonText: {
-    color: "#FFFFFF", // Corresponds to text-white
-    fontSize: 16,
-    fontWeight: "600", // Corresponds to font-semibold
-  },
+
   overlay: {
     flex: 1,
     backgroundColor: "rgba(0, 0, 0, 0.75)", // Corresponds to bg-black bg-opacity-75
@@ -94,12 +79,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 24, // Corresponds to mb-6
-    
   },
   modalTitle: {
     color: ColorsBarber.light.textColor, // Corresponds to text-white
+    fontFamily: "OldStandard-Regular",
     fontSize: 20, // Corresponds to text-3xl
-    fontWeight: "bold", // Corresponds to font-bold
     marginBottom: 16, // Corresponds to mb-4
     textAlign: "center",
     lineHeight: 36, // Corresponds to leading-tight
@@ -115,27 +99,20 @@ const styles = StyleSheet.create({
     backgroundColor: ColorsBarber.light.btnBgColorDisabled,
     paddingVertical: 16, // Corresponds to py-4
     borderRadius: 8, // Corresponds to rounded-lg
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5, // For Android shadow
+    fontFamily: "OldStandard-Regular",
   },
   actionButtonNo: {
     width: "50%", // Corresponds to w-full
     backgroundColor: ColorsBarber.light.inActiveTextColor,
     paddingVertical: 16, // Corresponds to py-4
     borderRadius: 8, // Corresponds to rounded-lg
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5, // For Android shadow
+    fontFamily: "OldStandard-Regular",
   },
   actionButtonText: {
-    color: ColorsBarber.light.textColor, 
+    color: ColorsBarber.light.textColor,
     fontSize: 18, // Corresponds to text-lg
     fontWeight: "600", // Corresponds to font-semibold
     textAlign: "center",
+    fontFamily: "OldStandard-Regular",
   },
 });

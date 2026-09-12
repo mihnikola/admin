@@ -1,19 +1,17 @@
 import { ColorsBarber } from "@/constants/Colors";
 import { StyleSheet, Text, View } from "react-native";
-import { convertTimeHandler, convertToDay, convertToMonthName } from "./../../../helpers";
+import {
+  convertTimeHandler,
+  convertToDay,
+  convertToMonthName,
+} from "./../../../helpers";
 
 const AbsenceDateFormatComponent = ({ date }) => {
   return (
     <View style={styles.dateContainer}>
-      <Text style={styles.captureDate}>
-        {convertToMonthName(date)}
-      </Text>
-      <Text style={styles.captureDateBold}>
-        {convertToDay(date)}
-      </Text>
-      <Text style={styles.captureDate}>
-        {convertTimeHandler(date)}
-      </Text>
+      <Text style={styles.captureDate}>{convertToMonthName(date)}</Text>
+      <Text style={styles.captureDateBold}>{convertToDay(date)}</Text>
+      <Text style={styles.captureDate}>{convertTimeHandler(date)}</Text>
     </View>
   );
 };
@@ -25,15 +23,15 @@ const styles = StyleSheet.create({
   },
   captureDate: {
     fontSize: 18,
-   color:ColorsBarber.light.textColor,
     textAlign: "center",
-    fontWeight: "500",
+    fontFamily: "OldStandard-Regular",
+    color: ColorsBarber.light.textColor,
   },
 
   captureDateBold: {
     fontSize: 20,
-   color:ColorsBarber.light.textColor,
-    fontWeight: "900",
+    fontFamily: "OldStandard-Regular",
+    color: ColorsBarber.light.textColor,
   },
 });
 

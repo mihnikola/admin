@@ -10,6 +10,7 @@ export const ColorsBarber = {
   light: {
     text: "#11181C",
     background: "#ead8bf",
+    inputField:"#fff",
     item: "#c7a58a",
     tint: tintColorLight,
     icon: "#687076",

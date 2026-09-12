@@ -284,22 +284,27 @@ function ResevationNotificationScreen() {
 
 const styles = StyleSheet.create({
   textBold: {
-   color:ColorsBarber.light.textColor,
+    color: ColorsBarber.light.textColor,
     fontSize: 22,
+    fontFamily: "OldStandard-Bold",
   },
   textBoldMissed: {
     color: "grey",
     fontSize: 30,
+    fontFamily: "OldStandard-Bold",
   },
   textBoldRejected: {
-    color: "grey",
+    color: ColorsBarber.light.textColor,
     fontSize: 24,
+    fontFamily: "OldStandard-Bold",
   },
   textBoldSuccess: {
-    color: "grey",
+    color: ColorsBarber.light.textColor,
     fontSize: 24,
     textAlign: "center",
+    fontFamily: "OldStandard-Bold",
   },
+
   missed: {
     flex: 2,
     padding: 20,
@@ -308,7 +313,7 @@ const styles = StyleSheet.create({
   },
   screenContainer: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
   },
 
   scrollContent: {
@@ -319,13 +324,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     paddingBottom: 80,
-    backgroundColor: "#000", // Osnovna boja aplikacije
+    backgroundColor: ColorsBarber.light.background, // Osnovna boja aplikacije
   },
   bottomButtonRejected: {
     justifyContent: "space-between",
     marginVertical: 50,
     marginHorizontal: 20,
-    backgroundColor: "#000", // Osnovna boja aplikacije
+    backgroundColor: ColorsBarber.light.background, // Osnovna boja aplikacije
   },
   containerCancel: {
     marginTop: 10,

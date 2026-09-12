@@ -6,6 +6,7 @@ import {
   setBackgroundMessageHandler,
   getMessaging,
 } from "@react-native-firebase/messaging";
+import { ColorsBarber } from "@/constants/Colors";
 
 // Obavezno staviti na sam vrh fajla, van bilo koje komponente
 setBackgroundMessageHandler(getMessaging(), async (remoteMessage) => {
@@ -28,15 +29,15 @@ const SplashScreen = () => {
   return (
     <View
       style={{
-        backgroundColor: "black",
+        backgroundColor: ColorsBarber.light.background,
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
       }}
     >
       <Image
-        source={require("@/assets/images/admin.png")}
-        style={{ resizeMode: "contain", width: 500 }}
+        source={require("@/assets/images/logoFrizer.png")}
+        style={{ resizeMode: "contain", width: 400 }}
       />
     </View>
   );

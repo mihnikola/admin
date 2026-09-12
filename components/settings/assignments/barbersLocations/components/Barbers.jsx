@@ -18,7 +18,6 @@ import withKeyboardAvoid from "@/wrapper/WrapperKeyboard";
 import SearchInputComponent from "@/components/settings/SearchInputComponent";
 import { ColorsBarber } from "@/constants/Colors";
 
-
 const Barbers = () => {
   const { localization } = useLocalization();
   const { id, address } = useLocalSearchParams();
@@ -95,7 +94,11 @@ const Barbers = () => {
       <View style={styles.headerComponent}>
         <View style={styles.headerRow}>
           <TouchableOpacity hitSlop={20} onPress={router.back}>
-            <MaterialIcons name="arrow-back" size={25} color={ColorsBarber.light.textColor} />
+            <MaterialIcons
+              name="arrow-back"
+              size={25}
+              color={ColorsBarber.light.textColor}
+            />
           </TouchableOpacity>
 
           <View style={styles.headerTextContainer}>
@@ -109,10 +112,7 @@ const Barbers = () => {
 
       <View style={{ flex: 1, paddingHorizontal: 12, paddingBottom: 24 }}>
         <View style={styles.searchInputContainer}>
-          <SearchInputComponent
-            search={search}
-            setSearch={setSearch}
-          />
+          <SearchInputComponent search={search} setSearch={setSearch} />
         </View>
         <FlatList
           data={filteredBarbers}
@@ -134,7 +134,13 @@ const Barbers = () => {
       {isMessage && (
         <SharedMessage
           isOpen={isMessage}
-          icon={<FontAwesome name="check-circle-o" size={64} color={ColorsBarber.light.textColor} />}
+          icon={
+            <FontAwesome
+              name="check-circle-o"
+              size={64}
+              color={ColorsBarber.light.textColor}
+            />
+          }
           onClose={confirmSubmit}
           onConfirm={confirmSubmit}
           buttonText="Ok"
@@ -144,7 +150,13 @@ const Barbers = () => {
       {isError?.length > 0 && (
         <SharedMessage
           isOpen={isError?.length > 0}
-          icon={<FontAwesome name="close" size={64} color={ColorsBarber.light.textColor} />}
+          icon={
+            <FontAwesome
+              name="close"
+              size={64}
+              color={ColorsBarber.light.textColor}
+            />
+          }
           onClose={cancelHandler}
           onConfirm={cancelHandler}
           buttonText="Ok"
@@ -160,7 +172,7 @@ const styles = StyleSheet.create({
     paddingTop: 25,
     paddingBottom: 15,
     paddingHorizontal: 8,
-    backgroundColor: "#000",
+    backgroundColor: ColorsBarber.light.background,
     borderBottomWidth: 1,
     borderColor: "#1A1A1A",
   },
@@ -178,15 +190,15 @@ const styles = StyleSheet.create({
   },
   pageTitleHeader: {
     fontSize: 20,
-    fontWeight: "700",
-    color: "#fff",
+    fontFamily:"OldStandard-Bold",
+    color: ColorsBarber.light.textColor,
     letterSpacing: 0.5,
   },
   addressHeader: {
-    color: "#AAA",
-    fontSize: 14,
-    fontWeight: "400",
+    color: ColorsBarber.light.inActiveTextColor,
+    fontSize: 16,
     marginTop: 2,
+    fontFamily:"OldStandard-Bold"
   },
 
   loadingContainer: {
@@ -197,7 +209,7 @@ const styles = StyleSheet.create({
     alignItems: "baseline",
     justifyContent: "flex-start",
     paddingHorizontal: 10,
-    backgroundColor: "#242424",
+    backgroundColor: ColorsBarber.light.item,
     flexDirection: "row",
     gap: 10,
   },
@@ -213,7 +225,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     margin: 10,
-    backgroundColor: "#000",
+    backgroundColor: ColorsBarber.light.background,
   },
   title: {
     fontSize: 22,
@@ -227,17 +239,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     alignItems: "center",
     justifyContent: "space-between",
-   color:ColorsBarber.light.textColor,
+    color: ColorsBarber.light.textColor,
   },
 
-  subTitle: {
-    fontSize: 25,
-    fontWeight: "600",
-    color: "#fff",
-    textAlign: "center",
-    marginTop: 22,
-    marginBottom: 5,
-  },
   input: {
     backgroundColor: "#1e1e1e",
     color: "#fff",
@@ -254,22 +258,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginTop: 20,
   },
-  cancelButton: {
-    backgroundColor: "#525252",
-  },
+
   buttonText: {
     color: "#fff",
     fontWeight: "bold",
-  },
-
-  serviceText: {
-    color: "#fff",
-    fontSize: 15,
-  },
-  editHint: {
-    fontSize: 12,
-    color: "#aaa",
-    padding: 8,
   },
 });
 

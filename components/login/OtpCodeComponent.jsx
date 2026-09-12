@@ -214,13 +214,14 @@ const styles = StyleSheet.create({
   },
   mainTitle: {
     fontSize: 22,
-    fontWeight: "bold",
-    color: "#fff",
+    fontFamily:"OldStandard-Bold",
+    color: ColorsBarber.light.textColor,
     marginBottom: 5,
   },
   subtitle: {
-    fontSize: 13,
-    color: "#ccc",
+    fontSize: 14,
+    fontFamily:"OldStandard-Regular",
+    color: ColorsBarber.light.textColor,
   },
   socialButtonsContainer: {
     flexDirection: "row",

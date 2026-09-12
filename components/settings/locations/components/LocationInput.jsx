@@ -57,11 +57,15 @@ const styles = StyleSheet.create({
     color: ColorsBarber.light.textColor,
     fontSize: 12,
     marginBottom: 2,
+    fontFamily: "OldStandard-Bold",
+
   },
 
   input: {
     color: ColorsBarber.light.textColor,
     fontSize: 16,
     padding: 0,
+    fontFamily: "OldStandard-Bold",
+
   },
 });

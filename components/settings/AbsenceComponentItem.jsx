@@ -36,9 +36,9 @@ const styles = StyleSheet.create({
   },
   eventItem: {
     flexDirection: "row",
-    backgroundColor: "#262626ff",
+    backgroundColor: ColorsBarber.light.item,
     borderRadius: 10,
-    gap:20,
+    gap: 20,
     padding: 20,
     shadowColor: "#262626ff",
     shadowOffset: { width: 0, height: 2 },
@@ -46,25 +46,21 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
     alignItems: "center",
-    justifyContent:"space-around"
+    justifyContent: "space-around",
   },
   timeBlock: {
     alignItems: "center",
     justifyContent: "center",
   },
-  startTime: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "#e2e2e2ff",
-  },
+
   detailsBlock: {
     flex: 1, // Take remaining space
   },
   eventTitle: {
     fontSize: 16,
-    fontWeight: "bold",
-    color: "#edededff",
-    padding:10
+    fontFamily: "OldStandard-Regular",
+    color: ColorsBarber.light.textColor,
+    padding: 10,
   },
   eventUser: {
     fontSize: 14,
@@ -75,7 +71,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "bold",
     textTransform: "uppercase",
-   color:ColorsBarber.light.textColor,
+    color: ColorsBarber.light.textColor,
   },
 });
 

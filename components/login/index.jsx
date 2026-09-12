@@ -80,7 +80,7 @@ export default function LoginScreen() {
       <View style={styles.container}>
         <View style={styles.imageContainer}>
           <Image
-            source={require("@/assets/images/adaptive-icon.png")}
+            source={require("@/assets/images/logoFrizer.png")}
             style={styles.logo}
           />
         </View>
@@ -174,16 +174,16 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
   },
   forgotPassText: {
-    color: "#fff",
-    fontSize: 15,
-    fontStyle: "italic",
+    color: ColorsBarber.light.textColor,
+    fontSize: 18,
+    fontFamily: "OldStandard-Italic", // Ključ iz useFonts
     textDecorationLine: "underline",
     paddingHorizontal: 10,
   },
   safeArea: {
     paddingVertical: 30,
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
   },
   iconStyle: {
     width: 30,
@@ -194,21 +194,22 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   logo: {
-    width: 200,
+    // width: 2000,
     height: 250,
     resizeMode: "contain",
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
   },
   mainTitle: {
     fontSize: 22,
-    fontWeight: "bold",
-    color: "#fff",
+    fontFamily: "OldStandard-Bold", // Ključ iz useFonts
+    color: ColorsBarber.light.textColor,
     marginBottom: 5,
   },
   subtitle: {
     fontSize: 13,
-    color: "#ccc",
+    color: ColorsBarber.light.textColor,
     marginBottom: 30,
+    fontFamily: "OldStandard-Bold", // Ključ iz useFonts
   },
   imageContainer: {
     alignItems: "center",
@@ -220,12 +221,13 @@ const styles = StyleSheet.create({
 
   input: {
     backgroundColor: "white",
-   color:ColorsBarber.light.item,
+    color: ColorsBarber.light.item,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
     borderWidth: 2,
-    borderColor: "white",
+    borderColor: ColorsBarber.light.item,
+    fontFamily: "OldStandard-Bold", // Ključ iz useFonts
   },
   passwordInputContainer: {
     flexDirection: "row",
@@ -236,11 +238,11 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 2,
 
-    borderColor: "#333",
+    borderColor: ColorsBarber.light.item,
   },
   passwordInput: {
-    backgroundColor: "white",
-   color:ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.light.item,
+    color: ColorsBarber.light.item,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,

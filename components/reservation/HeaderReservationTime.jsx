@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import { convertDateDetails } from "@/helpers";
 import { StyleSheet, Text, View } from "react-native";
 
@@ -19,18 +20,18 @@ const HeaderReservationTime = ({ data }) => {
 const styles = StyleSheet.create({
   locationData: {
     fontSize: 18,
-    color: "#fff",
-    fontWeight: "700",
+    color: ColorsBarber.light.textColor,
+    fontFamily:"OldStandard-Bold"
   },
   dateData: {
     fontSize: 20,
-    color: "#fff",
-    fontWeight: "700",
+    color: ColorsBarber.light.textColor,
+    fontFamily:"OldStandard-Bold"
   },
   timeData: {
     fontSize: 20,
-    color: "#fff",
-    fontWeight: "bold",
+    color: ColorsBarber.light.textColor,
+    fontFamily:"OldStandard-Bold"
   },
   coverContent: {
     paddingHorizontal: 20,

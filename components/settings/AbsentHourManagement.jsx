@@ -20,6 +20,7 @@ import withKeyboardAvoid from "@/wrapper/WrapperKeyboard";
 import TimeAbsentComponent from "./TimeAbsentComponent";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import { ColorsBarber } from "@/constants/Colors";
+import SharedBackButton from "@/shared-components/SharedBackButton";
 
 const AbsentHourManagement = () => {
   const {
@@ -214,14 +215,11 @@ const AbsentHourManagement = () => {
   return (
     <>
       <View style={styles.container}>
+        <SharedBackButton onPress={router.back} absolutePosition={false} styleBtn={{marginTop:20, marginBottom: 0}} />
+
         <Text style={styles.title}>
           {localization.SETTINGS.ABSENTHOURS.capture}
         </Text>
-        {/* <TouchableOpacity style={{ flexDirection: 'row', opacity: .7 }} onPress={redirectListAbsence}>
-          <Text style={styles.subTitle}>
-            {localization.SETTINGS.ABSENTHOURS.list}
-          </Text>
-        </TouchableOpacity> */}
 
         <View
           style={{
@@ -293,6 +291,7 @@ const AbsentHourManagement = () => {
           label={localization.SETTINGS.ABSENTHOURS.to}
           style={styles.textInput}
           placeholder={localization.SETTINGS.ABSENTHOURS.comment}
+          placeholderTextColor={ColorsBarber.light.textColor}
           multiline
           numberOfLines={4}
           value={commentDate}
@@ -395,13 +394,12 @@ const styles = StyleSheet.create({
   },
   noEventsText: {
     fontSize: 16,
-    color: "rgb(255, 255, 255)",
+    color: ColorsBarber.light.textColor,
     textAlign: "center",
+        fontFamily: "OldStandard-Regular"
+
   },
-  label: {
-    fontSize: 16,
-    color: "#fff",
-  },
+
   messageContainer: {
     flex: 1,
     justifyContent: "center",
@@ -410,14 +408,14 @@ const styles = StyleSheet.create({
     minHeight: 150,
   },
   label: {
-    fontSize: 18,
+    fontSize: 16,
     flex: 1,
-   color:ColorsBarber.light.textColor,
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Bold",
   },
   tabContainer: {
     flexDirection: "row",
     backgroundColor: "#747474",
-    marginBottom: 15,
   },
   tab: {
     flex: 1,
@@ -436,49 +434,51 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     paddingHorizontal: 10,
     backgroundColor: "#000",
-    marginBottom: 20,
   },
   timeText: {
     fontSize: 18,
-    color: "#ffffffff",
+    color: ColorsBarber.light.item,
     textAlign: "center",
+    fontFamily: "OldStandard-Regular"
   },
   tabText: {
-    color: "#ffffff",
+    color: ColorsBarber.light.item,
   },
   activeText: {
-    color: "#fff",
+    color: ColorsBarber.light.item,
     fontWeight: "bold",
   },
   container: {
     flex: 1,
-    padding: 20,
-    backgroundColor: "#000",
+    padding: 10,
+    backgroundColor: ColorsBarber.light.background,
     justifyContent: "space-between",
   },
   subTitle: {
     fontSize: 18,
     fontWeight: "400",
     textAlign: "center",
-   color:ColorsBarber.light.textColor,
+    color: ColorsBarber.light.textColor,
     textDecorationLine: "underline",
   },
   title: {
     fontSize: 24,
-    fontWeight: "700",
     textAlign: "center",
-   color:ColorsBarber.light.textColor,
+    color: ColorsBarber.light.textColor,
+    fontFamily:"OldStandard-Bold"
   },
 
   textInput: {
     borderWidth: 1,
-    borderColor: "#fff",
-   color:ColorsBarber.light.textColor,
+    borderColor: ColorsBarber.light.inActiveTextColor,
     borderRadius: 8,
     padding: 10,
     fontSize: 16,
-    backgroundColor: "#000",
+    backgroundColor: ColorsBarber.light.background,
     minHeight: 100,
+    fontFamily: "OldStandard-Regular",
+        
+
     marginBottom: 20,
   },
 });

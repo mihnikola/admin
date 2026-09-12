@@ -55,18 +55,18 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   upcomingCard: {
-    backgroundColor: ColorsBarber.light.textColor,
+    backgroundColor: ColorsBarber.light.background,
     borderRadius: 16,
     padding: 16,
     borderWidth: 1,
-    borderColor: "#e2d6d6",
+    borderColor: ColorsBarber.light.inActiveTextColor,
   },
   pendingCard: {
     backgroundColor: ColorsBarber.light.textColor,
     borderRadius: 16,
     padding: 16,
     borderWidth: 1,
-    borderColor: "#D4D4D4",
+    borderColor: ColorsBarber.light.inActiveTextColor,
   },
   upcomingBadge: {
     backgroundColor: "#111111",
@@ -80,31 +80,31 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
 
-  badgeText: {
-    color: "#FFFFFF",
-    fontSize: 12,
-    fontWeight: "600",
-  },
+
 
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
   },
+
   title: {
     fontSize: 16,
-    fontWeight: "600",
-    color: "#fff",
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Bold",
   },
+  
   datetime: {
     marginTop: 8,
     fontSize: 14,
-    color: "#fff",
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Bold",
   },
   location: {
     marginTop: 4,
     fontSize: 13,
-    color: "#fff",
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Bold",
   },
   badge: {
     paddingHorizontal: 17,
@@ -112,13 +112,15 @@ const styles = StyleSheet.create({
     borderRadius: 30,
   },
   badgeText: {
-    fontSize: 14,
-    fontWeight: "900",
+    fontSize: 16,
+    fontFamily: "OldStandard-Bold",
     color: ColorsBarber.light.textColor,
     textTransform: "capitalize",
   },
   upcoming: {
     backgroundColor: ColorsBarber.light.item,
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Bold",
   },
   completed: {
     backgroundColor: ColorsBarber.light.textColor,

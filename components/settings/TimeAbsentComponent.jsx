@@ -1,11 +1,8 @@
+import { ColorsBarber } from "@/constants/Colors";
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
-function TimeAbsentComponent({
-  setShowFromPicker,
-  time,
-  placeholder,
-}) {
+function TimeAbsentComponent({ setShowFromPicker, time, placeholder }) {
   return (
     <TouchableOpacity
       style={styles.dateButton}
@@ -19,6 +16,7 @@ function TimeAbsentComponent({
 
 const styles = StyleSheet.create({
   dateButton: {
+    backgroundColor: ColorsBarber.light.item,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
@@ -26,13 +24,16 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     margin: 10,
     borderWidth: 1,
-    borderColor: "#838383",
-    borderRadius: 15
+    borderColor: ColorsBarber.light.inActiveTextColor,
+    borderRadius: 15,
+        fontFamily: "OldStandard-Regular",
+
   },
 
   dateText: {
     fontSize: 14,
-    color: "#fff",
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Regular",
   },
 });
 

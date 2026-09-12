@@ -118,7 +118,7 @@ const DateComponent = () => {
   if (checkDates) {
     return (
       <View style={styles.container}>
-        <SharedBackButton onPress={router.back} styleBtn={{ marginLeft: 20 }} />
+        <SharedBackButton onPress={router.back} styleBtn={{ marginLeft: 20, marginTop: 10 }} />
         <StatusBar backgroundColor="black" barStyle="dark-content" />
         <View style={[styles.calendarContainer, { height: calendarHight }]}>
           <CalendarList
@@ -169,12 +169,14 @@ const DateComponent = () => {
                       borderRadius: 17,
                       justifyContent: "center",
                       alignItems: "center",
-                      backgroundColor: isSelected ? "#fff" : "transparent",
+                      backgroundColor: isSelected
+                        ? ColorsBarber.light.item
+                        : "transparent",
                     }}
                   >
                     <Text
                       style={{
-                        color: isPast ? "#999" : isSelected ? "#000" : "#fff",
+                        color: isPast ? ColorsBarber.light.inActiveTextColor : isSelected ? "#000" : ColorsBarber.light.textColor,
                         textAlign: "center",
                         fontWeight: "500",
                       }}
@@ -189,8 +191,8 @@ const DateComponent = () => {
                         borderRadius: 2.5,
                         backgroundColor: checkDates?.[dateStr]?.marked
                           ? isSelected
-                            ? "#000"
-                            : "#dfdfdf"
+                            ? ColorsBarber.light.textColor
+                            : ColorsBarber.light.textColor
                           : "transparent",
                         marginTop: 2,
                       }}
@@ -216,19 +218,19 @@ const styles = StyleSheet.create({
     minHeight: 150,
   },
   notWorkingDays: {
-    display: "flex",
     alignItems: "center",
     alignContent: "center",
     justifyContent: "center",
   },
   infoDetails: {
     fontSize: 22,
-    color: "rgb(172, 164, 164)",
+    color: ColorsBarber.light.textColor,
+    fontFamily:"OldStandard-Bold",
     textAlign: "center",
   },
   notWorkingDaysContent: {
     fontSize: 20,
-   color:ColorsBarber.light.textColor,
+    color: ColorsBarber.light.textColor,
     padding: 20,
   },
   listTitle: {
@@ -238,16 +240,16 @@ const styles = StyleSheet.create({
     color: "#333",
   },
   container: {
-    marginTop: 20,
+    paddingTop: 30,
     flex: 1,
-    backgroundColor: "#000000",
+    backgroundColor: ColorsBarber.light.background,
   },
   calendarContainer: {
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
   },
   calendar: {
     width: "100%",
-    backgroundColor: "black",
+    backgroundColor: ColorsBarber.light.background,
     marginTop: 7,
   },
   timesAndDetails: {

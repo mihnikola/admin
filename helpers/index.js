@@ -9,6 +9,7 @@ import {
   dayNamesEng,
   monthNamesEng,
 } from "@/helpers/locale-calendar-en";
+import { ColorsBarber } from "@/constants/Colors";
 export function addMinutesToTime(inputTime, minutesToAdd) {
   // Parsiraj ulazno vreme (format je hh:mm)
   // const [day, tttt] = inputTime?.split("T");
@@ -28,14 +29,14 @@ export function addMinutesToTime(inputTime, minutesToAdd) {
 }
 
 export const calendarTheme = {
-  monthTextColor: "white",
-  backgroundColor: "white",
-  calendarBackground: "black",
-  textSectionTitleColor: "white",
-  selectedDayBackgroundColor: "white",
-  selectedDayTextColor: "black",
-  todayTextColor: "white",
-  dayTextColor: "white",
+  monthTextColor: ColorsBarber.light.textColor,
+  backgroundColor: ColorsBarber.light.background,
+  calendarBackground:ColorsBarber.light.background,
+  textSectionTitleColor: ColorsBarber.light.textColor,
+  // selectedDayBackgroundColor: "white",
+  // selectedDayTextColor: "black",
+  // todayTextColor: "white",
+  dayTextColor: ColorsBarber.light.textColor,
   textMonthFontWeight: "bold",
   textDisabledColor: "#A9A9A9", // siva za prošle datume
 };

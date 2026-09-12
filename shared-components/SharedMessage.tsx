@@ -17,6 +17,7 @@ export const SharedMessage = ({
   onConfirm,
   isLoading,
 }) => {
+  console.log("title",title)
   return (
     <Modal
       animationType="fade"
@@ -80,11 +81,11 @@ const styles = StyleSheet.create({
 
   modalTitle: {
     color: ColorsBarber.light.textColor, // Corresponds to bg-blue-900 bg-opacity-30
-    fontSize: 16,
-    fontWeight: "bold",
+    fontSize: 18,
     marginBottom: 16,
     textAlign: "center",
     lineHeight: 36,
+    fontFamily: "OldStandard-Regular",
   },
   actionButton: {
     width: "100%",
@@ -102,5 +103,6 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: "600",
     textAlign: "center",
+    fontFamily: "OldStandard-Regular",
   },
 });

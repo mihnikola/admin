@@ -241,10 +241,10 @@ export const SRB_LOCALIZATION = {
     deleteBarberQuestion:
       "Da li ste sigurni da želite da obrišete ovog barbera? Time će biti otkazane sve njegove aktivne rezervacije.",
     confirmButton: "Ok",
-    submitAdd: "Dodaj barbera",
+    submitAdd: "Dodaj frizera",
     question: "Da li stvarno želite da obrišete ovog barbera?",
-    title: "Upravljanje barberima",
-    listBarbers: "Lista barbera",
+    title: "Upravljanje frizerima",
+    listBarbers: "Lista frizera",
     seniority: "Unesi senioritet",
     removed: "Zaposleni je obrisan",
     email: "Unesi email",

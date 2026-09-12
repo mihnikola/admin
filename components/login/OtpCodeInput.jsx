@@ -1,4 +1,5 @@
 // components/OtpInput.js
+import { ColorsBarber } from "@/constants/Colors";
 import React, { useRef } from "react";
 import { View, TextInput, StyleSheet } from "react-native";
 
@@ -46,13 +47,12 @@ const styles = StyleSheet.create({
     gap: 10,
     justifyContent: "center",
     marginVertical: 20,
-    
   },
   input: {
     borderWidth: 1,
-    borderColor: "#fff",
-    backgroundColor: "#000",
-    color: '#fff',
+    borderColor: ColorsBarber.light.inActiveTextColor,
+    backgroundColor: ColorsBarber.light.item,
+    color: ColorsBarber.light.textColor,
     borderRadius: 10,
     width: 50,
     height: 60,

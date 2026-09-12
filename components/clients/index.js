@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     height: 48,
     borderRadius: 50,
     // backgroundColor: "#333",
-    backgroundColor: ColorsBarber.light.textColor,
+    backgroundColor: ColorsBarber.light.background,
     justifyContent: "center",
     alignItems: "center",
     marginRight: 12,
@@ -129,36 +129,36 @@ const styles = StyleSheet.create({
     left: -2,
   },
   avatarText: {
-    color: "#fff",
-    fontWeight: "bold",
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Regular",
   },
   clientInfo: { flex: 1 },
   name: {
-    // color: "#fff",
     color: ColorsBarber.light.textColor,
-
-    fontWeight: "bold",
+    fontFamily: "OldStandard-Bold",
   },
   phone: {
     color: ColorsBarber.light.textColor,
-    fontSize: 12,
+    fontSize: 14,
+    fontFamily: "OldStandard-Regular",
   },
   details: {
     color: ColorsBarber.light.textColor,
-    fontSize: 12,
+    fontSize: 14,
+    fontFamily: "OldStandard-Regular",
   },
   done: {
-    // color: "lightgreen",
     color: ColorsBarber.light.textColor,
-
+    fontFamily: "OldStandard-Regular",
+    fontSize: 14,
   },
   missed: {
-    // color: "tomato",
+    fontSize: 14,
     color: ColorsBarber.light.textColor,
-
+    fontFamily: "OldStandard-Regular",
   },
   income: {
     color: ColorsBarber.light.textColor,
-    fontWeight: "bold",
+    fontFamily: "OldStandard-Bold",
   },
 });

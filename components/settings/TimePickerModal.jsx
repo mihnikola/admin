@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { View, Text, Modal, TouchableOpacity, StyleSheet } from "react-native";
 import WheelPicker from "@quidone/react-native-wheel-picker";
 import { useLocalization } from "@/contexts/LocalizationContext";
+import { Colors } from "@/constants/theme";
+import { ColorsBarber } from "@/constants/Colors";
 
 const generateTimes = (startValue, endValue, step = 10) => {
   const times = [];
@@ -46,7 +48,7 @@ const TimePickerModal = ({
   value,
   interval,
   activeTab,
-  title
+  title,
 }) => {
   const [selectedTime, setSelectedTime] = useState(value);
   const { localization } = useLocalization();
@@ -60,6 +62,7 @@ const TimePickerModal = ({
     setVisible(false);
     onConfirm(selectedTime);
   };
+  console.log("title",title)
 
   return (
     <Modal
@@ -81,7 +84,7 @@ const TimePickerModal = ({
           />
           <View style={styles.header}>
             <TouchableOpacity onPress={onDone} style={styles.actionButtonNo}>
-              <Text style={styles.actionButtonText}>
+              <Text style={styles.actionButtonTextYes}>
                 {localization.PLACES.confirmButton}
               </Text>
             </TouchableOpacity>
@@ -99,27 +102,31 @@ const TimePickerModal = ({
 };
 
 const styles = StyleSheet.create({
-  openBtn: {
-    fontSize: 18,
-    color: "#007AFF",
+
+  actionButtonTextYes: {
+    color: ColorsBarber.light.item, // Corresponds to text-white
+    fontSize: 20,
+    textAlign: "center",
+    fontFamily: "OldStandard-Bold",
   },
   actionButtonText: {
-    color: "#FFFFFF", // Corresponds to text-white
-    fontSize: 18, // Corresponds to text-lg
-    fontWeight: "600", // Corresponds to font-semibold
+    color: ColorsBarber.light.inActiveTextColor, // Corresponds to text-white
+    fontSize: 20,
     textAlign: "center",
+    fontFamily: "OldStandard-Bold",
   },
-    modalTitle: {
-    color: "#FFFFFF", // Corresponds to text-white
+  modalTitle: {
+    color: ColorsBarber.light.textColor, // Corresponds to text-white
     fontSize: 20, // Corresponds to text-3xl
-    fontWeight: "bold", // Corresponds to font-bold
+    fontFamily: "OldStandard-Bold",
+   
     marginBottom: 16, // Corresponds to mb-4
     textAlign: "center",
     lineHeight: 36, // Corresponds to leading-tight
   },
   actionButton: {
     width: "50%", // Corresponds to w-full
-    backgroundColor: "black", // Corresponds to bg-blue-600
+    backgroundColor: ColorsBarber.light.item, // Corresponds to bg-blue-600
     paddingVertical: 16, // Corresponds to py-4
     borderRadius: 8, // Corresponds to rounded-lg
     shadowColor: "#000",
@@ -130,7 +137,7 @@ const styles = StyleSheet.create({
   },
   actionButtonNo: {
     width: "50%", // Corresponds to w-full
-    backgroundColor: "#36454F", // Corresponds to bg-blue-600
+    backgroundColor: ColorsBarber.light.textColor, // Corresponds to bg-blue-600
     paddingVertical: 16, // Corresponds to py-4
     borderRadius: 8, // Corresponds to rounded-lg
     shadowColor: "#000",
@@ -141,13 +148,13 @@ const styles = StyleSheet.create({
   },
   overlay: {
     flex: 1,
-    backgroundColor: "rgba(0, 0, 0, 2)",
+    backgroundColor: "rgba(0, 0, 0, 0.75)",
     justifyContent: "center",
     padding: 20,
   },
 
   modalContent: {
-    backgroundColor: "#433d3c", // Corresponds to bg-gray-800
+    backgroundColor: ColorsBarber.light.background, // Corresponds to bg-gray-800
     borderRadius: 12, // Corresponds to rounded-xl
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 10 },
@@ -167,7 +174,7 @@ const styles = StyleSheet.create({
 
   cancel: {
     fontSize: 16,
-    color: "#797979",
+    color: ColorsBarber.light.textColor,
     fontWeight: "600",
     padding: 10,
     letterSpacing: 2,
@@ -175,7 +182,7 @@ const styles = StyleSheet.create({
 
   done: {
     fontSize: 16,
-    color: "#fdfdfd",
+    color: ColorsBarber.light.textColor,
     fontWeight: "600",
     padding: 10,
     letterSpacing: 2,
@@ -183,7 +190,9 @@ const styles = StyleSheet.create({
 
   itemText: {
     fontSize: 24,
-    color: "#ffffff",
+    fontFamily: "OldStandard-Bold",
+    color: ColorsBarber.light.textColor,
+    
   },
 
   selectedItemText: {

@@ -1,6 +1,6 @@
 import { FontAwesome } from "@expo/vector-icons";
 import React, { useEffect, useRef, useState } from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { ActivityIndicator, ScrollView, StyleSheet, View } from "react-native";
 import ImageCompress from "../../ImageCompress";
 import useServices from "../hooks/useServices";
 import { useLocalization } from "@/contexts/LocalizationContext";
@@ -13,6 +13,7 @@ import SharedButtonRejected from "@/shared-components/SharedButtonRejected";
 import SharedButtonApproved from "@/shared-components/SharedButtonApproved";
 import { ColorsBarber } from "@/constants/Colors";
 import SharedBackButton from "@/shared-components/SharedBackButton";
+import Loader from "@/shared-components/Loader";
 
 export default function AddService() {
   const { localization } = useLocalization();
@@ -152,14 +153,13 @@ export default function AddService() {
       setValue(cleaned);
     };
 
-  if (isLoading === "getService") {
-    return <SharedLoader isOpen={isLoading === "getService"} />;
-  }
+  // if (isLoading === "getService") {
+  //   return <SharedLoader isOpen={isLoading === "getService"} />;
+  // }
 
   return (
     <View style={styles.container}>
-
-      <ScrollView
+      {/* <ScrollView
         ref={scrollRef}
         keyboardDismissMode="interactive"
         style={styles.safeArea}
@@ -169,107 +169,118 @@ export default function AddService() {
           marginHorizontal: 12,
         }}
         keyboardShouldPersistTaps="always"
-      >
-      <SharedBackButton onPress={router.back} absolutePosition={false} styleBtn={{marginTop:20}} />
+      > */}
+      <SharedBackButton
+        onPress={router.back}
+        absolutePosition={false}
+        styleBtn={{ marginTop: 20 }}
+      />
 
-        <View style={{ flex: 3 }}>
-          <View style={styles.containerImage}>
-            <ImageCompress
-              handlePickImage={selectedImgHandler}
-              imageValue={changedImg}
-              setImageValue={setChangedImg}
-            />
-          </View>
-          {/* ovo ti je za lokalni jezik - srpski nameLocal */}
-          <ServiceInput
-            autoFocus
-            icon="scissors"
-            label={localization.SERVICES.serviceNameSr}
-            value={nameLocal}
-            onChangeText={setNameLocal}
-            onSubmitEditing={() => refNameEng.current.focus()}
-            ref={refNameLocal}
-            returnKeyType="next"
-          />
-          <View
-            onLayout={(e) => {
-              nameLocalLayout.current = e.nativeEvent.layout.y;
-            }}
-          >
+      {isLoading !== "getService" ? (
+        <>
+          <View style={{ flex: 1 }}>
+            <View style={styles.containerImage}>
+              <ImageCompress
+                handlePickImage={selectedImgHandler}
+                imageValue={changedImg}
+                setImageValue={setChangedImg}
+              />
+            </View>
+            {/* ovo ti je za lokalni jezik - srpski nameLocal */}
             <ServiceInput
               icon="scissors"
-              label={localization.SERVICES.serviceNameEn}
-              value={nameEn}
-              onChangeText={setNameEn}
-              ref={refNameEng}
+              label={localization.SERVICES.serviceNameSr}
+              value={nameLocal}
+              onChangeText={setNameLocal}
+              onSubmitEditing={() => refNameEng.current.focus()}
+              ref={refNameLocal}
               returnKeyType="next"
-              onSubmitEditing={() => {
-                refPrice.current?.focus();
-                scrollRef.current?.scrollTo({
-                  y: nameLocalLayout.current - 20,
-                  animated: true,
-                });
+            />
+            <View
+              onLayout={(e) => {
+                nameLocalLayout.current = e.nativeEvent.layout.y;
               }}
-            />
-          </View>
-          <View
-            onLayout={(e) => {
-              priceLayout.current = e.nativeEvent.layout.y;
-            }}
-          >
-            <ServiceInput
-              icon="money"
-              label={localization.SERVICES.servicePrice}
-              value={price}
-              onChangeText={handleNumberInput}
-              keyboardType="numeric"
-              onSubmitEditing={() => {
-                refDuration.current?.focus();
-                scrollRef.current?.scrollTo({
-                  y: nameLocalLayout.current - 20,
-                  animated: true,
-                });
+            >
+              <ServiceInput
+                icon="scissors"
+                label={localization.SERVICES.serviceNameEn}
+                value={nameEn}
+                onChangeText={setNameEn}
+                ref={refNameEng}
+                returnKeyType="next"
+                onSubmitEditing={() => {
+                  refPrice.current?.focus();
+                  scrollRef.current?.scrollTo({
+                    y: nameLocalLayout.current - 20,
+                    animated: true,
+                  });
+                }}
+              />
+            </View>
+            <View
+              onLayout={(e) => {
+                priceLayout.current = e.nativeEvent.layout.y;
               }}
-              setValue={setPrice}
-              ref={refPrice}
-            />
+            >
+              <ServiceInput
+                icon="money"
+                label={localization.SERVICES.servicePrice}
+                value={price}
+                onChangeText={handleNumberInput}
+                keyboardType="numeric"
+                onSubmitEditing={() => {
+                  refDuration.current?.focus();
+                  scrollRef.current?.scrollTo({
+                    y: nameLocalLayout.current - 20,
+                    animated: true,
+                  });
+                }}
+                setValue={setPrice}
+                ref={refPrice}
+              />
+            </View>
+            <View
+              onLayout={(e) => {
+                durationLayout.current = e.nativeEvent.layout.y;
+              }}
+            >
+              <ServiceInput
+                icon="history"
+                label={localization.SERVICES.serviceDuration}
+                value={duration}
+                keyboardType="numeric"
+                onChangeText={handleNumberInput}
+                setValue={setDuration}
+                ref={refDuration}
+              />
+            </View>
           </View>
-          <View
-            onLayout={(e) => {
-              durationLayout.current = e.nativeEvent.layout.y;
-            }}
-          >
-            <ServiceInput
-              icon="history"
-              label={localization.SERVICES.serviceDuration}
-              value={duration}
-              keyboardType="numeric"
-              onChangeText={handleNumberInput}
-              setValue={setDuration}
-              ref={refDuration}
+          <View style={[styles.btnContainer, id && styles.btnGap]}>
+            <SharedButtonApproved
+              onPress={addService}
+              loading={isLoading === "addEdit"}
+              disabled={validationData()}
+              text={
+                editingId
+                  ? localization.SERVICES.saveChanges
+                  : localization.SERVICES.submitAdd
+              }
             />
+            {id && (
+              <SharedButtonRejected
+                onPress={() => removeQuestion(id)}
+                loading={isLoading === "remove"}
+                text={localization.SERVICES.removeBtn}
+              />
+            )}
           </View>
+        </>
+      ) : (
+        <View style={styles.errorLoading}>
+          <ActivityIndicator size={72} color={ColorsBarber.light.textColor} />
         </View>
-        <View style={[styles.btnContainer, id && styles.btnGap]}>
-          <SharedButtonApproved
-            onPress={addService}
-            loading={isLoading === "addEdit"}
-            disabled={validationData()}
-            text={
-              editingId
-                ? localization.SERVICES.saveChanges
-                : localization.SERVICES.submitAdd
-            }
-          />
-          {id && (
-            <SharedButtonRejected
-              onPress={() => removeQuestion(id)}
-              loading={isLoading === "remove"}
-              text={localization.SERVICES.removeBtn}
-            />
-          )}
-        </View>
-      </ScrollView>
+      )}
+      {/* </ScrollView> */}
 
       {isMessage && (
         <SharedMessage
@@ -329,6 +340,15 @@ const styles = StyleSheet.create({
     alignContent: "center",
     alignItems: "center",
     alignSelf: "center",
+    backgroundColor: ColorsBarber.light.background,
+  },
+  errorLoading: {
+    marginTop: 100,
+    alignContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    backgroundColor: ColorsBarber.light.background,
+    height: "100%",
   },
   btnContainer: {
     flexDirection: "column",

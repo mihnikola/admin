@@ -207,17 +207,19 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 10, // Prostor desno od strelice
     justifyContent: "center",
+
   },
   pageTitleHeader: {
     fontSize: 18, // Malo manji, ali i dalje dominantan
-    fontWeight: "700",
+    fontFamily: "OldStandard-Bold",
     color: ColorsBarber.light.textColor,
+
     letterSpacing: 0.5,
   },
   addressHeader: {
     color: ColorsBarber.light.inActiveTextColor,
     fontSize: 14,
-    fontWeight: "400",
+        fontFamily: "OldStandard-Bold",
     marginTop: 2,
   },
   loadingContainer: {
@@ -256,7 +258,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 22,
-    fontWeight: "bold",
+        fontFamily: "OldStandard-Bold",
     color: "#fff",
     marginBottom: 10,
   },

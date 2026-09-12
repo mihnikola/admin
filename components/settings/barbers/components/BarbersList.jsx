@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: 24,
-    backgroundColor:ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.light.background,
     justifyContent: "center",
     alignItems: "center",
     marginRight: 12,
@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
   },
   avatarText: {
     color: ColorsBarber.light.textColor,
-    fontWeight: "bold",
+    fontFamily: "OldStandard-Bold",
   },
   searchInputContainer: {
     marginBottom: 10,
@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
 
   title: {
     fontSize: 22,
-    fontWeight: "bold",
+    fontFamily: "OldStandard-Bold",
     color: ColorsBarber.light.textColor,
     marginBottom: 10,
   },
@@ -202,12 +202,12 @@ const styles = StyleSheet.create({
   },
   subTitle: {
     fontSize: 18,
-    fontWeight: "600",
     color: ColorsBarber.light.textColor,
     textAlign: "center",
     alignSelf: "center",
     alignItems: "center",
     width: "80%",
+    fontFamily: "OldStandard-Bold",
   },
   input: {
     backgroundColor: "#1e1e1e",
@@ -250,6 +250,8 @@ const styles = StyleSheet.create({
   serviceText: {
     color: ColorsBarber.light.textColor,
     fontSize: 15,
+    fontFamily: "OldStandard-Bold",
+
   },
   editHint: {
     fontSize: 12,

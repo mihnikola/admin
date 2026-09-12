@@ -59,18 +59,19 @@ export default function RequirementComponent() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 20,
+    paddingVertical: 20,
     backgroundColor:  ColorsBarber.light.background,
-    margin: 15
+    paddingHorizontal: 10
   },
   header: {
-    marginVertical: 20,
+    paddingVertical: 20,
   },
   subTitle: {
     fontSize: 18,
     fontWeight: "600",
     color:  ColorsBarber.light.textColor,
     textAlign: "center",
+    fontFamily:"OldStandard-Bold"
   },
   card: {
     backgroundColor:  ColorsBarber.light.background,
@@ -80,7 +81,8 @@ const styles = StyleSheet.create({
   capture: {
     fontSize: 20,
     textAlign: "center",
-    fontWeight: "900",
     color:  ColorsBarber.light.textColor,
+    fontFamily:"OldStandard-Bold"
+    
   },
 });

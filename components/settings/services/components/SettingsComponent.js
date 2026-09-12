@@ -60,7 +60,7 @@ export default function SettingsComponent() {
       <StatusBar backgroundColor="black" barStyle="light-content" />
       <View style={styles.imageContainer}>
         <Image
-          source={require("@/assets/images/frizerskiSalon1.png")}
+          source={require("@/assets/images/IMG_8211.jpeg")}
           style={styles.coverImage}
         />
         {userData?.image ? (
@@ -180,7 +180,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: ColorsBarber.light.background,
-    // marginBottom:20
     paddingBottom: 20,
   },
   image: {
@@ -192,19 +191,19 @@ const styles = StyleSheet.create({
   coverImage: {
     width: "100%",
     height: "100%",
-    opacity: 0.4,
+    opacity: 0.3,
     position: "absolute",
   },
   avatarText: {
     color: ColorsBarber.light.textColor,
-    fontWeight: "700",
+    fontFamily: "OldStandard-Bold",
     fontSize: 23,
     letterSpacing: 2,
   },
   avatarTextInitials: {
     fontSize: 32,
     letterSpacing: 2,
-    fontWeight: "700",
+    fontFamily: "OldStandard-Regular",
     color: ColorsBarber.light.textColor,
   },
   imageContainer: {

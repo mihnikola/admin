@@ -35,7 +35,7 @@ const ForgotPasswordComponent = () => {
         styleBtn={{ marginBottom: 30 }}
       />
 
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, backgroundColor: ColorsBarber.light.background }}>
         <View>
           <Text style={styles.mainTitle}>
             {localization.FORGOT_PASSWORD.title}
@@ -88,51 +88,30 @@ const ForgotPasswordComponent = () => {
   );
 };
 const styles = StyleSheet.create({
-  mainTitle: {
-    fontSize: 28,
-    fontWeight: "700",
-    color: "#000",
-    marginHorizontal: 10,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: "#555",
-    lineHeight: 22,
-    marginHorizontal: 10,
-  },
-  radiobtn: {
-    flex: 2,
-    flexDirection: "column",
-    gap: 25,
-  },
-  imageContainer: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    alignContent: "center",
-  },
 
-  image: {
-    resizeMode: "contain",
-  },
+
+ 
   input: {
     backgroundColor: "white",
-   color:ColorsBarber.light.item,
+    color: ColorsBarber.light.item,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
     borderWidth: 2,
     borderColor: "white",
     paddingVertical: 15,
+    fontFamily: "OldStandard-Bold",
+    
   },
   mainTitle: {
     fontSize: 22,
-    fontWeight: "bold",
-    color: "#fff",
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Bold",
   },
   subtitle: {
-    fontSize: 13,
-    color: "#ccc",
+    fontSize: 16,
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Regular",
   },
 });
 export default ForgotPasswordComponent;

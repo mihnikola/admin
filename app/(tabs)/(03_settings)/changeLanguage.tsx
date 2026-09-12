@@ -52,7 +52,10 @@ const changeLanguage = () => {
   return (
     <View style={styles.container}>
       {/* <StatusBar backgroundColor="white" barStyle="light-content" /> */}
-      <SharedBackButton onPress={router.back} styleBtn={{ marginTop: 10, marginLeft: 10 }} />
+      <SharedBackButton
+        onPress={router.back}
+        styleBtn={{ marginTop: 10, marginLeft: 10 }}
+      />
 
       <SharedTabHeader
         image={company?.media?.coverImageSettings}
@@ -114,6 +117,7 @@ const styles = StyleSheet.create({
     padding: 10,
     margin: 20,
     fontSize: 20,
+    fontFamily: "OldStandard-Bold",
   },
 
   languageItem: {
@@ -130,8 +134,8 @@ const styles = StyleSheet.create({
   },
   languageText: {
     fontSize: 18,
-    fontWeight: "500",
     color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Bold",
   },
 });
 

@@ -7,7 +7,11 @@ export default function SettingsItem({ title, icon, onPress }) {
     <TouchableOpacity style={styles.container} onPress={onPress}>
       <Ionicons name={icon} size={24} color={ColorsBarber.light.textColor} />
       <Text style={styles.text}>{title}</Text>
-      <Ionicons name="chevron-forward" size={20} color={ColorsBarber.light.textColor} />
+      <Ionicons
+        name="chevron-forward"
+        size={20}
+        color={ColorsBarber.light.textColor}
+      />
     </TouchableOpacity>
   );
 }
@@ -27,5 +31,6 @@ const styles = StyleSheet.create({
     marginLeft: 12,
     flex: 1,
     fontSize: 17,
+    fontFamily: "OldStandard-Bold",
   },
 });

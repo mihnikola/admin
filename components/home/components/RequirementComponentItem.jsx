@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   },
   eventItem: {
     flexDirection: "row",
-    backgroundColor: "#262626ff",
+    backgroundColor: ColorsBarber.light.item,
     borderRadius: 10,
     padding: 15,
     marginVertical: 5,
@@ -75,34 +75,32 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRightWidth: 1,
-    borderRightColor: "#eee",
+    borderRightColor: ColorsBarber.light.textColor,
     paddingRight: 15,
   },
-  startTime: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "#e2e2e2ff",
-  },
+
   detailsBlock: {
     flex: 1, // Take remaining space
   },
   eventTitle: {
     fontSize: 16,
-    fontWeight: "bold",
-    color: "#edededff",
+    color: ColorsBarber.light.textColor,
+
+    fontFamily: "OldStandard-Bold",
     marginBottom: 5,
   },
   eventUser: {
     fontSize: 14,
-    fontWeight: "500",
-    color: "#edededff",
     marginBottom: 5,
+    color: ColorsBarber.light.textColor,
+
+    fontFamily: "OldStandard-Bold",
   },
   eventStatus: {
     fontSize: 12,
-    fontWeight: "bold",
+    fontFamily: "OldStandard-Bold",
     textTransform: "uppercase",
-   color:ColorsBarber.light.textColor,
+    color: ColorsBarber.light.textColor,
   },
 });
 

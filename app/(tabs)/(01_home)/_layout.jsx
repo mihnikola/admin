@@ -1,5 +1,5 @@
 import { Stack } from "expo-router";
-
+import { ColorsBarber } from "@/constants/Colors";
 export default function RootLayoutHome() {
   return (
     <Stack screenOptions={{ headerShown: false }}>
@@ -15,6 +15,9 @@ export default function RootLayoutHome() {
         name="locations"
         options={{
           title: "",
+          headerStyle: {
+            backgroundColor: ColorsBarber.light.background,
+          },
           headerShown: false,
         }}
       />

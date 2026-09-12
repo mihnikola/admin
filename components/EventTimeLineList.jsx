@@ -2,6 +2,7 @@ import { FlatList, StyleSheet, Text, View } from "react-native";
 
 import SharedCard from "@/shared-components/SharedCard";
 import { useLocalization } from "@/contexts/LocalizationContext";
+import { ColorsBarber } from "@/constants/Colors";
 
 const EventTimelineList = ({ events, error, criteriaDate }) => {
   const { localization } = useLocalization();
@@ -74,7 +75,7 @@ const styles = StyleSheet.create({
   },
   errorMessageDetail: {
     fontSize: 14,
-    color: "rgb(172, 164, 164)",
+    color: ColorsBarber.light.textColor,
     textAlign: "center",
   },
   notWorkingDaysContent: {
@@ -85,7 +86,8 @@ const styles = StyleSheet.create({
   },
   noEventsText: {
     fontSize: 16,
-    color: "rgb(255, 255, 255)",
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Bold",
     textAlign: "center",
   },
   flatListContent: {

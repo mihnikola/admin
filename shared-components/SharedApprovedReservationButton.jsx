@@ -1,3 +1,4 @@
+import { ColorsBarber } from "@/constants/Colors";
 import {
   Text,
   TouchableOpacity,
@@ -19,35 +20,39 @@ const SharedApprovedReservationButton = (props) => {
           {props.text}
         </Text>
       )}
-      {props.loading && <ActivityIndicator size={24} color={ColorsBarber.light.textColor} />}
+      {props.loading && (
+        <ActivityIndicator size={24} color={ColorsBarber.light.textColor} />
+      )}
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   btnText: {
-    color: "#fff",
+    color: ColorsBarber.light.textColor,
     fontSize: 18,
-    fontWeight: "bold",
+    fontFamily: "OldStandard-Bold",
   },
   btnTextDisabled: {
-    color: "#3f3f3fff",
+    color: ColorsBarber.light.inActiveTextColor,
+    fontFamily: "OldStandard-Bold",
+
     fontSize: 18,
     fontWeight: "bold",
   },
   btnDisabled: {
-    borderColor: "grey",
+    borderColor:ColorsBarber.light.inActiveTextColor,
     backgroundColor: "#8b8b8bff",
-    color: "#3f3f3fff",
+    color: ColorsBarber.light.inActiveTextColor,
   },
 
   btn: {
-    backgroundColor: "#1C1C1E",
+    backgroundColor: ColorsBarber.light.item,
     paddingVertical: 15,
     borderRadius: 8,
     borderWidth: 1,
     padding: 40,
-    borderColor: "white",
+    borderColor:ColorsBarber.light.inActiveTextColor,
     alignItems: "center",
     justifyContent: "center",
     marginTop: 20,
