@@ -1,14 +1,15 @@
-import { delete as del } from "@/api/apiService";
+import { delete as del, put } from "@/api/apiService";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { useState } from "react";
 import { Alert, Linking } from "react-native";
 
 export default function useChangeUser() {
   const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(null);
   const [message, setMessage] = useState(null);
   const [isMessage, setIsMessage] = useState(false);
   const [dialog, setDialog] = useState(false);
+  const [color, setColor] = useState("");
 
   const { localization } = useLocalization();
   const makePhoneCall = async (phoneNumber) => {
@@ -23,7 +24,7 @@ export default function useChangeUser() {
   };
 
   const deleteClient = async (clientId) => {
-    setIsLoading(true);
+    setIsLoading("delete");
     setError(null);
     try {
       const response = await del(`/admin/users/${clientId}`);
@@ -36,7 +37,32 @@ export default function useChangeUser() {
       setIsMessage(true);
       setError(err);
     } finally {
-      setIsLoading(false);
+      setIsLoading(null);
+
+      setDialog(false);
+    }
+  };
+
+  const changeColorSubmit = async (userId) => {
+    setIsLoading("changeColor");
+    setError(null);
+    try {
+      const response = await put(`/admin/users/${userId}/changeColor`, {
+        color,
+      });
+      setIsMessage(true);
+
+      if (response.status === 200) {
+        setMessage(localization.CLIENTS.addColor);
+      }
+      if (response.status === 201) {
+        setMessage(localization.CLIENTS.changeColor);
+      }
+    } catch (err) {
+      setIsMessage(true);
+      setError(err);
+    } finally {
+      setIsLoading(null);
 
       setDialog(false);
     }
@@ -53,5 +79,8 @@ export default function useChangeUser() {
     setMessage,
     setIsMessage,
     isMessage,
+    color,
+    setColor,
+    changeColorSubmit,
   };
 }

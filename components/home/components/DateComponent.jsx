@@ -16,6 +16,7 @@ import SharedBackButton from "@/shared-components/SharedBackButton";
 import { router } from "expo-router";
 import { calendarLocales } from "@/helpers/calendarLocales";
 import { ColorsBarber } from "@/constants/Colors";
+import { FontAwesome } from "@expo/vector-icons";
 
 const DateComponent = () => {
   const today = new Date();
@@ -50,9 +51,6 @@ const DateComponent = () => {
 
     const firstDay = new Date(year, month, 1).getDay();
     const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-    console.log("firstDay", firstDay);
-    console.log("daysInMonth", daysInMonth);
 
     return Math.ceil((firstDay + daysInMonth) / 7);
     // return 6.2;
@@ -115,10 +113,59 @@ const DateComponent = () => {
     }
   };
 
+  const formatDate = (date = new Date()) =>
+    `${String(date.getDate()).padStart(2, "0")}-${String(
+      date.getMonth() + 1,
+    ).padStart(2, "0")}-${date.getFullYear()}`;
+
+  const validateDate = () => {
+    if (
+      formatDate(new Date()) <=
+      formatDate(new Date(selectValueDate?.dateString))
+    )
+      return true;
+    else return false;
+  };
+
+  const addReservation = () => {
+    router.push({
+      pathname: "/(add_reservation)/",
+      params: { date: selectValueDate?.dateString },
+    });
+  };
+
   if (checkDates) {
     return (
       <View style={styles.container}>
-        <SharedBackButton onPress={router.back} styleBtn={{ marginLeft: 20, marginTop: 10 }} />
+        <View
+          style={{
+            justifyContent: "space-between",
+            flexDirection: "row",
+            paddingHorizontal: 20,
+            paddingTop: 10,
+            alignItems: "center",
+          }}
+        >
+          <View>
+            <SharedBackButton onPress={router.back} absolutePosition={false} />
+          </View>
+          {validateDate() && (
+            <TouchableOpacity
+              onPress={addReservation}
+              style={{ flexDirection: "row", alignItems: "center" }}
+            >
+              <Text style={{ paddingRight: 10 }}>
+                {localization.ADDRESERVATION.add}
+              </Text>
+
+              <FontAwesome
+                name="plus-circle"
+                size={32}
+                color={ColorsBarber.light.textColor}
+              />
+            </TouchableOpacity>
+          )}
+        </View>
         <StatusBar backgroundColor="black" barStyle="dark-content" />
         <View style={[styles.calendarContainer, { height: calendarHight }]}>
           <CalendarList
@@ -170,13 +217,17 @@ const DateComponent = () => {
                       justifyContent: "center",
                       alignItems: "center",
                       backgroundColor: isSelected
-                        ? ColorsBarber.light.item
+                        ? ColorsBarber.light.textColor
                         : "transparent",
                     }}
                   >
                     <Text
                       style={{
-                        color: isPast ? ColorsBarber.light.inActiveTextColor : isSelected ? "#000" : ColorsBarber.light.textColor,
+                        color: isPast
+                          ? ColorsBarber.light.inActiveTextColor
+                          : isSelected
+                            ? "#fff"
+                            : ColorsBarber.light.textColor,
                         textAlign: "center",
                         fontWeight: "500",
                       }}
@@ -191,7 +242,7 @@ const DateComponent = () => {
                         borderRadius: 2.5,
                         backgroundColor: checkDates?.[dateStr]?.marked
                           ? isSelected
-                            ? ColorsBarber.light.textColor
+                            ? "#fff"
                             : ColorsBarber.light.textColor
                           : "transparent",
                         marginTop: 2,
@@ -225,7 +276,7 @@ const styles = StyleSheet.create({
   infoDetails: {
     fontSize: 22,
     color: ColorsBarber.light.textColor,
-    fontFamily:"OldStandard-Bold",
+    fontFamily: "OldStandard-Bold",
     textAlign: "center",
   },
   notWorkingDaysContent: {

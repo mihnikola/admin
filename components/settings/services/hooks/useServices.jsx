@@ -1,4 +1,4 @@
-import { get, delete as deleteRequest } from "@/api/apiService";
+import { get, delete as deleteRequest, getData } from "@/api/apiService";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import axios from "axios";
 import { router } from "expo-router";
@@ -8,6 +8,8 @@ import { useServicesStore } from "@/contexts/ServiceContext";
 const useServices = () => {
   const { serviceData, setServicesData } = useServicesStore();
   const [getServiceData, setGetServiceData] = useState([]);
+  const [selectedValueDate, setSelectedValueData] = useState(null);
+  const [timesData, setTimesData] = useState([]);
 
   const [isLoading, setIsLoading] = useState(null);
   const [error, setError] = useState(null);
@@ -20,6 +22,19 @@ const useServices = () => {
     try {
       const response = await get("/services/client");
       setServicesData(response.data);
+    } catch (err) {
+      setError(localization.SERVICES.errorFetch);
+    } finally {
+      setIsLoading(null);
+    }
+  };
+  const getServices = async (date) => {
+    setSelectedValueData(date);
+    setIsLoading("get");
+    setError(null);
+    try {
+      const response = await get("admin/services");
+      setGetServiceData(response);
     } catch (err) {
       setError(localization.SERVICES.errorFetch);
     } finally {
@@ -60,6 +75,50 @@ const useServices = () => {
       return localization.SERVICES.errorImage;
     }
   };
+  const chooseService = async (item) => {
+    const getServices = [...getServiceData];
+    const result = getServices.map((service) => {
+      if (service.id === item.id) {
+        return {
+          ...service,
+          assigned: true,
+        };
+      }
+
+      const { assigned, ...rest } = service;
+      return rest;
+    });
+
+    setGetServiceData(result);
+    await fetchTimes(selectedValueDate, item);
+  };
+  const fetchTimes = async (selectedDate, serviceItem) => {
+    setIsLoading("times");
+    setError(null);
+
+    if (!selectedDate) {
+      setIsLoading(null);
+      return;
+    }
+
+    const serviceData = {
+      id: serviceItem.id,
+      duration: serviceItem.duration,
+    };
+
+    try {
+      const response = await getData("/times", {
+        date: selectedDate,
+        service: serviceData,
+      });
+      setTimesData(response);
+      setIsLoading(null);
+    } catch (err) {
+      setError(localization.TIMES.errorFetch);
+      setIsLoading(null);
+    }
+  };
+
   const addEditService = async (userData) => {
     const validationErrors = validationServicesErrors(userData, localization);
     if (validationErrors && validationErrors?.length > 0) {
@@ -194,6 +253,10 @@ const useServices = () => {
     startEditing,
     getServiceHandler,
     getServiceData,
+    chooseService,
+    getServices,
+    fetchTimes,
+    timesData,
   };
 };
 

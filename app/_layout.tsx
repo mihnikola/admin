@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { ColorsBarber } from "@/constants/Colors";
 import { DefaultTheme, ThemeProvider } from "@react-navigation/native";
 
-SplashScreen.preventAutoHideAsync();
+// SplashScreen.preventAutoHideAsync();
 
 const BarberTheme = {
   ...DefaultTheme,

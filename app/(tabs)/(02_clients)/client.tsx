@@ -1,7 +1,9 @@
 import useChangeUser from "@/components/clients/hooks/useChangeUser";
+import SearchInputComponent from "@/components/settings/SearchInputComponent";
 import { ColorsBarber } from "@/constants/Colors";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { getInitialsName } from "@/helpers";
+import { SharedButton } from "@/shared-components/SharedButton";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
@@ -11,13 +13,28 @@ import {
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 import { router, useLocalSearchParams } from "expo-router";
-import React from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import React, { useRef, useState } from "react";
+import {
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 const UserProfile = () => {
   const params = useLocalSearchParams();
   const { localization } = useLocalization();
+
+  // 1. Kreiramo Ref za ScrollView
+  const scrollViewRef = useRef(null);
+
   const {
+    color: colorData,
+    setColor,
     makePhoneCall,
     deleteClient,
     error,
@@ -28,6 +45,7 @@ const UserProfile = () => {
     setMessage,
     setIsMessage,
     isMessage,
+    changeColorSubmit
   } = useChangeUser();
 
   const {
@@ -38,6 +56,7 @@ const UserProfile = () => {
     image,
     phoneNumber,
     email,
+    color,
     id,
   } = params;
 
@@ -47,103 +66,149 @@ const UserProfile = () => {
     setIsMessage(false);
     router.back();
   };
-  if (isLoading) {
-    return <SharedLoader isOpen={isLoading} />;
+
+  // 2. Funkcija koja prisilno skroluje do dna kada se fokusira input
+  const handleInputFocus = () => {
+    setTimeout(() => {
+      scrollViewRef.current?.scrollToEnd({ animated: true });
+    }, 100);
+  };
+
+  if (isLoading === 'delete') {
+    return <SharedLoader isOpen={isLoading === 'delete'} />;
   }
+
   return (
-    <View style={styles.container}>
-      <View style={styles.profileHeader}>
-        {image ? (
-          <Image source={{ uri: image }} style={styles.profileImage} />
-        ) : (
-          <View style={styles.avatarContainer}>
-            <Text style={styles.avatarText}>{initials}</Text>
-          </View>
-        )}
-        <Text style={styles.nameText}>{name}</Text>
-      </View>
-      <View style={styles.actionButtonsContainer}>
-        {phoneNumber && (
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === "ios" ? "padding" : undefined}
+    >
+      <ScrollView
+        ref={scrollViewRef}
+        style={styles.container}
+        contentContainerStyle={styles.scrollContent}
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.profileHeader}>
+          {image ? (
+            <Image source={{ uri: image }} style={styles.profileImage} />
+          ) : (
+            <View style={styles.avatarContainer}>
+              <Text style={styles.avatarText}>{initials}</Text>
+            </View>
+          )}
+          <Text style={styles.nameText}>{name}</Text>
+        </View>
+
+        <View style={styles.actionButtonsContainer}>
+          {phoneNumber && (
+            <TouchableOpacity
+              style={styles.actionButton}
+              onPress={() => makePhoneCall(phoneNumber)}
+            >
+              <Feather
+                name="phone"
+                size={24}
+                color={ColorsBarber.light.textColor}
+              />
+              <Text style={styles.actionText}>
+                {localization.CLIENTS.contact}
+              </Text>
+            </TouchableOpacity>
+          )}
+
           <TouchableOpacity
             style={styles.actionButton}
-            onPress={() => makePhoneCall(phoneNumber)}
+            onPress={() => setDialog(true)}
           >
             <Feather
-              name="phone"
+              name="slash"
               size={24}
               color={ColorsBarber.light.textColor}
             />
-            <Text style={styles.actionText}>
-              {localization.CLIENTS.contact}
-            </Text>
+            <Text style={styles.actionText}>{localization.CLIENTS.block}</Text>
           </TouchableOpacity>
-        )}
+        </View>
 
-        <TouchableOpacity
-          style={styles.actionButton}
-          onPress={() => setDialog(true)}
-        >
-          <Feather
-            name="slash"
-            size={24}
-            color={ColorsBarber.light.textColor}
-          />
-          <Text style={styles.actionText}>{localization.CLIENTS.block}</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.section}>
-        <View style={styles.statItem}>
-          <Text style={styles.statLabel}>{localization.CLIENTS.missed}</Text>
-          <Text
-            style={[styles.statValue, { color: ColorsBarber.light.textColor }]}
-          >
-            {skippedCount || 0}
+        <View style={styles.section}>
+          <View style={styles.statItem}>
+            <Text style={styles.statLabel}>{localization.CLIENTS.missed}</Text>
+            <Text
+              style={[
+                styles.statValue,
+                { color: ColorsBarber.light.textColor },
+              ]}
+            >
+              {skippedCount || 0}
+            </Text>
+          </View>
+          <View style={styles.statItem}>
+            <Text style={styles.statLabel}>
+              {localization.CLIENTS.finished}
+            </Text>
+            <Text style={styles.statValue}>{completedCount || 0}</Text>
+          </View>
+
+          <View style={styles.totalIncome}>
+            <Text style={styles.statLabel}>{localization.CLIENTS.total}</Text>
+            <Text style={styles.incomeValue}>{totalRevenue} RSD</Text>
+          </View>
+        </View>
+
+        <View style={styles.divider} />
+
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>
+            {localization.CLIENTS.contactInfo}
           </Text>
-        </View>
-        <View style={styles.statItem}>
-          <Text style={styles.statLabel}>{localization.CLIENTS.finished}</Text>
-          <Text style={styles.statValue}>{completedCount || 0}</Text>
-        </View>
+          <View style={styles.contactItem}>
+            <Feather
+              name="phone-call"
+              size={20}
+              color={ColorsBarber.light.textColor}
+              style={styles.contactIcon}
+            />
+            <Text style={styles.contactText}>
+              {phoneNumber || localization.CLIENTS.notAvailable}
+            </Text>
+          </View>
+          <View style={styles.contactItem}>
+            <MaterialCommunityIcons
+              name="email-outline"
+              size={20}
+              color={ColorsBarber.light.textColor}
+              style={styles.contactIcon}
+            />
+            <Text style={styles.contactText}>
+              {email || localization.CLIENTS.notAvailable}
+            </Text>
+          </View>
 
-        <View style={styles.totalIncome}>
-          <Text style={styles.statLabel}>{localization.CLIENTS.total}</Text>
-          <Text style={styles.incomeValue}>{totalRevenue} RSD</Text>
+          {/* Wrapper oko inputa hvata dodir/fokus i pokreće scroll */}
+          <View style={{ paddingVertical: 20 }} onTouchStart={handleInputFocus}>
+            <SearchInputComponent
+              search={colorData}
+              setSearch={setColor}
+              placeholderText={color || "Dodaj boju"}
+            />
+          </View>
+          <View style={{paddingBottom: 40}}>
+            <SharedButton onPress={() => changeColorSubmit(id)} text="Sacuvaj izmene" disabled={color?.length === 0 || isLoading === 'changeColor'} loading={isLoading === 'changeColor'} />
+          </View>
         </View>
-      </View>
+      </ScrollView>
 
-      <View style={styles.divider} />
-
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>
-          {localization.CLIENTS.contactInfo}
-        </Text>
-        <View style={styles.contactItem}>
-          <Feather
-            name="phone-call"
-            size={20}
-            color={ColorsBarber.light.textColor}
-            style={styles.contactIcon}
-          />
-          <Text style={styles.contactText}>
-            {phoneNumber || localization.CLIENTS.notAvailable}
-          </Text>
-        </View>
-        <View style={styles.contactItem}>
-          <MaterialCommunityIcons
-            name="email-outline"
-            size={20}
-            color={ColorsBarber.light.textColor}
-            style={styles.contactIcon}
-          />
-          <Text style={styles.contactText}>
-            {email || localization.CLIENTS.notAvailable}
-          </Text>
-        </View>
-      </View>
       {dialog && (
         <SharedQuestion
           isOpen={dialog}
-          icon={<FontAwesome name="close" size={64} color={ColorsBarber.light.textColor} />}
+          icon={
+            <FontAwesome
+              name="close"
+              size={64}
+              color={ColorsBarber.light.textColor}
+            />
+          }
           onClose={() => setDialog(false)}
           onLogOut={() => deleteClient(id)}
           title={localization.CLIENTS.question}
@@ -167,11 +232,19 @@ const UserProfile = () => {
           title={message}
         />
       )}
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: ColorsBarber.light.background,
+  },
+  // KORISNO: Padding na dnu osigurava da dugme ne ostane zalepljeno za dno tastature
+  scrollContent: {
+    paddingBottom: 120,
+  },
   avatarContainer: {
     backgroundColor: "grey",
     padding: 10,
@@ -179,7 +252,7 @@ const styles = StyleSheet.create({
   },
   avatarText: {
     color: ColorsBarber.light.textColor,
-    fontFamily:"OldStandard-Bold",
+    fontFamily: "OldStandard-Bold",
     fontSize: 30,
   },
   profileImage: {
@@ -190,59 +263,27 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#333",
   },
-  container: {
-    flex: 1,
-    backgroundColor: ColorsBarber.light.background,
-  },
-  navBar: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingHorizontal: 15,
-    paddingTop: 10,
-  },
-  navButton: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  navText: {
-    color: ColorsBarber.light.textColor,
-    fontFamily:"OldStandard-Bold",
-
-    fontSize: 16,
-    marginLeft: 5,
-  },
   profileHeader: {
-    marginTop:20,
+    marginTop: 20,
     alignItems: "center",
-  },
-  photoPlaceholder: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    backgroundColor: "#d9534f",
   },
   nameText: {
     color: ColorsBarber.light.textColor,
     fontSize: 24,
-    fontFamily:"OldStandard-Bold",
+    fontFamily: "OldStandard-Bold",
     marginTop: 10,
   },
   actionButtonsContainer: {
-    fontFamily:"OldStandard-Bold",
-
     flexDirection: "row",
     justifyContent: "space-around",
     paddingVertical: 15,
   },
   actionButton: {
     alignItems: "center",
-    fontFamily:"OldStandard-Bold",
-
   },
   actionText: {
     color: ColorsBarber.light.textColor,
-    fontFamily:"OldStandard-Bold",
+    fontFamily: "OldStandard-Bold",
     fontSize: 12,
     marginTop: 5,
   },
@@ -254,8 +295,7 @@ const styles = StyleSheet.create({
     color: ColorsBarber.light.textColor,
     fontSize: 14,
     marginBottom: 10,
-    fontFamily:"OldStandard-Bold",
-
+    fontFamily: "OldStandard-Bold",
   },
   statItem: {
     flexDirection: "row",
@@ -265,14 +305,12 @@ const styles = StyleSheet.create({
   statLabel: {
     color: ColorsBarber.light.textColor,
     fontSize: 16,
-    fontFamily:"OldStandard-Bold",
-
+    fontFamily: "OldStandard-Bold",
   },
   statValue: {
     color: ColorsBarber.light.textColor,
     fontSize: 16,
-    fontFamily:"OldStandard-Bold",
-
+    fontFamily: "OldStandard-Bold",
   },
   totalIncome: {
     flexDirection: "row",
@@ -282,7 +320,7 @@ const styles = StyleSheet.create({
   incomeValue: {
     color: ColorsBarber.light.textColor,
     fontSize: 16,
-    fontFamily:"OldStandard-Bold",
+    fontFamily: "OldStandard-Bold",
   },
   divider: {
     height: 1,
@@ -300,8 +338,7 @@ const styles = StyleSheet.create({
   contactText: {
     color: ColorsBarber.light.textColor,
     fontSize: 16,
-    fontFamily:"OldStandard-Bold",
-
+    fontFamily: "OldStandard-Bold",
   },
 });
 

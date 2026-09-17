@@ -15,6 +15,9 @@ export const SRB_LOCALIZATION = {
     ok: "OK",
     cancel: "Odustani",
   },
+  ADDRESERVATION: {
+    add: "Dodaj rezervaciju",
+  },
 
   code: "sr",
   HOME: {
@@ -46,6 +49,8 @@ export const SRB_LOCALIZATION = {
     error: "Greška prilikom uzimanja podataka o kompaniji...",
   },
   CLIENTS: {
+    changeColor: "Boja je uspešno promenjena",
+    addColor: "Boja je uspešno uneta",
     search: "Pretraži...",
     finished: "Završenih:",
     missed: "Propuštenih:",

@@ -1,11 +1,11 @@
 import { ExpoConfig, ConfigContext } from "@expo/config";
 
-const APP_VERSION = "1.0.3";
+const APP_VERSION = "1.0.5";
 const BRAND_BACKGROUND_COLOR = "#6e412a"; // Unificirana boja pozadine salona
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
-  name: "fta-barber-admin-app",
+  name: "BookHair Admin",
   slug: "fta-barber-admin-app",
   version: APP_VERSION,
   orientation: "portrait",

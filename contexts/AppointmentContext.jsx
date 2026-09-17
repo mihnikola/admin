@@ -66,6 +66,9 @@ export const AppointmentProvider = ({ children }) => {
     }
   };
 
+  const getDateFromString = (val) => {
+    return val.split("T")[0];
+  };
   const changeStatusReservation = async (id, status, criteriaDate) => {
     setIsLoading(true);
     setError(null);
@@ -79,17 +82,23 @@ export const AppointmentProvider = ({ children }) => {
       const response = await put(`admin/availabilities/${id}`, {
         status,
       });
-      console.log("xxx",response);
       if (response.status === 200) {
+
         setIsModal(true);
         setMessage(
           status === "approved"
             ? localization.APPOINTMENTS.approveReservation.confirmMessage
             : localization.APPOINTMENTS.rejectReservation.confirmMessage,
         );
-        await getReservations(criteriaDate);
+
+        const dateValue = criteriaDate
+          ? criteriaDate
+          : getDateFromString(response.data.startDate);
+        await getReservations(dateValue);
       }
     } catch (err) {
+      console.error("changeStatusReservation Error fetching tasks:", err);
+
       setIsError(true);
       setError(localization.APPOINTMENTS.cancelReservation.errorMessage);
     } finally {
@@ -98,6 +107,7 @@ export const AppointmentProvider = ({ children }) => {
   };
 
   const getReservations = async (criteria) => {
+    console.log("criteria", criteria);
     setIsLoading(true);
     setError(null);
     if (!criteria) {
@@ -110,6 +120,8 @@ export const AppointmentProvider = ({ children }) => {
         dateValue: criteria,
         token: isToken,
       });
+      console.log("response", response);
+
       setEvents(response);
     } catch (err) {
       console.error("Error fetching tasks:", err);

@@ -61,6 +61,7 @@ function ResevationNotificationScreen() {
     setIsModalQuestion(false);
 
     setTimeout(async () => {
+      console.log("changeStatusReservation++++",itemId, actionValue, criteriaDate)
       await changeStatusReservation(itemId, actionValue, criteriaDate);
     }, 500);
   };

@@ -38,7 +38,7 @@ export const calendarTheme = {
   // todayTextColor: "white",
   dayTextColor: ColorsBarber.light.textColor,
   textMonthFontWeight: "bold",
-  textDisabledColor: "#A9A9A9", // siva za prošle datume
+  textDisabledColor: "#b93b3b", // siva za prošle datume
 };
 
 export function convertDayInitalValue(data) {

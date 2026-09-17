@@ -11,6 +11,9 @@ export const ENG_LOCALIZATION = {
   DETERMINATION: {
     error: "Your account has been deleted.",
   },
+  ADDRESERVATION: {
+    add: "Add reservation",
+  },
   code: "en",
   HOME: {
     absenceManager: "Absence Management",
@@ -71,12 +74,14 @@ export const ENG_LOCALIZATION = {
     status: "Status approval",
     typeApproval: "Types approval",
     listSeniorities: "List of seniority",
-    errorExist:"Email already exists",
+    errorExist: "Email already exists",
   },
   COMPANY: {
     error: "Error while fetching company data...",
   },
   CLIENTS: {
+    changeColor: "Color is successfully updated",
+    addColor: "Color is successfully added",
     search: "Search...",
     finished: "Finished:",
     missed: "Missed:",
