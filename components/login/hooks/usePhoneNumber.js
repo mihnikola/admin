@@ -9,35 +9,41 @@ const usePhoneNumber = () => {
   const phoneNumberInputRef = useRef(null);
 
   const { localization } = useLocalization();
-  const serbianPhoneRegex = /^6\d{7,8}$/;
+  const phoneRegex = /^\+?\d{9,12}$/;
 
-  const validateSerbianPhoneNumber = (number) => {
+  const validatePhoneNumber = (number) => {
     if (number.length === 0) {
       setIsValid(true);
       setErrorPhoneNumber("");
       return true;
     }
-    if (number?.length > 0 && serbianPhoneRegex.test(number)) {
+
+    if (phoneRegex.test(number)) {
       setIsValid(true);
       setErrorPhoneNumber("");
       return true;
-    } else {
-      setIsValid(false);
-      setErrorPhoneNumber(localization.SETTINGS.PROFILE.errorPhoneNumber);
-      return false;
     }
+
+    setIsValid(false);
+    setErrorPhoneNumber(localization.SETTINGS.PROFILE.errorPhoneNumber);
+
+    return false;
   };
 
   const handlePhoneNumberChange = (text) => {
-    setPhoneNumber(text);
-    validateSerbianPhoneNumber(text);
-  };
+    const cleaned = text.replace(/[^\d+]/g, "");
+    const formatted = cleaned.startsWith("+")
+      ? "+" + cleaned.slice(1).replace(/\+/g, "")
+      : cleaned.replace(/\+/g, "");
 
+    setPhoneNumber(formatted);
+    validatePhoneNumber(formatted);
+  };
   return {
     handlePhoneNumberChange,
     phoneNumber,
     errorPhoneNumber,
-    phoneNumberInputRef
+    phoneNumberInputRef,
   };
 };
 

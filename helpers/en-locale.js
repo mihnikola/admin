@@ -248,6 +248,7 @@ export const ENG_LOCALIZATION = {
       rateExplanation: "Rate your experience...",
       ratedInfo: "You rated this appointment",
       confirmMessage: "Reservation is approved successfully",
+      createReservation: "Reservation is successfully created",
       errorMessage: "Reservation is not exist",
     },
     errorFetch: "Error fetching reservations",

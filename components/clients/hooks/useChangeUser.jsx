@@ -47,10 +47,13 @@ export default function useChangeUser() {
     setIsLoading("changeColor");
     setError(null);
     try {
+      console.log("userId",userId)
+      console.log("color",color)
       const response = await put(`/admin/users/${userId}/changeColor`, {
         color,
       });
       setIsMessage(true);
+      console.log("response",response)
 
       if (response.status === 200) {
         setMessage(localization.CLIENTS.addColor);
@@ -59,6 +62,7 @@ export default function useChangeUser() {
         setMessage(localization.CLIENTS.changeColor);
       }
     } catch (err) {
+      console.log("er",err)
       setIsMessage(true);
       setError(err);
     } finally {

@@ -222,6 +222,7 @@ export const SRB_LOCALIZATION = {
       rateOurCut: "Ocenite svoj tretman",
       ratedInfo: "Ocenili ste ovu rezervaciju",
       confirmMessage: "Rezervacija je uspešno odobrena",
+      createReservation:"Rezervacija je uspešno kreirana",
       errorMessage: "Rezervacija ne postoji",
       descReservation: "Opis tretmana",
     },
