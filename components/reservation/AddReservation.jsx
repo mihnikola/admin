@@ -87,14 +87,14 @@ function AddReservation() {
         />
         <SharedCoverImage />
         <View style={styles.captureContainer}>
-          <Text style={styles.capture}>Dodaj korisnika</Text>
+          <Text style={styles.capture}>{localization.USER.add}</Text>
         </View>
         <View style={{ padding: 20, gap: 10, paddingBottom: 20 }}>
           <SharedInput
-            label="Naziv klijenta"
+            label={localization.USER.nameLabel}
             value={reservationName}
             onChangeText={setReservationName}
-            placeholder="Unesite naziv klijenta"
+            placeholder={localization.USER.name}
             onSubmitEditing={() => emailInputRef.current.focus()}
             autoCapitalize="none"
             style={styles.input}
@@ -106,7 +106,7 @@ function AddReservation() {
             }}
           >
             <SharedInput
-              label="Email klijenta"
+              label="Email"
               value={email}
               onChangeText={handleEmailChange}
               placeholder={localization.EMAIL.placeholder}
@@ -125,11 +125,11 @@ function AddReservation() {
             }}
           >
             <SharedInput
-              label="Broj telefona"
+              label={localization.USER.phoneNumber}
               value={phoneNumber}
               placeholderTextColor={ColorsBarber.light.inActiveTextColor}
               onChangeText={handlePhoneNumberChange}
-              placeholder="06x xxx xxxx"
+              placeholder={localization.BARBERS.phoneNumber}
               keyboardType="phone-pad"
               dataDetectorTypes="phoneNumber"
               style={styles.input}
@@ -140,7 +140,7 @@ function AddReservation() {
         </View>
         <View style={{ paddingTop: 80, paddingHorizontal: 20 }}>
           <SharedButton
-            text="Nastavi"
+            text={localization.DATE.continue}
             onPress={submitHandler}
             disabled={errorPhoneNumber?.length > 0 || emailError?.length > 0 || reservationName?.length === 0}
           />

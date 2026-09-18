@@ -188,6 +188,7 @@ export const ENG_LOCALIZATION = {
     question: "Are you sure you want to delete the category?",
   },
   SERVICES: {
+    chooseService:"Choose service",
     notDelete: `This service can’t be deleted while there are active scheduled bookings.`,
     errorImage: "Image is a required",
     chooseCategory: "Choose category",
@@ -216,6 +217,7 @@ export const ENG_LOCALIZATION = {
     mark: "Reviews",
   },
   TIMES: {
+    add:"Choose time",
     error: "Employer and service must be selected before fetching times.",
     errorFetch: "Errpr while fetching times...",
     title: "Selected time",
@@ -460,6 +462,13 @@ export const ENG_LOCALIZATION = {
     placeholder: "Enter your password",
     errorRegex:
       "Password has to start with letter and has to be at least 8 characters long, one uppercase letter, one number, and one special character.",
+  },
+  USER: {
+    phoneNumber: "Phone number",
+    add: "Create client",
+    nameLabel: "Name and surname",
+    name: "Enter name and surname",
+    email: "Email",
   },
   REGISTER: {
     title: "Register your account",

@@ -120,7 +120,6 @@ export const AppointmentProvider = ({ children }) => {
         dateValue: criteria,
         token: isToken,
       });
-      console.log("response", response);
 
       setEvents(response);
     } catch (err) {

@@ -16,10 +16,10 @@ import Loader from "@/shared-components/Loader";
 
 function ChooseServiceItem() {
   const { localization } = useLocalization();
-  const { getServices, getServiceData, isLoading, chooseService, chooseOne } =
-    useServices();
+  const { getServices, getServiceData, isLoading } = useServices();
   const { date, name, phoneNumber, email } = useLocalSearchParams();
-  const submitHandler = async () => {
+  const submitHandler = async (item) => {
+    const { id, price, name: nameValue, duration, image } = item;
     router.push({
       pathname: "/(add_reservation)/confirmReservation",
       params: {
@@ -27,13 +27,12 @@ function ChooseServiceItem() {
         email,
         phoneNumber,
         date,
-        servicePrice: chooseOne?.price,
-        serviceName:
-          localization.code === "en"
-            ? chooseOne?.name?.nameEn
-            : chooseOne?.name?.nameLocal,
-        serviceId: chooseOne?.id,
-        serviceDuration: chooseOne?.duration,
+        servicePrice: price,
+        serviceImage: image,
+        serviceNameEn: nameValue?.nameEn,
+        serviceNameLocal: nameValue?.nameLocal,
+        serviceId: id,
+        serviceDuration: duration,
       },
     });
   };
@@ -57,7 +56,9 @@ function ChooseServiceItem() {
       />
       <SharedCoverImage />
       <View style={styles.captureContainer}>
-        <Text style={styles.capture}>Izaberi uslugu</Text>
+        <Text style={styles.capture}>
+          {localization.SERVICES.chooseService}
+        </Text>
       </View>
       {isLoading === "get" && <Loader />}
       {isLoading !== "get" && (
@@ -66,7 +67,10 @@ function ChooseServiceItem() {
             data={getServiceData}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
-              <ServiceItem item={item} toggleService={chooseService} />
+              <ServiceItem
+                item={item}
+                toggleService={() => submitHandler(item)}
+              />
             )}
             contentContainerStyle={{ paddingBottom: 20 }} // Obezbeđuje da se poslednji item lepo vidi iznad dugmeta
             showsVerticalScrollIndicator={false}
@@ -74,11 +78,11 @@ function ChooseServiceItem() {
         </View>
       )}
 
-      {chooseOne && (
+      {/* {chooseOne && (
         <View style={{ paddingHorizontal: 20, paddingBottom: 20 }}>
           <SharedButton text="Nastavi" onPress={submitHandler} />
         </View>
-      )}
+      )} */}
     </View>
   );
 }
@@ -90,7 +94,7 @@ const styles = StyleSheet.create({
   display: {
     flex: 1,
     paddingHorizontal: 20,
-    marginVertical: 20, 
+    marginVertical: 20,
   },
   container: {
     flexDirection: "row",

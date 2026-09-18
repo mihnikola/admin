@@ -21,6 +21,7 @@ import useServices from "../settings/services/hooks/useServices";
 import Summary from "./Summary";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
+import SharedDetailsServiceCard from "@/shared-components/SharedDetailsServiceCard";
 
 function ConfirmReservation() {
   const [description, setDescription] = useState("");
@@ -29,7 +30,7 @@ function ConfirmReservation() {
   const [error, setError] = useState("");
   const { getReservations } = useAppointment();
   const [selectedItem, setSelectedItem] = useState(null);
-
+  // const [focused, setFocused] = useState(false)
   const { localization } = useLocalization();
 
   const {
@@ -42,18 +43,26 @@ function ConfirmReservation() {
     setIsLoading,
   } = useServices();
   const params = useLocalSearchParams();
-  // const { name, email, phoneNumber, date, serviceName } = params;
   const {
     name,
     email,
     phoneNumber,
     date,
     servicePrice,
-    serviceName,
     serviceId,
     serviceDuration,
+    serviceImage,
+    serviceNameEn,
+    serviceNameLocal,
   } = params;
-  console.log("csadas sadas", date, serviceId, serviceDuration);
+
+  const serviceData = {
+    id: serviceId,
+    name: { nameEn: serviceNameEn, nameLocal: serviceNameLocal },
+    price: servicePrice,
+    duration: serviceDuration,
+    image: serviceImage,
+  };
 
   useEffect(() => {
     if (date && serviceId && serviceDuration)
@@ -70,11 +79,7 @@ function ConfirmReservation() {
     return new Date(startDate.getTime() + serviceDuration * 60 * 1000);
   };
 
-  useEffect(() => {
-    if (date) {
-      getServices(date);
-    }
-  }, []);
+
 
   const getDateFromString = (val) => {
     return val.toISOString().split("T")[0];
@@ -106,13 +111,12 @@ function ConfirmReservation() {
       description,
     };
 
-
     try {
       const response = await post(
         `admin/availabilities/${new Date()}/createUser`,
         { data },
       );
-      console.log("rs",response);
+      console.log("rs", response);
       if (response.status === 206) {
         setIsMessage(true);
         setError(localization.BARBERS.errorExist);
@@ -123,7 +127,6 @@ function ConfirmReservation() {
           localization.APPOINTMENTS.approveReservation.createReservation,
         );
         await getReservations(getDateFromString(startDate));
-
       }
     } catch (err) {
       console.log("error", err);
@@ -131,12 +134,11 @@ function ConfirmReservation() {
       setIsMessage(true);
 
       setError(err);
-
     } finally {
       setIsLoading(null);
     }
   };
-
+  console.log("isLoading",isLoading)
 
   return (
     <View
@@ -151,11 +153,13 @@ function ConfirmReservation() {
       />
       <SharedCoverImage />
       <View style={styles.captureContainer}>
-        <Text style={styles.capture}>Odaberi satnicu</Text>
+        <Text style={styles.capture}>{localization.TIMES.add}</Text>
       </View>
-      {isLoading === "get" && <Loader />}
-      {timesData?.length > 0 && isLoading !== "get" && (
-        <View style={{ maxHeight: 250, marginVertical: 20 }}>
+
+      <SharedDetailsServiceCard data={serviceData} />
+      {isLoading === "times" && <Loader />}
+      {timesData?.length > 0 && isLoading !== "times" && (
+        <View style={{ maxHeight: 228, marginVertical: 20 }}>
           <Summary
             data={timesData}
             setSelectedItem={setSelectedItem}
@@ -163,13 +167,13 @@ function ConfirmReservation() {
           />
         </View>
       )}
-      {selectedItem && (
+      {/* {selectedItem && (
         <View style={{ paddingHorizontal: 20 }}>
           <TextInput
             style={styles.textInput}
             onChangeText={setDescription}
             value={description}
-            placeholder="Dodaj komentar / opis / boju"
+            placeholder={localization.SETTINGS.ABSENTHOURS.comment}
             placeholderTextColor={ColorsBarber.light.textColor}
             multiline={true}
             numberOfLines={2}
@@ -178,11 +182,11 @@ function ConfirmReservation() {
             scrollEnabled={false}
           />
         </View>
-      )}
+      )} */}
       {selectedItem && (
         <View style={{ paddingHorizontal: 20 }}>
           <SharedButton
-            text="Dodaj rezervaciju"
+            text={localization.ADDRESERVATION.add}
             onPress={submitHandler}
             loading={isLoading === "post"}
           />

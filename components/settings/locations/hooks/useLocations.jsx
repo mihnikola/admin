@@ -24,7 +24,6 @@ function useLocation() {
     try {
       const response = await deleteRequest(`/admin/places/${id}`);
 
-      console.log("response",response)
       if (response.status === 200) {
         setIsMessage(true);
         setMessage(localization.PLACES.deletedSuccess);
