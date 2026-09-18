@@ -20,28 +20,45 @@ import ServiceItem from "../settings/assignments/barbersServices/components/Serv
 import useServices from "../settings/services/hooks/useServices";
 import Summary from "./Summary";
 import { useLocalization } from "@/contexts/LocalizationContext";
+import SharedCoverImage from "@/shared-components/SharedCoverImage";
 
 function ConfirmReservation() {
   const [description, setDescription] = useState("");
   const [isMessage, setIsMessage] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const { getReservations } = useAppointment();
   const [selectedItem, setSelectedItem] = useState(null);
-  const [focusing, setFocusing] = useState(false);
 
   const { localization } = useLocalization();
 
   const {
     getServices,
     getServiceData,
-    isLoading: isLoadingServices,
+    isLoading,
     chooseService,
     timesData,
+    fetchTimes,
+    setIsLoading,
   } = useServices();
   const params = useLocalSearchParams();
-  const { name, email, phoneNumber, date } = params;
+  // const { name, email, phoneNumber, date, serviceName } = params;
+  const {
+    name,
+    email,
+    phoneNumber,
+    date,
+    servicePrice,
+    serviceName,
+    serviceId,
+    serviceDuration,
+  } = params;
+  console.log("csadas sadas", date, serviceId, serviceDuration);
+
+  useEffect(() => {
+    if (date && serviceId && serviceDuration)
+      fetchTimes(date, serviceId, serviceDuration);
+  }, []);
 
   const generateStartDate = (date, selectedItem) => {
     const startDate = `${date}T${selectedItem.value}:00.000`;
@@ -53,8 +70,6 @@ function ConfirmReservation() {
     return new Date(startDate.getTime() + serviceDuration * 60 * 1000);
   };
 
-  const inputRef = useRef(null);
-
   useEffect(() => {
     if (date) {
       getServices(date);
@@ -64,108 +79,83 @@ function ConfirmReservation() {
   const getDateFromString = (val) => {
     return val.toISOString().split("T")[0];
   };
+  const cancelHandlercina = () => {
+    setIsMessage(false);
+    setError(null);
+    router.back();
+  };
 
   const refreshHandler = () => {
     setIsMessage(false);
-    router.dismissAll(2);
+    router.dismissAll(3);
     router.back();
   };
   const submitHandler = async () => {
-    setIsLoading(true);
+    setIsLoading("post");
     const startDate = generateStartDate(date, selectedItem);
-    const serviceData = getServiceData.find((item) => item.assigned);
-    const endDate = generateEndDate(date, selectedItem, serviceData.duration);
-    
+    const endDate = generateEndDate(date, selectedItem, serviceDuration);
+
     const data = {
       name,
       email,
       phoneNumber,
-      serviceId: serviceData?.id,
-      servicePrice: serviceData?.price,
+      serviceId,
+      servicePrice,
       startDate,
       endDate,
       description,
     };
+
 
     try {
       const response = await post(
         `admin/availabilities/${new Date()}/createUser`,
         { data },
       );
+      console.log("rs",response);
+      if (response.status === 206) {
+        setIsMessage(true);
+        setError(localization.BARBERS.errorExist);
+      }
       if (response.status === 201) {
         setIsMessage(true);
         setMessage(
           localization.APPOINTMENTS.approveReservation.createReservation,
         );
         await getReservations(getDateFromString(startDate));
+
       }
     } catch (err) {
+      console.log("error", err);
+
       setIsMessage(true);
 
       setError(err);
 
-      console.log("error", err);
     } finally {
-      setIsLoading(false);
+      setIsLoading(null);
     }
   };
-  useEffect(() => {
-    const keyboardSubscription = Keyboard.addListener("keyboardDidHide", () => {
-      setFocusing(false);
-      inputRef.current?.blur();
-    });
 
-    return () => {
-      keyboardSubscription.remove();
-    };
-  }, []);
 
   return (
     <View
       style={{
         flex: 1,
         backgroundColor: ColorsBarber.light.background,
-        paddingTop: 75,
-        paddingHorizontal: 20,
       }}
     >
       <SharedBackButton
         onPress={router.back}
         styleBtn={{ marginLeft: 10, marginTop: 20 }}
       />
-      {!focusing && (
-        <View style={{ maxHeight: 250, paddingTop: 10 }}>
-          <Text
-            style={{
-              fontSize: 20,
-              color: ColorsBarber.light.textColor,
-              fontFamily: "OldStandard-Regular",
-            }}
-          >
-            Odaberite uslugu
-          </Text>
-          {isLoadingServices === "get" && <Loader />}
-          <FlatList
-            data={getServiceData}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-              <ServiceItem item={item} toggleService={chooseService} />
-            )}
-          />
-        </View>
-      )}
-      {isLoadingServices === "times" && <Loader />}
-      {timesData?.length > 0 && (
-        <View style={{ maxHeight: 200 }}>
-          <Text
-            style={{
-              fontSize: 20,
-              color: ColorsBarber.light.textColor,
-              fontFamily: "OldStandard-Regular",
-            }}
-          >
-            Izaberite vreme
-          </Text>
+      <SharedCoverImage />
+      <View style={styles.captureContainer}>
+        <Text style={styles.capture}>Odaberi satnicu</Text>
+      </View>
+      {isLoading === "get" && <Loader />}
+      {timesData?.length > 0 && isLoading !== "get" && (
+        <View style={{ maxHeight: 250, marginVertical: 20 }}>
           <Summary
             data={timesData}
             setSelectedItem={setSelectedItem}
@@ -174,15 +164,12 @@ function ConfirmReservation() {
         </View>
       )}
       {selectedItem && (
-        <View>
+        <View style={{ paddingHorizontal: 20 }}>
           <TextInput
-            onFocus={() => setFocusing(true)}
-            onBlur={() => setFocusing(false)}
             style={styles.textInput}
-            ref={inputRef}
             onChangeText={setDescription}
             value={description}
-            placeholder="Dodaj boju"
+            placeholder="Dodaj komentar / opis / boju"
             placeholderTextColor={ColorsBarber.light.textColor}
             multiline={true}
             numberOfLines={2}
@@ -193,11 +180,11 @@ function ConfirmReservation() {
         </View>
       )}
       {selectedItem && (
-        <View>
+        <View style={{ paddingHorizontal: 20 }}>
           <SharedButton
             text="Dodaj rezervaciju"
             onPress={submitHandler}
-            loading={isLoading}
+            loading={isLoading === "post"}
           />
         </View>
       )}
@@ -206,13 +193,13 @@ function ConfirmReservation() {
           isOpen={isMessage}
           icon={
             <FontAwesome
-              name="check-circle-o"
+              name={error?.length > 0 ? "close" : "check-circle-o"}
               size={64}
               color={ColorsBarber.light.textColor}
             />
           }
-          onClose={refreshHandler}
-          onConfirm={refreshHandler}
+          onClose={error?.length > 0 ? cancelHandlercina : refreshHandler}
+          onConfirm={error?.length > 0 ? cancelHandlercina : refreshHandler}
           buttonText="Ok"
           title={error || message}
         />
@@ -229,6 +216,19 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     padding: 10,
     backgroundColor: ColorsBarber.light.background,
+  },
+  captureContainer: {
+    position: "absolute",
+    flexDirection: "row",
+    alignItems: "flex-end",
+    height: 200,
+    paddingLeft: 20,
+  },
+  capture: {
+    fontSize: 32,
+    color: ColorsBarber.light.textColor,
+    fontWeight: "500",
+    fontFamily: "OldStandard-Bold",
   },
   textInput: {
     marginTop: 10,

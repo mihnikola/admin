@@ -1,14 +1,6 @@
 import { ColorsBarber } from "@/constants/Colors";
 import { Stack } from "expo-router";
 
-const headerOptions = {
-  headerShown: true,
-  title: "",
-  headerStyle: {
-    backgroundColor: "black",
-  },
-  headerTintColor: "white",
-};
 const headerOptionsFalse = {
   headerShown: false,
 };
@@ -47,6 +39,8 @@ export default function RootLayoutBarbers() {
       <Stack.Screen name="addLocation" options={headerOptionsFalse} />
       <Stack.Screen name="addCategory" options={headerOptionsFalse} />
       <Stack.Screen name="getCategories" options={headerOptionsFalse} />
+      <Stack.Screen name="addServiceItem" options={headerOptionsFalse} />
+      <Stack.Screen name="confirmReservation" options={headerOptionsFalse} />
     </Stack>
   );
 }

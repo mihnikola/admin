@@ -48,7 +48,7 @@ function AddReservation() {
     // const endDate = generateEndDate(date, selectedItem, serviceData.duration);
     // console.log("serviceName", serviceData);
     router.push({
-      pathname: "/(add_reservation)/confirmReservation",
+      pathname: "/(add_reservation)/addServiceItem",
       params: {
         name: reservationName,
         email,

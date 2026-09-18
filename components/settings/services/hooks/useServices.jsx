@@ -6,12 +6,11 @@ import { useEffect, useState } from "react";
 import { useServicesStore } from "@/contexts/ServiceContext";
 
 const useServices = () => {
-  const { serviceData, setServicesData, serviceCategory } =
-    useServicesStore();
+  const { serviceData, setServicesData, serviceCategory } = useServicesStore();
   const [getServiceData, setGetServiceData] = useState([]);
   const [selectedValueDate, setSelectedValueData] = useState(null);
   const [timesData, setTimesData] = useState([]);
-
+  const [chooseOne, setChooseOne] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
   const [error, setError] = useState(null);
   const { localization } = useLocalization();
@@ -80,6 +79,11 @@ const useServices = () => {
     const getServices = [...getServiceData];
     const result = getServices.map((service) => {
       if (service.id === item.id) {
+        setChooseOne({
+          ...service,
+          assigned: true,
+        });
+
         return {
           ...service,
           assigned: true,
@@ -89,11 +93,9 @@ const useServices = () => {
       const { assigned, ...rest } = service;
       return rest;
     });
-
     setGetServiceData(result);
-    await fetchTimes(selectedValueDate, item);
   };
-  const fetchTimes = async (selectedDate, serviceItem) => {
+  const fetchTimes = async (selectedDate, id, duration) => {
     setIsLoading("times");
     setError(null);
 
@@ -102,10 +104,7 @@ const useServices = () => {
       return;
     }
 
-    const serviceData = {
-      id: serviceItem.id,
-      duration: serviceItem.duration,
-    };
+    const serviceData = { id, duration };
 
     try {
       const response = await getData("/times", {
@@ -113,9 +112,9 @@ const useServices = () => {
         service: serviceData,
       });
       setTimesData(response);
-      setIsLoading(null);
     } catch (err) {
       setError(localization.TIMES.errorFetch);
+    } finally {
       setIsLoading(null);
     }
   };
@@ -217,7 +216,7 @@ const useServices = () => {
     setError(null);
     try {
       const response = await get(`/admin/services/${id}`);
-      console.log("xxadsdasasd",response.data)
+      console.log("xxadsdasasd", response.data);
       if (response.status === 200) {
         setGetServiceData(response.data);
       }
@@ -258,9 +257,11 @@ const useServices = () => {
     getServiceData,
     chooseService,
     getServices,
+    setIsLoading,
     fetchTimes,
     timesData,
-    serviceCategory
+    serviceCategory,
+    chooseOne,
   };
 };
 

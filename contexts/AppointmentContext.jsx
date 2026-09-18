@@ -107,7 +107,7 @@ export const AppointmentProvider = ({ children }) => {
   };
 
   const getReservations = async (criteria) => {
-    console.log("criteria", criteria);
+    console.log("criteria ajmooo", criteria);
     setIsLoading(true);
     setError(null);
     if (!criteria) {
