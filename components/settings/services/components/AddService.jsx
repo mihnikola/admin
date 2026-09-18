@@ -14,11 +14,14 @@ import SharedButtonApproved from "@/shared-components/SharedButtonApproved";
 import { ColorsBarber } from "@/constants/Colors";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import Loader from "@/shared-components/Loader";
+import BarberSeniorityComponent from "../../barbers/components/BarbersSeniorityInput";
+import { useServicesStore } from "@/contexts/ServiceContext";
 
 export default function AddService() {
   const { localization } = useLocalization();
   const params = useLocalSearchParams();
   const { id } = params;
+  const { serviceCategory, setServiceCategory } = useServicesStore();
   const {
     isLoading,
     error,
@@ -71,10 +74,12 @@ export default function AddService() {
       setDuration(getServiceData.duration?.toString() || "");
       selectedImgHandler(getServiceData?.image);
       setEditingId(getServiceData?.id);
+  console.log("getServiceData",getServiceData?.category)
+      
+      setServiceCategory(getServiceData?.category);
     }
   }, [getServiceData]);
 
-  console.log("changedImg", changedImg);
   const validationData = () => {
     if (
       getServiceData?.id === editingId &&
@@ -82,6 +87,7 @@ export default function AddService() {
       getServiceData?.name?.nameLocal === nameLocal &&
       getServiceData.price?.toString() === price &&
       getServiceData.duration?.toString() === duration &&
+      getServiceData.category?._id === serviceCategory?._id &&
       getServiceData?.image === changedImg
     ) {
       return true;
@@ -123,6 +129,7 @@ export default function AddService() {
         price: parseFloat(price),
         duration: parseInt(duration),
         image: changedImg === imageValue ? null : changedImg,
+        category: serviceCategory?._id,
       };
       if (updateService) {
         addEditService(updateService);
@@ -134,6 +141,7 @@ export default function AddService() {
         price: parseFloat(price),
         duration: parseInt(duration),
         image: changedImg === imageValue ? null : changedImg,
+        category: serviceCategory?._id,
       };
 
       addEditService(newService);
@@ -156,6 +164,10 @@ export default function AddService() {
   // if (isLoading === "getService") {
   //   return <SharedLoader isOpen={isLoading === "getService"} />;
   // }
+
+  const modalHandler = () => {
+    router.push("/(tabs)/(03_settings)/getCategories");
+  };
 
   return (
     <View style={styles.container}>
@@ -254,6 +266,12 @@ export default function AddService() {
                 ref={refDuration}
               />
             </View>
+            <BarberSeniorityComponent
+              modalHandler={modalHandler}
+              label={localization.SERVICES.chooseCategory}
+              selected={serviceCategory?.name}
+              // selected={selected?.title}
+            />
           </View>
           <View style={[styles.btnContainer, id && styles.btnGap]}>
             <SharedButtonApproved

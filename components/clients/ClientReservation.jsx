@@ -8,7 +8,7 @@ import { SharedMessage } from "@/shared-components/SharedMessage";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import { Feather, FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import { router, useLocalSearchParams } from "expo-router";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import {
   Image,
   ScrollView,
@@ -24,18 +24,6 @@ const ClientReservation = () => {
   const { localization } = useLocalization();
   const scrollViewRef = useRef(null);
 
-  const {
-    isMessage,
-    message,
-    setIsMessage,
-    color: colorData,
-    setColor,
-    makePhoneCall,
-    isLoading,
-    setDialog,
-    dialog,
-    changeColorSubmit,
-  } = useChangeUser();
 
   const {
     name,
@@ -49,6 +37,20 @@ const ClientReservation = () => {
     id,
   } = params;
 
+    const {
+    isMessage,
+    message,
+    setIsMessage,
+    makePhoneCall,
+    isLoading,
+    setDialog,
+    dialog,
+    changeColorSubmit,
+  } = useChangeUser(color);
+  const [colorData, setColorData] = useState(color || "");
+
+console.log("color params",color)
+console.log("colorData",colorData)
   const initials = getInitialsName(name);
 
   if (isLoading === "delete") {
@@ -170,11 +172,10 @@ const ClientReservation = () => {
             <Text style={styles.textValue}>Dodaj boju</Text>
             <TextInput
               value={colorData}
-              onChangeText={setColor}
-              placeholder={color || colorData || "Unesite boju"}
+              onChangeText={setColorData}
+              placeholder={ "Unesite boju"}
               style={styles.input}
               onFocus={() => {
-                // Čim korisnik dodirne input, skroluje skroz do dna
                 setTimeout(() => {
                   scrollViewRef.current?.scrollToEnd({ animated: true });
                 }, 100);
@@ -184,7 +185,7 @@ const ClientReservation = () => {
 
           <View style={{ paddingBottom: 20 }}>
             <SharedButton
-              onPress={() => changeColorSubmit(id)}
+              onPress={() => changeColorSubmit(id,colorData)}
               text="Sacuvaj izmene"
               disabled={colorData?.length === 0 || isLoading === "changeColor"}
               loading={isLoading === "changeColor"}

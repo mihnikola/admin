@@ -6,7 +6,6 @@ import {
   FlatList,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -15,10 +14,11 @@ import { useLocalization } from "@/contexts/LocalizationContext";
 import { getInitialsName } from "@/helpers";
 import SearchInputComponent from "../settings/SearchInputComponent";
 import { ColorsBarber } from "@/constants/Colors";
+import Loader from "@/shared-components/Loader";
 
 export default function ClientsScreen() {
   const [search, setSearch] = useState("");
-  const { clients, fetchAllClients } = useGetClients();
+  const { clients, fetchAllClients, isLoading } = useGetClients();
   const { localization } = useLocalization();
 
   const filteredClients = clients.filter((client) =>
@@ -33,7 +33,7 @@ export default function ClientsScreen() {
   );
 
   const getClient = (item) => {
-    console.log("getClient",item)
+    console.log("getClient", item);
     router.push({
       pathname: "/(tabs)/(02_clients)/client",
       params: { ...item, color: item?.color?.name },
@@ -72,7 +72,6 @@ export default function ClientsScreen() {
       </TouchableOpacity>
     );
   };
-
   return (
     <View style={styles.container}>
       <SharedCarousel
@@ -82,12 +81,14 @@ export default function ClientsScreen() {
       <View style={styles.searchInputContainer}>
         <SearchInputComponent search={search} setSearch={setSearch} />
       </View>
-
-      <FlatList
-        data={filteredClients}
-        keyExtractor={(item) => item.id}
-        renderItem={renderClient}
-      />
+      {isLoading && <Loader />}
+      {!isLoading && (
+        <FlatList
+          data={filteredClients}
+          keyExtractor={(item) => item.id}
+          renderItem={renderClient}
+        />
+      )}
     </View>
   );
 }

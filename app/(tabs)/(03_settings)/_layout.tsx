@@ -45,6 +45,8 @@ export default function RootLayoutBarbers() {
       <Stack.Screen name="locationBarbers" options={headerOptionsFalse} />
       <Stack.Screen name="servicesBarbers" options={headerOptionsFalse} />
       <Stack.Screen name="addLocation" options={headerOptionsFalse} />
+      <Stack.Screen name="addCategory" options={headerOptionsFalse} />
+      <Stack.Screen name="getCategories" options={headerOptionsFalse} />
     </Stack>
   );
 }

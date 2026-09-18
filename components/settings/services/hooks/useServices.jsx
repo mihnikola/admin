@@ -6,7 +6,8 @@ import { useEffect, useState } from "react";
 import { useServicesStore } from "@/contexts/ServiceContext";
 
 const useServices = () => {
-  const { serviceData, setServicesData } = useServicesStore();
+  const { serviceData, setServicesData, serviceCategory } =
+    useServicesStore();
   const [getServiceData, setGetServiceData] = useState([]);
   const [selectedValueDate, setSelectedValueData] = useState(null);
   const [timesData, setTimesData] = useState([]);
@@ -138,6 +139,7 @@ const useServices = () => {
     }
     formData.append("duration", userData?.duration);
     formData.append("price", userData?.price);
+    formData.append("category", userData?.category);
 
     if (userData?.image) {
       const filename = userData?.image.split("/").pop();
@@ -215,6 +217,7 @@ const useServices = () => {
     setError(null);
     try {
       const response = await get(`/admin/services/${id}`);
+      console.log("xxadsdasasd",response.data)
       if (response.status === 200) {
         setGetServiceData(response.data);
       }
@@ -257,6 +260,7 @@ const useServices = () => {
     getServices,
     fetchTimes,
     timesData,
+    serviceCategory
   };
 };
 

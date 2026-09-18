@@ -9,7 +9,6 @@ export default function useChangeUser() {
   const [message, setMessage] = useState(null);
   const [isMessage, setIsMessage] = useState(false);
   const [dialog, setDialog] = useState(false);
-  const [color, setColor] = useState("");
 
   const { localization } = useLocalization();
   const makePhoneCall = async (phoneNumber) => {
@@ -43,18 +42,14 @@ export default function useChangeUser() {
     }
   };
 
-  const changeColorSubmit = async (userId) => {
+  const changeColorSubmit = async (userId, color) => {
     setIsLoading("changeColor");
     setError(null);
     try {
-      console.log("userId",userId)
-      console.log("color",color)
       const response = await put(`/admin/users/${userId}/changeColor`, {
         color,
       });
       setIsMessage(true);
-      console.log("response",response)
-
       if (response.status === 200) {
         setMessage(localization.CLIENTS.addColor);
       }
@@ -83,8 +78,6 @@ export default function useChangeUser() {
     setMessage,
     setIsMessage,
     isMessage,
-    color,
-    setColor,
     changeColorSubmit,
   };
 }

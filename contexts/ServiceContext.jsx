@@ -4,9 +4,17 @@ const ServicesContext = createContext();
 
 export const ServicesProvider = ({ children }) => {
   const [serviceData, setServicesData] = useState([]);
+  const [serviceCategory, setServiceCategory] = useState(null);
 
   return (
-    <ServicesContext.Provider value={{ serviceData, setServicesData }}>
+    <ServicesContext.Provider
+      value={{
+        serviceData,
+        setServicesData,
+        setServiceCategory,
+        serviceCategory,
+      }}
+    >
       {children}
     </ServicesContext.Provider>
   );

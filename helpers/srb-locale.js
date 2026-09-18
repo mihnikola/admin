@@ -120,7 +120,24 @@ export const SRB_LOCALIZATION = {
     search: "Unesite adresu",
     notFound: "Nema dostupnih lokacija",
   },
+  CATEGORY: {
+    edit: "Promenite naziv kategorije",
+    editSuccess: "Kategorija je uspešno promenjena",
+    list: "Lista kategorija",
+    title: "Kategorija",
+    addSuccess: "Kategorija je uspešno kreirana",
+    add: "Dodaj kategoriju",
+    createLabel: "Napravi kategoriju",
+    createBtn: "Kreiraj",
+    enter: "Unesite kategoriju",
+    save: "Sačuvaj izmene",
+    remove: "Obriši kategoriju",
+    deleteBtn: "Obriši kategoriju",
+    deleteMsg: "Kategorija je uspešno obrisana",
+    question:"Da li ste sigurni da želite da obrišete kategoriju?"
+  },
   SERVICES: {
+    chooseCategory: "Izaberi kategoriju",
     notDelete:
       "Ova usluga ne može biti obrisana dok postoje aktivni zakazani termini.",
     errorImage: "Slika je obavezna",
@@ -222,7 +239,7 @@ export const SRB_LOCALIZATION = {
       rateOurCut: "Ocenite svoj tretman",
       ratedInfo: "Ocenili ste ovu rezervaciju",
       confirmMessage: "Rezervacija je uspešno odobrena",
-      createReservation:"Rezervacija je uspešno kreirana",
+      createReservation: "Rezervacija je uspešno kreirana",
       errorMessage: "Rezervacija ne postoji",
       descReservation: "Opis tretmana",
     },
