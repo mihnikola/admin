@@ -242,48 +242,101 @@ export class NotificationService {
   }
 
   // FOREGROUND
-  listenToForegroundMessages() {
+  // listenToForegroundMessages() {
+  //   const unsub = onMessage(getMessaging(), async (remoteMessage) => {
+  //     console.log("📩 Foreground FCM received:", remoteMessage);
+
+  //     const title =
+  //       remoteMessage.notification?.title ||
+  //       remoteMessage.data?.title ||
+  //       "Nova poruka";
+  //     const body =
+  //       remoteMessage.notification?.body || remoteMessage.data?.body || "";
+  //     const dataValue = remoteMessage.data;
+
+  //     try {
+  //       await Notifications.scheduleNotificationAsync({
+  //         content: {
+  //           title: title,
+  //           body: body,
+  //           data: dataValue,
+  //         },
+  //         trigger: null,
+  //       });
+
+  //       this.hasReceivedForeground = true;
+  //     } catch (error) {
+  //       console.log("Error scheduling local notification in foreground:", error);
+  //     }
+  //   });
+
+  //   this.subscriptions.push(unsub);
+  // }
+
+
+
+  
+  // FOREGROUND
+
+    listenToForegroundMessages() {
     const unsub = onMessage(getMessaging(), async (remoteMessage) => {
-      console.log("📩 Foreground FCM received:", remoteMessage);
+      console.log("📩 Foreground FCM:", remoteMessage);
 
-      const title =
-        remoteMessage.notification?.title ||
-        remoteMessage.data?.title ||
-        "Nova poruka";
-      const body =
-        remoteMessage.notification?.body || remoteMessage.data?.body || "";
-      const dataValue = remoteMessage.data;
+      const hasNotification =
+        remoteMessage.notification?.title || remoteMessage.notification?.body;
+      const hasDataPayload =
+        remoteMessage.data?.title || remoteMessage.data?.body;
 
-      try {
-        await Notifications.scheduleNotificationAsync({
-          content: {
-            title: title,
-            body: body,
-            data: dataValue,
-          },
-          trigger: null,
-        });
-
-        this.hasReceivedForeground = true;
-      } catch (error) {
-        console.log("Error scheduling local notification in foreground:", error);
+      if (!hasNotification && !hasDataPayload) {
+        return;
       }
+
+      await Notifications.scheduleNotificationAsync({
+        content: {
+          title:
+            remoteMessage.notification?.title ??
+            remoteMessage.data?.title ??
+            "Notification",
+          body:
+            remoteMessage.notification?.body ?? remoteMessage.data?.body ?? "",
+          data: remoteMessage.data,
+        },
+        trigger: null,
+      });
+
+      this.hasReceivedForeground = true;
     });
 
     this.subscriptions.push(unsub);
   }
 
   // KILLED STATE
-  async handleKilledState(callback?: (data: any) => void) {
+  // async handleKilledState(callback?: (data: any) => void) {
+  //   if (this.hasHandledInitial) return;
+
+  //   const initial = await getInitialNotification(getMessaging());
+  //   if (initial?.data) {
+  //     console.log("🚀 App opened from KILLED:", initial.data);
+  //     this.hasHandledInitial = true;
+  //     if (typeof callback === "function") {
+  //       callback(initial.data);
+  //     }
+  //   }
+  // }
+    // KILLED STATE — SAMO JEDNOM
+  async handleKilledState(callback: (data: any) => void) {
     if (this.hasHandledInitial) return;
 
     const initial = await getInitialNotification(getMessaging());
-    if (initial?.data) {
-      console.log("🚀 App opened from KILLED:", initial.data);
+    if (initial?.data && initial.data.url) {
+      console.log(
+        "🚀 App opened from KILLED sa validnim podacima:",
+        initial.data,
+      );
       this.hasHandledInitial = true;
-      if (typeof callback === "function") {
-        callback(initial.data);
-      }
+      callback(initial.data);
+    } else {
+      this.hasHandledInitial = true; // Obeleži kao rešeno čak i ako je prazno
     }
   }
 

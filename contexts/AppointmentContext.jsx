@@ -83,17 +83,14 @@ export const AppointmentProvider = ({ children }) => {
         status,
       });
       if (response.status === 200) {
-
         setIsModal(true);
         setMessage(
           status === "approved"
             ? localization.APPOINTMENTS.approveReservation.confirmMessage
             : localization.APPOINTMENTS.rejectReservation.confirmMessage,
         );
+        const dateValue = criteriaDate ?? getDateFromString(response?.data?.startDate);
 
-        const dateValue = criteriaDate
-          ? criteriaDate
-          : getDateFromString(response.data.startDate);
         await getReservations(dateValue);
       }
     } catch (err) {

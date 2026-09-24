@@ -105,6 +105,7 @@ const useBarbers = () => {
       setIsLoading(null);
     }
   };
+
   const validateBarber = (data, localization) => {
     if (
       !data?.name ||
@@ -188,6 +189,7 @@ const useBarbers = () => {
         if (isEdit) {
           setIsMessage(true);
           setMessage(localization.BARBERS.edit);
+          await fetchUserData();
         } else {
           router.replace({
             pathname: "/(tabs)/(03_settings)/servicesBarbers",
@@ -198,8 +200,8 @@ const useBarbers = () => {
           });
         }
       }
-      await fetchAllBarbers();
-      await fetchUserData();
+          await fetchAllBarbers();
+
     } catch (err) {
       console.log("POST || PUT ERROR:", err?.response || err);
       setError(localization.BARBERS.errorFetch);

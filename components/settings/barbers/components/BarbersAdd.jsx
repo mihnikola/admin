@@ -155,7 +155,6 @@ export default function BarbersAdd() {
         image: changedImg === imageValue ? null : changedImg,
         statusCheck: selectedStatus?._id,
       };
-      console.log("updateBarber", updateBarber);
       if (updateBarber) {
         addEditBarber(updateBarber);
       }

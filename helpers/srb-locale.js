@@ -137,7 +137,7 @@ export const SRB_LOCALIZATION = {
     question: "Da li ste sigurni da želite da obrišete kategoriju?",
   },
   SERVICES: {
-    chooseService:"Izaberi uslugu",
+    chooseService: "Izaberi uslugu",
     chooseCategory: "Izaberi kategoriju",
     notDelete:
       "Ova usluga ne može biti obrisana dok postoje aktivni zakazani termini.",
@@ -179,7 +179,7 @@ export const SRB_LOCALIZATION = {
     success: "Vaš termin je uspešno zakazan!",
   },
   TIMES: {
-    add:"Izaberi satnicu",
+    add: "Izaberi satnicu",
     error:
       "Radnik i usluga mora biti odabrana pre preuzimanja slobodne satnice.",
     errorFetch: "Greška prilikom preuzimanja slobodne satnice...",
@@ -200,12 +200,13 @@ export const SRB_LOCALIZATION = {
     title: "Nema Internet konekcije",
   },
   USER: {
-    add:"Kreiraj klijenta",
+    notFound: "Nema dostupne satnice",
+    add: "Kreiraj klijenta",
     name: "Unesi ime i prezime",
     nameLabel: "Ime i prezime",
     email: "Email",
+    emailExists: "Uneti email već postoji, unesite drugi email",
     phoneNumber: "Broj telefona",
-
   },
   APPOINTMENTS: {
     completed: "Termin je uspešno završen",

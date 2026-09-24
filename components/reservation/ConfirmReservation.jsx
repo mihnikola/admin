@@ -79,14 +79,13 @@ function ConfirmReservation() {
     return new Date(startDate.getTime() + serviceDuration * 60 * 1000);
   };
 
-
-
   const getDateFromString = (val) => {
     return val.toISOString().split("T")[0];
   };
   const cancelHandlercina = () => {
     setIsMessage(false);
     setError(null);
+    router.dismiss(1);
     router.back();
   };
 
@@ -116,10 +115,9 @@ function ConfirmReservation() {
         `admin/availabilities/${new Date()}/createUser`,
         { data },
       );
-      console.log("rs", response);
       if (response.status === 206) {
         setIsMessage(true);
-        setError(localization.BARBERS.errorExist);
+        setError(localization.USER.emailExists);
       }
       if (response.status === 201) {
         setIsMessage(true);
@@ -138,7 +136,7 @@ function ConfirmReservation() {
       setIsLoading(null);
     }
   };
-  console.log("isLoading",isLoading)
+  console.log("timesData++", timesData);
 
   return (
     <View
@@ -167,6 +165,12 @@ function ConfirmReservation() {
           />
         </View>
       )}
+      {timesData?.length === 0 && isLoading !== "times" && (
+        <View style={styles.contentContainer}>
+          <Text style={styles.notFound}>{localization.USER.notFound}</Text>
+        </View>
+      )}
+
       {/* {selectedItem && (
         <View style={{ paddingHorizontal: 20 }}>
           <TextInput
@@ -228,11 +232,24 @@ const styles = StyleSheet.create({
     height: 200,
     paddingLeft: 20,
   },
+  notFound: {
+    fontSize: 24,
+    color: ColorsBarber.light.textColor,
+    fontFamily: "OldStandard-Bold",
+  },
   capture: {
     fontSize: 32,
     color: ColorsBarber.light.textColor,
     fontWeight: "500",
     fontFamily: "OldStandard-Bold",
+  },
+
+  contentContainer: {
+    marginTop: 10,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    alignContent: "center",
   },
   textInput: {
     marginTop: 10,

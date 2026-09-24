@@ -27,9 +27,7 @@ export default function SettingsComponent() {
   const [isLogout, setIsLogout] = useState(false);
 
   useEffect(() => {
-    setTimeout(async () => {
-      await fetchUserData();
-    }, 500);
+    fetchUserData();
   }, []);
 
   const handlePress = (route) => {
@@ -54,6 +52,10 @@ export default function SettingsComponent() {
     });
   };
 
+  if (isLoading) {
+    return <SharedLoader isOpen={isLoading} />;
+  }
+
   const initials = getInitialsName(userData?.name);
   return (
     <View style={styles.container}>
@@ -63,7 +65,8 @@ export default function SettingsComponent() {
           source={require("@/assets/images/IMG_8211.jpeg")}
           style={styles.coverImage}
         />
-        {userData?.image ? (
+        
+        {!isLoading && userData?.image ? (
           <TouchableOpacity
             style={styles.defaultImgAvatar}
             onPress={editProfileBarber}
@@ -80,23 +83,25 @@ export default function SettingsComponent() {
             </View>
           </TouchableOpacity>
         ) : (
-          <TouchableOpacity
-            style={styles.initialContainer}
-            onPress={editProfileBarber}
-          >
-            <View style={styles.avatarContainer}>
-              <Text style={styles.avatarTextInitials}>{initials}</Text>
-            </View>
-            <View style={styles.editButtonContainer}>
-              <View style={styles.editButton}>
-                <MaterialCommunityIcons
-                  name="pencil"
-                  size={25}
-                  color={ColorsBarber.light.textColor}
-                />
+          !isLoading && (
+            <TouchableOpacity
+              style={styles.initialContainer}
+              onPress={editProfileBarber}
+            >
+              <View style={styles.avatarContainer}>
+                <Text style={styles.avatarTextInitials}>{initials}</Text>
               </View>
-            </View>
-          </TouchableOpacity>
+              <View style={styles.editButtonContainer}>
+                <View style={styles.editButton}>
+                  <MaterialCommunityIcons
+                    name="pencil"
+                    size={25}
+                    color={ColorsBarber.light.textColor}
+                  />
+                </View>
+              </View>
+            </TouchableOpacity>
+          )
         )}
         <View style={{ marginTop: 20 }}>
           <Text style={styles.avatarText}>{userData?.name}</Text>
@@ -138,7 +143,6 @@ export default function SettingsComponent() {
           buttonTextNo={localization.SETTINGS.LOGOUT.cancel}
         />
       )}
-      {isLoading && <SharedLoader isOpen={isLoading} />}
     </View>
   );
 }

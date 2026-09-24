@@ -75,6 +75,7 @@ export const ENG_LOCALIZATION = {
     typeApproval: "Types approval",
     listSeniorities: "List of seniority",
     errorExist: "Email already exists",
+    
   },
   COMPANY: {
     error: "Error while fetching company data...",
@@ -464,11 +465,13 @@ export const ENG_LOCALIZATION = {
       "Password has to start with letter and has to be at least 8 characters long, one uppercase letter, one number, and one special character.",
   },
   USER: {
+    notFound:"Not availabled slots",
     phoneNumber: "Phone number",
     add: "Create client",
     nameLabel: "Name and surname",
     name: "Enter name and surname",
     email: "Email",
+    emailExists:"Entered email already exists, please provide a different one"
   },
   REGISTER: {
     title: "Register your account",

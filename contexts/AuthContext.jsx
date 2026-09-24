@@ -32,12 +32,12 @@ export const AuthProvider = ({ children }) => {
   const { localization } = useLocalization();
 
   const fetchUserData = async () => {
+    setIsLoading(true);
     setError(null);
     try {
       const response = await get(`/admin/users/employerData/${isToken}`);
       if (response.status === 200) {
         setUserData(response.data);
-        setIsLoading(false);
       }
     } catch (err) {
       if (err.message.includes("404")) {
@@ -46,6 +46,8 @@ export const AuthProvider = ({ children }) => {
         setError(localization.SERVER_RESPONSE.error);
       }
     } finally {
+      setIsLoading(false);
+
       setLoadingLogin(null);
     }
   };
