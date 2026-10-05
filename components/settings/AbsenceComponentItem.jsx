@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   },
   eventItem: {
     flexDirection: "row",
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.item,
     borderRadius: 10,
     gap: 20,
     padding: 20,
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   eventTitle: {
     fontSize: 16,
     fontFamily: "OldStandard-Regular",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     padding: 10,
   },
   eventUser: {
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "bold",
     textTransform: "uppercase",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
   },
 });
 

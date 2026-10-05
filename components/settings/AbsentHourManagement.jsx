@@ -215,7 +215,11 @@ const AbsentHourManagement = () => {
   return (
     <>
       <View style={styles.container}>
-        <SharedBackButton onPress={router.back} absolutePosition={false} styleBtn={{marginTop:20, marginBottom: 0}} />
+        <SharedBackButton
+          onPress={router.back}
+          absolutePosition={false}
+          styleBtn={{ marginTop: 20, marginBottom: 0 }}
+        />
 
         <Text style={styles.title}>
           {localization.SETTINGS.ABSENTHOURS.capture}
@@ -250,7 +254,7 @@ const AbsentHourManagement = () => {
           <FontAwesome
             name="calendar-o"
             size={20}
-            color={ColorsBarber.light.textColor}
+            color={ColorsBarber.dark.textColor}
           />
         </View>
         <View
@@ -283,7 +287,7 @@ const AbsentHourManagement = () => {
           <FontAwesome
             name="calendar-o"
             size={20}
-            color={ColorsBarber.light.textColor}
+            color={ColorsBarber.dark.textColor}
           />
         </View>
 
@@ -291,7 +295,7 @@ const AbsentHourManagement = () => {
           label={localization.SETTINGS.ABSENTHOURS.to}
           style={styles.textInput}
           placeholder={localization.SETTINGS.ABSENTHOURS.comment}
-          placeholderTextColor={ColorsBarber.light.textColor}
+          placeholderTextColor={ColorsBarber.dark.textColor}
           multiline
           numberOfLines={4}
           value={commentDate}
@@ -316,7 +320,7 @@ const AbsentHourManagement = () => {
               <FontAwesome
                 name={error ? "close" : "check-circle-o"}
                 size={64}
-                color={ColorsBarber.light.textColor}
+                color={ColorsBarber.dark.textColor}
               />
             }
             title={error || message}
@@ -334,7 +338,7 @@ const AbsentHourManagement = () => {
               <FontAwesome
                 name="question"
                 size={64}
-                color={ColorsBarber.light.textColor}
+                color={ColorsBarber.dark.textColor}
               />
             }
             title={confirmationText}
@@ -347,7 +351,7 @@ const AbsentHourManagement = () => {
               <FontAwesome
                 name="close"
                 size={64}
-                color={ColorsBarber.light.textColor}
+                color={ColorsBarber.dark.textColor}
               />
             }
             onClose={cancelErrorHandler}
@@ -394,10 +398,9 @@ const styles = StyleSheet.create({
   },
   noEventsText: {
     fontSize: 16,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     textAlign: "center",
-        fontFamily: "OldStandard-Regular"
-
+    fontFamily: "OldStandard-Regular",
   },
 
   messageContainer: {
@@ -410,7 +413,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     flex: 1,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
   },
   tabContainer: {
@@ -437,47 +440,47 @@ const styles = StyleSheet.create({
   },
   timeText: {
     fontSize: 18,
-    color: ColorsBarber.light.item,
+    color: ColorsBarber.dark.item,
     textAlign: "center",
-    fontFamily: "OldStandard-Regular"
+    fontFamily: "OldStandard-Regular",
   },
   tabText: {
-    color: ColorsBarber.light.item,
+    color: ColorsBarber.dark.item,
   },
   activeText: {
-    color: ColorsBarber.light.item,
+    color: ColorsBarber.dark.item,
     fontWeight: "bold",
   },
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
     justifyContent: "space-between",
   },
   subTitle: {
     fontSize: 18,
     fontWeight: "400",
     textAlign: "center",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     textDecorationLine: "underline",
   },
   title: {
     fontSize: 24,
     textAlign: "center",
-    color: ColorsBarber.light.textColor,
-    fontFamily:"OldStandard-Bold"
+    color: ColorsBarber.dark.textColor,
+    fontFamily: "OldStandard-Bold",
   },
 
   textInput: {
     borderWidth: 1,
-    borderColor: ColorsBarber.light.inActiveTextColor,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
     borderRadius: 8,
     padding: 10,
     fontSize: 16,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
     minHeight: 100,
     fontFamily: "OldStandard-Regular",
-        
+    color: ColorsBarber.dark.textColor,
 
     marginBottom: 20,
   },

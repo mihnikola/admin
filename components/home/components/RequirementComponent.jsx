@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingVertical: 20,
-    backgroundColor:  ColorsBarber.light.background,
+    backgroundColor:  ColorsBarber.dark.background,
     paddingHorizontal: 10
   },
   header: {
@@ -69,19 +69,19 @@ const styles = StyleSheet.create({
   subTitle: {
     fontSize: 18,
     fontWeight: "600",
-    color:  ColorsBarber.light.textColor,
+    color:  ColorsBarber.dark.textColor,
     textAlign: "center",
     fontFamily:"OldStandard-Bold"
   },
   card: {
-    backgroundColor:  ColorsBarber.light.background,
+    backgroundColor:  ColorsBarber.dark.background,
     flex: 1,
     flexDirection: "column",
   },
   capture: {
     fontSize: 20,
     textAlign: "center",
-    color:  ColorsBarber.light.textColor,
+    color:  ColorsBarber.dark.textColor,
     fontFamily:"OldStandard-Bold"
     
   },

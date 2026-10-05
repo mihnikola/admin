@@ -13,7 +13,7 @@ const BarberTheme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    background: ColorsBarber.light.background,
+    background: ColorsBarber.dark.background,
   },
 };
 
@@ -37,10 +37,10 @@ export default function RootLayout() {
           screenOptions={{
             headerShown: false,
             headerStyle: {
-              backgroundColor: ColorsBarber.light.background,
+              backgroundColor: ColorsBarber.dark.background,
             },
             contentStyle: {
-              backgroundColor: ColorsBarber.light.background, // Fiksira pozadinu celog Stack-a
+              backgroundColor: ColorsBarber.dark.background, // Fiksira pozadinu celog Stack-a
             },
           }}
         >
@@ -50,7 +50,7 @@ export default function RootLayout() {
               title: "",
               headerShown: false,
               headerStyle: {
-                backgroundColor: ColorsBarber.light.background,
+                backgroundColor: ColorsBarber.dark.background,
               },
               animation: "none",
             }}
@@ -61,7 +61,7 @@ export default function RootLayout() {
               title: "",
               headerShown: true,
               headerStyle: {
-                backgroundColor: ColorsBarber.light.background,
+                backgroundColor: ColorsBarber.dark.background,
               },
               headerTintColor: "white",
             }}

@@ -21,7 +21,7 @@ function WrapperAuth({ children }) {
           justifyContent: "center",
           flex: 1,
           paddingVertical: 20,
-          backgroundColor: ColorsBarber.light.background,
+          backgroundColor: ColorsBarber.dark.background,
         }}
         keyboardShouldPersistTaps="always"
       >
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 20,
     paddingVertical: 20,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
     paddingTop: Platform.OS === "android" ? 20 : 0,
   },
 });

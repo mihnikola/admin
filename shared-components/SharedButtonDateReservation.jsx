@@ -13,14 +13,14 @@ const SharedButtonDateReservation = (props) => {
       onPress={props.onPress}
     >
       {!props.loading && <Text style={styles.btnText}>{props.text}</Text>}
-      {props.loading && <ActivityIndicator size={25} color={ColorsBarber.light.textColor} />}
+      {props.loading && <ActivityIndicator size={25} color={ColorsBarber.dark.textColor} />}
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   btnText: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 18,
     fontWeight: "bold",
   },

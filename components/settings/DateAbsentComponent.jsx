@@ -67,14 +67,14 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 30,
     marginHorizontal: 10,
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.item,
     borderWidth: 1,
-    borderColor: ColorsBarber.light.inActiveTextColor,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
     borderRadius: 15,
   },
   dateText: {
     fontSize: 15,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Regular",
   },
 });

@@ -119,7 +119,7 @@ function ResevationNotificationScreen() {
           <FontAwesome
             name="question-circle-o"
             size={64}
-            color={ColorsBarber.light.textColor}
+            color={ColorsBarber.dark.textColor}
           />
         }
         title={titleQuestion}
@@ -202,7 +202,7 @@ function ResevationNotificationScreen() {
             <FontAwesome5
               name="calendar-times"
               size={60}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
               solid
             />
           </TouchableOpacity>
@@ -270,7 +270,7 @@ function ResevationNotificationScreen() {
             <FontAwesome
               name={error ? "close" : "check-circle-o"}
               size={64}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           }
           title={error || message}
@@ -285,7 +285,7 @@ function ResevationNotificationScreen() {
 
 const styles = StyleSheet.create({
   textBold: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 22,
     fontFamily: "OldStandard-Bold",
   },
@@ -295,12 +295,12 @@ const styles = StyleSheet.create({
     fontFamily: "OldStandard-Bold",
   },
   textBoldRejected: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 24,
     fontFamily: "OldStandard-Bold",
   },
   textBoldSuccess: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 24,
     textAlign: "center",
     fontFamily: "OldStandard-Bold",
@@ -314,7 +314,7 @@ const styles = StyleSheet.create({
   },
   screenContainer: {
     flex: 1,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
 
   scrollContent: {
@@ -325,13 +325,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     paddingBottom: 80,
-    backgroundColor: ColorsBarber.light.background, // Osnovna boja aplikacije
+    backgroundColor: ColorsBarber.dark.background, // Osnovna boja aplikacije
   },
   bottomButtonRejected: {
     justifyContent: "space-between",
     marginVertical: 50,
     marginHorizontal: 20,
-    backgroundColor: ColorsBarber.light.background, // Osnovna boja aplikacije
+    backgroundColor: ColorsBarber.dark.background, // Osnovna boja aplikacije
   },
   containerCancel: {
     marginTop: 10,

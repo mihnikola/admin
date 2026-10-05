@@ -19,17 +19,17 @@ const SharedButtonCancel = (props) => {
 
 const styles = StyleSheet.create({
   btnText: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily:"OldStandard-Bold",
     fontSize: 18,
   },
 
   btn: {
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.item,
     paddingVertical: 15,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: ColorsBarber.light.inActiveTextColor,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
     alignItems: "center",
     marginTop: 20,
     padding: 30,

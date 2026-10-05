@@ -182,7 +182,7 @@ export default function TimeSettingsScreen({
           <FontAwesome
             name="clock-o"
             size={24}
-            color={ColorsBarber.light.textColor}
+            color={ColorsBarber.dark.textColor}
           />
 
           <Text style={styles.label}>
@@ -205,7 +205,7 @@ export default function TimeSettingsScreen({
           <FontAwesome
             name="clock-o"
             size={24}
-            color={ColorsBarber.light.textColor}
+            color={ColorsBarber.dark.textColor}
           />
           <Text style={styles.label}>{localization.SETTINGS.WORKHOURS.to}</Text>
           <TouchableOpacity
@@ -302,7 +302,7 @@ export default function TimeSettingsScreen({
             <FontAwesome
               name="question-circle-o"
               size={64}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           }
           title={
@@ -323,7 +323,7 @@ export default function TimeSettingsScreen({
             <FontAwesome
               name="question-circle-o"
               size={64}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           }
           title={
@@ -344,7 +344,7 @@ export default function TimeSettingsScreen({
             <FontAwesome
               name="question-circle-o"
               size={64}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           }
           title={localization.PLACES.questionActivate}
@@ -360,7 +360,7 @@ export default function TimeSettingsScreen({
             <FontAwesome
               name={error ? "close" : "check-circle-o"}
               size={64}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           }
           title={message}
@@ -375,7 +375,7 @@ export default function TimeSettingsScreen({
             <FontAwesome
               name="close"
               size={64}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           }
           title={error}
@@ -392,7 +392,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 2,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
     marginHorizontal: 10,
   },
   containerEdit: {
@@ -400,7 +400,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 12,
   },
   buttonText: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
     fontSize: 18,
   },
@@ -409,13 +409,13 @@ const styles = StyleSheet.create({
     fontFamily: "OldStandard-Bold",
     marginBottom: 10,
     textAlign: "center",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
   },
   subtitle: {
     fontSize: 18,
     fontFamily: "OldStandard-Bold",
     textAlign: "center",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     marginVertical: 15,
   },
   row: {
@@ -427,22 +427,22 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 18,
     flex: 1,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
   },
   timeButton: {
     borderWidth: 1,
-    borderColor: ColorsBarber.light.inActiveTextColor,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
     borderRadius: 8,
     paddingVertical: 5,
     paddingHorizontal: 20,
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.item,
     fontWeight: "bold",
     fontFamily: "OldStandard-Bold",
   },
   timeText: {
     fontSize: 18,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     textAlign: "center",
     fontFamily: "OldStandard-Bold",
   },
@@ -451,7 +451,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     fontSize: 18,
     textAlign: "center",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
   },
   buttonRmv: {

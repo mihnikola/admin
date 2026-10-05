@@ -62,7 +62,7 @@ export default function SettingsComponent() {
       <StatusBar backgroundColor="black" barStyle="light-content" />
       <View style={styles.imageContainer}>
         <Image
-          source={require("@/assets/images/IMG_8211.jpeg")}
+          source={require("@/assets/images/coverImage.jpg")}
           style={styles.coverImage}
         />
         
@@ -77,7 +77,7 @@ export default function SettingsComponent() {
                 <MaterialCommunityIcons
                   name="pencil"
                   size={25}
-                  color={ColorsBarber.light.textColor}
+                  color={ColorsBarber.dark.textColor}
                 />
               </View>
             </View>
@@ -96,7 +96,7 @@ export default function SettingsComponent() {
                   <MaterialCommunityIcons
                     name="pencil"
                     size={25}
-                    color={ColorsBarber.light.textColor}
+                    color={ColorsBarber.dark.textColor}
                   />
                 </View>
               </View>
@@ -135,7 +135,7 @@ export default function SettingsComponent() {
             <FontAwesome
               name="question-circle-o"
               size={64}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           }
           title={localization.SETTINGS.LOGOUT.question}
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     padding: 35,
     borderRadius: 100,
     borderWidth: 1,
-    borderColor: ColorsBarber.light.background,
+    borderColor: ColorsBarber.dark.background,
   },
 
   defaultImgAvatar: {
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     backgroundColor: "transparent",
     borderWidth: 3,
-    borderColor: ColorsBarber.light.background,
+    borderColor: ColorsBarber.dark.background,
     borderRadius: 100,
   },
   initialContainer: {
@@ -177,13 +177,13 @@ const styles = StyleSheet.create({
     alignContent: "flex-end",
   },
   editButton: {
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
     borderRadius: 20,
     padding: 4,
   },
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
     paddingBottom: 20,
   },
   image: {
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   avatarText: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
     fontSize: 23,
     letterSpacing: 2,
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     letterSpacing: 2,
     fontFamily: "OldStandard-Regular",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
   },
   imageContainer: {
     height: 250,

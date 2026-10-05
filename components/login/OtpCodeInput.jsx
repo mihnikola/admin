@@ -50,9 +50,9 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: ColorsBarber.light.inActiveTextColor,
-    backgroundColor: ColorsBarber.light.item,
-    color: ColorsBarber.light.textColor,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
+    backgroundColor: ColorsBarber.dark.item,
+    color: ColorsBarber.dark.textColor,
     borderRadius: 10,
     width: 50,
     height: 60,

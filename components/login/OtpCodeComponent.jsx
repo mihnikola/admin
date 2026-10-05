@@ -156,7 +156,7 @@ const OtpCodeComponent = () => {
               <FontAwesome
                 name={error ? "close" : "check-circle-o"}
                 size={64}
-                color={ColorsBarber.light.textColor}
+                color={ColorsBarber.dark.textColor}
               />
             }
             title={error || message}
@@ -215,13 +215,13 @@ const styles = StyleSheet.create({
   mainTitle: {
     fontSize: 22,
     fontFamily:"OldStandard-Bold",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     marginBottom: 5,
   },
   subtitle: {
     fontSize: 14,
     fontFamily:"OldStandard-Regular",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
   },
   socialButtonsContainer: {
     flexDirection: "row",

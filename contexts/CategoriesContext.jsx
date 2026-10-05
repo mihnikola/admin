@@ -24,7 +24,7 @@ export const CategoriesProvider = ({ children }) => {
     setIsLoading("get");
     setError(null);
     try {
-      const response = await get("categories");
+      const response = await get(`categories/${new Date()}`);
       setCategories(response.data);
     } catch (err) {
       console.error("Greška pri povlačenju kategorija:", err);

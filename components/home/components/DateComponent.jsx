@@ -86,7 +86,7 @@ const DateComponent = () => {
           <ActivityIndicator
             size={40}
             style={{ paddingVertical: 20 }}
-            color={ColorsBarber.light.textColor}
+            color={ColorsBarber.dark.textColor}
           />
         </View>
       );
@@ -154,14 +154,14 @@ const DateComponent = () => {
               onPress={addReservation}
               style={{ flexDirection: "row", alignItems: "center" }}
             >
-              <Text style={{ paddingRight: 10 }}>
+              <Text style={{ paddingRight: 10, color: ColorsBarber.dark.textColor, fontFamily:"OldStandard-Regular" }}>
                 {localization.ADDRESERVATION.add}
               </Text>
 
               <FontAwesome
                 name="plus-circle"
                 size={32}
-                color={ColorsBarber.light.textColor}
+                color={ColorsBarber.dark.textColor}
               />
             </TouchableOpacity>
           )}
@@ -217,17 +217,17 @@ const DateComponent = () => {
                       justifyContent: "center",
                       alignItems: "center",
                       backgroundColor: isSelected
-                        ? ColorsBarber.light.textColor
+                        ? ColorsBarber.dark.textColor
                         : "transparent",
                     }}
                   >
                     <Text
                       style={{
                         color: isPast
-                          ? ColorsBarber.light.inActiveTextColor
+                          ? ColorsBarber.dark.inActiveTextColor
                           : isSelected
-                            ? "#fff"
-                            : ColorsBarber.light.textColor,
+                            ? ColorsBarber.dark.textColorInput
+                            : ColorsBarber.dark.textColor,
                         textAlign: "center",
                         fontWeight: "500",
                       }}
@@ -242,8 +242,8 @@ const DateComponent = () => {
                         borderRadius: 2.5,
                         backgroundColor: checkDates?.[dateStr]?.marked
                           ? isSelected
-                            ? "#fff"
-                            : ColorsBarber.light.textColor
+                            ? ColorsBarber.dark.textColorInput
+                            : ColorsBarber.dark.textColor
                           : "transparent",
                         marginTop: 2,
                       }}
@@ -275,13 +275,13 @@ const styles = StyleSheet.create({
   },
   infoDetails: {
     fontSize: 22,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
     textAlign: "center",
   },
   notWorkingDaysContent: {
     fontSize: 20,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     padding: 20,
   },
   listTitle: {
@@ -293,14 +293,14 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: 30,
     flex: 1,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   calendarContainer: {
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   calendar: {
     width: "100%",
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
     marginTop: 7,
   },
   timesAndDetails: {

@@ -1,42 +1,29 @@
 import { ExpoConfig, ConfigContext } from "@expo/config";
 
-const APP_VERSION = "1.0.5";
-const BRAND_BACKGROUND_COLOR = "#6e412a"; // Unificirana boja pozadine salona
+const APP_VERSION = '1.0.6'
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
-  name: "BookHair Admin",
+  name: "Barber Admin",
   slug: "fta-barber-admin-app",
   version: APP_VERSION,
   orientation: "portrait",
-  icon: "./assets/images/logoFrizer.png",
+  icon: "./assets/images/admin.png",
   scheme: "adminbarberdemo",
-  
-  // 1. ZAKLJUČAVANJE LIGHT MODA (Sprečava OS da ubacuje crnu temu)
-  userInterfaceStyle: "light",
-  backgroundColor: BRAND_BACKGROUND_COLOR,
-
+  userInterfaceStyle: "automatic",
   splash: {
-    image: "./assets/images/logoFrizer.png",
-    resizeMode: "contain",
-    backgroundColor: BRAND_BACKGROUND_COLOR,
+    image: "./assets/images/admin.png",
+    backgroundColor: "#000000",
   },
   newArchEnabled: true,
-  
   ios: {
     supportsTablet: true,
-    userInterfaceStyle: "light",
-    backgroundColor: BRAND_BACKGROUND_COLOR,
   },
-  
   android: {
-    userInterfaceStyle: "light",
-    backgroundColor: BRAND_BACKGROUND_COLOR, // Natativni Android background pri preusmeravanjima
     googleServicesFile:
       process.env.GOOGLE_SERVICES_JSON || "./firebase/google-services.json",
     package: "fta.admin.app",
   },
-  
   plugins: [
     "@react-native-firebase/app",
     "@react-native-firebase/messaging",
@@ -44,30 +31,29 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     [
       "expo-splash-screen",
       {
-        image: "./assets/images/logoFrizer.png",
+        image: "./assets/images/admin.png",
         imageWidth: 200,
         resizeMode: "contain",
-        // 2. UNIFICIRANA POZADINA ZA SPLASH (Uklonjen 'dark' blok koji je izazivao konflikt)
-        backgroundColor: BRAND_BACKGROUND_COLOR,
+        backgroundColor: "#ffffff",
+        dark: {
+          backgroundColor: "#000000",
+        },
       },
     ],
   ],
-  
   experiments: {
     typedRoutes: true,
     reactCompiler: true,
   },
-  
   extra: {
     eas: {
       projectId: "fcd5681e-4fac-41b4-9334-d272ee972954",
     },
     API_KEY_MAP: "AIzaSyD5_HYUYyAb5m7n4bih0WSKyQCYsBOAK9w",
   },
-  
   owner: "fusion-tech-agency",
   updates: {
-    url: "https://u.expo.dev/fcd5681e-4fac-41b4-9334-d272ee972954",
+    "url": "https://u.expo.dev/fcd5681e-4fac-41b4-9334-d272ee972954"
   },
-  runtimeVersion: APP_VERSION,
+  runtimeVersion: APP_VERSION
 });

@@ -19,7 +19,7 @@ function SearchInputComponent({
         placeholder={placeholderText || localization.CLIENTS.search}
         value={search}
         onChangeText={setSearch}
-        placeholderTextColor={ColorsBarber.light.inActiveTextColor}
+        placeholderTextColor={ColorsBarber.dark.inActiveTextColor}
         onFocus={onFocus} // <-- prosleđeno
         onBlur={onBlur} // <-- prosleđeno
       />
@@ -29,7 +29,7 @@ function SearchInputComponent({
           onPress={() => setSearch("")}
           style={styles.clearButton}
         >
-          <Ionicons name="close-circle" size={22} color={ColorsBarber.light.textColor} />
+          <Ionicons name="close-circle" size={22} color={ColorsBarber.dark.textColor} />
         </TouchableOpacity>
       )}
     </View>
@@ -43,14 +43,14 @@ const styles = StyleSheet.create({
 
   searchInput: {
     // backgroundColor: "#3f3f3f",
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
     borderWidth: 1,
-    borderColor: ColorsBarber.light.inActiveTextColor,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
     borderRadius: 8,
     padding: 14,
     paddingRight: 45, // prostor za X ikonu
     fontSize: 18,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
   },
 

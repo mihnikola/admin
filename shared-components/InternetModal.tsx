@@ -14,7 +14,7 @@ export default function NoInternetModal({ visible }) {
           <MaterialIcons
             name="signal-wifi-off"
             size={80}
-           color={ColorsBarber.light.textColor}
+           color={ColorsBarber.dark.textColor}
             style={{ marginBottom: 20 }}
           />
           <Text style={styles.title}> {localization.INTERNET.title}</Text>

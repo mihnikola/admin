@@ -30,7 +30,7 @@ export default function BarberItem({ item, toggleBarber }) {
           <FontAwesome
             name="check-circle"
             size={32}
-            color={ColorsBarber.light.textColor}
+            color={ColorsBarber.dark.textColor}
           />
         )}
       </View>
@@ -40,7 +40,7 @@ export default function BarberItem({ item, toggleBarber }) {
 
 const styles = StyleSheet.create({
   barberItem: {
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.item,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -70,13 +70,13 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 50,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
     justifyContent: "center",
     alignItems: "center",
     marginRight: 12,
   },
   avatarText: {
-    color: ColorsBarber.light.inActiveTextColor,
+    color: ColorsBarber.dark.inActiveTextColor,
     fontFamily: "OldStandard-Regular",
     fontSize: 16,
   },
@@ -90,13 +90,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   barberName: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 16,
     marginBottom: 2,
     fontFamily: "OldStandard-Regular",
   },
   barberSeniority: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 14,
     fontFamily: "OldStandard-Regular",
   },

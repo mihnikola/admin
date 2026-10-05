@@ -151,7 +151,7 @@ export default function GooglePlace({ onSelect }) {
       <View style={styles.searchInputContainer}>
         <SearchInputComponent search={query} setSearch={setQuery} placeholderText={localization.PLACES.search} />
       </View>
-      {loading && <ActivityIndicator size="small" color={ColorsBarber.light.textColor} />}
+      {loading && <ActivityIndicator size="small" color={ColorsBarber.dark.textColor} />}
       <FlatList
         data={query?.length && results}
         keyExtractor={(item) => item.place_id}
@@ -185,12 +185,12 @@ const styles = StyleSheet.create({
   },
   list: {
     maxHeight: 200,
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.item,
     borderRadius: 8,
     marginTop: 5,
     fontFamily: "OldStandard-Bold",
   },
   item: { padding: 10, borderBottomColor: "#444", borderBottomWidth: 1,fontFamily: "OldStandard-Bold", },
     
-  itemText: { color:ColorsBarber.light.textColor, fontFamily: "OldStandard-Bold",},
+  itemText: { color:ColorsBarber.dark.textColor, fontFamily: "OldStandard-Bold",},
 });

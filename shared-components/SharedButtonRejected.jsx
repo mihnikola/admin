@@ -14,28 +14,23 @@ const SharedButtonRejected = (props) => {
       onPress={props.onPress}
     >
       {!props.loading && <Text style={styles.btnText}>{props.text}</Text>}
-      {props.loading && <ActivityIndicator size={24} color={ColorsBarber.light.textColor} />}
+      {props.loading && <ActivityIndicator size={24} color={ColorsBarber.dark.textColor} />}
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   btnText: {
-    color: ColorsBarber.light.item,
+    color: ColorsBarber.dark.textColor,
     fontSize: 20,
-    fontFamily: "OldStandard-Bold",
-
-
+    fontFamily: "OldStandard-Bold"
   },
-
   btn: {
     backgroundColor: "#aa2323", // Elegantnija tamno crvena
     paddingVertical: 15,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor:ColorsBarber.light.inActiveTextColor,
-    alignItems: "center",
-
+    borderColor:ColorsBarber.dark.inActiveTextColor,
     alignItems: "center",
     justifyContent: "center",
     minHeight: 50,

@@ -142,7 +142,7 @@ function ConfirmReservation() {
     <View
       style={{
         flex: 1,
-        backgroundColor: ColorsBarber.light.background,
+        backgroundColor: ColorsBarber.dark.background,
       }}
     >
       <SharedBackButton
@@ -178,7 +178,7 @@ function ConfirmReservation() {
             onChangeText={setDescription}
             value={description}
             placeholder={localization.SETTINGS.ABSENTHOURS.comment}
-            placeholderTextColor={ColorsBarber.light.textColor}
+            placeholderTextColor={ColorsBarber.dark.textColor}
             multiline={true}
             numberOfLines={2}
             textAlignVertical="top"
@@ -203,7 +203,7 @@ function ConfirmReservation() {
             <FontAwesome
               name={error?.length > 0 ? "close" : "check-circle-o"}
               size={64}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           }
           onClose={error?.length > 0 ? cancelHandlercina : refreshHandler}
@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "space-around",
     padding: 10,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   captureContainer: {
     position: "absolute",
@@ -234,12 +234,12 @@ const styles = StyleSheet.create({
   },
   notFound: {
     fontSize: 24,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
   },
   capture: {
     fontSize: 32,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontWeight: "500",
     fontFamily: "OldStandard-Bold",
   },
@@ -257,30 +257,30 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     paddingHorizontal: 20,
     fontSize: 14,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Regular",
     borderWidth: 1,
-    borderColor: ColorsBarber.light.textColor,
+    borderColor: ColorsBarber.dark.textColor,
   },
 
   content: {
     width: 80,
     height: 50,
     justifyContent: "center",
-    borderColor: ColorsBarber.light.inActiveTextColor,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
     alignItems: "center",
     borderRadius: 8,
     borderWidth: 1,
   },
   selectedTime: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
   },
   selectedContent: {
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.item,
   },
   time: {
     fontSize: 16,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
     borderColor: "#ffffff",
   },

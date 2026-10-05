@@ -20,17 +20,17 @@ const HeaderReservationTime = ({ data }) => {
 const styles = StyleSheet.create({
   locationData: {
     fontSize: 18,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily:"OldStandard-Bold"
   },
   dateData: {
     fontSize: 20,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily:"OldStandard-Bold"
   },
   timeData: {
     fontSize: 20,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily:"OldStandard-Bold"
   },
   coverContent: {

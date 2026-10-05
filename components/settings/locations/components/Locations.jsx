@@ -84,13 +84,13 @@ const Locations = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   content: {
     padding: 20,
   },
   notFound: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     textAlign: "center",
     fontSize: 20,
     marginTop: 20,
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
 
   title: {
     fontSize: 20,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
     textAlign: "center",
     alignSelf: "center",

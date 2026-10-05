@@ -26,8 +26,8 @@ const LocationItem = ({ item, startEditing }) => {
             size={24}
             color={
               item.active === 0
-                ? ColorsBarber.light.inActiveTextColor
-                : ColorsBarber.light.textColor
+                ? ColorsBarber.dark.inActiveTextColor
+                : ColorsBarber.dark.textColor
             }
           />
         </Text>
@@ -38,7 +38,7 @@ const LocationItem = ({ item, startEditing }) => {
 
 const styles = StyleSheet.create({
   address: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
 
     padding: 10,
@@ -54,17 +54,17 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     marginRight: 15,
     borderWidth: 1,
-    borderColor: ColorsBarber.light.inActiveTextColor,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
   },
   item: {
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.item,
     flexDirection: "row",
     justifyContent: "space-between",
     padding: 5,
     borderRadius: 8,
     borderWidth: 1,
     marginVertical: 5,
-    borderColor: ColorsBarber.light.inActiveTextColor,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
     fontFamily: "OldStandard-Bold",
 
   },
@@ -77,21 +77,21 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     backgroundColor: "black",
     borderWidth: 1,
-    borderColor: ColorsBarber.light.inActiveTextColor,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
   },
   deactivated: {
-    borderColor: ColorsBarber.light.inActiveTextColor,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
     fontFamily: "OldStandard-Bold",
 
   },
   deactivatedText: {
-    color: ColorsBarber.light.inActiveTextColor,
+    color: ColorsBarber.dark.inActiveTextColor,
     fontFamily: "OldStandard-Bold",
 
   },
   undo: {
     fontSize: 12,
-    color: ColorsBarber.light.inActiveTextColor,
+    color: ColorsBarber.dark.inActiveTextColor,
     padding: 8,
   },
 });

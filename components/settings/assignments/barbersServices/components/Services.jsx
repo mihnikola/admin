@@ -126,7 +126,7 @@ const Services = () => {
       <View style={styles.headerComponent}>
         <View style={styles.headerRow}>
           <TouchableOpacity hitSlop={20} onPress={router.back}>
-            <MaterialIcons name="arrow-back" size={25} color={ColorsBarber.light.textColor} />
+            <MaterialIcons name="arrow-back" size={25} color={ColorsBarber.dark.textColor} />
           </TouchableOpacity>
 
           {/* Kolona sa Naslovom i Adresom desno od strelice */}
@@ -168,7 +168,7 @@ const Services = () => {
       {isMessage && (
         <SharedMessage
           isOpen={isMessage}
-          icon={<FontAwesome name="check-circle-o" size={64} color={ColorsBarber.light.textColor} />}
+          icon={<FontAwesome name="check-circle-o" size={64} color={ColorsBarber.dark.textColor} />}
           onClose={confirmHandler}
           onConfirm={confirmHandler}
           buttonText="Ok"
@@ -178,7 +178,7 @@ const Services = () => {
       {isError?.length > 0 && (
         <SharedMessage
           isOpen={isError?.length > 0}
-          icon={<FontAwesome name="close" size={64} color={ColorsBarber.light.textColor} />}
+          icon={<FontAwesome name="close" size={64} color={ColorsBarber.dark.textColor} />}
           onClose={cancelHandler}
           onConfirm={cancelHandler}
           buttonText="Ok"
@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
     paddingTop: 25,
     paddingBottom: 15,
     paddingHorizontal: 16, 
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   searchInputContainer: {
     marginVertical: 15,
@@ -212,12 +212,12 @@ const styles = StyleSheet.create({
   pageTitleHeader: {
     fontSize: 18, // Malo manji, ali i dalje dominantan
     fontFamily: "OldStandard-Bold",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
 
     letterSpacing: 0.5,
   },
   addressHeader: {
-    color: ColorsBarber.light.inActiveTextColor,
+    color: ColorsBarber.dark.inActiveTextColor,
     fontSize: 14,
         fontFamily: "OldStandard-Bold",
     marginTop: 2,
@@ -254,7 +254,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   title: {
     fontSize: 22,
@@ -268,7 +268,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     alignItems: "center",
     justifyContent: "space-between",
-   color:ColorsBarber.light.textColor,
+   color:ColorsBarber.dark.textColor,
   },
 
   subTitle: {

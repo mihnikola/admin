@@ -5,7 +5,7 @@ const SharedCarousel = ({ title, length }) => {
   return (
     <View>
       <Image
-        source={require("@/assets/images/IMG_8211.jpeg")}
+        source={require("@/assets/images/coverImage.jpg")}
         style={styles.coverImage}
       />
       <View style={styles.captureContainer}>
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   },
   capture: {
     fontSize: 32,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontWeight: "500",
     fontFamily:"OldStandard-Bold"
   },

@@ -29,7 +29,7 @@ const ServiceItem = ({ item, toggleService }) => {
           <FontAwesome
             name="check-circle"
             size={32}
-            color={ColorsBarber.light.textColor}
+            color={ColorsBarber.dark.textColor}
           />
         )}
       </View>
@@ -39,7 +39,7 @@ const ServiceItem = ({ item, toggleService }) => {
 
 const styles = StyleSheet.create({
   serviceItem: {
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.item,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: ColorsBarber.light.inActiveTextColor,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
     // Suptilna senka za Android
     elevation: 2,
   },
@@ -68,10 +68,10 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   serviceText: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
   },
   serviceTextName: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
     fontSize: 14,
     flexWrap: "wrap",

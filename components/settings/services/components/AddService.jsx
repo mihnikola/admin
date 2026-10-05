@@ -295,7 +295,7 @@ export default function AddService() {
         </>
       ) : (
         <View style={styles.errorLoading}>
-          <ActivityIndicator size={72} color={ColorsBarber.light.textColor} />
+          <ActivityIndicator size={72} color={ColorsBarber.dark.textColor} />
         </View>
       )}
       {/* </ScrollView> */}
@@ -307,7 +307,7 @@ export default function AddService() {
             <FontAwesome
               name="check-circle-o"
               size={64}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           }
           onClose={confirmMessageHandler}
@@ -325,7 +325,7 @@ export default function AddService() {
             <FontAwesome
               name="question-circle-o"
               size={64}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           }
           title={localization.SERVICES.question}
@@ -340,7 +340,7 @@ export default function AddService() {
             <FontAwesome
               name="close"
               size={64}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           }
           onClose={confirmErrorMessageHandler}
@@ -358,14 +358,14 @@ const styles = StyleSheet.create({
     alignContent: "center",
     alignItems: "center",
     alignSelf: "center",
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   errorLoading: {
     marginTop: 100,
     alignContent: "center",
     alignItems: "center",
     alignSelf: "center",
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
     height: "100%",
   },
   btnContainer: {
@@ -375,7 +375,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   title: {
     fontSize: 22,
@@ -395,8 +395,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   input: {
-    backgroundColor: ColorsBarber.light.item,
-    color: ColorsBarber.light.textColor,
+    backgroundColor: ColorsBarber.dark.item,
+    color: ColorsBarber.dark.textColor,
     padding: 10,
     marginBottom: 10,
     borderRadius: 8,

@@ -21,7 +21,7 @@ const SharedDetailsServiceCard = (props) => {
           <FontAwesome
             name={"clock-o"}
             size={16}
-            color={ColorsBarber.light.textColor}
+            color={ColorsBarber.dark.textColor}
           />
           <Text style={styles.locationText}>
             {`${localization.DETAILS.duration} ${
@@ -33,7 +33,7 @@ const SharedDetailsServiceCard = (props) => {
           <MaterialIcons
             name={"price-change"}
             size={16}
-            color={ColorsBarber.light.textColor}
+            color={ColorsBarber.dark.textColor}
           />
           <Text style={styles.reviewText}>
             {`${localization.DETAILS.price} ${price || data?.servicePrice}`}
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   },
   card: {
     flexDirection: "row",
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.item,
     borderRadius: 12,
     padding: 15,
     marginVertical: 8,
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 18,
     fontWeight: "bold",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     marginBottom: 4,
   },
   locationContainer: {
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
   },
   locationText: {
     fontSize: 14,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     marginLeft: 5,
   },
   ratingContainer: {
@@ -111,12 +111,12 @@ const styles = StyleSheet.create({
   ratingText: {
     fontSize: 14,
     fontWeight: "bold",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     marginLeft: 5,
   },
   reviewText: {
     fontSize: 14,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     marginLeft: 5,
   },
 });

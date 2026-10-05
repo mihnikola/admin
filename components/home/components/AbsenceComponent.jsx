@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingVertical: 20,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
     paddingHorizontal: 15,
   },
   header: {
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   subTitle: {
     fontSize: 18,
     fontFamily: "OldStandard-Bold",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     textAlign: "center",
   },
  

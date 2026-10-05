@@ -45,7 +45,7 @@ const AddCategory = () => {
         styleBtn={{ marginBottom: 30 }}
       />
 
-      <View style={{ flex: 1, backgroundColor: ColorsBarber.light.background }}>
+      <View style={{ flex: 1, backgroundColor: ColorsBarber.dark.background }}>
         <View>
           <Text style={styles.mainTitle}>
             {id
@@ -92,7 +92,7 @@ const AddCategory = () => {
             <FontAwesome
               name="question"
               size={64}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           }
           title={message}
@@ -108,7 +108,7 @@ const AddCategory = () => {
             <FontAwesome
               name={error ? "close" : "check-circle"}
               size={64}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           }
           title={error || message}
@@ -121,7 +121,7 @@ const AddCategory = () => {
 const styles = StyleSheet.create({
   input: {
     backgroundColor: "white",
-    color: ColorsBarber.light.item,
+    color: ColorsBarber.dark.item,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
@@ -132,12 +132,12 @@ const styles = StyleSheet.create({
   },
   mainTitle: {
     fontSize: 22,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
   },
   subtitle: {
     fontSize: 16,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Regular",
   },
 });

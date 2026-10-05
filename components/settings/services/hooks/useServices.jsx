@@ -216,7 +216,6 @@ const useServices = () => {
     setError(null);
     try {
       const response = await get(`/admin/services/${id}`);
-      console.log("xxadsdasasd", response.data);
       if (response.status === 200) {
         setGetServiceData(response.data);
       }

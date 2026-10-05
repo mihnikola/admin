@@ -91,7 +91,7 @@ console.log("colorData",colorData)
               <Feather
                 name="phone"
                 size={24}
-                color={ColorsBarber.light.textColor}
+                color={ColorsBarber.dark.textColor}
               />
               <Text style={styles.actionText}>
                 {localization.CLIENTS.contact}
@@ -106,7 +106,7 @@ console.log("colorData",colorData)
             <Feather
               name="slash"
               size={24}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
             <Text style={styles.actionText}>{localization.CLIENTS.block}</Text>
           </TouchableOpacity>
@@ -119,7 +119,7 @@ console.log("colorData",colorData)
             <Text
               style={[
                 styles.statValue,
-                { color: ColorsBarber.light.textColor },
+                { color: ColorsBarber.dark.textColor },
               ]}
             >
               {skippedCount || 0}
@@ -149,7 +149,7 @@ console.log("colorData",colorData)
             <Feather
               name="phone-call"
               size={20}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
               style={styles.contactIcon}
             />
             <Text style={styles.contactText}>
@@ -160,7 +160,7 @@ console.log("colorData",colorData)
             <MaterialCommunityIcons
               name="email-outline"
               size={20}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
               style={styles.contactIcon}
             />
             <Text style={styles.contactText}>
@@ -200,7 +200,7 @@ console.log("colorData",colorData)
             <FontAwesome
               name="close"
               size={64}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           }
           onClose={() => setDialog(false)}
@@ -217,7 +217,7 @@ console.log("colorData",colorData)
             <FontAwesome
               name="check-circle-o"
               size={64}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           }
           onClose={refreshHandler}
@@ -233,7 +233,7 @@ console.log("colorData",colorData)
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   // KLJUČNO: Omogućava dinamičku visinu i prostor za podizanje pod tastaturom
   scrollContent: {
@@ -245,18 +245,18 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   avatarText: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
     fontSize: 30,
   },
   input: {
     backgroundColor: "white",
-    color: ColorsBarber.light.item,
+    color: ColorsBarber.dark.item,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
     borderWidth: 2,
-    borderColor: ColorsBarber.light.item,
+    borderColor: ColorsBarber.dark.item,
     fontFamily: "OldStandard-Bold",
     marginTop: 8,
   },
@@ -273,13 +273,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   nameText: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 24,
     fontFamily: "OldStandard-Bold",
     marginTop: 10,
   },
   textValue: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 16,
     fontFamily: "OldStandard-Bold",
   },
@@ -292,7 +292,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   actionText: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
     fontSize: 12,
     marginTop: 5,
@@ -302,7 +302,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   sectionTitle: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 14,
     marginBottom: 10,
     fontFamily: "OldStandard-Bold",
@@ -313,12 +313,12 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
   },
   statLabel: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 16,
     fontFamily: "OldStandard-Bold",
   },
   statValue: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 16,
     fontFamily: "OldStandard-Bold",
   },
@@ -328,7 +328,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   incomeValue: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 16,
     fontFamily: "OldStandard-Bold",
   },
@@ -346,7 +346,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   contactText: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 16,
     fontFamily: "OldStandard-Bold",
   },

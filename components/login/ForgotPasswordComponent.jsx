@@ -35,7 +35,7 @@ const ForgotPasswordComponent = () => {
         styleBtn={{ marginBottom: 30 }}
       />
 
-      <View style={{ flex: 1, backgroundColor: ColorsBarber.light.background }}>
+      <View style={{ flex: 1, backgroundColor: ColorsBarber.dark.background }}>
         <View>
           <Text style={styles.mainTitle}>
             {localization.FORGOT_PASSWORD.title}
@@ -77,7 +77,7 @@ const ForgotPasswordComponent = () => {
             <FontAwesome
               name={error?.length && "close"}
               size={64}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           }
           title={error}
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
  
   input: {
     backgroundColor: "white",
-    color: ColorsBarber.light.item,
+    color: ColorsBarber.dark.item,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
@@ -105,12 +105,12 @@ const styles = StyleSheet.create({
   },
   mainTitle: {
     fontSize: 22,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
   },
   subtitle: {
     fontSize: 16,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Regular",
   },
 });

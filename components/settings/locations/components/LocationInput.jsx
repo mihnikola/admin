@@ -9,7 +9,7 @@ export default function LocationInput({ icon, label, placeholder, city }) {
         <FontAwesome
           name={icon}
           size={20}
-          color={ColorsBarber.light.textColor}
+          color={ColorsBarber.dark.textColor}
         />
       </View>
 
@@ -19,7 +19,7 @@ export default function LocationInput({ icon, label, placeholder, city }) {
         {city && (
           <Text
             style={styles.input}
-            placeholderTextColor={ColorsBarber.light.inActiveTextColor}
+            placeholderTextColor={ColorsBarber.dark.inActiveTextColor}
           >
             {placeholder}
             {","}
@@ -29,7 +29,7 @@ export default function LocationInput({ icon, label, placeholder, city }) {
         {!city && (
           <Text
             style={styles.input}
-            placeholderTextColor={ColorsBarber.light.inActiveTextColor}
+            placeholderTextColor={ColorsBarber.dark.inActiveTextColor}
           >
             {placeholder}
           </Text>
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.item,
     borderRadius: 16,
     padding: 12,
     marginBottom: 7,
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   },
 
   label: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 12,
     marginBottom: 2,
     fontFamily: "OldStandard-Bold",
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   },
 
   input: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 16,
     padding: 0,
     fontFamily: "OldStandard-Bold",

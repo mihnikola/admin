@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   },
   errorMessageDetail: {
     fontSize: 14,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     textAlign: "center",
   },
   notWorkingDaysContent: {
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   },
   noEventsText: {
     fontSize: 16,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
     textAlign: "center",
   },

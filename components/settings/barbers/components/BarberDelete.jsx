@@ -134,7 +134,7 @@ function BarberDelete() {
             <FontAwesome
               name="question-circle-o"
               size={64}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           }
           title={
@@ -153,7 +153,7 @@ function BarberDelete() {
             <FontAwesome
               name="check-circle-o"
               size={64}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           }
           onClose={confirmMessageHandler}
@@ -169,7 +169,7 @@ function BarberDelete() {
             <FontAwesome
               name="close"
               size={64}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           }
           onClose={confirmErrorMessageHandler}
@@ -185,11 +185,11 @@ function BarberDelete() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   btnContainer: {
     flex: 0.1,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
     padding: 30,
     // flex: 0.1,
     // margin: 30,
@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
   },
   dateText: {
     fontSize: 16,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     textAlign: "center",
   },
   dateButton: {
@@ -218,18 +218,18 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingVertical: 14,
     paddingHorizontal: 10,
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.item,
     margin: 30,
   },
   info: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     padding: 10,
     margin: 20,
     fontSize: 20,
     textAlign: "center",
   },
   dateLabel: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     paddingTop: 10,
     marginTop: 20,
     fontSize: 20,

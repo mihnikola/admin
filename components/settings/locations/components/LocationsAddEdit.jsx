@@ -117,7 +117,7 @@ export default function LocationsAddEdit() {
             <MaterialCommunityIcons
               name="account-plus-outline"
               size={28}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           </TouchableOpacity>
         )}
@@ -163,7 +163,7 @@ export default function LocationsAddEdit() {
       {isMessage && (
         <SharedMessage
           isOpen={isMessage}
-          icon={<FontAwesome name="check-circle-o" size={64} color={ColorsBarber.light.textColor} />}
+          icon={<FontAwesome name="check-circle-o" size={64} color={ColorsBarber.dark.textColor} />}
           onClose={confirmHandler}
           onConfirm={confirmHandler}
           buttonText="Ok"
@@ -173,7 +173,7 @@ export default function LocationsAddEdit() {
       {error?.length > 0 && (
         <SharedMessage
           isOpen={error?.length > 0}
-          icon={<FontAwesome name="close" size={64} color={ColorsBarber.light.textColor} />}
+          icon={<FontAwesome name="close" size={64} color={ColorsBarber.dark.textColor} />}
           onClose={confirmErrorMessageHandler}
           onConfirm={confirmErrorMessageHandler}
           buttonText="Ok"
@@ -196,11 +196,11 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     // backgroundColor: "#000000",
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   title: {
     fontSize: 22,
-    color:  ColorsBarber.light.textColor,
+    color:  ColorsBarber.dark.textColor,
     marginBottom: 10,
     fontFamily: "OldStandard-Bold",
 
@@ -212,12 +212,12 @@ const styles = StyleSheet.create({
   subTitle: {
     fontSize: 18,
     fontFamily: "OldStandard-Bold",
-    color:  ColorsBarber.light.textColor,
+    color:  ColorsBarber.dark.textColor,
     marginTop: 20,
     marginBottom: 10,
   },
   input: {
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.item,
     color: "#fff",
     padding: 10,
     marginBottom: 10,
@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
 
   },
   button: {
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.item,
     padding: 12,
     borderRadius: 8,
     alignItems: "center",
@@ -244,7 +244,7 @@ const styles = StyleSheet.create({
   },
 
   serviceItem: {
-    backgroundColor:  ColorsBarber.light.item,
+    backgroundColor:  ColorsBarber.dark.item,
     flexDirection: "row",
     justifyContent: "space-between",
     padding: 20,

@@ -16,7 +16,7 @@ function TimeAbsentComponent({ setShowFromPicker, time, placeholder }) {
 
 const styles = StyleSheet.create({
   dateButton: {
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.item,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     margin: 10,
     borderWidth: 1,
-    borderColor: ColorsBarber.light.inActiveTextColor,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
     borderRadius: 15,
         fontFamily: "OldStandard-Regular",
 
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
 
   dateText: {
     fontSize: 14,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Regular",
   },
 });

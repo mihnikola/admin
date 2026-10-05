@@ -11,7 +11,7 @@ export const SharedLoader = ({ isOpen, onConfirm }) => {
     >
       <View style={styles.overlay}>
         <View style={styles.modalContent}>
-          <ActivityIndicator size={32} color={ColorsBarber.light.textColor} />
+          <ActivityIndicator size={32} color={ColorsBarber.dark.textColor} />
         </View>
       </View>
     </Modal>
@@ -21,13 +21,13 @@ export const SharedLoader = ({ isOpen, onConfirm }) => {
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
     alignItems: "center",
     justifyContent: "center",
     padding: 16,
   },
   modalContent: {
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.backgroundModal, // Corresponds to bg-gray-800
     borderRadius: 12,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 10 },

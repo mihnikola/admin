@@ -22,7 +22,7 @@ const SharedDetailsEmployerCard = ({ data }) => {
             <MaterialIcons
               name={"star"}
               size={16}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
             <Text style={styles.reviewText}>{`${roundValue(
               averageRating,
@@ -33,7 +33,7 @@ const SharedDetailsEmployerCard = ({ data }) => {
             <Ionicons
               name={"person"}
               size={16}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
             <Text style={styles.reviewText}>{userCount || 0}</Text>
           </View>

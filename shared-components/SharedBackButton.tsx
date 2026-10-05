@@ -9,7 +9,7 @@ const SharedBackButton = ({ onPress, styleBtn, absolutePosition = true }) => {
       hitSlop={20}
       onPress={onPress}
     >
-      <MaterialIcons name="arrow-back" size={25} color={ColorsBarber.light.textColor}   />
+      <MaterialIcons name="arrow-back" size={25} color={ColorsBarber.dark.textColor}   />
     </TouchableOpacity>
   );
 };

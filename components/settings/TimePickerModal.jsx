@@ -104,19 +104,19 @@ const TimePickerModal = ({
 const styles = StyleSheet.create({
 
   actionButtonTextYes: {
-    color: ColorsBarber.light.item, // Corresponds to text-white
+    color: ColorsBarber.dark.item, // Corresponds to text-white
     fontSize: 20,
     textAlign: "center",
     fontFamily: "OldStandard-Bold",
   },
   actionButtonText: {
-    color: ColorsBarber.light.inActiveTextColor, // Corresponds to text-white
+    color: ColorsBarber.dark.inActiveTextColor, // Corresponds to text-white
     fontSize: 20,
     textAlign: "center",
     fontFamily: "OldStandard-Bold",
   },
   modalTitle: {
-    color: ColorsBarber.light.textColor, // Corresponds to text-white
+    color: ColorsBarber.dark.textColor, // Corresponds to text-white
     fontSize: 20, // Corresponds to text-3xl
     fontFamily: "OldStandard-Bold",
    
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
   },
   actionButton: {
     width: "50%", // Corresponds to w-full
-    backgroundColor: ColorsBarber.light.item, // Corresponds to bg-blue-600
+    backgroundColor: ColorsBarber.dark.item, // Corresponds to bg-blue-600
     paddingVertical: 16, // Corresponds to py-4
     borderRadius: 8, // Corresponds to rounded-lg
     shadowColor: "#000",
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
   },
   actionButtonNo: {
     width: "50%", // Corresponds to w-full
-    backgroundColor: ColorsBarber.light.textColor, // Corresponds to bg-blue-600
+    backgroundColor: ColorsBarber.dark.textColor, // Corresponds to bg-blue-600
     paddingVertical: 16, // Corresponds to py-4
     borderRadius: 8, // Corresponds to rounded-lg
     shadowColor: "#000",
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
   },
 
   modalContent: {
-    backgroundColor: ColorsBarber.light.background, // Corresponds to bg-gray-800
+    backgroundColor: ColorsBarber.dark.backgroundModal, // Corresponds to bg-gray-800
     borderRadius: 12, // Corresponds to rounded-xl
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 10 },
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
 
   cancel: {
     fontSize: 16,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontWeight: "600",
     padding: 10,
     letterSpacing: 2,
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
 
   done: {
     fontSize: 16,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontWeight: "600",
     padding: 10,
     letterSpacing: 2,
@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
   itemText: {
     fontSize: 24,
     fontFamily: "OldStandard-Bold",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     
   },
 

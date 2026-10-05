@@ -29,14 +29,14 @@ export function addMinutesToTime(inputTime, minutesToAdd) {
 }
 
 export const calendarTheme = {
-  monthTextColor: ColorsBarber.light.textColor,
-  backgroundColor: ColorsBarber.light.background,
-  calendarBackground:ColorsBarber.light.background,
-  textSectionTitleColor: ColorsBarber.light.textColor,
+  monthTextColor: ColorsBarber.dark.textColor,
+  backgroundColor: ColorsBarber.dark.background,
+  calendarBackground:ColorsBarber.dark.background,
+  textSectionTitleColor: ColorsBarber.dark.textColor,
   // selectedDayBackgroundColor: "white",
   // selectedDayTextColor: "black",
   // todayTextColor: "white",
-  dayTextColor: ColorsBarber.light.textColor,
+  dayTextColor: ColorsBarber.dark.textColor,
   textMonthFontWeight: "bold",
   textDisabledColor: "#b93b3b", // siva za prošle datume
 };

@@ -47,7 +47,7 @@ const GlobalErrorHandler = () => {
         <FontAwesome
           name={"close"}
           size={64}
-          color={ColorsBarber.light.textColor}
+          color={ColorsBarber.dark.textColor}
         />
       }
       onConfirm={logoutConfirm}

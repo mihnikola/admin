@@ -34,7 +34,7 @@ export const SharedMessage = ({
             {isLoading && (
               <ActivityIndicator
                 size={25}
-                color={ColorsBarber.light.textColor}
+                color={ColorsBarber.dark.textColor}
               />
             )}
             {!isLoading && (
@@ -50,13 +50,13 @@ export const SharedMessage = ({
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: "rgba(0, 0, 0, 0.75)",
+    backgroundColor: "rgba(0, 0, 0, 0.88)",
     alignItems: "center",
     justifyContent: "center",
     padding: 16,
   },
   modalContent: {
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.backgroundModal, // Corresponds to bg-gray-800
     borderRadius: 12,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 10 },
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
   iconContainer: {
     width: 96,
     height: 96,
-    backgroundColor: ColorsBarber.light.item, // Corresponds to bg-blue-900 bg-opacity-30
+    backgroundColor: ColorsBarber.dark.item, // Corresponds to bg-blue-900 bg-opacity-30
     borderRadius: 9999,
     justifyContent: "center",
     alignItems: "center",
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   },
 
   modalTitle: {
-    color: ColorsBarber.light.textColor, // Corresponds to bg-blue-900 bg-opacity-30
+    color: ColorsBarber.dark.textColor, // Corresponds to bg-blue-900 bg-opacity-30
     fontSize: 18,
     marginBottom: 16,
     textAlign: "center",
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
   },
   actionButton: {
     width: "100%",
-    backgroundColor: ColorsBarber.light.inActiveTextColor,
+    backgroundColor: ColorsBarber.dark.btnBgColor,
     paddingVertical: 16,
     borderRadius: 8,
     shadowColor: "#000",
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   actionButtonText: {
-    color: ColorsBarber.light.textColor, // Corresponds to bg-blue-900 bg-opacity-30
+    color: ColorsBarber.dark.textColor, // Corresponds to bg-blue-900 bg-opacity-30
     fontSize: 22,
     fontWeight: "600",
     textAlign: "center",

@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   textButton: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 18,
     fontWeight: "800",
     position: "absolute",

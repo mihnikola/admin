@@ -47,12 +47,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   resendText: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 16,
     fontWeight: "bold",
   },
   timerText: {
-    color: ColorsBarber.light.inActiveTextColor,
+    color: ColorsBarber.dark.inActiveTextColor,
 
     fontSize: 14,
   },

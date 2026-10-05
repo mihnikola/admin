@@ -133,14 +133,14 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   info: {
-   color:ColorsBarber.light.textColor,
+   color:ColorsBarber.dark.textColor,
     padding: 10,
     marginHorizontal: 10,
     fontSize: 20,
     textAlign: "center",
   },
   dateLabel: {
-   color:ColorsBarber.light.textColor,
+   color:ColorsBarber.dark.textColor,
     paddingTop: 10,
     fontSize: 20,
     textAlign: "center",

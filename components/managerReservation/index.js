@@ -75,7 +75,7 @@ export default function ManagerReservation() {
             <MaterialCommunityIcons
               name="weather-sunset-up"
               size={28}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           }
           value={dailyLimit}
@@ -88,7 +88,7 @@ export default function ManagerReservation() {
             <Octicons
               name="calendar"
               size={26}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           }
           value={weeklyLimit}
@@ -101,7 +101,7 @@ export default function ManagerReservation() {
             <MaterialCommunityIcons
               name="progress-clock"
               size={28}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           }
           value={monthlyLimit}
@@ -124,7 +124,7 @@ export default function ManagerReservation() {
             <FontAwesome
               name="check-circle-o"
               size={64}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           }
           title={lastResponse}
@@ -140,7 +140,7 @@ export default function ManagerReservation() {
             <FontAwesome
               name="close"
               size={64}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           }
           title={error}
@@ -156,11 +156,11 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 24,
     marginTop: 15,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
     justifyContent: "center",
   },
   containerKeyboard: {
     flex: 1,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
 });

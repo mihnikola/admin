@@ -14,14 +14,14 @@ const SharedButtonActivate = (props) => {
       onPress={props.onPress}
     >
       {!props.loading && <Text style={styles.btnText}>{props.text}</Text>}
-      {props.loading && <ActivityIndicator size={25} color={ColorsBarber.light.textColor} />}
+      {props.loading && <ActivityIndicator size={25} color={ColorsBarber.dark.textColor} />}
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   btnText: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 16,
     fontFamily:"OldStandard-Bold",
     letterSpacing: 0.5,
@@ -35,8 +35,8 @@ const styles = StyleSheet.create({
     padding: 60,
     backgroundColor: "transparent",
     borderWidth: 1.5,
-    borderColor: ColorsBarber.light.inActiveTextColor,
-    backgroundColor:ColorsBarber.light.item,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
+    backgroundColor:ColorsBarber.dark.item,
   },
 });
 export default SharedButtonActivate;

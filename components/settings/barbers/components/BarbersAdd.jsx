@@ -271,7 +271,7 @@ export default function BarbersAdd() {
               <MaterialCommunityIcons
                 name="playlist-plus"
                 size={32}
-                color={ColorsBarber.light.textColor}
+                color={ColorsBarber.dark.textColor}
               />
             </TouchableOpacity>
           )}
@@ -420,7 +420,7 @@ export default function BarbersAdd() {
               <FontAwesome
                 name="check-circle-o"
                 size={64}
-                color={ColorsBarber.light.textColor}
+                color={ColorsBarber.dark.textColor}
               />
             }
             onClose={confirmMessageHandler}
@@ -436,7 +436,7 @@ export default function BarbersAdd() {
               <FontAwesome
                 name="close"
                 size={64}
-                color={ColorsBarber.light.textColor}
+                color={ColorsBarber.dark.textColor}
               />
             }
             onClose={confirmErrorMessageHandler}
@@ -484,7 +484,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   title: {
     fontSize: 22,

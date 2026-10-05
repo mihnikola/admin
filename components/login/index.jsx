@@ -80,7 +80,7 @@ export default function LoginScreen() {
       <View style={styles.container}>
         <View style={styles.imageContainer}>
           <Image
-            source={require("@/assets/images/logoFrizer.png")}
+            source={require("@/assets/images/admin.png")}
             style={styles.logo}
           />
         </View>
@@ -138,7 +138,7 @@ export default function LoginScreen() {
               <FontAwesome
                 name={error ? "close" : "check-circle-o"}
                 size={64}
-                color={ColorsBarber.light.textColor}
+                color={ColorsBarber.dark.textColor}
               />
             }
             title={error || success}
@@ -157,7 +157,7 @@ export default function LoginScreen() {
               <FontAwesome
                 name="close"
                 size={64}
-                color={ColorsBarber.light.textColor}
+                color={ColorsBarber.dark.textColor}
               />
             }
             title={localization.EXIT.question}
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
   },
   forgotPassText: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 18,
     fontFamily: "OldStandard-Italic", // Ključ iz useFonts
     textDecorationLine: "underline",
@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
   safeArea: {
     paddingVertical: 30,
     flex: 1,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   iconStyle: {
     width: 30,
@@ -197,17 +197,17 @@ const styles = StyleSheet.create({
     // width: 2000,
     height: 250,
     resizeMode: "contain",
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   mainTitle: {
     fontSize: 22,
     fontFamily: "OldStandard-Bold", // Ključ iz useFonts
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     marginBottom: 5,
   },
   subtitle: {
     fontSize: 13,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     marginBottom: 30,
     fontFamily: "OldStandard-Bold", // Ključ iz useFonts
   },
@@ -221,12 +221,12 @@ const styles = StyleSheet.create({
 
   input: {
     backgroundColor: "white",
-    color: ColorsBarber.light.item,
+    color: ColorsBarber.dark.item,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
     borderWidth: 2,
-    borderColor: ColorsBarber.light.item,
+    borderColor: ColorsBarber.dark.item,
     fontFamily: "OldStandard-Bold", // Ključ iz useFonts
   },
   passwordInputContainer: {
@@ -238,11 +238,11 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 2,
 
-    borderColor: ColorsBarber.light.item,
+    borderColor: ColorsBarber.dark.item,
   },
   passwordInput: {
-    backgroundColor: ColorsBarber.light.item,
-    color: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.item,
+    color: ColorsBarber.dark.item,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,

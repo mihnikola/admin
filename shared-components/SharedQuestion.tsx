@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1, // Takes up the whole screen
-    backgroundColor: ColorsBarber.light.background, // Corresponds to bg-gray-900
+    backgroundColor: ColorsBarber.dark.background, // Corresponds to bg-gray-900
     alignItems: "center", // Centers content horizontally
     justifyContent: "center", // Centers content vertically
     padding: 16,
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   modalContent: {
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.backgroundModal, // Corresponds to bg-gray-800
     borderRadius: 12, // Corresponds to rounded-xl
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 10 },
@@ -74,14 +74,14 @@ const styles = StyleSheet.create({
   iconContainer: {
     width: 96, // Corresponds to w-24
     height: 96, // Corresponds to h-24
-    backgroundColor: ColorsBarber.light.item, // Corresponds to bg-blue-900 bg-opacity-30
+    backgroundColor: ColorsBarber.dark.item, // Corresponds to bg-blue-900 bg-opacity-30
     borderRadius: 9999, // Corresponds to rounded-full
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 24, // Corresponds to mb-6
   },
   modalTitle: {
-    color: ColorsBarber.light.textColor, // Corresponds to text-white
+    color: ColorsBarber.dark.textColor, // Corresponds to text-white
     fontFamily: "OldStandard-Regular",
     fontSize: 20, // Corresponds to text-3xl
     marginBottom: 16, // Corresponds to mb-4
@@ -96,20 +96,20 @@ const styles = StyleSheet.create({
   },
   actionButton: {
     width: "50%", // Corresponds to w-full
-    backgroundColor: ColorsBarber.light.btnBgColorDisabled,
+    backgroundColor: ColorsBarber.dark.btnBgColorDisabled,
     paddingVertical: 16, // Corresponds to py-4
     borderRadius: 8, // Corresponds to rounded-lg
     fontFamily: "OldStandard-Regular",
   },
   actionButtonNo: {
     width: "50%", // Corresponds to w-full
-    backgroundColor: ColorsBarber.light.inActiveTextColor,
+    backgroundColor: ColorsBarber.dark.btnBgColor,
     paddingVertical: 16, // Corresponds to py-4
     borderRadius: 8, // Corresponds to rounded-lg
     fontFamily: "OldStandard-Regular",
   },
   actionButtonText: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 18, // Corresponds to text-lg
     fontWeight: "600", // Corresponds to font-semibold
     textAlign: "center",

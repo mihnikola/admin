@@ -97,7 +97,7 @@ const Barbers = () => {
             <MaterialIcons
               name="arrow-back"
               size={25}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           </TouchableOpacity>
 
@@ -138,7 +138,7 @@ const Barbers = () => {
             <FontAwesome
               name="check-circle-o"
               size={64}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           }
           onClose={confirmSubmit}
@@ -154,7 +154,7 @@ const Barbers = () => {
             <FontAwesome
               name="close"
               size={64}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           }
           onClose={cancelHandler}
@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
     paddingTop: 25,
     paddingBottom: 15,
     paddingHorizontal: 8,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
     borderBottomWidth: 1,
     borderColor: "#1A1A1A",
   },
@@ -191,11 +191,11 @@ const styles = StyleSheet.create({
   pageTitleHeader: {
     fontSize: 20,
     fontFamily:"OldStandard-Bold",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     letterSpacing: 0.5,
   },
   addressHeader: {
-    color: ColorsBarber.light.inActiveTextColor,
+    color: ColorsBarber.dark.inActiveTextColor,
     fontSize: 16,
     marginTop: 2,
     fontFamily:"OldStandard-Bold"
@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
     alignItems: "baseline",
     justifyContent: "flex-start",
     paddingHorizontal: 10,
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.item,
     flexDirection: "row",
     gap: 10,
   },
@@ -225,7 +225,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     margin: 10,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   title: {
     fontSize: 22,
@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     alignItems: "center",
     justifyContent: "space-between",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
   },
 
   input: {

@@ -16,7 +16,7 @@ export default function RootLayoutHome() {
         options={{
           title: "",
           headerStyle: {
-            backgroundColor: ColorsBarber.light.background,
+            backgroundColor: ColorsBarber.dark.background,
           },
           headerShown: false,
         }}

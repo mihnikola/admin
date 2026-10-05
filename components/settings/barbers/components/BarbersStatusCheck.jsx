@@ -10,7 +10,7 @@ export default function BarbersStatusCheck({ selected, modalHandler, label }) {
         <FontAwesome
           name="calendar"
           size={20}
-          color={ColorsBarber.light.textColor}
+          color={ColorsBarber.dark.textColorInput}
         />
       </View>
 
@@ -20,7 +20,7 @@ export default function BarbersStatusCheck({ selected, modalHandler, label }) {
         <Text
           style={[
             styles.value,
-            { color: selected ? ColorsBarber.light.textColor :  ColorsBarber.light.inActiveTextColor },
+            { color: selected ? ColorsBarber.dark.textColorInput :  ColorsBarber.dark.inActiveTextColor },
           ]}
         >
           {selected || ""}
@@ -30,7 +30,7 @@ export default function BarbersStatusCheck({ selected, modalHandler, label }) {
       <Feather
         name="chevron-right"
         size={20}
-        color={ColorsBarber.light.textColor}
+        color={ColorsBarber.dark.textColorInput}
       />
     </TouchableOpacity>
   );
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: ColorsBarber.light.inputField,
+    backgroundColor: ColorsBarber.dark.inputField,
 
     borderRadius: 16,
     padding: 16,
@@ -56,12 +56,16 @@ const styles = StyleSheet.create({
   },
 
   label: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColorInput,
     fontSize: 12,
     marginBottom: 2,
+        fontFamily:"OldStandard-Regular",
+
   },
 
   value: {
     fontSize: 16,
+        fontFamily:"OldStandard-Regular",
+
   },
 });

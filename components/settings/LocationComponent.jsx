@@ -47,12 +47,12 @@ const LocationComponent = () => {
           <FontAwesome5
             name="male"
             size={35}
-            color={ColorsBarber.light.textColor}
+            color={ColorsBarber.dark.textColor}
           />
           <FontAwesome5
             name="search-location"
             size={35}
-            color={ColorsBarber.light.textColor}
+            color={ColorsBarber.dark.textColor}
           />
         </View>
         {/* Choose Location Section */}
@@ -61,7 +61,7 @@ const LocationComponent = () => {
             style={{
               fontSize: 18,
               fontWeight: "600",
-             color:ColorsBarber.light.textColor,
+             color:ColorsBarber.dark.textColor,
               marginBottom: 10,
               textAlign: "center",
             }}
@@ -80,7 +80,7 @@ const LocationComponent = () => {
                     style={styles.item}
                     onPress={() => onSelectedLocation(item)}
                   >
-                    <Text style={{color:ColorsBarber.light.textColor, padding: 10 }}>
+                    <Text style={{color:ColorsBarber.dark.textColor, padding: 10 }}>
                       {item.address}
                     </Text>
                     <FontAwesome
@@ -88,7 +88,7 @@ const LocationComponent = () => {
                         item.id === selectedLocation?.id && "check-circle-o"
                       }
                       size={28}
-                      color={ColorsBarber.light.textColor}
+                      color={ColorsBarber.dark.textColor}
                     />
                   </TouchableOpacity>
                 ))}
@@ -110,7 +110,7 @@ const LocationComponent = () => {
       {isMessage && (
         <SharedMessage
           isOpen={isMessage}
-          icon={<FontAwesome name="check-circle-o" size={64} color={ColorsBarber.light.textColor} />}
+          icon={<FontAwesome name="check-circle-o" size={64} color={ColorsBarber.dark.textColor} />}
           onClose={confirmSubmit}
           onConfirm={confirmSubmit}
           buttonText="Ok"

@@ -18,7 +18,7 @@ const BarbersInput = forwardRef((props, ref) => {
         <FontAwesome
           name={props.icon}
           size={20}
-          color={ColorsBarber.light.textColor}
+          color={ColorsBarber.dark.textColorInput}
         />
       </View>
 
@@ -49,7 +49,7 @@ const BarbersInput = forwardRef((props, ref) => {
               onBlur={() => setIsFocused(false)}
               onChangeText={props.onChangeText}
               placeholder={props.placeholder}
-              placeholderTextColor={ColorsBarber.light.inActiveTextColor}
+              placeholderTextColor={ColorsBarber.dark.inActiveTextColor}
               keyboardType={props.keyboardType}
             />
           )}
@@ -59,7 +59,7 @@ const BarbersInput = forwardRef((props, ref) => {
               <Feather
                 name="chevron-right"
                 size={25}
-                color={ColorsBarber.light.textColor}
+                color={ColorsBarber.dark.textColor}
               />
             </TouchableOpacity>
           )}
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
   },
   lock: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 15,
   },
   phoneNumberContainer: {
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: ColorsBarber.light.inputField,
+    backgroundColor: ColorsBarber.dark.inputField,
     borderRadius: 20,
     padding: 12,
     marginBottom: 7,
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     borderRadius: 2, // Slightly rounded corners for the flag
   },
   prefixText: {
-    color: ColorsBarber.light.inActiveTextColor,
+    color: ColorsBarber.dark.inActiveTextColor,
     fontSize: 18,
     marginRight: 8,
     fontWeight: "800", // Make prefix stand out
@@ -130,14 +130,17 @@ const styles = StyleSheet.create({
 
   label: {
     // color: "#9e9e9e",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColorInput,
+    fontFamily:"OldStandard-Regular",
 
     fontSize: 12,
     marginBottom: 2,
   },
 
   input: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColorInput,
+        fontFamily:"OldStandard-Regular",
+
     fontSize: 16,
     padding: 0,
     width: "100%",

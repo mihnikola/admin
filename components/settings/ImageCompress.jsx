@@ -93,7 +93,7 @@ export default function ImageCompress({
           <MaterialIcons
             name="image"
             size={120}
-            color={ColorsBarber.light.textColor}
+            color={ColorsBarber.dark.textColor}
           />
         </TouchableOpacity>
       )}
@@ -115,7 +115,7 @@ export default function ImageCompress({
                 <MaterialCommunityIcons
                   name="trash-can"
                   size={25}
-                  color={ColorsBarber.light.textColor}
+                  color={ColorsBarber.dark.textColorInput}
                 />
               </TouchableOpacity>
             </View>

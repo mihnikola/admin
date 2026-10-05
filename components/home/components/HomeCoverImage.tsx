@@ -5,11 +5,11 @@ type HomeCoverImageProps = {
   image?: string;
 };
 
-const HomeCoverImage: React.FC<HomeCoverImageProps> = ({ image }) => {
+const HomeCoverImage: React.FC<HomeCoverImageProps> = () => {
   return (
     <View style={styles.container}>
       <Image
-        source={require("@/assets/images/coverImageFrizer.jpeg")}
+        source={require("@/assets/images/homeImage.png")}
         style={styles.backImage}
         resizeMode="cover" // Garancija da se slika vidi cela bez odsecanja
       />
@@ -25,7 +25,6 @@ const styles = StyleSheet.create({
   backImage: {
     width: "100%",
     height: "100%",
-    opacity: 0.4,
   },
 });
 

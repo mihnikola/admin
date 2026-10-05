@@ -30,13 +30,13 @@ const styles = StyleSheet.create({
   },
   captureDate: {
     fontSize: 18,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     textAlign: "center",
     fontFamily: "OldStandard-Bold",
   },
   captureDateBold: {
     fontSize: 20,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
   },
 });

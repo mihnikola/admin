@@ -54,7 +54,7 @@ function BarbersSeniority({
                     <FontAwesome
                       name={item._id === selected._id && "check-circle-o"}
                       size={20}
-                      color={ColorsBarber.light.textColor}
+                      color={ColorsBarber.dark.textColor}
                     />
                   )}
                 </TouchableOpacity>
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   modalContent: {
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.backgroundModal, // Corresponds to bg-gray-800
     borderRadius: 12,
     shadowColor: "#000",
     padding: 32,
@@ -95,11 +95,11 @@ const styles = StyleSheet.create({
   itemSubtitle: {
     flex: 2,
     fontSize: 16,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
   },
 
   modalTitle: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 22,
     fontWeight: "bold",
     textAlign: "center",
@@ -108,14 +108,14 @@ const styles = StyleSheet.create({
   },
   actionButton: {
     width: "100%",
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.item,
     paddingVertical: 16,
     marginTop: 20,
     borderRadius: 8,
    
   },
   actionButtonText: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 22,
     fontWeight: "600",
     textAlign: "center",

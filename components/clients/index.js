@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     // backgroundColor: "#111",
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
 
   searchInputContainer: {
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   clientCard: {
     flexDirection: "row",
     // backgroundColor: "#1a1a1a",
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.item,
     borderRadius: 8,
     padding: 20,
     marginHorizontal: 20,
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     height: 48,
     borderRadius: 50,
     // backgroundColor: "#333",
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
     justifyContent: "center",
     alignItems: "center",
     marginRight: 12,
@@ -134,36 +134,36 @@ const styles = StyleSheet.create({
     left: -2,
   },
   avatarText: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Regular",
   },
   clientInfo: { flex: 1 },
   name: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
   },
   phone: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 14,
     fontFamily: "OldStandard-Regular",
   },
   details: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 14,
     fontFamily: "OldStandard-Regular",
   },
   done: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Regular",
     fontSize: 14,
   },
   missed: {
     fontSize: 14,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Regular",
   },
   income: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
   },
 });

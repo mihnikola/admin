@@ -159,7 +159,7 @@ const ChangePasswordComponent = () => {
             <FontAwesome
               name={error ? "close" : "check-circle-o"}
               size={64}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           }
           title={error || message}
@@ -174,12 +174,12 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 20,
     paddingTop: Platform.OS === "ios" ? 20 : 10,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   passContainer: {
     flexDirection: "row",
     borderWidth: 1,
-    borderColor: ColorsBarber.light.inActiveTextColor,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
     borderRadius: 10,
     alignItems: "center",
     paddingHorizontal: 10,
@@ -190,19 +190,19 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     flexWrap: "wrap",
     alignItems: "center",
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
     borderRadius: 8,
     borderWidth: 2,
-    borderColor: ColorsBarber.light.inActiveTextColor,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
   },
   passwordInput: {
     backgroundColor: "white",
-    color: ColorsBarber.light.item,
+    color: ColorsBarber.dark.item,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
     borderWidth: 2,
-    borderColor: ColorsBarber.light.inActiveTextColor,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
   },
   textinputContainer: {
     gap: 10,
@@ -210,14 +210,14 @@ const styles = StyleSheet.create({
   btnFooter: {
     paddingVertical: 20,
     paddingHorizontal: 20,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   icon: {
     paddingHorizontal: 8,
   },
   textInput: {
     backgroundColor: "white",
-    color: ColorsBarber.light.item,
+    color: ColorsBarber.dark.item,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
@@ -237,7 +237,7 @@ const styles = StyleSheet.create({
   mainTitle: {
     fontSize: 22,
     fontFamily: "OldStandard-Bold",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
   },
 });
 export default withKeyboardAvoid(ChangePasswordComponent);

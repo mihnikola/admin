@@ -19,7 +19,7 @@ export function SharedButton(props: any) {
       onPress={props.onPress}
     >
       {props.loading && (
-        <ActivityIndicator size={24} color={ColorsBarber.light.textColor} />
+        <ActivityIndicator size={24} color={ColorsBarber.dark.textColor} />
       )}
       {!props.loading && (
         <Text
@@ -34,16 +34,16 @@ export function SharedButton(props: any) {
 
 const styles = StyleSheet.create({
   btnText: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 18,
-    fontFamily: "OldStandard-Bold", // Ključ iz useFonts
+    fontFamily: "OldStandard-Regular", // Ključ iz useFonts
   },
   btnDisabled: {
-    borderColor: ColorsBarber.light.inActiveTextColor,
-    backgroundColor: ColorsBarber.light.background,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
+    backgroundColor: ColorsBarber.dark.btnBgColorDisabled,
   },
   btnTextDisabled: {
-    color: "rgb(32, 32, 32)",
+    color: ColorsBarber.dark.inActiveTextColor,
     fontSize: 18,
     fontWeight: "bold",
     fontFamily: "OldStandard-Bold",
@@ -51,11 +51,11 @@ const styles = StyleSheet.create({
   },
 
   btn: {
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.btnBgColor,
     paddingVertical: 15,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: ColorsBarber.light.textColor,
+    borderColor: ColorsBarber.dark.textColor,
     alignItems: "center",
     justifyContent: "center",
     marginTop: 20,

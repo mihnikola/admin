@@ -32,7 +32,7 @@ const SharedDetailsCustomerCard = ({ user, note }) => {
 
 const styles = StyleSheet.create({
   avatarContainer: {
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
     width: 90,
     height: 90,
     borderRadius: 30,
@@ -41,13 +41,13 @@ const styles = StyleSheet.create({
     justifyContent:"center"
   },
   avatarText: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontWeight: "bold",
     fontSize: 30,
   },
   card: {
     flexDirection: "row",
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.item,
     borderRadius: 12,
     padding: 15,
     marginVertical: 8,
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     marginRight: 15,
     borderWidth: 1,
-    color: ColorsBarber.light.inActiveTextColor,
+    color: ColorsBarber.dark.inActiveTextColor,
   },
   detailsContainer: {
     flex: 1,
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 18,
     fontWeight: "bold",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     marginBottom: 4,
   },
   locationContainer: {
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
   },
   locationText: {
     fontSize: 14,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
   },
   ratingContainer: {
     gap: 5,
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
 
   note: {
     fontSize: 14,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
   },
 });
 

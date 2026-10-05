@@ -65,7 +65,7 @@ export default function HomeScreen() {
   if (company) {
     return (
       <View style={styles.container}>
-        <HomeCoverImage image={company?.media?.coverImageHome} />
+        <HomeCoverImage />
         {isLoadingHome === "getHomeInfo" && <HomeLoader />}
         {isLoadingHome !== "getHomeInfo" && (
           <View style={styles.boxBook}>
@@ -83,7 +83,7 @@ export default function HomeScreen() {
                 <FontAwesome
                   name="calendar"
                   size={20}
-                  color={ColorsBarber.light.textColor}
+                  color={ColorsBarber.dark.textColor}
                 />
 
                 <View style={styles.locationContent}>
@@ -95,7 +95,7 @@ export default function HomeScreen() {
                 <FontAwesome
                   name="chevron-right"
                   size={28}
-                  color={ColorsBarber.light.textColor}
+                  color={ColorsBarber.dark.textColor}
                 />
               </TouchableOpacity>
 
@@ -106,7 +106,7 @@ export default function HomeScreen() {
                 <FontAwesome
                   name="paper-plane"
                   size={22}
-                  color={ColorsBarber.light.textColor}
+                  color={ColorsBarber.dark.textColor}
                 />
 
                 <View style={styles.locationContent}>
@@ -123,7 +123,7 @@ export default function HomeScreen() {
                 <FontAwesome
                   name="chevron-right"
                   size={28}
-                  color={ColorsBarber.light.textColor}
+                  color={ColorsBarber.dark.textColor}
                 />
               </TouchableOpacity>
               {absenceData?.length > 0 && (
@@ -134,7 +134,7 @@ export default function HomeScreen() {
                   <Ionicons
                     name="swap-vertical"
                     size={24}
-                    color={ColorsBarber.light.textColor}
+                    color={ColorsBarber.dark.textColor}
                   />
                   <View style={styles.locationContent}>
                     <Text style={styles.titleLocation}>
@@ -145,7 +145,7 @@ export default function HomeScreen() {
                   <FontAwesome
                     name="chevron-right"
                     size={28}
-                    color={ColorsBarber.light.textColor}
+                    color={ColorsBarber.dark.textColor}
                   />
                 </TouchableOpacity>
               )}
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
     minWidth: 22,
     height: 22,
     borderRadius: 11,
-    backgroundColor: ColorsBarber.light.textColor,
+    backgroundColor: ColorsBarber.dark.textColor,
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 6,
@@ -183,13 +183,13 @@ const styles = StyleSheet.create({
   },
 
   badgeText: {
-    color: ColorsBarber.light.background,
+    color: ColorsBarber.dark.background,
     fontSize: 12,
     fontWeight: "600",
   },
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
 
   boxBook: {
@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
   },
   btnLocationContent: {
     width: "100%",
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.item,
     justifyContent: "space-between",
     alignItems: "center",
     alignSelf: "center",
@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
   },
   titleLocation: {
     fontSize: 22,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
     textAlign: "center",
   },

@@ -39,7 +39,7 @@ export function SharedInput(props: any) {
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           secureTextEntry={props.stylePassword && !isPasswordVisible}
-          placeholderTextColor={ColorsBarber.light.inActiveTextColor}
+          placeholderTextColor={ColorsBarber.dark.inActiveTextColor}
         />
         {props.stylePassword && !props.dataDetectorTypes && (
           <TouchableOpacity
@@ -60,13 +60,13 @@ export function SharedInput(props: any) {
 }
 const styles = StyleSheet.create({
   prefixText: {
-    color: ColorsBarber.light.item,
+    color: ColorsBarber.dark.item,
     fontSize: 16,
     marginRight: 8,
     fontWeight: "medium", // Make prefix stand out
   },
   inputLabel: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 14,
     marginBottom: 8,
     marginTop: 15,
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
 
   },
   textInputFocused: {
-    borderColor: ColorsBarber.light.inActiveTextColor,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
   },
   passwordToggle: {
     padding: 10,

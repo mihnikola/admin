@@ -18,7 +18,7 @@ export default function FloatingButton({ onPress }) {
         },
       ]}
     >
-      <Ionicons name="add" size={26} color={ColorsBarber.light.textColor} />
+      <Ionicons name="add" size={26} color={ColorsBarber.dark.textColor} />
     </TouchableOpacity>
   );
 }
@@ -31,8 +31,8 @@ const styles = StyleSheet.create({
     height: 56,
     borderRadius: 35,
     borderWidth: 1,
-    borderColor:ColorsBarber.light.textColor,
-    backgroundColor: ColorsBarber.light.item,
+    borderColor:ColorsBarber.dark.textColor,
+    backgroundColor: ColorsBarber.dark.item,
     justifyContent: "center",
     alignItems: "center",
     shadowColor: "#ffffff",

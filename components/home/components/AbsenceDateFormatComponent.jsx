@@ -25,13 +25,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: "center",
     fontFamily: "OldStandard-Regular",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
   },
 
   captureDateBold: {
     fontSize: 20,
     fontFamily: "OldStandard-Regular",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
   },
 });
 

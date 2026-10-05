@@ -9,7 +9,7 @@ const MenuItemContainer = ({ data }) => {
     return <TouchableOpacity
         style={styles.menuItem}
     >
-        <Ionicons name={icon} size={24} color={ColorsBarber.light.textColor} />
+        <Ionicons name={icon} size={24} color={ColorsBarber.dark.textColor} />
         <Text style={styles.menuItemText}>{title}</Text>
     </TouchableOpacity>
 

@@ -21,7 +21,7 @@ const SharedButtonApproved = (props) => {
         </Text>
       )}
       {props.loading && (
-        <ActivityIndicator size={24} color={ColorsBarber.light.textColor} />
+        <ActivityIndicator size={24} color={ColorsBarber.dark.textColor} />
       )}
     </TouchableOpacity>
   );
@@ -29,28 +29,28 @@ const SharedButtonApproved = (props) => {
 
 const styles = StyleSheet.create({
   btnText: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 18,
     fontFamily: "OldStandard-Bold",
   },
   btnTextDisabled: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 18,
     fontFamily: "OldStandard-Bold",
-    borderColor: ColorsBarber.light.inActiveTextColor,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
   },
   btnDisabled: {
-    borderColor: ColorsBarber.light.inActiveTextColor,
-    backgroundColor: ColorsBarber.light.background,
-    color: ColorsBarber.light.inActiveTextColor,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
+    backgroundColor: ColorsBarber.dark.background,
+    color: ColorsBarber.dark.inActiveTextColor,
   },
 
   btn: {
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.item,
     paddingVertical: 15,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: ColorsBarber.light.inActiveTextColor,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
     alignItems: "center",
     justifyContent: "center",
     marginTop: 20,

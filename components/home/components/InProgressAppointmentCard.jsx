@@ -43,7 +43,7 @@ export default function InProgressAppointmentCard({ data }) {
 }
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.item,
     borderRadius: 16,
     padding: 16,
     marginHorizontal: 15,
@@ -54,18 +54,18 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   upcomingCard: {
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.item,
     borderRadius: 16,
     padding: 16,
     borderWidth: 1,
     borderColor: "#e2d6d6",
   },
   pendingCard: {
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
     borderRadius: 16,
     padding: 16,
     borderWidth: 1,
-    borderColor: ColorsBarber.light.inActiveTextColor,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
   },
   upcomingBadge: {
     backgroundColor: "#111111",
@@ -87,13 +87,13 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 16,
     fontFamily: "OldStandard-Bold",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
   },
   datetime: {
     marginTop: 8,
     fontSize: 14,
     fontFamily: "OldStandard-Bold",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
   },
   location: {
     marginTop: 4,
@@ -108,16 +108,16 @@ const styles = StyleSheet.create({
   badgeText: {
     fontSize: 15,
     fontFamily: "OldStandard-Bold",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
   },
   upcoming: {
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   completed: {
     backgroundColor: "#10B981",
   },
   inProgress: {
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.item,
   },
   cancelled: {
     backgroundColor: "#EF4444",

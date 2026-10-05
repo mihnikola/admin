@@ -13,7 +13,7 @@ const ThreeDotsMenu = ({ onView, onEdit, onCancel }) => {
         <FontAwesome
           name="ellipsis-v"
           size={20}
-          color={ColorsBarber.light.textColor}
+          color={ColorsBarber.dark.textColor}
         />
       </Pressable>
 
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     padding: 12,
   },
   text: {
-   color:ColorsBarber.light.textColor,
+   color:ColorsBarber.dark.textColor,
     fontSize: 14,
   },
 });

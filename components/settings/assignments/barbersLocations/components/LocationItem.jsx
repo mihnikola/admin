@@ -19,7 +19,7 @@ const LocationItem = ({ item, onSelectedLocation }) => {
 
 const styles = StyleSheet.create({
   address: {
-   color:ColorsBarber.light.textColor,
+   color:ColorsBarber.dark.textColor,
     padding: 10,
   },
   profileImage: {

@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   dropdownButton: {
     paddingVertical: 10,
     borderRadius: 8,
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.item,
     justifyContent: "center",
     flexDirection: "row",
     alignContent: "center",
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
   dropdownButtonText: {
     textAlign: "center",
     fontSize: 18,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
   },
   placeholder: {
@@ -104,17 +104,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 40,
   },
   modalContent: {
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.backgroundModal, // Corresponds to bg-gray-800
   },
   optionButton: {
     paddingVertical: 15,
     borderWidth: 1,
-    borderColor: ColorsBarber.light.inActiveTextColor,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
   },
   optionText: {
     fontSize: 18,
     textAlign: "center",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
   },
 });

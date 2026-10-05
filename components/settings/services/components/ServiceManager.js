@@ -104,7 +104,7 @@ const ServiceManager = () => {
                     <FontAwesome
                       name="edit"
                       size={24}
-                      color={ColorsBarber.light.textColor}
+                      color={ColorsBarber.dark.textColor}
                     />
                   </Text>
                 </View>
@@ -121,7 +121,7 @@ const ServiceManager = () => {
             <FontAwesome
               name="check-circle-o"
               size={64}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           }
           onClose={confirmHandler}
@@ -137,7 +137,7 @@ const ServiceManager = () => {
             <FontAwesome
               name="close"
               size={64}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           }
           onClose={cancelHandler}
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   searchInputContainer: {
     marginBottom: 10,
@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
   },
   subTitle: {
     fontSize: 18,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     textAlign: "center",
     alignSelf: "center",
     alignItems: "center",
@@ -196,23 +196,23 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   serviceItem: {
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.item,
     flexDirection: "row",
     justifyContent: "space-between",
     borderWidth: 1,
-    borderColor: ColorsBarber.light.inActiveTextColor,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
     padding: 20,
     borderRadius: 8,
     marginHorizontal: 12,
     marginBottom: 10,
   },
   serviceText: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
     fontSize: 15,
   },
   serviceTextName: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
 
     fontSize: 14,

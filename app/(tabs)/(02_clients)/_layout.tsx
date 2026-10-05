@@ -14,9 +14,9 @@ export default function RootLayoutBarbers() {
           title: "",
           headerShown: true,
           headerStyle: {
-            backgroundColor: ColorsBarber.light.background,
+            backgroundColor: ColorsBarber.dark.background,
           },
-          headerTintColor: ColorsBarber.light.textColor,
+          headerTintColor: ColorsBarber.dark.textColor,
           headerLeft: () => <CustomBackButton />,
         }}
       />
@@ -26,7 +26,7 @@ export default function RootLayoutBarbers() {
 function CustomBackButton() {
   return (
     <TouchableOpacity onPress={() => router.back()}>
-      <Ionicons name="arrow-back" size={24} color={ColorsBarber.light.textColor} />
+      <Ionicons name="arrow-back" size={24} color={ColorsBarber.dark.textColor} />
     </TouchableOpacity>
   );
 }

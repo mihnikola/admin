@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
   cancel: {
-   color:ColorsBarber.light.textColor,
+   color:ColorsBarber.dark.textColor,
     fontSize: 16,
   },
   confirm: {

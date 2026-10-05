@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         textAlign: "center",
         padding: 20,
-       color:ColorsBarber.light.textColor,
+       color:ColorsBarber.dark.textColor,
     },
 
     contentContainer: {

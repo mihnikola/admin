@@ -76,7 +76,7 @@ const Locations = () => {
 };
 const styles = StyleSheet.create({
   notFound: {
-   color:ColorsBarber.light.textColor,
+   color:ColorsBarber.dark.textColor,
     textAlign: "center",
     fontSize: 20,
     marginTop: 20,

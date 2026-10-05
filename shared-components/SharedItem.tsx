@@ -23,7 +23,7 @@ const SharedItem = (props: any) => {
         <FontAwesome
           name={"arrow-right"}
           size={25}
-          color={ColorsBarber.light.textColor}
+          color={ColorsBarber.dark.textColor}
         />
       </View>
     </TouchableOpacity>

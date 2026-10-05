@@ -46,7 +46,7 @@ function ChooseServiceItem() {
     <View
       style={{
         flex: 1,
-        backgroundColor: ColorsBarber.light.background,
+        backgroundColor: ColorsBarber.dark.background,
         justifyContent: "space-between",
       }}
     >
@@ -102,16 +102,16 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "space-around",
     padding: 10,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   input: {
     backgroundColor: "white",
-    color: ColorsBarber.light.item,
+    color: ColorsBarber.dark.item,
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
     borderWidth: 2,
-    borderColor: ColorsBarber.light.item,
+    borderColor: ColorsBarber.dark.item,
     fontFamily: "OldStandard-Bold", // Ključ iz useFonts
   },
   textInput: {
@@ -120,14 +120,14 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     paddingHorizontal: 20,
     fontSize: 14,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Regular",
     borderWidth: 1,
-    borderColor: ColorsBarber.light.textColor,
+    borderColor: ColorsBarber.dark.textColor,
   },
   text: {
     fontFamily: "OldStandard-Regular",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
   },
   captureContainer: {
     position: "absolute",
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
   },
   capture: {
     fontSize: 32,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontWeight: "500",
     fontFamily: "OldStandard-Bold",
   },

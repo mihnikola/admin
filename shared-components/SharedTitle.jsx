@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   },
   capture: {
     fontSize: 32,
-   color:ColorsBarber.light.textColor,
+   color:ColorsBarber.dark.textColor,
     fontWeight: "500",
     paddingVertical: 143,
   },

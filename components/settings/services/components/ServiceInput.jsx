@@ -10,7 +10,7 @@ const ServiceInput = forwardRef((props, ref) => {
         <FontAwesome
           name={props.icon}
           size={props.icon === "history" ? 24 : 20}
-          color={ColorsBarber.light.textColor}
+          color={ColorsBarber.dark.textColorInput}
         />
       </View>
 
@@ -28,7 +28,7 @@ const ServiceInput = forwardRef((props, ref) => {
               : props.onChangeText
           }
           placeholder={props.placeholder}
-          placeholderTextColor={ColorsBarber.light.inActiveTextColor}
+          placeholderTextColor={ColorsBarber.dark.inActiveTextColor}
           keyboardType={props.keyboardType}
         />
       </View>
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: ColorsBarber.light.inputField,
+    backgroundColor: ColorsBarber.dark.inputField,
     borderRadius: 16,
     padding: 12,
     marginBottom: 7,
@@ -54,14 +54,14 @@ const styles = StyleSheet.create({
   },
 
   label: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColorInput,
     fontSize: 12,
     marginBottom: 2,
     fontFamily: "OldStandard-Bold",
   },
 
   input: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColorInput,
     fontSize: 16,
     padding: 0,
     fontFamily: "OldStandard-Regular",

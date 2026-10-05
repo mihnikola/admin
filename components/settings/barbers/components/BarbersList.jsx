@@ -119,7 +119,7 @@ const BarbersList = () => {
                     <FontAwesome
                       name="edit"
                       size={24}
-                      color={ColorsBarber.light.textColor}
+                      color={ColorsBarber.dark.textColor}
                     />
                   </Text>
                 </View>
@@ -136,7 +136,7 @@ const BarbersList = () => {
             <FontAwesome
               name="check-circle-o"
               size={64}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           }
           onClose={confirmHandler}
@@ -152,7 +152,7 @@ const BarbersList = () => {
             <FontAwesome
               name="close"
               size={64}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           }
           onClose={cancelHandler}
@@ -169,20 +169,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   avatar: {
     width: 48,
     height: 48,
     borderRadius: 24,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
     justifyContent: "center",
     alignItems: "center",
     marginRight: 12,
     position: "relative",
   },
   avatarText: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
   },
   searchInputContainer: {
@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 22,
     fontFamily: "OldStandard-Bold",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     marginBottom: 10,
   },
   image: {
@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
   },
   subTitle: {
     fontSize: 18,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     textAlign: "center",
     alignSelf: "center",
     alignItems: "center",
@@ -237,7 +237,7 @@ const styles = StyleSheet.create({
     opacity: 0.4,
   },
   barberItem: {
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.item,
     flexDirection: "row",
     justifyContent: "space-between",
     padding: 20,
@@ -245,10 +245,10 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginHorizontal: 15,
     borderWidth: 1,
-    borderColor: ColorsBarber.light.inActiveTextColor,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
   },
   serviceText: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 15,
     fontFamily: "OldStandard-Bold",
 

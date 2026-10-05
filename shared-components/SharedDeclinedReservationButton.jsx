@@ -15,7 +15,7 @@ const SharedDeclinedReservationButton = (props) => {
     >
       {!props.loading && <Text style={styles.btnText}>{props.text}</Text>}
       {props.loading && (
-        <ActivityIndicator size={24} color={ColorsBarber.light.textColor} />
+        <ActivityIndicator size={24} color={ColorsBarber.dark.textColor} />
       )}
     </TouchableOpacity>
   );
@@ -23,17 +23,17 @@ const SharedDeclinedReservationButton = (props) => {
 
 const styles = StyleSheet.create({
   btnText: {
-    color: ColorsBarber.light.inActiveTextColor,
+    color: ColorsBarber.dark.inActiveTextColor,
     fontSize: 18,
     fontFamily: "OldStandard-Bold",
   },
 
   btn: {
-    backgroundColor: ColorsBarber.light.textColor,
+    backgroundColor: ColorsBarber.dark.textColor,
     paddingVertical: 15,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: ColorsBarber.light.inActiveTextColor,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
     alignItems: "center",
     padding: 40,
     alignItems: "center",

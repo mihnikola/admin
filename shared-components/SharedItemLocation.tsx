@@ -18,7 +18,7 @@ const SharedItemLocation = (props: any) => {
       <FontAwesome6
         name="location-dot"
         size={30}
-        color={ColorsBarber.light.textColor}
+        color={ColorsBarber.dark.textColor}
       />
       <View style={styles.detailsContainer}>
         <Text style={styles.address}>{address}</Text>
@@ -26,7 +26,7 @@ const SharedItemLocation = (props: any) => {
       <FontAwesome
         name="chevron-right"
         size={32}
-        color={ColorsBarber.light.textColor}
+        color={ColorsBarber.dark.textColor}
       />
     </TouchableOpacity>
   );

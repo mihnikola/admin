@@ -34,6 +34,8 @@ const Categories = () => {
     categories,
   } = useCategories();
 
+  console.log("categories",categories)
+
   const addCategoryToService = () => {
     setServiceCategory(selectedItem);
     router.back();
@@ -85,7 +87,7 @@ const Categories = () => {
           <MaterialCommunityIcons
             name="playlist-plus"
             size={32}
-            color={ColorsBarber.light.textColor}
+            color={ColorsBarber.dark.textColor}
           />
         </TouchableOpacity>
       </View>
@@ -111,7 +113,7 @@ const Categories = () => {
                         : "circle-o"
                     }
                     size={28}
-                    color={ColorsBarber.light.textColor}
+                    color={ColorsBarber.dark.textColor}
                   />
                 </TouchableOpacity>
                 <View>
@@ -127,7 +129,7 @@ const Categories = () => {
                 <FontAwesome
                   name="edit"
                   size={28}
-                  color={ColorsBarber.light.textColor}
+                  color={ColorsBarber.dark.textColor}
                 />
               </TouchableOpacity>
             </View>
@@ -148,7 +150,7 @@ const Categories = () => {
             <FontAwesome
               name="check-circle-o"
               size={64}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           }
           onClose={confirmHandler}
@@ -164,7 +166,7 @@ const Categories = () => {
             <FontAwesome
               name="close"
               size={64}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           }
           onClose={cancelHandler}
@@ -181,7 +183,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   searchInputContainer: {
     marginBottom: 10,
@@ -199,7 +201,7 @@ const styles = StyleSheet.create({
   },
   subTitle: {
     fontSize: 18,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     textAlign: "center",
     alignSelf: "center",
     alignItems: "center",
@@ -223,11 +225,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   serviceItem: {
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.item,
     flexDirection: "row",
     justifyContent: "space-between",
     borderWidth: 1,
-    borderColor: ColorsBarber.light.inActiveTextColor,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
     padding: 10,
     borderRadius: 8,
     marginHorizontal: 12,
@@ -236,12 +238,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   serviceText: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
     fontSize: 15,
   },
   serviceTextName: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
 
     fontSize: 14,

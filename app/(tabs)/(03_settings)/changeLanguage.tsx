@@ -64,7 +64,7 @@ const changeLanguage = () => {
       <TextInput
         style={styles.search}
         placeholder={localization?.SETTINGS?.changeLanguage.filterCapture}
-        placeholderTextColor={ColorsBarber.light.inActiveTextColor}
+        placeholderTextColor={ColorsBarber.dark.inActiveTextColor}
         value={search}
         onChangeText={handleSearch}
       />
@@ -80,7 +80,7 @@ const changeLanguage = () => {
             <FontAwesome
               name={localization.code === item.code && "check-circle-o"}
               size={28}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           </TouchableOpacity>
         )}
@@ -91,7 +91,7 @@ const changeLanguage = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   captureContainer: {
     position: "absolute",
@@ -104,14 +104,14 @@ const styles = StyleSheet.create({
   },
   capture: {
     fontSize: 25,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontWeight: "500",
     paddingVertical: 130,
   },
 
   search: {
-    color: ColorsBarber.light.textColor,
-    borderColor: ColorsBarber.light.inActiveTextColor,
+    color: ColorsBarber.dark.textColor,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
     borderWidth: 1,
     borderRadius: 8,
     padding: 10,
@@ -128,13 +128,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.item,
     borderWidth: 1,
-    borderColor: ColorsBarber.light.textColor,
+    borderColor: ColorsBarber.dark.textColor,
   },
   languageText: {
     fontSize: 18,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
   },
 });

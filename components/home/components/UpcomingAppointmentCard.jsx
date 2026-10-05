@@ -44,7 +44,7 @@ export default function UpcomingAppointmentCard({ data }) {
 }
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: ColorsBarber.light.textColor,
+    backgroundColor: ColorsBarber.dark.textColor,
     borderRadius: 16,
     padding: 16,
     marginHorizontal: 15,
@@ -55,18 +55,18 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   upcomingCard: {
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
     borderRadius: 16,
     padding: 16,
     borderWidth: 1,
-    borderColor: ColorsBarber.light.inActiveTextColor,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
   },
   pendingCard: {
-    backgroundColor: ColorsBarber.light.textColor,
+    backgroundColor: ColorsBarber.dark.textColor,
     borderRadius: 16,
     padding: 16,
     borderWidth: 1,
-    borderColor: ColorsBarber.light.inActiveTextColor,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
   },
   upcomingBadge: {
     backgroundColor: "#111111",
@@ -90,20 +90,20 @@ const styles = StyleSheet.create({
 
   title: {
     fontSize: 16,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
   },
   
   datetime: {
     marginTop: 8,
     fontSize: 14,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
   },
   location: {
     marginTop: 4,
     fontSize: 13,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
   },
   badge: {
@@ -114,19 +114,19 @@ const styles = StyleSheet.create({
   badgeText: {
     fontSize: 16,
     fontFamily: "OldStandard-Bold",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     textTransform: "capitalize",
   },
   upcoming: {
-    backgroundColor: ColorsBarber.light.item,
-    color: ColorsBarber.light.textColor,
+    backgroundColor: ColorsBarber.dark.item,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
   },
   completed: {
-    backgroundColor: ColorsBarber.light.textColor,
+    backgroundColor: ColorsBarber.dark.textColor,
   },
   inProgress: {
-    backgroundColor: ColorsBarber.light.textColor,
+    backgroundColor: ColorsBarber.dark.textColor,
   },
   cancelled: {
     backgroundColor: "#EF4444",

@@ -90,7 +90,7 @@ const SharedCard = ({ item, criteriaDate }) => {
         {item.status === "pending" && (
           <FontAwesome
             size={25}
-            color={ColorsBarber.light.textColor}
+            color={ColorsBarber.dark.textColor}
             name="clock-o"
           />
         )}
@@ -99,7 +99,7 @@ const SharedCard = ({ item, criteriaDate }) => {
           completedReservation() && (
             <FontAwesome
               size={25}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
               name="check-circle-o"
             />
           )}
@@ -108,21 +108,21 @@ const SharedCard = ({ item, criteriaDate }) => {
           !completedReservation() && (
             <FontAwesome
               size={25}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
               name="thumbs-up"
             />
           )}
         {item.arrived === "missed" && (
           <FontAwesome
             size={25}
-            color={ColorsBarber.light.textColor}
+            color={ColorsBarber.dark.textColor}
             name="close"
           />
         )}
         {item.status === "rejected" && (
           <FontAwesome
             size={25}
-            color={ColorsBarber.light.textColor}
+            color={ColorsBarber.dark.textColor}
             name="close"
           />
         )}
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
   },
   eventItem: {
     flexDirection: "row",
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.item,
     borderRadius: 10,
     padding: 15,
     margin: 8,
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
   },
   startTime: {
     fontSize: 16,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
   },
   detailsBlock: {
@@ -167,22 +167,22 @@ const styles = StyleSheet.create({
   },
   eventTitle: {
     fontSize: 18,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Regular",
     marginBottom: 5,
   },
   eventUser: {
     fontSize: 16,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Regular",
     marginBottom: 5,
   },
   eventStatus: {
     fontSize: 12,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
     textTransform: "uppercase",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
   },
 });
 

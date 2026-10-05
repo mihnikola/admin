@@ -155,25 +155,25 @@ export default InitialComponent;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   itemContainer: {
     flex: 1,
     justifyContent: "space-around",
     alignItems: "center",
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   itemTitle: {
     textAlign: "center",
     fontSize: 22,
     fontWeight: "bold",
     marginBottom: 10,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
   },
   itemText: {
     textAlign: "center",
     marginHorizontal: 35,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     lineHeight: 20,
   },
   bottomContainer: {

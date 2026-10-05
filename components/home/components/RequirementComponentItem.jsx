@@ -45,7 +45,7 @@ const RequirementComponentItem = ({ item }) => {
       <View style={styles.status}>
         <FontAwesome
           size={25}
-          color={ColorsBarber.light.textColor}
+          color={ColorsBarber.dark.textColor}
           name="clock-o"
         />
       </View>
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   },
   eventItem: {
     flexDirection: "row",
-    backgroundColor: ColorsBarber.light.item,
+    backgroundColor: ColorsBarber.dark.item,
     borderRadius: 10,
     padding: 15,
     marginVertical: 5,
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRightWidth: 1,
-    borderRightColor: ColorsBarber.light.textColor,
+    borderRightColor: ColorsBarber.dark.textColor,
     paddingRight: 15,
   },
 
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   },
   eventTitle: {
     fontSize: 16,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
 
     fontFamily: "OldStandard-Bold",
     marginBottom: 5,
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   eventUser: {
     fontSize: 14,
     marginBottom: 5,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
 
     fontFamily: "OldStandard-Bold",
   },
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontFamily: "OldStandard-Bold",
     textTransform: "uppercase",
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
   },
 });
 

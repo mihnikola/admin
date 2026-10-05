@@ -14,7 +14,7 @@ export default function BarberSeniorityComponent({
         <FontAwesome
           name="scissors"
           size={20}
-          color={ColorsBarber.light.textColor}
+          color={ColorsBarber.dark.textColorInput}
         />
       </View>
 
@@ -26,8 +26,8 @@ export default function BarberSeniorityComponent({
             styles.value,
             {
               color: selected
-                ? ColorsBarber.light.textColor
-                : ColorsBarber.light.inActiveTextColor,
+                ? ColorsBarber.dark.textColorInput
+                : ColorsBarber.dark.inActiveTextColor,
             },
           ]}
         >
@@ -38,7 +38,7 @@ export default function BarberSeniorityComponent({
       <Feather
         name="chevron-right"
         size={20}
-        color={ColorsBarber.light.textColor}
+        color={ColorsBarber.dark.textColorInput}
       />
     </TouchableOpacity>
   );
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: ColorsBarber.light.inputField,
+    backgroundColor: ColorsBarber.dark.inputField,
     borderRadius: 16,
     padding: 16,
     marginBottom: 14,
@@ -63,12 +63,16 @@ const styles = StyleSheet.create({
   },
 
   label: {
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColorInput,
     fontSize: 12,
     marginBottom: 2,
+        fontFamily:"OldStandard-Regular",
+
   },
 
   value: {
     fontSize: 16,
+        fontFamily:"OldStandard-Regular",
+
   },
 });

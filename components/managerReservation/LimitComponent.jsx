@@ -61,7 +61,7 @@ const LimitComponent = ({
             <Ionicons
               name="remove"
               size={20}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           </TouchableOpacity>
           <View style={styles.stepperSeparator} />
@@ -69,7 +69,7 @@ const LimitComponent = ({
             <Ionicons
               name="add"
               size={20}
-              color={ColorsBarber.light.textColor}
+              color={ColorsBarber.dark.textColor}
             />
           </TouchableOpacity>
         </View>
@@ -81,7 +81,7 @@ const LimitComponent = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
 
@@ -90,15 +90,15 @@ const styles = StyleSheet.create({
   },
   limitLabel: {
     fontSize: 14,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     marginBottom: 8,
     fontFamily: "OldStandard-Bold",
   },
   stepperWrapper: {
     flexDirection: "row",
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
     borderWidth: 1,
-    borderColor: ColorsBarber.light.inActiveTextColor,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
     borderRadius: 12,
     alignItems: "center",
     justifyContent: "space-between",
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
 
   valueText: {
     fontSize: 20,
-    color: ColorsBarber.light.textColor,
+    color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
     letterSpacing: 0.5,
     paddingRight: 50,
@@ -125,9 +125,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     borderWidth: 1,
-    borderColor: ColorsBarber.light.textColor,
+    borderColor: ColorsBarber.dark.textColor,
     borderRadius: 8,
-    backgroundColor: ColorsBarber.light.background,
+    backgroundColor: ColorsBarber.dark.background,
   },
   stepperButton: {
     padding: 10,
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
   stepperSeparator: {
     width: 1,
     height: 20,
-    backgroundColor: ColorsBarber.light.textColor,
+    backgroundColor: ColorsBarber.dark.textColor,
   },
 });
 
