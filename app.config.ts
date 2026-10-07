@@ -18,6 +18,12 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   newArchEnabled: true,
   ios: {
     supportsTablet: true,
+    bundleIdentifier: "fta.admin.app",
+    googleServicesFile:
+      process.env.GOOGLE_SERVICES_PLIST || "./firebase/GoogleService-Info.plist",
+    infoPlist: {
+      ITSAppUsesNonExemptEncryption: false,
+    },
   },
   android: {
     googleServicesFile:
@@ -40,6 +46,15 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         },
       },
     ],
+    [
+      "expo-build-properties",
+      {
+        ios: {
+          useFrameworks: "static",
+          forceStaticLinking: ["RNFBApp", "RNFBMessaging"],
+        },
+      },
+    ],
   ],
   experiments: {
     typedRoutes: true,
@@ -53,7 +68,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
   owner: "fusion-tech-agency",
   updates: {
-    "url": "https://u.expo.dev/fcd5681e-4fac-41b4-9334-d272ee972954"
+    url: "https://u.expo.dev/fcd5681e-4fac-41b4-9334-d272ee972954",
   },
-  runtimeVersion: APP_VERSION
+  runtimeVersion: APP_VERSION,
 });
