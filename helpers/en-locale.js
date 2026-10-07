@@ -75,7 +75,6 @@ export const ENG_LOCALIZATION = {
     typeApproval: "Types approval",
     listSeniorities: "List of seniority",
     errorExist: "Email already exists",
-    
   },
   COMPANY: {
     error: "Error while fetching company data...",
@@ -98,6 +97,7 @@ export const ENG_LOCALIZATION = {
     deactivate: "User deactivated successfully.",
     errorInfo: "This device doesn't support calling.",
     errorCall: "Error while dialing up...",
+    notFound: "Clients don't found",
   },
   STATUS: {
     pending: "Pending",
@@ -189,7 +189,10 @@ export const ENG_LOCALIZATION = {
     question: "Are you sure you want to delete the category?",
   },
   SERVICES: {
-    chooseService:"Choose service",
+    plus: "Additional",
+    totalDuration: "Total duration",
+    totalPrice: "Total price",
+    chooseService: "Choose service",
     notDelete: `This service can’t be deleted while there are active scheduled bookings.`,
     errorImage: "Image is a required",
     chooseCategory: "Choose category",
@@ -218,7 +221,7 @@ export const ENG_LOCALIZATION = {
     mark: "Reviews",
   },
   TIMES: {
-    add:"Choose time",
+    add: "Choose time",
     error: "Employer and service must be selected before fetching times.",
     errorFetch: "Errpr while fetching times...",
     title: "Selected time",
@@ -229,6 +232,7 @@ export const ENG_LOCALIZATION = {
   },
 
   APPOINTMENTS: {
+    saveChanges: "Save changes",
     completed: "Appointment completed successfully",
     missedReservation: {
       success: "Appointment is successfully missed",
@@ -465,13 +469,13 @@ export const ENG_LOCALIZATION = {
       "Password has to start with letter and has to be at least 8 characters long, one uppercase letter, one number, and one special character.",
   },
   USER: {
-    notFound:"Not availabled slots",
+    notFound: "Not availabled slots",
     phoneNumber: "Phone number",
     add: "Create client",
     nameLabel: "Name and surname",
     name: "Enter name and surname",
     email: "Email",
-    emailExists:"Entered email already exists, please provide a different one"
+    emailExists: "Entered email already exists, please provide a different one",
   },
   REGISTER: {
     title: "Register your account",

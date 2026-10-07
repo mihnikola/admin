@@ -31,6 +31,8 @@ const RequirementComponentItem = ({ item }) => {
       <View style={styles.detailsBlock}>
         <Text style={styles.eventTitle}>
           {localization.code === "en" ? item.name.nameEn : item.name.nameLocal}
+          {item?.otherServices?.length > 0 &&
+            " + " + localization.SERVICES.plus}
         </Text>
         <Text style={styles.eventUser}>
           {item.reservation.user

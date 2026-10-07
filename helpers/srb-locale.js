@@ -66,6 +66,7 @@ export const SRB_LOCALIZATION = {
     deactivate: "Korisnik je uspešno blokiran.",
     errorInfo: "Pozivanje nije podržano na ovom uređaju.",
     errorCall: "Došlo je do problema prilikom poziva.",
+    notFound: "Nema dostupnih klijenata",
   },
   STATUS: {
     pending: "Na čekanju",
@@ -137,6 +138,9 @@ export const SRB_LOCALIZATION = {
     question: "Da li ste sigurni da želite da obrišete kategoriju?",
   },
   SERVICES: {
+    plus: "Dodatno",
+    totalDuration: "Ukupno trajanje",
+    totalPrice: "Ukupna cena",
     chooseService: "Izaberi uslugu",
     chooseCategory: "Izaberi kategoriju",
     notDelete:
@@ -209,6 +213,7 @@ export const SRB_LOCALIZATION = {
     phoneNumber: "Broj telefona",
   },
   APPOINTMENTS: {
+    saveChanges: "Sačuvaj promenu",
     completed: "Termin je uspešno završen",
     missedReservation: {
       success: "Termin je propušten",

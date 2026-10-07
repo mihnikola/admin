@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   },
 
   btn: {
-    backgroundColor: ColorsBarber.dark.item,
+    backgroundColor: ColorsBarber.dark.btnBgColor,
     paddingVertical: 15,
     borderRadius: 8,
     borderWidth: 1,

@@ -72,6 +72,7 @@ export default function ClientsScreen() {
       </TouchableOpacity>
     );
   };
+
   return (
     <View style={styles.container}>
       <SharedCarousel
@@ -81,7 +82,13 @@ export default function ClientsScreen() {
       <View style={styles.searchInputContainer}>
         <SearchInputComponent search={search} setSearch={setSearch} />
       </View>
+
       {isLoading && <Loader />}
+      {!isLoading && filteredClients?.length === 0 && (
+        <View style={styles.contentContainer}>
+          <Text style={styles.notFound}>{localization.CLIENTS.notFound}</Text>
+        </View>
+      )}
       {!isLoading && (
         <FlatList
           data={filteredClients}
@@ -94,6 +101,15 @@ export default function ClientsScreen() {
 }
 
 const styles = StyleSheet.create({
+  contentContainer: {
+    marginTop: 40,
+    alignItems: "center",
+  },
+  notFound: {
+    fontSize: 24,
+    color: ColorsBarber.dark.textColor,
+    fontFamily: "OldStandard-Regular",
+  },
   container: {
     flex: 1,
     // backgroundColor: "#111",

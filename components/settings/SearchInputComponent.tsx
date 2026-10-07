@@ -29,7 +29,7 @@ function SearchInputComponent({
           onPress={() => setSearch("")}
           style={styles.clearButton}
         >
-          <Ionicons name="close-circle" size={22} color={ColorsBarber.dark.textColor} />
+          <Ionicons name="close-circle" size={22} color={ColorsBarber.dark.textColorInput} />
         </TouchableOpacity>
       )}
     </View>
@@ -43,14 +43,14 @@ const styles = StyleSheet.create({
 
   searchInput: {
     // backgroundColor: "#3f3f3f",
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: ColorsBarber.dark.inputField,
     borderWidth: 1,
     borderColor: ColorsBarber.dark.inActiveTextColor,
     borderRadius: 8,
     padding: 14,
     paddingRight: 45, // prostor za X ikonu
     fontSize: 18,
-    color: ColorsBarber.dark.textColor,
+    color: ColorsBarber.dark.textColorInput,
     fontFamily: "OldStandard-Bold",
   },
 

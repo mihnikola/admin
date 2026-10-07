@@ -14,8 +14,8 @@ export const CategoriesProvider = ({ children }) => {
 
   const questionHandler = () => {
     setIsConfirmation(true);
-    setMessage(localization.CATEGORY.question)
-  }
+    setMessage(localization.CATEGORY.question);
+  };
 
   const { localization } = useLocalization();
 
@@ -23,8 +23,9 @@ export const CategoriesProvider = ({ children }) => {
   const getAllCategories = async () => {
     setIsLoading("get");
     setError(null);
+
     try {
-      const response = await get(`categories/${new Date()}`);
+      const response = await get(`categories`);
       setCategories(response.data);
     } catch (err) {
       console.error("Greška pri povlačenju kategorija:", err);
@@ -120,7 +121,7 @@ export const CategoriesProvider = ({ children }) => {
         deleteHandler,
         isConfirmation,
         setIsConfirmation,
-        questionHandler
+        questionHandler,
       }}
     >
       {children}

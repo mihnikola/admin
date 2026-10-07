@@ -74,8 +74,6 @@ export default function AddService() {
       setDuration(getServiceData.duration?.toString() || "");
       selectedImgHandler(getServiceData?.image);
       setEditingId(getServiceData?.id);
-  console.log("getServiceData",getServiceData?.category)
-      
       setServiceCategory(getServiceData?.category);
     }
   }, [getServiceData]);
@@ -164,9 +162,13 @@ export default function AddService() {
   // if (isLoading === "getService") {
   //   return <SharedLoader isOpen={isLoading === "getService"} />;
   // }
-
   const modalHandler = () => {
-    router.push("/(tabs)/(03_settings)/getCategories");
+    
+
+    router.push({
+      pathname: "/(tabs)/(03_settings)/getCategories",
+      params: { categoryId: serviceCategory?._id || null },
+    });
   };
 
   return (

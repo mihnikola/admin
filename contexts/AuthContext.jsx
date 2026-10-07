@@ -18,9 +18,10 @@ export const useAuth = () => {
 
 // Provider component
 export const AuthProvider = ({ children }) => {
+
   const [initialToken, setInitialToken] = useState(null);
   const [isToken, setIsToken] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(null);
   const [isMessage, setIsMessage] = useState(false);
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
@@ -31,8 +32,10 @@ export const AuthProvider = ({ children }) => {
 
   const { localization } = useLocalization();
 
+
+
   const fetchUserData = async () => {
-    setIsLoading(true);
+    setIsLoading("fetchUserData");
     setError(null);
     try {
       const response = await get(`/admin/users/employerData/${isToken}`);
@@ -46,7 +49,7 @@ export const AuthProvider = ({ children }) => {
         setError(localization.SERVER_RESPONSE.error);
       }
     } finally {
-      setIsLoading(false);
+      setIsLoading(null);
 
       setLoadingLogin(null);
     }
@@ -77,7 +80,7 @@ export const AuthProvider = ({ children }) => {
       const x = await removeStorage();
       setIsMessage(false);
       setIsToken(null);
-      setIsLoading(false);
+      setIsLoading(null);
       setUserData(null);
       router.replace("/(z_auth)");
     } catch (error) {
@@ -86,7 +89,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logoutFirebase = async () => {
-    setIsLoading(true);
+    setIsLoading("logout");
     try {
       if (isToken) {
         console.log("logoutFirebase++ pre poziva", isToken);
@@ -100,7 +103,7 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       setError(error);
     } finally {
-      setIsLoading(false);
+      setIsLoading(null);
     }
   };
 
@@ -145,7 +148,7 @@ export const AuthProvider = ({ children }) => {
       if (res) {
         setInitialToken(res);
       }
-      setIsLoading(false);
+      setIsLoading(null);
     });
   };
 
@@ -182,7 +185,7 @@ export const AuthProvider = ({ children }) => {
 
       setTimeout(async () => {
         await getFcmToken();
-      }, 2000);
+      }, 500);
     }
   };
 
@@ -264,7 +267,9 @@ export const AuthProvider = ({ children }) => {
         message,
         loadingLogin,
         confirmHandler,
+        setIsLoading,
       }}
+
     >
       {children}
     </AuthContext.Provider>

@@ -186,7 +186,7 @@ console.log("colorData",colorData)
           <View style={{ paddingBottom: 20 }}>
             <SharedButton
               onPress={() => changeColorSubmit(id,colorData)}
-              text="Sacuvaj izmene"
+              text={localization.APPOINTMENTS.saveChanges}
               disabled={colorData?.length === 0 || isLoading === "changeColor"}
               loading={isLoading === "changeColor"}
             />

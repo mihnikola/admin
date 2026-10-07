@@ -64,15 +64,13 @@ const styles = StyleSheet.create({
 
   label: {
     color: ColorsBarber.dark.textColorInput,
-    fontSize: 12,
+    fontFamily: "OldStandard-Regular",
+    fontSize: 14,
     marginBottom: 2,
-        fontFamily:"OldStandard-Regular",
-
   },
 
   value: {
     fontSize: 16,
-        fontFamily:"OldStandard-Regular",
-
+    fontFamily: "OldStandard-Regular",
   },
 });

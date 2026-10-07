@@ -242,73 +242,73 @@ export class NotificationService {
   }
 
   // FOREGROUND
-  // listenToForegroundMessages() {
-  //   const unsub = onMessage(getMessaging(), async (remoteMessage) => {
-  //     console.log("📩 Foreground FCM received:", remoteMessage);
+  listenToForegroundMessages() {
+    const unsub = onMessage(getMessaging(), async (remoteMessage) => {
+      console.log("📩 Foreground FCM received:", remoteMessage);
 
-  //     const title =
-  //       remoteMessage.notification?.title ||
-  //       remoteMessage.data?.title ||
-  //       "Nova poruka";
-  //     const body =
-  //       remoteMessage.notification?.body || remoteMessage.data?.body || "";
-  //     const dataValue = remoteMessage.data;
+      const title =
+        remoteMessage.notification?.title ||
+        remoteMessage.data?.title ||
+        "Nova poruka";
+      const body =
+        remoteMessage.notification?.body || remoteMessage.data?.body || "";
+      const dataValue = remoteMessage.data;
 
-  //     try {
-  //       await Notifications.scheduleNotificationAsync({
-  //         content: {
-  //           title: title,
-  //           body: body,
-  //           data: dataValue,
-  //         },
-  //         trigger: null,
-  //       });
+      try {
+        await Notifications.scheduleNotificationAsync({
+          content: {
+            title: title,
+            body: body,
+            data: dataValue,
+          },
+          trigger: null,
+        });
 
-  //       this.hasReceivedForeground = true;
-  //     } catch (error) {
-  //       console.log("Error scheduling local notification in foreground:", error);
-  //     }
-  //   });
+        this.hasReceivedForeground = true;
+      } catch (error) {
+        console.log("Error scheduling local notification in foreground:", error);
+      }
+    });
 
-  //   this.subscriptions.push(unsub);
-  // }
+    this.subscriptions.push(unsub);
+  }
 
 
 
   
   // FOREGROUND
 
-    listenToForegroundMessages() {
-    const unsub = onMessage(getMessaging(), async (remoteMessage) => {
-      console.log("📩 Foreground FCM:", remoteMessage);
+  //   listenToForegroundMessages() {
+  //   const unsub = onMessage(getMessaging(), async (remoteMessage) => {
+  //     console.log("📩 Foreground FCM:", remoteMessage);
 
-      const hasNotification =
-        remoteMessage.notification?.title || remoteMessage.notification?.body;
-      const hasDataPayload =
-        remoteMessage.data?.title || remoteMessage.data?.body;
+  //     const hasNotification =
+  //       remoteMessage.notification?.title || remoteMessage.notification?.body;
+  //     const hasDataPayload =
+  //       remoteMessage.data?.title || remoteMessage.data?.body;
 
-      if (!hasNotification && !hasDataPayload) {
-        return;
-      }
+  //     if (!hasNotification && !hasDataPayload) {
+  //       return;
+  //     }
 
-      await Notifications.scheduleNotificationAsync({
-        content: {
-          title:
-            remoteMessage.notification?.title ??
-            remoteMessage.data?.title ??
-            "Notification",
-          body:
-            remoteMessage.notification?.body ?? remoteMessage.data?.body ?? "",
-          data: remoteMessage.data,
-        },
-        trigger: null,
-      });
+  //     await Notifications.scheduleNotificationAsync({
+  //       content: {
+  //         title:
+  //           remoteMessage.notification?.title ??
+  //           remoteMessage.data?.title ??
+  //           "Notification",
+  //         body:
+  //           remoteMessage.notification?.body ?? remoteMessage.data?.body ?? "",
+  //         data: remoteMessage.data,
+  //       },
+  //       trigger: null,
+  //     });
 
-      this.hasReceivedForeground = true;
-    });
+  //     this.hasReceivedForeground = true;
+  //   });
 
-    this.subscriptions.push(unsub);
-  }
+  //   this.subscriptions.push(unsub);
+  // }
 
   // KILLED STATE
   // async handleKilledState(callback?: (data: any) => void) {

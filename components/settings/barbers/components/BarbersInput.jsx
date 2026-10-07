@@ -58,8 +58,8 @@ const BarbersInput = forwardRef((props, ref) => {
               <Text style={styles.lock}>{props.lock}</Text>
               <Feather
                 name="chevron-right"
-                size={25}
-                color={ColorsBarber.dark.textColor}
+                size={20}
+                color={ColorsBarber.dark.textColorInput}
               />
             </TouchableOpacity>
           )}
@@ -80,7 +80,6 @@ const styles = StyleSheet.create({
   lockRow: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
   },
   overlay: {
     position: "absolute",
@@ -91,8 +90,9 @@ const styles = StyleSheet.create({
     borderRadius: 16,
   },
   lock: {
-    color: ColorsBarber.dark.textColor,
+    color: ColorsBarber.dark.textColorInput,
     fontSize: 15,
+    fontFamily: "OldStandard-Regular",
   },
   phoneNumberContainer: {
     flexDirection: "row",
@@ -114,10 +114,10 @@ const styles = StyleSheet.create({
     borderRadius: 2, // Slightly rounded corners for the flag
   },
   prefixText: {
-    color: ColorsBarber.dark.inActiveTextColor,
+    color: ColorsBarber.dark.textColorInput,
     fontSize: 18,
     marginRight: 8,
-    fontWeight: "800", // Make prefix stand out
+    fontFamily: "OldStandard-Regular",
   },
   error: {
     borderWidth: 1,
@@ -125,21 +125,20 @@ const styles = StyleSheet.create({
   },
 
   iconContainer: {
-    marginRight: 14,
+    marginRight: 20,
   },
 
   label: {
-    // color: "#9e9e9e",
     color: ColorsBarber.dark.textColorInput,
-    fontFamily:"OldStandard-Regular",
+    fontFamily: "OldStandard-Regular",
 
-    fontSize: 12,
-    marginBottom: 2,
+    fontSize: 14,
+    marginBottom: 4,
   },
 
   input: {
     color: ColorsBarber.dark.textColorInput,
-        fontFamily:"OldStandard-Regular",
+    fontFamily: "OldStandard-Regular",
 
     fontSize: 16,
     padding: 0,

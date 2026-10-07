@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     textAlign: "center",
     fontFamily: "OldStandard-Bold",
-    color: ColorsBarber.dark.inActiveTextColor,
+    color: ColorsBarber.dark.textColor,
   },
   subTitle: {
     fontSize: 16,
@@ -25,13 +25,13 @@ const styles = StyleSheet.create({
     textAlign: "justify",
     fontFamily: "OldStandard-Regular",
 
-    color: ColorsBarber.dark.inActiveTextColor,
+    color: ColorsBarber.dark.textColor,
     lineHeight: 23,
   },
   description: {
     fontFamily: "OldStandard-Bold",
     marginBottom: 20,
-    color: ColorsBarber.dark.inActiveTextColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 19,
   },
 });

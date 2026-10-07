@@ -4,41 +4,71 @@ import { useLocalization } from "@/contexts/LocalizationContext";
 import { getInitialsName } from "@/helpers";
 import { ColorsBarber } from "@/constants/Colors";
 
-const SharedDetailsCustomerCard = ({ user, note }) => {
+const SharedDetailsCustomerCard = ({ user, note, otherServices }) => {
   const { image, name, _id: id } = user;
   const { localization } = useLocalization();
 
   const initials = getInitialsName(name);
 
   return (
-    <View key={id} style={styles.card}>
+    <View
+      key={id}
+      style={[styles.card, otherServices?.length > 0 && styles.paddingSection]}
+    >
       {image ? (
-        <Image source={{ uri: image }} style={styles.profileImage} />
+        <Image
+          source={{ uri: image }}
+          style={[
+            styles.profileImage,
+            otherServices?.length > 0 && styles.profileImageOther,
+          ]}
+        />
       ) : (
         <View style={styles.avatarContainer}>
           <Text style={styles.avatarText}>{initials}</Text>
         </View>
       )}
       <View style={styles.detailsContainer}>
-        <Text style={styles.name}>{name}</Text>
-        {note && (
-          <Text style={styles.note}>{localization.HOME.commentLabel}</Text>
-        )}
-        {note && <Text style={styles.note}>{note}</Text>}
+        <View
+          style={
+            otherServices?.length > 0 && {
+              justifyContent: "space-between",
+            }
+          }
+        >
+          <Text style={styles.name}>{name}</Text>
+          {note && (
+            <Text style={styles.note}>{localization.HOME.commentLabel}</Text>
+          )}
+          {note && <Text style={styles.note}>{note}</Text>}
+        </View>
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  profileImageOther: {
+    width: 45,
+    height: 45,
+    borderRadius: 15,
+    marginRight: 15,
+    borderColor: "#333",
+  },
+  paddingSection: {
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    backgroundColor: "transparent",
+    margin: 0,
+  },
   avatarContainer: {
     backgroundColor: ColorsBarber.dark.background,
     width: 90,
     height: 90,
     borderRadius: 30,
-    marginRight:12,
-    alignItems:"center",
-    justifyContent:"center"
+    marginRight: 12,
+    alignItems: "center",
+    justifyContent: "center",
   },
   avatarText: {
     color: ColorsBarber.dark.textColor,
@@ -78,9 +108,9 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 18,
-    fontWeight: "bold",
     color: ColorsBarber.dark.textColor,
     marginBottom: 4,
+    fontFamily: "OldStandard-Regular",
   },
   locationContainer: {
     flexDirection: "row",
@@ -100,6 +130,8 @@ const styles = StyleSheet.create({
   note: {
     fontSize: 14,
     color: ColorsBarber.dark.textColor,
+    fontFamily: "OldStandard-Regular",
+
   },
 });
 

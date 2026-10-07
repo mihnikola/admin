@@ -41,12 +41,12 @@ const styles = StyleSheet.create({
   },
   btnDisabled: {
     borderColor: ColorsBarber.dark.inActiveTextColor,
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: ColorsBarber.dark.btnBgColorDisabled,
     color: ColorsBarber.dark.inActiveTextColor,
   },
 
   btn: {
-    backgroundColor: ColorsBarber.dark.item,
+    backgroundColor: ColorsBarber.dark.btnBgColor,
     paddingVertical: 15,
     borderRadius: 8,
     borderWidth: 1,

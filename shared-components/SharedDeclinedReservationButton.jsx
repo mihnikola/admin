@@ -23,17 +23,17 @@ const SharedDeclinedReservationButton = (props) => {
 
 const styles = StyleSheet.create({
   btnText: {
-    color: ColorsBarber.dark.inActiveTextColor,
+    color: ColorsBarber.dark.textColor,
     fontSize: 18,
     fontFamily: "OldStandard-Bold",
   },
 
   btn: {
-    backgroundColor: ColorsBarber.dark.textColor,
+    backgroundColor: ColorsBarber.dark.borderColorDisabeld,
     paddingVertical: 15,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: ColorsBarber.dark.inActiveTextColor,
+    borderColor: ColorsBarber.dark.textColor,
     alignItems: "center",
     padding: 40,
     alignItems: "center",

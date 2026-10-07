@@ -20,7 +20,11 @@ export default function BarbersStatusCheck({ selected, modalHandler, label }) {
         <Text
           style={[
             styles.value,
-            { color: selected ? ColorsBarber.dark.textColorInput :  ColorsBarber.dark.inActiveTextColor },
+            {
+              color: selected
+                ? ColorsBarber.dark.textColorInput
+                : ColorsBarber.dark.inActiveTextColor,
+            },
           ]}
         >
           {selected || ""}
@@ -57,15 +61,13 @@ const styles = StyleSheet.create({
 
   label: {
     color: ColorsBarber.dark.textColorInput,
-    fontSize: 12,
+    fontSize: 14,
     marginBottom: 2,
-        fontFamily:"OldStandard-Regular",
-
+    fontFamily: "OldStandard-Regular",
   },
 
   value: {
     fontSize: 16,
-        fontFamily:"OldStandard-Regular",
-
+    fontFamily: "OldStandard-Regular",
   },
 });

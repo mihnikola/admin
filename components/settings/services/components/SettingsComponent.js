@@ -1,6 +1,7 @@
 import { getSettingsOptions } from "@/helpers/getSettingsOptions";
 import { router } from "expo-router";
 import {
+  ActivityIndicator,
   Image,
   ScrollView,
   StatusBar,
@@ -13,7 +14,6 @@ import { useLocalization } from "@/contexts/LocalizationContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
-import { SharedLoader } from "@/shared-components/SharedLoader";
 import { useEffect, useState } from "react";
 import SettingsItem from "../../SettingsItem";
 import { getInitialsName } from "@/helpers";
@@ -24,11 +24,21 @@ export default function SettingsComponent() {
 
   const settingsOptions = getSettingsOptions(localization);
   const { logoutFirebase, isLoading, fetchUserData, userData } = useAuth();
+  const [isImageLoading, setIsImageLoading] = useState(!!userData?.image);
   const [isLogout, setIsLogout] = useState(false);
 
   useEffect(() => {
     fetchUserData();
   }, []);
+
+  // useEffect(() => {
+  //   if (userData?.image) setIsImageLoading(false);
+  // }, [userData?.image]);
+
+  console.log("isLoading", isLoading);
+
+
+  console.log("isImageLoading", isImageLoading);
 
   const handlePress = (route) => {
     if (route === "logout") {
@@ -52,11 +62,8 @@ export default function SettingsComponent() {
     });
   };
 
-  if (isLoading) {
-    return <SharedLoader isOpen={isLoading} />;
-  }
-
   const initials = getInitialsName(userData?.name);
+
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
@@ -65,13 +72,24 @@ export default function SettingsComponent() {
           source={require("@/assets/images/coverImage.jpg")}
           style={styles.coverImage}
         />
-        
-        {!isLoading && userData?.image ? (
+        {isLoading === "fetchUserData" && (
+          <ActivityIndicator size="large" color={ColorsBarber.dark.textColor} />
+        )}
+
+        {!isLoading && userData?.image  && (
           <TouchableOpacity
             style={styles.defaultImgAvatar}
             onPress={editProfileBarber}
+            activeOpacity={0.8}
           >
-            <Image source={{ uri: userData?.image }} style={styles.image} />
+            
+            <Image
+              source={{ uri: userData.image }}
+              style={styles.image}
+              onLoadStart={() => setIsImageLoading(true)} // Pokreće loader čim dekoder krene
+              onLoadEnd={() => setIsImageLoading(false)} // Gaasi loader čim se slika nacrta na ekranu
+              onError={() => setIsImageLoading(false)} // Sprečava zaglavljivanje ako je URL nevažeći
+            />
             <View style={styles.editButtonContainer}>
               <View style={styles.editButton}>
                 <MaterialCommunityIcons
@@ -82,30 +100,33 @@ export default function SettingsComponent() {
               </View>
             </View>
           </TouchableOpacity>
-        ) : (
-          !isLoading && (
-            <TouchableOpacity
-              style={styles.initialContainer}
-              onPress={editProfileBarber}
-            >
-              <View style={styles.avatarContainer}>
-                <Text style={styles.avatarTextInitials}>{initials}</Text>
-              </View>
-              <View style={styles.editButtonContainer}>
-                <View style={styles.editButton}>
-                  <MaterialCommunityIcons
-                    name="pencil"
-                    size={25}
-                    color={ColorsBarber.dark.textColor}
-                  />
-                </View>
-              </View>
-            </TouchableOpacity>
-          )
         )}
-        <View style={{ marginTop: 20 }}>
-          <Text style={styles.avatarText}>{userData?.name}</Text>
-        </View>
+        {!isLoading && initials && !userData?.image && (
+          <TouchableOpacity
+            style={styles.initialContainer}
+            onPress={editProfileBarber}
+            activeOpacity={0.8}
+          >
+            <View style={styles.avatarContainer}>
+              <Text style={styles.avatarTextInitials}>{initials}</Text>
+            </View>
+            <View style={styles.editButtonContainer}>
+              <View style={styles.editButton}>
+                <MaterialCommunityIcons
+                  name="pencil"
+                  size={25}
+                  color={ColorsBarber.dark.textColor}
+                />
+              </View>
+            </View>
+          </TouchableOpacity>
+        )}
+
+        {!isLoading  && (
+          <View style={{ marginTop: 20 }}>
+            <Text style={styles.avatarText}>{userData?.name}</Text>
+          </View>
+        )}
       </View>
 
       {/* 2. SEKCIJA: Lista koja se skroluje */}
@@ -148,6 +169,14 @@ export default function SettingsComponent() {
 }
 
 const styles = StyleSheet.create({
+  imageLoaderOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "rgba(0, 0, 0, 0.4)", // Blago zatamnjenje dok učitava
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 2,
+    borderRadius: 50, // Prilagodi u zavisnosti od oblinosti tvog avatara
+  },
   avatarContainer: {
     padding: 35,
     borderRadius: 100,

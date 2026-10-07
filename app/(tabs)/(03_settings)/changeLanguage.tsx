@@ -110,8 +110,9 @@ const styles = StyleSheet.create({
   },
 
   search: {
-    color: ColorsBarber.dark.textColor,
+    color: ColorsBarber.dark.textColorInput,
     borderColor: ColorsBarber.dark.inActiveTextColor,
+    backgroundColor: ColorsBarber.dark.inputField,
     borderWidth: 1,
     borderRadius: 8,
     padding: 10,

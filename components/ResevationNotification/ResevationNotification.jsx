@@ -46,6 +46,8 @@ function ResevationNotificationScreen() {
     missedReservation,
   } = useAppointment();
 
+  console.log("reservationData",reservationData)
+
   useEffect(() => {
     fetchReservationDetails(itemId);
   }, []);

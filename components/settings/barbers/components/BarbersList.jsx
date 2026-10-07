@@ -54,7 +54,6 @@ const BarbersList = () => {
 
   return (
     <View style={styles.container}>
-      {/* <Text style={styles.subTitle}>{localization.BARBERS.listBarbers}</Text> */}
       <View
         style={{
           flexDirection: "row",

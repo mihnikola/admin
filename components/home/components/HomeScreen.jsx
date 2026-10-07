@@ -44,15 +44,15 @@ export default function HomeScreen() {
     return () => clearInterval(interval); // Cleanup pri unmountu
   }, [isToken]);
 
-  const { company, isLoading } = useCompany();
+  const { company } = useCompany();
   const { localization } = useLocalization();
 
   const calendarHandler = () => {
     router.push("/(tabs)/(01_home)/calendar");
   };
-  const locationHandler = () => {
-    router.push("/(tabs)/(01_home)/locations");
-  };
+  // const locationHandler = () => {
+  //   router.push("/(tabs)/(01_home)/locations");
+  // };
   const requirementsHandler = () => {
     router.push("/(tabs)/(01_home)/requirements");
   };
@@ -61,6 +61,7 @@ export default function HomeScreen() {
     router.push("/(tabs)/(01_home)/absence");
   };
 
+  console.log("isLoadingHome", isLoadingHome);
 
   if (company) {
     return (

@@ -23,7 +23,7 @@ const SharedButtonDeactivate = (props) => {
 
 const styles = StyleSheet.create({
   btnText: {
-    color: ColorsBarber.dark.item,
+    color: ColorsBarber.dark.textColor,
     fontSize: 18,
     letterSpacing: 0.5,
     fontFamily: "OldStandard-Bold",

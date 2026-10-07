@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { SharedMessage } from "@/shared-components/SharedMessage";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { ColorsBarber } from "@/constants/Colors";
 import Loader from "@/shared-components/Loader";
@@ -20,7 +20,8 @@ import { useServicesStore } from "@/contexts/ServiceContext";
 const Categories = () => {
   const { setServiceCategory } = useServicesStore();
   const { localization } = useLocalization();
-  const [selectedItem, setSelectedItem] = useState(null);
+  const { categoryId } = useLocalSearchParams();
+
   const {
     getAllCategories,
     error,
@@ -34,18 +35,20 @@ const Categories = () => {
     categories,
   } = useCategories();
 
-  console.log("categories",categories)
+  console.log("categoryId", categoryId);
+  const [selectedItem, setSelectedItem] = useState(categoryId ? {_id: categoryId} : null);
+
+
+  const [isError, setIsError] = useState(null);
+  const [search, setSearch] = useState("");
 
   const addCategoryToService = () => {
     setServiceCategory(selectedItem);
     router.back();
   };
 
-  const [isError, setIsError] = useState(null);
-  const [search, setSearch] = useState("");
-
-  const filterCategories = categories.filter((barber) =>
-    barber.name.toLowerCase().includes(search.toLowerCase()),
+  const filterCategories = categories.filter((category) =>
+    category.name.toLowerCase().includes(search.toLowerCase()),
   );
   const cancelHandler = () => {
     setIsError(null);
@@ -55,7 +58,7 @@ const Categories = () => {
   };
 
   useEffect(() => {
-    getAllCategories();
+    getAllCategories(categoryId);
   }, []);
   const startEditing = (data) => {
     const { _id: id, name } = data;

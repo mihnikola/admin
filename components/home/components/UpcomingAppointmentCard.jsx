@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   upcomingCard: {
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: ColorsBarber.dark.backgroundModal,
     borderRadius: 16,
     padding: 16,
     borderWidth: 1,

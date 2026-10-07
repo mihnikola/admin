@@ -227,13 +227,17 @@ const styles = StyleSheet.create({
     margin: 20,
     fontSize: 20,
     textAlign: "center",
+    fontFamily:"OldStandard-Regular"
   },
   dateLabel: {
+    
     color: ColorsBarber.dark.textColor,
     paddingTop: 10,
     marginTop: 20,
     fontSize: 20,
     textAlign: "center",
+    fontFamily:"OldStandard-Regular"
+
   },
 });
 

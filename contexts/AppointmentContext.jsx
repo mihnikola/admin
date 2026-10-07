@@ -117,7 +117,7 @@ export const AppointmentProvider = ({ children }) => {
         dateValue: criteria,
         token: isToken,
       });
-
+console.log("events",events)
       setEvents(response);
     } catch (err) {
       console.error("Error fetching tasks:", err);
