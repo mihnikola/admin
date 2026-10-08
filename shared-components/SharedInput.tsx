@@ -11,6 +11,7 @@ import {
 export function SharedInput(props: any) {
   const [isFocused, setIsFocused] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
   const togglePasswordVisibility = () => {
     setIsPasswordVisible(!isPasswordVisible);
   };
@@ -23,7 +24,7 @@ export function SharedInput(props: any) {
       <View
         style={[
           props.stylePassword,
-          isFocused && props.stylePassword && styles.textInputFocused,
+          isFocused && props.stylePassword,
         ]}
       >
         {!props.stylePassword && (
@@ -34,7 +35,7 @@ export function SharedInput(props: any) {
           {...props}
           style={[
             props.style,
-            !props.stylePassword && isFocused && styles.textInputFocused,
+            !props.stylePassword,
           ]}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
@@ -75,11 +76,8 @@ const styles = StyleSheet.create({
   errorText: {
     color: "red",
     fontFamily: "OldStandard-Bold", // Ključ iz useFonts
+  },
 
-  },
-  textInputFocused: {
-    borderColor: ColorsBarber.dark.inActiveTextColor,
-  },
   passwordToggle: {
     padding: 10,
   },

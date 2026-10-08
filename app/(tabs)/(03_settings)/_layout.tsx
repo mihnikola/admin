@@ -11,7 +11,7 @@ export default function RootLayoutBarbers() {
       screenOptions={{
         headerShown: false,
         contentStyle: {
-          backgroundColor: ColorsBarber.dark.background, // Fiksira pozadinu same tranzicije
+          backgroundColor: ColorsBarber.light.background, // Fiksira pozadinu same tranzicije
         },
       }}
     >

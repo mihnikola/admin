@@ -43,8 +43,6 @@ const OtpCodeComponent = () => {
     error,
     isLoading,
     isVerified,
-    setIsVerified,
-    verificationOTPCode,
     checkverifyEmail,
     verificationOTPCodeResend,
     setError,
@@ -109,9 +107,6 @@ const OtpCodeComponent = () => {
     setIsMessage(false);
   };
 
-  console.log("isMessage", isMessage);
-  console.log("message", message);
-
   if (verifyData) {
     return (
       <WrapperAuth>
@@ -146,7 +141,6 @@ const OtpCodeComponent = () => {
             loading={isLoading}
           />
         </View>
-        {/* {isLoaderVerify && <Loader />} */}
         {isMessage && (
           <SharedMessage
             isOpen={isMessage}
@@ -172,16 +166,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#0A0B0E",
   },
+
   btnFooter: {
     marginVertical: 0,
   },
-  radiobtn: {
-    flex: 2,
-    flexDirection: "column",
-    gap: 25,
-  },
+
   imageContainer: {
-    display: "flex",
     justifyContent: "center",
     alignItems: "center",
     alignContent: "center",
@@ -190,16 +180,12 @@ const styles = StyleSheet.create({
   resendText: {
     color: "#00AEEF",
     fontSize: 16,
-    fontWeight: "bold",
+    fontFamily: "OldStandard-Regular",
   },
   timerText: {
     color: "#999",
+    fontFamily: "OldStandard-Regular",
     fontSize: 14,
-  },
-  iconStyle: {
-    width: 30,
-    height: 30,
-    resizeMode: "cover",
   },
   container: {
     flex: 1,
@@ -214,28 +200,14 @@ const styles = StyleSheet.create({
   },
   mainTitle: {
     fontSize: 22,
-    fontFamily:"OldStandard-Bold",
+    fontFamily: "OldStandard-Bold",
     color: ColorsBarber.dark.textColor,
     marginBottom: 5,
   },
   subtitle: {
     fontSize: 14,
-    fontFamily:"OldStandard-Regular",
+    fontFamily: "OldStandard-Regular",
     color: ColorsBarber.dark.textColor,
-  },
-  socialButtonsContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 30,
-  },
-  socialButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: 12,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: "white",
   },
 });
 

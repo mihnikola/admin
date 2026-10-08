@@ -240,4 +240,4 @@ const styles = StyleSheet.create({
     color: ColorsBarber.dark.textColor,
   },
 });
-export default withKeyboardAvoid(ChangePasswordComponent);
+export default ChangePasswordComponent;

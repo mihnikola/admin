@@ -38,8 +38,6 @@ const useEmailOtpCode = () => {
         // return;
       }
       if (response.status === 200) {
-        console.log("x2222");
-
         if (response.success) {
           const verifyData = { email };
           await saveOtpParamsStorage(verifyData);

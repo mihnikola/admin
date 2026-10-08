@@ -64,10 +64,8 @@ const styles = StyleSheet.create({
   },
   passwordInput: {
     color: ColorsBarber.dark.item,
-    fontFamily: "OldStandard-Bold", // Ključ iz useFonts
-    
+    fontFamily: "OldStandard-Regular",
     padding: 15,
-    // borderRadius: 8,
     fontSize: 16,
     width: "80%",
   },
@@ -77,10 +75,10 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     marginTop: 15,
     fontFamily: "OldStandard-Bold", // Ključ iz useFonts
-
   },
   errorText: {
     color: "red",
+    fontFamily: "OldStandard-Regular",
   },
   textInputFocused: {
     borderColor: ColorsBarber.dark.textColor,

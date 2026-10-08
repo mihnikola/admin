@@ -7,11 +7,11 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import HomeCoverImage from "./HomeCoverImage";
 import UpcomingAppointmentCard from "./UpcomingAppointmentCard";
 import InProgressAppointmentCard from "./InProgressAppointmentCard";
-import UpcomingAbsenceCard from "./UpcomingAbsenceCard";
+// import UpcomingAbsenceCard from "./UpcomingAbsenceCard";
 
 import { useHomeData } from "@/contexts/HomeDataContext";
 import HomeLoader from "@/shared-components/HomeLoader";
-import { useAuth } from "@/contexts/AuthContext";
+// import { useAuth } from "@/contexts/AuthContext";
 import { ColorsBarber } from "@/constants/Colors";
 
 export default function HomeScreen() {
@@ -26,23 +26,23 @@ export default function HomeScreen() {
     absenceData,
   } = useHomeData();
 
-  const { isToken } = useAuth();
+  // const { isToken } = useAuth();
   useFocusEffect(
     useCallback(() => {
       fetchHomeInfo();
     }, []),
   );
-  useEffect(() => {
-    // Proverava na svakih 500ms dok isToken ne postane dostupan
-    const interval = setInterval(() => {
-      if (isToken) {
-        fetchHomeInfo();
-        clearInterval(interval); // Prekida dalje proveravanje čim ga nađe
-      }
-    }, 500);
+  // useEffect(() => {
+  //   // Proverava na svakih 500ms dok isToken ne postane dostupan
+  //   const interval = setInterval(() => {
+  //     if (isToken) {
+  //       fetchHomeInfo();
+  //       clearInterval(interval); // Prekida dalje proveravanje čim ga nađe
+  //     }
+  //   }, 500);
 
-    return () => clearInterval(interval); // Cleanup pri unmountu
-  }, [isToken]);
+  //   return () => clearInterval(interval); // Cleanup pri unmountu
+  // }, [isToken]);
 
   const { company } = useCompany();
   const { localization } = useLocalization();
@@ -61,7 +61,6 @@ export default function HomeScreen() {
     router.push("/(tabs)/(01_home)/absence");
   };
 
-  console.log("isLoadingHome", isLoadingHome);
 
   if (company) {
     return (
@@ -74,7 +73,6 @@ export default function HomeScreen() {
             {inProgressData && (
               <InProgressAppointmentCard data={inProgressData} />
             )}
-            {/* <UpcomingAbsenceCard data={inProgressData} /> */}
 
             <View style={styles.containerData}>
               <TouchableOpacity

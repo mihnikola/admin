@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   btnText: {
     color: ColorsBarber.dark.textColor,
     fontSize: 18,
-    fontFamily: "OldStandard-Regular", // Ključ iz useFonts
+    fontFamily: "OldStandard-Regular",
   },
   btnDisabled: {
     borderColor: ColorsBarber.dark.inActiveTextColor,
@@ -45,11 +45,8 @@ const styles = StyleSheet.create({
   btnTextDisabled: {
     color: ColorsBarber.dark.inActiveTextColor,
     fontSize: 18,
-    fontWeight: "bold",
-    fontFamily: "OldStandard-Bold",
-
+    fontFamily: "OldStandard-Regular",
   },
-
   btn: {
     backgroundColor: ColorsBarber.dark.btnBgColor,
     paddingVertical: 15,
@@ -58,8 +55,6 @@ const styles = StyleSheet.create({
     borderColor: ColorsBarber.dark.textColor,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 20,
-    marginBottom: 30,
     minHeight: 50,
   },
   noMargin: {

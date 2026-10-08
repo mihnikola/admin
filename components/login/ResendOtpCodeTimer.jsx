@@ -49,10 +49,11 @@ const styles = StyleSheet.create({
   resendText: {
     color: ColorsBarber.dark.textColor,
     fontSize: 16,
-    fontWeight: "bold",
+    fontFamily: "OldStandard-Bold",
   },
   timerText: {
     color: ColorsBarber.dark.inActiveTextColor,
+    fontFamily: "OldStandard-Bold",
 
     fontSize: 14,
   },

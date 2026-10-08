@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
     height: 60,
     fontSize: 24,
     textAlign: "center",
+    fontFamily: "OldStandard-Bold",
   },
 });
 

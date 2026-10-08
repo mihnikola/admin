@@ -1,3 +1,4 @@
+import withKeyboardAvoid from "@/wrapper/WrapperKeyboard";
 import ChangePasswordComponent from "./../../components/login/ChangePasswordComponent"
 const changePassword = () => {
   return (
@@ -5,4 +6,4 @@ const changePassword = () => {
   )
 }
 
-export default changePassword;
+export default withKeyboardAvoid(changePassword);

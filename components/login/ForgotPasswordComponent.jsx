@@ -26,7 +26,6 @@ const ForgotPasswordComponent = () => {
   const confirmHandler2 = () => {
     setError(null);
   };
-  console.log("xxxxxxxxxxxx", error);
   return (
     <WrapperAuth>
       <SharedBackButton
@@ -35,7 +34,7 @@ const ForgotPasswordComponent = () => {
         styleBtn={{ marginBottom: 30 }}
       />
 
-      <View style={{ flex: 1, backgroundColor: ColorsBarber.dark.background }}>
+      <View style={styles.container}>
         <View>
           <Text style={styles.mainTitle}>
             {localization.FORGOT_PASSWORD.title}
@@ -45,7 +44,7 @@ const ForgotPasswordComponent = () => {
             {localization.FORGOT_PASSWORD.subtitle}
           </Text>
         </View>
-        <View style={{ marginTop: 20 }}>
+        <View>
           <SharedInput
             label={localization.EMAIL.label}
             value={email}
@@ -88,21 +87,7 @@ const ForgotPasswordComponent = () => {
   );
 };
 const styles = StyleSheet.create({
-
-
- 
-  input: {
-    backgroundColor: "white",
-    color: ColorsBarber.dark.item,
-    padding: 15,
-    borderRadius: 8,
-    fontSize: 16,
-    borderWidth: 2,
-    borderColor: "white",
-    paddingVertical: 15,
-    fontFamily: "OldStandard-Bold",
-    
-  },
+  container: { flex: 1, backgroundColor: ColorsBarber.dark.background },
   mainTitle: {
     fontSize: 22,
     color: ColorsBarber.dark.textColor,
@@ -112,6 +97,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Regular",
+  },
+  input: {
+    backgroundColor: ColorsBarber.dark.inputField,
+    color: ColorsBarber.dark.textColorInput,
+    fontFamily: "OldStandard-Regular",
+    padding: 20,
+    fontSize: 16,
   },
 });
 export default ForgotPasswordComponent;
