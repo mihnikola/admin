@@ -333,6 +333,11 @@ export default function BarbersAdd() {
                 }}
               />
             </View>
+            {emailError?.length > 0 ? (
+              <View style={{ paddingBottom: 10 }}>
+                <Text style={styles.errorText}>{emailError}</Text>
+              </View>
+            ) : null}
 
             <View
               onLayout={(e) => {
@@ -351,6 +356,11 @@ export default function BarbersAdd() {
                 placeholder="6x xxx xxxx"
               />
             </View>
+            {errorPhoneNumber?.length > 0 ? (
+              <View style={{ paddingBottom: 10 }}>
+                <Text style={styles.errorText}>{errorPhoneNumber}</Text>
+              </View>
+            ) : null}
             <BarbersStatusCheck
               modalHandler={modalStatusHandler}
               label={localization.BARBERS.status}
@@ -456,6 +466,10 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     marginVertical: 5,
     padding: 10,
+  },
+  errorText: {
+    color: "red",
+    fontFamily: "OldStandard-Regular",
   },
   btnContainer: {},
   btnGap: { gap: 10 },

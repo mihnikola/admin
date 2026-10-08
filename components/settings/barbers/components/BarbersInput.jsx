@@ -53,6 +53,7 @@ const BarbersInput = forwardRef((props, ref) => {
               keyboardType={props.keyboardType}
             />
           )}
+         
           {props.lock && (
             <TouchableOpacity style={styles.lockRow} onPress={props.onPress}>
               <Text style={styles.lock}>{props.lock}</Text>
@@ -64,6 +65,7 @@ const BarbersInput = forwardRef((props, ref) => {
             </TouchableOpacity>
           )}
         </View>
+       
       </View>
       {props.lock && (
         <TouchableOpacity
@@ -72,6 +74,7 @@ const BarbersInput = forwardRef((props, ref) => {
           activeOpacity={0.7}
         />
       )}
+      
     </View>
   );
 });
@@ -81,6 +84,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
+
   overlay: {
     position: "absolute",
     top: 0,

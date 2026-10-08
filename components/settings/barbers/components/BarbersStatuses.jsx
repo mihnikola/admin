@@ -73,7 +73,6 @@ const styles = StyleSheet.create({
   overlay: {
     flex: 1,
     backgroundColor: ColorsBarber.dark.background,
-    opacity: .8,
     alignItems: "center",
     justifyContent: "center",
     padding: 16,

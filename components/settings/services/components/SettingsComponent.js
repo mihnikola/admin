@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     alignContent: "center",
     justifyContent: "flex-end",
-    backgroundColor: "transparent",
+    backgroundColor: ColorsBarber.dark.item,
     borderRadius: 50,
   },
   editButtonContainer: {
@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
     alignContent: "flex-end",
   },
   editButton: {
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: ColorsBarber.dark.item,
     borderRadius: 20,
     padding: 4,
   },

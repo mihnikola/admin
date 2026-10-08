@@ -101,9 +101,10 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: ColorsBarber.dark.inputField,
     color: ColorsBarber.dark.textColorInput,
-    fontFamily: "OldStandard-Regular",
-    padding: 20,
+    padding: 15,
+    borderRadius: 8,
     fontSize: 16,
+    fontFamily: "OldStandard-Regular",
   },
 });
 export default ForgotPasswordComponent;

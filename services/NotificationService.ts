@@ -384,23 +384,23 @@ export class NotificationService {
     this.handleKilledState(onClick);
     this.listenToBackgroundOpens(onClick);
     this.listenToForegroundMessages();
-
+ //ovo si obrisao
     // CLICK NA LOKALNU (FOREGROUND) NOTIFIKACIJU
-    const clickListener = Notifications.addNotificationResponseReceivedListener(
-      (response) => {
-        if (!this.hasReceivedForeground) return;
+    // const clickListener = Notifications.addNotificationResponseReceivedListener(
+    //   (response) => {
+    //     if (!this.hasReceivedForeground) return;
 
-        const data = response.notification.request.content.data;
-        console.log("👉 Foreground notification clicked:", data);
+    //     const data = response.notification.request.content.data;
+    //     console.log("👉 Foreground notification clicked:", data);
 
-        if (typeof onClick === "function") {
-          onClick(data);
-        }
-        this.hasReceivedForeground = false;
-      }
-    );
+    //     if (typeof onClick === "function") {
+    //       onClick(data);
+    //     }
+    //     this.hasReceivedForeground = false;
+    //   }
+    // );
 
-    this.subscriptions.push(() => clickListener.remove());
+    // this.subscriptions.push(() => clickListener.remove());
   }
 
   cleanup() {
