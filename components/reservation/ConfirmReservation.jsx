@@ -28,7 +28,7 @@ function ConfirmReservation() {
   const [isMessage, setIsMessage] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
-  const { getReservations } = useAppointment();
+  const { getReservations, setCheckDates } = useAppointment();
   const [selectedItem, setSelectedItem] = useState(null);
   // const [focused, setFocused] = useState(false)
   const { localization } = useLocalization();
@@ -55,7 +55,6 @@ function ConfirmReservation() {
     serviceNameEn,
     serviceNameLocal,
   } = params;
-
   const serviceData = {
     id: serviceId,
     name: { nameEn: serviceNameEn, nameLocal: serviceNameLocal },
@@ -109,6 +108,7 @@ function ConfirmReservation() {
       endDate,
       description,
     };
+    const startDateValue = getDateFromString(startDate);
 
     try {
       const response = await post(
@@ -125,6 +125,17 @@ function ConfirmReservation() {
           localization.APPOINTMENTS.approveReservation.createReservation,
         );
         await getReservations(getDateFromString(startDate));
+        setCheckDates((prev) => ({
+          ...prev,
+          [date]: { // 'date' je datum koji si prosledio iz kalendara (npr. "2026-10-11")
+            ...(prev?.[date] || {}),
+            marked: true,
+            dotColor: "white",
+          },
+        }));
+        // console.log("object",startDateValue);
+        // await getDates(startDateValue, true);
+        // await handleDayPress(startDateValue);
       }
     } catch (err) {
       console.log("error", err);
@@ -136,7 +147,6 @@ function ConfirmReservation() {
       setIsLoading(null);
     }
   };
-  console.log("timesData++", timesData);
 
   return (
     <View

@@ -50,7 +50,7 @@ const StatusReservationConfirmation = () => {
 
   return (
     <View style={styles.container}>
-      <SharedBackButton onPress={router.back} styleBtn={{ marginLeft: 10 }} />
+      <SharedBackButton onPress={router.back} styleBtn={{ marginLeft: 10, marginTop: 10 }} />
       <SharedTabHeader
         image={company?.media?.coverImageSettings}
         title={localization.SETTINGS.NOTIFICATIONSTATUS.capture}
@@ -108,7 +108,6 @@ const StatusReservationConfirmation = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 10,
     backgroundColor: ColorsBarber.dark.background,
   },
   captureContainer: {

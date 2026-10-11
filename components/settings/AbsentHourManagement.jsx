@@ -1,6 +1,7 @@
 import { SharedButton } from "@/shared-components/SharedButton";
 import React, { useEffect, useState } from "react";
 import {
+  Alert,
   StyleSheet,
   Text,
   TextInput,
@@ -139,6 +140,13 @@ const AbsentHourManagement = () => {
     dateToValue.setHours(endHours, endMinutes, 0, 0);
     const toValue = formatTimeData(dateToValue);
 
+
+    if (toValue <= fromValue) {
+      // Ovde prikazuješ poruku korisniku
+      setError(localization.SETTINGS.ABSENTHOURS.error);
+
+      return; // Prekidamo dalje izvršavanje
+    }
     if (fromValue && toValue) {
       const confirmationEn =
         `The following time off period will be recorded:\n` +

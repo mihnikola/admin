@@ -1,17 +1,14 @@
-import { useCompany } from "@/contexts/CompanyContext";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { router, useFocusEffect } from "expo-router";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import HomeCoverImage from "./HomeCoverImage";
 import UpcomingAppointmentCard from "./UpcomingAppointmentCard";
 import InProgressAppointmentCard from "./InProgressAppointmentCard";
-// import UpcomingAbsenceCard from "./UpcomingAbsenceCard";
 
 import { useHomeData } from "@/contexts/HomeDataContext";
 import HomeLoader from "@/shared-components/HomeLoader";
-// import { useAuth } from "@/contexts/AuthContext";
 import { ColorsBarber } from "@/constants/Colors";
 
 export default function HomeScreen() {
@@ -26,25 +23,13 @@ export default function HomeScreen() {
     absenceData,
   } = useHomeData();
 
-  // const { isToken } = useAuth();
   useFocusEffect(
     useCallback(() => {
       fetchHomeInfo();
     }, []),
   );
-  // useEffect(() => {
-  //   // Proverava na svakih 500ms dok isToken ne postane dostupan
-  //   const interval = setInterval(() => {
-  //     if (isToken) {
-  //       fetchHomeInfo();
-  //       clearInterval(interval); // Prekida dalje proveravanje čim ga nađe
-  //     }
-  //   }, 500);
+ 
 
-  //   return () => clearInterval(interval); // Cleanup pri unmountu
-  // }, [isToken]);
-
-  const { company } = useCompany();
   const { localization } = useLocalization();
 
   const calendarHandler = () => {
@@ -62,7 +47,6 @@ export default function HomeScreen() {
   };
 
 
-  if (company) {
     return (
       <View style={styles.container}>
         <HomeCoverImage />
@@ -153,7 +137,6 @@ export default function HomeScreen() {
         )}
       </View>
     );
-  }
 }
 
 const styles = StyleSheet.create({

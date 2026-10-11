@@ -1,6 +1,6 @@
 // /app/contexts/ReservationContext.tsx
 import { router } from "expo-router";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useLocalization } from "./LocalizationContext";
 import { useAuth } from "./AuthContext";
 import { get, getData, post, put } from "@/api/apiService";
@@ -15,6 +15,153 @@ export const useAppointment = () => {
 };
 export const AppointmentProvider = ({ children }) => {
   const [reservations, setReservations] = useState([]);
+  
+  const [checkDates, setCheckDates] = useState(null);
+  // const [isLoading, setIsLoading] = useState(true);
+  // const [error, setError] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(true);
+
+  //  const { isToken } = useAuth();
+
+  // const {
+  //   getReservations,
+  //   events,
+  //   isLoading: isLoadingAppointment,
+  // } = useAppointment();
+
+  const convertResult = (response) => {
+    const marketDates = {};
+
+    response.forEach((item) => {
+      if (item.count > 0) {
+        const { year, month, day } = item._id;
+
+        const dateStr = `${year}-${String(month).padStart(2, "0")}-${String(
+          day,
+        ).padStart(2, "0")}`;
+
+        marketDates[dateStr] = {
+          marked: true,
+          dotColor: "white",
+        };
+      }
+    });
+
+    return marketDates;
+  };
+
+  const removeSelectedProps = (markedDates = {}) => {
+    const cleaned = {};
+
+    Object.entries(markedDates).forEach(([date, value]) => {
+      const newValue = { ...value };
+
+      delete newValue.selected;
+      delete newValue.selectedColor;
+
+      cleaned[date] = newValue;
+    });
+
+    return cleaned;
+  };
+
+  const handleDayPress = async (day) => {
+    setIsLoading(true);
+
+    setCheckDates((prev) => {
+      const cleanedDates = removeSelectedProps(prev);
+
+      cleanedDates[day.dateString] = {
+        ...cleanedDates[day.dateString],
+        selected: true,
+        selectedColor: "#ffffff",
+      };
+
+      return cleanedDates;
+    });
+
+    await getReservations(day.dateString);
+
+    setIsLoading(false);
+  };
+
+  const createMonthObject = (date = new Date()) => {
+    const year = date.getFullYear();
+    const month = date.getMonth();
+
+    const result = {};
+
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    for (let day = 1; day <= daysInMonth; day++) {
+      const key = `${year}-${String(month + 1).padStart(2, "0")}-${String(
+        day,
+      ).padStart(2, "0")}`;
+
+      result[key] = {
+        marked: false,
+        dotColor: "#000000",
+      };
+    }
+
+    return result;
+  };
+
+  const initialHandleDayPress = async (day) => {
+    setCheckDates((prev) => {
+      const cleaned = removeSelectedProps(prev || createMonthObject());
+
+      cleaned[day.dateString] = {
+        ...cleaned[day.dateString],
+        selected: true,
+        selectedColor: "#ffffff",
+      };
+
+      return cleaned;
+    });
+
+    await getReservations(day.dateString);
+  };
+
+  const getDates = async (selectedMonth, initial) => {
+    console.log("selectedMonth",selectedMonth)
+    setIsLoading(true);
+    setError(null);
+    if (!selectedMonth) {
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      const response = await getData("/admin/availabilities/check", {
+        monthValue: selectedMonth,
+        token: isToken,
+      });
+
+      if (response.status === 200) {
+        const responseData = convertResult(response.data);
+
+        if (initial) {
+          const todayStr = new Date().toLocaleDateString("sv-SE");
+
+          responseData[todayStr] = {
+            ...responseData[todayStr],
+            selected: true,
+            selectedColor: "#ffffff",
+          };
+        }
+
+        setCheckDates(responseData);
+      }
+    } catch (err) {
+      console.error("Error fetching tasks:", err);
+      setError(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+
 
   const [isLoading, setIsLoading] = useState(false);
   const [isModalQuestion, setIsModalQuestion] = useState(false);
@@ -38,6 +185,7 @@ export const AppointmentProvider = ({ children }) => {
   } = useRequirements();
 
   const [isModal, setIsModal] = useState(false);
+
 
   const missedReservation = async (id, criteriaDate) => {
     setIsLoading(true);
@@ -89,7 +237,8 @@ export const AppointmentProvider = ({ children }) => {
             ? localization.APPOINTMENTS.approveReservation.confirmMessage
             : localization.APPOINTMENTS.rejectReservation.confirmMessage,
         );
-        const dateValue = criteriaDate ?? getDateFromString(response?.data?.startDate);
+        const dateValue =
+          criteriaDate ?? getDateFromString(response?.data?.startDate);
 
         await getReservations(dateValue);
       }
@@ -104,7 +253,6 @@ export const AppointmentProvider = ({ children }) => {
   };
 
   const getReservations = async (criteria) => {
-    console.log("criteria ajmooo", criteria);
     setIsLoading(true);
     setError(null);
     if (!criteria) {
@@ -117,7 +265,6 @@ export const AppointmentProvider = ({ children }) => {
         dateValue: criteria,
         token: isToken,
       });
-console.log("events",events)
       setEvents(response);
     } catch (err) {
       console.error("Error fetching tasks:", err);
@@ -192,6 +339,18 @@ console.log("events",events)
         fetchRequirements,
         events,
         getReservations,
+
+        isLoading,
+        setIsLoading,
+        error,
+        handleDayPress,
+        getDates,
+        checkDates,
+        events,
+        selectedDate,
+        setSelectedDate,
+        setCheckDates,
+        initialHandleDayPress
       }}
     >
       {children}

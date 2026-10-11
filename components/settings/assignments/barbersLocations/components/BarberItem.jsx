@@ -49,7 +49,8 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     borderWidth: 1,
     borderColor: "#2A2A2A",
-    // Suptilna senka za Android
+    borderWidth: 1,
+    borderColor: ColorsBarber.dark.inActiveTextColor,
     elevation: 2,
   },
   deletedAt: {

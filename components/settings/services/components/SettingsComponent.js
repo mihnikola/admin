@@ -95,7 +95,7 @@ export default function SettingsComponent() {
                 <MaterialCommunityIcons
                   name="pencil"
                   size={25}
-                  color={ColorsBarber.dark.textColor}
+                  color={ColorsBarber.dark.textColorInput}
                 />
               </View>
             </View>
@@ -115,7 +115,7 @@ export default function SettingsComponent() {
                 <MaterialCommunityIcons
                   name="pencil"
                   size={25}
-                  color={ColorsBarber.dark.textColor}
+                  color={ColorsBarber.dark.textColorInput}
                 />
               </View>
             </View>
@@ -179,9 +179,9 @@ const styles = StyleSheet.create({
   },
   avatarContainer: {
     padding: 35,
-    borderRadius: 100,
+    borderRadius: 50,
     borderWidth: 1,
-    borderColor: ColorsBarber.dark.background,
+    borderColor: ColorsBarber.dark.textColor,
   },
 
   defaultImgAvatar: {
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     backgroundColor: "transparent",
     borderWidth: 3,
-    borderColor: ColorsBarber.dark.background,
+    borderColor: ColorsBarber.dark.textColor,
     borderRadius: 100,
   },
   initialContainer: {
@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
     alignContent: "flex-end",
   },
   editButton: {
-    backgroundColor: ColorsBarber.dark.item,
+    backgroundColor: ColorsBarber.dark.textColor,
     borderRadius: 20,
     padding: 4,
   },

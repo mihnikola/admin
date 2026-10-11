@@ -26,6 +26,7 @@ import { router, useLocalSearchParams } from "expo-router";
 import ImageCompress from "../../ImageCompress";
 import BarbersSeniority from "./BarbersSeniority";
 import BarbersInput from "./BarbersInput";
+import BarberChangePassword from "./BarberChangePassword";
 import BarberSeniorityComponent from "./BarbersSeniorityInput";
 import BarbersStatusCheck from "./BarbersStatusCheck";
 import BarbersStatuses from "./BarbersStatuses";
@@ -377,14 +378,12 @@ export default function BarbersAdd() {
             />
             {changeProfile === "1" && (
               <View
-                onLayout={(e) => {
-                  passwordLayoutY.current = e.nativeEvent.layout.y;
-                }}
+               
               >
-                <BarbersInput
+                <BarberChangePassword
                   icon="lock"
                   lock={localization.BARBERS.changePassword}
-                  label={localization.BARBERS.password}
+                  // label={localization.BARBERS.password}
                   value={password}
                   autoCapitalize="none"
                   onChangeText={handlePasswordChange}

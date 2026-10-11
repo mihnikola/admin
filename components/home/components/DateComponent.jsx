@@ -1,5 +1,4 @@
 import { calendarTheme } from "@/helpers";
-import useCheckCalendar from "@/hooks/useCheckCalendar";
 import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -17,6 +16,7 @@ import { router } from "expo-router";
 import { calendarLocales } from "@/helpers/calendarLocales";
 import { ColorsBarber } from "@/constants/Colors";
 import { FontAwesome } from "@expo/vector-icons";
+import { useAppointment } from "@/contexts/AppointmentContext";
 
 const DateComponent = () => {
   const today = new Date();
@@ -32,9 +32,25 @@ const DateComponent = () => {
     events,
     error,
     selectedDate,
-    isLoadingAppointment,
+    isLoading,
     setSelectedDate,
-  } = useCheckCalendar();
+    initialHandleDayPress,
+  } = useAppointment();
+  const formatDate = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+
+    return {
+      dateString: `${year}-${month}-${day}`,
+    };
+  };
+  useEffect(() => {
+    const today = formatDate(new Date());
+
+    setSelectedDate(true);
+    initialHandleDayPress(today);
+  }, []);
 
   const [selectValueDate, setSelectValueDate] = useState({
     dateString: new Date().toLocaleDateString("en-CA"),
@@ -80,7 +96,7 @@ const DateComponent = () => {
   };
 
   const renderSomeShit = () => {
-    if (isLoadingAppointment) {
+    if (isLoading) {
       return (
         <View style={styles.messageContainer}>
           <ActivityIndicator
@@ -91,7 +107,7 @@ const DateComponent = () => {
         </View>
       );
     }
-    if (selectedDate && !isLoadingAppointment) {
+    if (selectedDate && !isLoading) {
       return (
         <View style={styles.timesAndDetails}>
           <EventTimelineList
@@ -102,7 +118,7 @@ const DateComponent = () => {
         </View>
       );
     }
-    if (!selectedDate && !isLoadingAppointment) {
+    if (!selectedDate && !isLoading) {
       return (
         <View style={styles.messageContainer}>
           <Text style={styles.infoDetails}>
@@ -113,18 +129,13 @@ const DateComponent = () => {
     }
   };
 
-  const formatDate = (date = new Date()) =>
-    `${String(date.getDate()).padStart(2, "0")}-${String(
-      date.getMonth() + 1,
-    ).padStart(2, "0")}-${date.getFullYear()}`;
-
   const validateDate = () => {
-    if (
-      formatDate(new Date()) <=
-      formatDate(new Date(selectValueDate?.dateString))
-    )
-      return true;
-    else return false;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    if (!selectValueDate?.dateString) return false;
+    const selectedDate = new Date(selectValueDate.dateString);
+    selectedDate.setHours(0, 0, 0, 0);
+    return selectedDate.getTime() >= today.getTime();
   };
 
   const addReservation = () => {
@@ -154,7 +165,13 @@ const DateComponent = () => {
               onPress={addReservation}
               style={{ flexDirection: "row", alignItems: "center" }}
             >
-              <Text style={{ paddingRight: 10, color: ColorsBarber.dark.textColor, fontFamily:"OldStandard-Regular" }}>
+              <Text
+                style={{
+                  paddingRight: 10,
+                  color: ColorsBarber.dark.textColor,
+                  fontFamily: "OldStandard-Regular",
+                }}
+              >
                 {localization.ADDRESERVATION.add}
               </Text>
 

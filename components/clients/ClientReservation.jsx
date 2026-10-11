@@ -2,19 +2,23 @@ import useChangeUser from "@/components/clients/hooks/useChangeUser";
 import { ColorsBarber } from "@/constants/Colors";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { getInitialsName } from "@/helpers";
-import { SharedButton } from "@/shared-components/SharedButton";
+// import { SharedButton } from "@/shared-components/SharedButton";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
-import { Feather, FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
+import {
+  Feather,
+  FontAwesome,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 import { router, useLocalSearchParams } from "expo-router";
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import {
   Image,
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
+  // TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -23,7 +27,6 @@ const ClientReservation = () => {
   const params = useLocalSearchParams();
   const { localization } = useLocalization();
   const scrollViewRef = useRef(null);
-
 
   const {
     name,
@@ -37,7 +40,7 @@ const ClientReservation = () => {
     id,
   } = params;
 
-    const {
+  const {
     isMessage,
     message,
     setIsMessage,
@@ -45,12 +48,13 @@ const ClientReservation = () => {
     isLoading,
     setDialog,
     dialog,
-    changeColorSubmit,
+    deleteClient,
+    // changeColorSubmit,
   } = useChangeUser(color);
-  const [colorData, setColorData] = useState(color || "");
+  // const [colorData, setColorData] = useState(color || "");
 
-console.log("color params",color)
-console.log("colorData",colorData)
+  // console.log("color params",color)
+  // console.log("colorData",colorData)
   const initials = getInitialsName(name);
 
   if (isLoading === "delete") {
@@ -59,7 +63,7 @@ console.log("colorData",colorData)
   const refreshHandler = () => {
     setIsMessage(false);
     router.back();
-  }
+  };
 
   return (
     <View style={styles.container}>
@@ -117,10 +121,7 @@ console.log("colorData",colorData)
           <View style={styles.statItem}>
             <Text style={styles.statLabel}>{localization.CLIENTS.missed}</Text>
             <Text
-              style={[
-                styles.statValue,
-                { color: ColorsBarber.dark.textColor },
-              ]}
+              style={[styles.statValue, { color: ColorsBarber.dark.textColor }]}
             >
               {skippedCount || 0}
             </Text>
@@ -168,7 +169,7 @@ console.log("colorData",colorData)
             </Text>
           </View>
 
-          <View style={{ paddingVertical: 20 }}>
+          {/* <View style={{ paddingVertical: 20 }}>
             <Text style={styles.textValue}>Dodaj boju</Text>
             <TextInput
               value={colorData}
@@ -190,7 +191,7 @@ console.log("colorData",colorData)
               disabled={colorData?.length === 0 || isLoading === "changeColor"}
               loading={isLoading === "changeColor"}
             />
-          </View>
+          </View> */}
         </View>
       </ScrollView>
       {dialog && (

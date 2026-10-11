@@ -171,8 +171,8 @@ const styles = StyleSheet.create({
     backgroundColor: ColorsBarber.dark.background,
   },
   avatar: {
-    width: 48,
-    height: 48,
+    width: 50,
+    height: 50,
     borderRadius: 24,
     backgroundColor: ColorsBarber.dark.background,
     justifyContent: "center",
@@ -196,8 +196,10 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   image: {
-    width: 60,
-    height: 60,
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    marginRight: 12,
   },
   subTitle: {
     fontSize: 18,
@@ -250,7 +252,6 @@ const styles = StyleSheet.create({
     color: ColorsBarber.dark.textColor,
     fontSize: 15,
     fontFamily: "OldStandard-Bold",
-
   },
   editHint: {
     fontSize: 12,
