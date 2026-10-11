@@ -214,8 +214,9 @@ export class NotificationService {
 
   setForegroundHandler() {
     Notifications.setNotificationHandler({
-      handleNotification: async () => ({
-        shouldShowAlert: true,
+       handleNotification: async () => ({
+        shouldShowBanner: true,
+        shouldShowList: true,
         shouldPlaySound: true,
         shouldSetBadge: false,
       }),
@@ -246,28 +247,49 @@ export class NotificationService {
     const unsub = onMessage(getMessaging(), async (remoteMessage) => {
       console.log("📩 Foreground FCM received:", remoteMessage);
 
-      const title =
-        remoteMessage.notification?.title ||
-        remoteMessage.data?.title ||
-        "Nova poruka";
-      const body =
-        remoteMessage.notification?.body || remoteMessage.data?.body || "";
-      const dataValue = remoteMessage.data;
+      // const title =
+      //   remoteMessage.notification?.title ||
+      //   remoteMessage.data?.title ||
+      //   "Nova poruka";
+      // const body =
+      //   remoteMessage.notification?.body || remoteMessage.data?.body || "";
+      // const dataValue = remoteMessage.data;
+       const hasNotification =
+        remoteMessage.notification?.title || remoteMessage.notification?.body;
+      const hasDataPayload =
+        remoteMessage.data?.title || remoteMessage.data?.body;
 
-      try {
-        await Notifications.scheduleNotificationAsync({
-          content: {
-            title: title,
-            body: body,
-            data: dataValue,
-          },
-          trigger: null,
-        });
-
-        this.hasReceivedForeground = true;
-      } catch (error) {
-        console.log("Error scheduling local notification in foreground:", error);
+          if (!hasNotification && !hasDataPayload) {
+        return;
       }
+
+
+      // try {
+      //   await Notifications.scheduleNotificationAsync({
+      //     content: {
+      //       title: title,
+      //       body: body,
+      //       data: dataValue,
+      //     },
+      //     trigger: null,
+      //   });
+
+      //   this.hasReceivedForeground = true;
+      // } catch (error) {
+      //   console.log("Error scheduling local notification in foreground:", error);
+      // }
+       await Notifications.scheduleNotificationAsync({
+        content: {
+          title:
+            remoteMessage.notification?.title ??
+            remoteMessage.data?.title ??
+            "Notification",
+          body:
+            remoteMessage.notification?.body ?? remoteMessage.data?.body ?? "",
+          data: remoteMessage.data,
+        },
+        trigger: null,
+      });
     });
 
     this.subscriptions.push(unsub);
@@ -375,7 +397,7 @@ export class NotificationService {
     this.subscriptions.push(unsub);
   }
 
-  initializeListeners(onClick?: (data?: any) => void) {
+  initializeListeners(onClick: (data?: any) => void) {
     this.requestPermission();
     this.listenToTokenRefresh();
     this.getFCMToken();
@@ -386,21 +408,26 @@ export class NotificationService {
     this.listenToForegroundMessages();
  //ovo si obrisao
     // CLICK NA LOKALNU (FOREGROUND) NOTIFIKACIJU
-    // const clickListener = Notifications.addNotificationResponseReceivedListener(
-    //   (response) => {
-    //     if (!this.hasReceivedForeground) return;
+    const clickListener = Notifications.addNotificationResponseReceivedListener(
+      (response) => {
+        // if (!this.hasReceivedForeground) return;
 
-    //     const data = response.notification.request.content.data;
-    //     console.log("👉 Foreground notification clicked:", data);
+        // const data = response.notification.request.content.data;
+        // console.log("👉 Foreground notification clicked:", data);
 
-    //     if (typeof onClick === "function") {
-    //       onClick(data);
-    //     }
-    //     this.hasReceivedForeground = false;
-    //   }
-    // );
+        // if (typeof onClick === "function") {
+        //   onClick(data);
+        // }
+        // this.hasReceivedForeground = false;
 
-    // this.subscriptions.push(() => clickListener.remove());
+         const data = response.notification.request.content.data;
+        console.log("👉 Foreground notification clicked:", data);
+
+        onClick(data);
+      },
+    );
+
+    this.subscriptions.push(() => clickListener.remove());
   }
 
   cleanup() {
