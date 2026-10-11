@@ -31,7 +31,6 @@ const useEmailOtpCode = () => {
       });
 
       if (response.status === 201) {
-        // console.log("x", response);
         setError(localization.BARBERS.removed);
 
         // setError(localization.EMAIL.errorValid);

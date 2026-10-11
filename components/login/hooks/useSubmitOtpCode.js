@@ -22,6 +22,7 @@ const useSubmitOtpCode = () => {
         email,
         otpCode,
       });
+      console.log("checkOtpCodeValidation",response)
 
       setIsMessage(true);
 
@@ -101,6 +102,7 @@ const useSubmitOtpCode = () => {
       const response = await getData("/users/sendOTPviaLogin", {
         params: { email, password },
       });
+
       if (response.status === 400) {
         setIsMessage(true);
         setError(localization.LOGIN.errorEmail);
@@ -118,12 +120,12 @@ const useSubmitOtpCode = () => {
 
   const verificationOTPCodeResend = async (paramsData) => {
     const { email, password } = paramsData;
-
     setError(null);
     try {
-      const response = await getData("/users/sendOTPviaLogin", {
+      const response = await getData(`/admin/users/${new Date()}/sendOTPviaLogin`, {
         params: { email, password },
       });
+      console.log("response",response)
       if (response.status === 400) {
         setIsMessage(true);
         setError(localization.LOGIN.errorEmail);

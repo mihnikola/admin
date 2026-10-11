@@ -48,7 +48,7 @@ instance.interceptors.response.use(
           type: "UNAUTHORIZED_TOKEN",
         });
       }
-      console.log("xxxxxxxxxx",error.response.data?.code)
+      console.log("ACCOUNT_DELETED data",error.response.data)
       if (error.response?.data?.code === "ACCOUNT_DELETED") {
         showGlobalMessage({
           type: "ACCOUNT_DELETED",
