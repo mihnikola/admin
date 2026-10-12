@@ -52,7 +52,6 @@ const useSubmitOtpCode = () => {
         password,
         otpCode,
       });
-      console.log("checkOtpCodeVerificatio  loginVerify", response);
       setIsMessage(true);
 
       if (response.status === 69) {

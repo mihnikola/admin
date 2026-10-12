@@ -54,43 +54,7 @@
 //   }
 
 //   // FOREGROUND
-//   listenToForegroundMessages() {
-//     const unsub = onMessage(getMessaging(), async (remoteMessage) => {
-//       console.log("📩 Foreground FCM received:", remoteMessage);
-
-//       const title =
-//         remoteMessage.notification?.title ||
-//         remoteMessage.data?.title ||
-//         "Nova poruka";
-//       const body =
-//         remoteMessage.notification?.body || remoteMessage.data?.body || "";
-
-//       // ⚡ OVDE UZIMAŠ DATA IZ FIREBASE PORUKE
-//       // const dataValue = remoteMessage.data || { url: "6a8b7583864824feca583510" };
-//       const dataValue = remoteMessage.data;
-//       // const dataValue = { url: "6a8b7583864824feca583510" };
-
-//       try {
-//         await Notifications.scheduleNotificationAsync({
-//           content: {
-//             title: title,
-//             body: body,
-//             data: dataValue, // ⚡ OVDE PROSLEĐUJEŠ DATA U LOKALNU NOTIFIKACIJU
-//           },
-//           trigger: null,
-//         });
-
-//         this.hasReceivedForeground = true;
-//       } catch (error) {
-//         console.log(
-//           "Error scheduling local notification in foreground:",
-//           error,
-//         );
-//       }
-//     });
-
-//     this.subscriptions.push(unsub);
-//   }
+  
 
 //   // KILLED STATE — SAMO JEDNOM
 //   async handleKilledState(callback: (data: any) => void) {
@@ -242,78 +206,66 @@ export class NotificationService {
     }
   }
 
-  // FOREGROUND
   listenToForegroundMessages() {
     const unsub = onMessage(getMessaging(), async (remoteMessage) => {
       console.log("📩 Foreground FCM received:", remoteMessage);
 
-      // const title =
-      //   remoteMessage.notification?.title ||
-      //   remoteMessage.data?.title ||
-      //   "Nova poruka";
-      // const body =
-      //   remoteMessage.notification?.body || remoteMessage.data?.body || "";
-      // const dataValue = remoteMessage.data;
-       const hasNotification =
-        remoteMessage.notification?.title || remoteMessage.notification?.body;
-      const hasDataPayload =
-        remoteMessage.data?.title || remoteMessage.data?.body;
+      const title =
+        remoteMessage.notification?.title ||
+        remoteMessage.data?.title ||
+        "Nova poruka";
+      const body =
+        remoteMessage.notification?.body || remoteMessage.data?.body || "";
 
-          if (!hasNotification && !hasDataPayload) {
-        return;
+      // ⚡ OVDE UZIMAŠ DATA IZ FIREBASE PORUKE
+      // const dataValue = remoteMessage.data || { url: "6a8b7583864824feca583510" };
+      const dataValue = remoteMessage.data;
+      // const dataValue = { url: "6a8b7583864824feca583510" };
+
+      try {
+        await Notifications.scheduleNotificationAsync({
+          content: {
+            title: title,
+            body: body,
+            data: dataValue, // ⚡ OVDE PROSLEĐUJEŠ DATA U LOKALNU NOTIFIKACIJU
+          },
+          trigger: null,
+        });
+
+        this.hasReceivedForeground = true;
+      } catch (error) {
+        console.log(
+          "Error scheduling local notification in foreground:",
+          error,
+        );
       }
-
-
-      // try {
-      //   await Notifications.scheduleNotificationAsync({
-      //     content: {
-      //       title: title,
-      //       body: body,
-      //       data: dataValue,
-      //     },
-      //     trigger: null,
-      //   });
-
-      //   this.hasReceivedForeground = true;
-      // } catch (error) {
-      //   console.log("Error scheduling local notification in foreground:", error);
-      // }
-       await Notifications.scheduleNotificationAsync({
-        content: {
-          title:
-            remoteMessage.notification?.title ??
-            remoteMessage.data?.title ??
-            "Notification",
-          body:
-            remoteMessage.notification?.body ?? remoteMessage.data?.body ?? "",
-          data: remoteMessage.data,
-        },
-        trigger: null,
-      });
     });
 
     this.subscriptions.push(unsub);
   }
-
-
-
-  
   // FOREGROUND
-
-  //   listenToForegroundMessages() {
+  // listenToForegroundMessages() {
   //   const unsub = onMessage(getMessaging(), async (remoteMessage) => {
-  //     console.log("📩 Foreground FCM:", remoteMessage);
+  //     console.log("📩 Foreground FCM received:", remoteMessage);
 
-  //     const hasNotification =
+  //     // const title =
+  //     //   remoteMessage.notification?.title ||
+  //     //   remoteMessage.data?.title ||
+  //     //   "Nova poruka";
+  //     // const body =
+  //     //   remoteMessage.notification?.body || remoteMessage.data?.body || "";
+  //     // const dataValue = remoteMessage.data;
+  //      const hasNotification =
   //       remoteMessage.notification?.title || remoteMessage.notification?.body;
   //     const hasDataPayload =
   //       remoteMessage.data?.title || remoteMessage.data?.body;
 
-  //     if (!hasNotification && !hasDataPayload) {
+  //         if (!hasNotification && !hasDataPayload) {
   //       return;
   //     }
 
-  //     await Notifications.scheduleNotificationAsync({
+
+  //      await Notifications.scheduleNotificationAsync({
   //       content: {
   //         title:
   //           remoteMessage.notification?.title ??
@@ -325,26 +277,14 @@ export class NotificationService {
   //       },
   //       trigger: null,
   //     });
-
-  //     this.hasReceivedForeground = true;
   //   });
 
   //   this.subscriptions.push(unsub);
   // }
 
-  // KILLED STATE
-  // async handleKilledState(callback?: (data: any) => void) {
-  //   if (this.hasHandledInitial) return;
 
-  //   const initial = await getInitialNotification(getMessaging());
-  //   if (initial?.data) {
-  //     console.log("🚀 App opened from KILLED:", initial.data);
-  //     this.hasHandledInitial = true;
-  //     if (typeof callback === "function") {
-  //       callback(initial.data);
-  //     }
-  //   }
-  // }
+
+  
     // KILLED STATE — SAMO JEDNOM
   async handleKilledState(callback: (data: any) => void) {
     if (this.hasHandledInitial) return;
