@@ -82,7 +82,7 @@ function BarberDelete() {
   return (
     <>
       <View style={styles.container}>
-        <StatusBar backgroundColor="black" barStyle="dark-content" />
+        <StatusBar backgroundColor="black" barStyle="light-content" />
         <SharedBackButton
           onPress={router.back}
           styleBtn={{ marginLeft: 10, marginTop: 20 }}

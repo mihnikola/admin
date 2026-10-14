@@ -135,6 +135,9 @@ const DateComponent = () => {
     if (!selectValueDate?.dateString) return false;
     const selectedDate = new Date(selectValueDate.dateString);
     selectedDate.setHours(0, 0, 0, 0);
+    if (selectedDate.getDay() === 0) {
+      return false;
+    }
     return selectedDate.getTime() >= today.getTime();
   };
 
@@ -183,7 +186,7 @@ const DateComponent = () => {
             </TouchableOpacity>
           )}
         </View>
-        <StatusBar backgroundColor="black" barStyle="dark-content" />
+        <StatusBar backgroundColor="black" barStyle="light-content" />
         <View style={[styles.calendarContainer, { height: calendarHight }]}>
           <CalendarList
             key={localization.code}

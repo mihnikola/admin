@@ -25,6 +25,7 @@ import HeaderReservationTime from "@/components/reservation/HeaderReservationTim
 import { useAppointment } from "@/contexts/AppointmentContext";
 import { convertNowDateTimestamp } from "@/helpers";
 import { ColorsBarber } from "@/constants/Colors";
+import { StatusBar } from "react-native";
 
 function ResevationNotificationScreen() {
   const { localization } = useLocalization();
@@ -46,7 +47,7 @@ function ResevationNotificationScreen() {
     missedReservation,
   } = useAppointment();
 
-  console.log("reservationData",reservationData)
+  console.log("reservationData", reservationData);
 
   useEffect(() => {
     fetchReservationDetails(itemId);
@@ -63,7 +64,12 @@ function ResevationNotificationScreen() {
     setIsModalQuestion(false);
 
     setTimeout(async () => {
-      console.log("changeStatusReservation++++",itemId, actionValue, criteriaDate)
+      console.log(
+        "changeStatusReservation++++",
+        itemId,
+        actionValue,
+        criteriaDate,
+      );
       await changeStatusReservation(itemId, actionValue, criteriaDate);
     }, 500);
   };
@@ -164,6 +170,8 @@ function ResevationNotificationScreen() {
 
   return (
     <View style={styles.screenContainer}>
+      <StatusBar backgroundColor="black" barStyle="light-content" />
+
       {!isLoading && reservationData && (
         <ScrollView
           automaticallyAdjustKeyboardInsets

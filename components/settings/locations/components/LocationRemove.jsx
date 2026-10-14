@@ -37,7 +37,7 @@ function LocationRemove() {
   return (
     <>
       <View style={styles.container}>
-        <StatusBar backgroundColor="black" barStyle="dark-content" />
+        <StatusBar backgroundColor="black" barStyle="light-content" />
         <SharedBackButton onPress={router.back} styleBtn={{ marginTop: 20 }} />
         <SharedTabHeader
           image={company?.media?.coverImageSettings}
