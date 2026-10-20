@@ -59,6 +59,9 @@ const AddCategory = () => {
 
         await getCategoryById(id);
       }, 1000);
+    } else {
+      setCategoryNameLocal("")
+      setCategoryNameEn("")
     }
   }, [id]);
 
