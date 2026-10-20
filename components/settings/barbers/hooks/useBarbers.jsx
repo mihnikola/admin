@@ -20,6 +20,7 @@ const useBarbers = () => {
   const [message, setMessage] = useState(null);
   const { logoutFirebase, fetchUserData, userData } = useAuth();
   const [requestData, setRequestData] = useState(null);
+  const [paramsData, setParamsData] = useState(null);
 
   const fetchAllBarbers = async () => {
     setIsLoading("get");
@@ -186,21 +187,20 @@ const useBarbers = () => {
         (isEdit && response.status === 200) ||
         (!isEdit && response.status === 201)
       ) {
+        console.log("response edit ",response)
+        setParamsData({ id: response?.data?.user?._id || response?.data?.barberId, name: userData?.name })
         if (isEdit) {
           setIsMessage(true);
           setMessage(localization.BARBERS.edit);
           await fetchUserData();
+
         } else {
-          router.replace({
-            pathname: "/(tabs)/(03_settings)/servicesBarbers",
-            params: {
-              id: response.data.barberId,
-              name: userData.name,
-            },
-          });
+          setIsMessage(true);
+          setMessage(localization.BARBERS.add);
+
         }
       }
-          await fetchAllBarbers();
+      await fetchAllBarbers();
 
     } catch (err) {
       console.log("POST || PUT ERROR:", err?.response || err);
@@ -236,7 +236,17 @@ const useBarbers = () => {
 
   const confirmHandler = async () => {
     setIsMessage(false);
-    router.back();
+
+    const { id, name } = paramsData;
+    router.push({
+      pathname: "/(tabs)/(03_settings)/servicesBarbers",
+      params: {
+        id,
+        name,
+      },
+    });
+    // router.dismiss(1);
+    // router.back();
   };
 
   useEffect(() => {

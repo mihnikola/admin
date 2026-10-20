@@ -9,7 +9,7 @@ const usePhoneNumber = () => {
   const phoneNumberInputRef = useRef(null);
 
   const { localization } = useLocalization();
-  const phoneRegex = /^\+?\d{9,12}$/;
+  const phoneRegex = /^\+?\d{8,12}$/;
 
   const validatePhoneNumber = (number) => {
     if (number.length === 0) {

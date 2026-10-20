@@ -89,6 +89,7 @@ const Services = () => {
       return Object.keys(item).every((key) => item[key] === other[key]);
     });
   };
+  console.log("disabledBtn", disabledBtn)
   useEffect(() => {
     if (areListsEqual(initialNumber, filterResult)) {
       setDisabledBtn(true);
@@ -116,6 +117,12 @@ const Services = () => {
       service.name.nameEn.toLowerCase().includes(search.toLowerCase()) ||
       service.name.nameLocal.toLowerCase().includes(search.toLowerCase()),
   );
+
+  const skipHandler = () => {
+    router.dismiss(1);
+    router.back();
+    return;
+  }
 
   if (isLoading === "getServices") {
     return <SharedLoader isOpen={isLoading === "getServices"} />;
@@ -158,10 +165,10 @@ const Services = () => {
       </View>
       <View style={{ paddingHorizontal: 12 }}>
         <SharedButtonApproved
-          onPress={() => submitChangesServiceToBarber(id)}
+          onPress={disabledBtn ? skipHandler : () => submitChangesServiceToBarber(id)}
           loading={isLoading === "patch"}
           text={localization.SERVICES.saveChanges}
-          disabled={disabledBtn}
+          skip={disabledBtn ? localization.CATEGORY.skip : null}
         />
       </View>
 
@@ -193,7 +200,7 @@ const styles = StyleSheet.create({
   headerComponent: {
     paddingTop: 25,
     paddingBottom: 15,
-    paddingHorizontal: 16, 
+    paddingHorizontal: 16,
     backgroundColor: ColorsBarber.dark.background,
   },
   searchInputContainer: {
@@ -219,7 +226,7 @@ const styles = StyleSheet.create({
   addressHeader: {
     color: ColorsBarber.dark.inActiveTextColor,
     fontSize: 14,
-        fontFamily: "OldStandard-Bold",
+    fontFamily: "OldStandard-Bold",
     marginTop: 2,
   },
   loadingContainer: {
@@ -258,7 +265,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 22,
-        fontFamily: "OldStandard-Bold",
+    fontFamily: "OldStandard-Bold",
     color: "#fff",
     marginBottom: 10,
   },
@@ -268,7 +275,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     alignItems: "center",
     justifyContent: "space-between",
-   color:ColorsBarber.dark.textColor,
+    color: ColorsBarber.dark.textColor,
   },
 
   subTitle: {
@@ -287,6 +294,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
 
- 
+
 });
 export default withKeyboardAvoid(Services);

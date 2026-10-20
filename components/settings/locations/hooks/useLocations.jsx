@@ -11,11 +11,17 @@ function useLocation() {
   const [message, setMessage] = useState(null);
   const [locations, setLocations] = useState([]);
   const [locationById, setLocationById] = useState(null);
+  const [paramsData, setParamsData] = useState(null);
 
   const confirmHandler = async () => {
     setIsMessage(false);
-    router.back();
+    // router.back();
     await getLocations();
+    const { id, address } = paramsData;
+    router.push({
+      pathname: "/(tabs)/(03_settings)/barbersLocations",
+      params: { id, address },
+    });
   };
 
   const deleteLocation = async (id) => {
@@ -159,14 +165,16 @@ function useLocation() {
         setError(localization.PLACES.notChange);
       }
       if (response.status === 200 || response.status === 201) {
+        console.log("resssss",response.data);
+        setParamsData({ id: response.data._id, address: response.data.address })
+
         if (id) {
           setIsMessage(true);
           setMessage(localization.PLACES.edit);
         } else {
-          router.replace({
-            pathname: "/(tabs)/(03_settings)/barbersLocations",
-            params: { id: response.data._id, address: response.data.address },
-          });
+          setIsMessage(true);
+          setMessage(localization.PLACES.add);
+
         }
       }
     } catch (err) {
@@ -196,6 +204,7 @@ function useLocation() {
   const confirmSubmit = async () => {
     setMessage(null);
     setIsMessage(false);
+
   };
 
   const navigateToBarbers = (item) => {

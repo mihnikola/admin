@@ -85,7 +85,7 @@ export default function BarbersAdd() {
     phoneNumber,
     handlePhoneNumberChange,
     errorPhoneNumber,
-    phoneNumberInputRef,
+    phoneNumberInputRef
   } = usePhoneNumber();
 
   const selectedImgHandler = (imgData) => {

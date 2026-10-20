@@ -17,7 +17,8 @@ const SharedButtonApproved = (props) => {
         <Text
           style={[styles.btnText, props.disabled && styles.btnTextDisabled]}
         >
-          {props.text}
+          {!props.skip && props.text}
+          {props.skip && props.skip}
         </Text>
       )}
       {props.loading && (

@@ -92,6 +92,7 @@ function useLocationBarber() {
   };
 
   const confirmSubmit = async () => {
+    router.dismiss(1);
     router.back();
     setMessage(null);
     setIsMessage(false);

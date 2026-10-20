@@ -1,4 +1,4 @@
-import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
+import { FontAwesome, MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
 import {
   FlatList,
@@ -16,11 +16,15 @@ import Loader from "@/shared-components/Loader";
 import SearchInputComponent from "../settings/SearchInputComponent";
 import { useCategories } from "@/contexts/CategoriesContext";
 import { SharedButton } from "@/shared-components/SharedButton";
-import { useServicesStore } from "@/contexts/ServiceContext";
+// import { useServicesStore } from "@/contexts/ServiceContext";
 const Categories = () => {
-  const { setServiceCategory } = useServicesStore();
+  // const { setServiceCategory } = useServicesStore();
   const { localization } = useLocalization();
-  const { categoryId } = useLocalSearchParams();
+  const { categoryId, serviceId, name } = useLocalSearchParams();
+  console.log("categoryId, serviceId, name", categoryId, serviceId, name)
+  const itemData = {
+    name
+  }
 
   const {
     getAllCategories,
@@ -33,22 +37,27 @@ const Categories = () => {
     removeService,
     confirmHandler,
     categories,
+    addCategoryToServiceHandler
   } = useCategories();
 
   console.log("categoryId", categoryId);
-  const [selectedItem, setSelectedItem] = useState(categoryId ? {_id: categoryId} : null);
+  const [selectedItem, setSelectedItem] = useState(categoryId ? { _id: categoryId } : null);
 
 
   const [isError, setIsError] = useState(null);
   const [search, setSearch] = useState("");
 
-  const addCategoryToService = () => {
-    setServiceCategory(selectedItem);
-    router.back();
+  const addCategoryToService = async () => {
+    if (!selectedItem || categoryId === selectedItem?._id) {
+      router.dismiss(1);
+      router.back();
+      return;
+    }
+    await addCategoryToServiceHandler(serviceId, selectedItem);
   };
 
   const filterCategories = categories.filter((category) =>
-    category.name.toLowerCase().includes(search.toLowerCase()),
+    category.name.nameEn.toLowerCase().includes(search.toLowerCase()) || category.name.nameLocal.toLowerCase().includes(search.toLowerCase())
   );
   const cancelHandler = () => {
     setIsError(null);
@@ -61,19 +70,24 @@ const Categories = () => {
     getAllCategories(categoryId);
   }, []);
   const startEditing = (data) => {
-    const { _id: id, name } = data;
+    const { _id: id } = data;
     router.push({
       pathname: "/(tabs)/(03_settings)/addCategory",
-      params: { categoryValue: name, id },
+      params: { id },
     });
   };
 
   const checkHandler = (item) => {
+    if (item._id == selectedItem?._id) {
+      setSelectedItem(null);
+      return;
+    }
     setSelectedItem(item);
   };
 
   return (
     <View style={styles.container}>
+      {/* 
       <View
         style={{
           flexDirection: "row",
@@ -93,6 +107,32 @@ const Categories = () => {
             color={ColorsBarber.dark.textColor}
           />
         </TouchableOpacity>
+      </View>
+ */}
+      <View style={styles.headerComponent}>
+        <View style={styles.headerRow}>
+          <TouchableOpacity hitSlop={20} onPress={router.back}>
+            <MaterialIcons
+              name="arrow-back"
+              size={25}
+              color={ColorsBarber.dark.textColor}
+            />
+          </TouchableOpacity>
+
+          <View style={styles.headerTextContainer}>
+            <Text style={styles.pageTitleHeader}>
+              {localization.CATEGORY.list}
+            </Text>
+            <Text style={styles.addressHeader}>{itemData.name}</Text>
+          </View>
+          <TouchableOpacity onPress={addServiceRouter}>
+            <MaterialCommunityIcons
+              name="playlist-plus"
+              size={32}
+              color={ColorsBarber.dark.textColor}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
       <View style={styles.searchInputContainer}>
         <SearchInputComponent search={search} setSearch={setSearch} />
@@ -120,7 +160,7 @@ const Categories = () => {
                   />
                 </TouchableOpacity>
                 <View>
-                  <Text style={styles.serviceTextName}>{item.name}</Text>
+                  <Text style={styles.serviceTextName}>{localization.code === 'en' ? item.name.nameEn : item.name.nameLocal}</Text>
                 </View>
               </View>
 
@@ -142,7 +182,9 @@ const Categories = () => {
       {/* <FloatingButton onPress={addServiceRouter} /> */}
       <View style={{ paddingHorizontal: 10 }}>
         <SharedButton
-          text={localization.CATEGORY.add}
+          text={localization.CATEGORY.save}
+          skip={selectedItem?._id === categoryId ? localization.CATEGORY.skip : null}
+          loading={isLoading === 'put'}
           onPress={addCategoryToService}
         />
       </View>
@@ -183,6 +225,35 @@ const Categories = () => {
 };
 
 const styles = StyleSheet.create({
+  headerComponent: {
+    paddingTop: 25,
+    paddingBottom: 15,
+    paddingHorizontal: 8,
+    backgroundColor: ColorsBarber.dark.background,
+    borderBottomWidth: 1,
+    borderColor: "#1A1A1A",
+  },
+  headerRow: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  pageTitleHeader: {
+    fontSize: 20,
+    fontFamily: "OldStandard-Bold",
+    color: ColorsBarber.dark.textColor,
+    letterSpacing: 0.5,
+  },
+  addressHeader: {
+    color: ColorsBarber.dark.inActiveTextColor,
+    fontSize: 16,
+    marginTop: 2,
+    fontFamily: "OldStandard-Bold"
+  },
+  headerTextContainer: {
+    flex: 1,
+    marginLeft: 10,
+    justifyContent: "center",
+  },
   container: {
     flex: 1,
     padding: 10,

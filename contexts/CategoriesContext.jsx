@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import { useLocalization } from "./LocalizationContext";
 import { get, post, put, delete as deleteRequest } from "@/api/apiService";
+import { router } from "expo-router";
 
 const CategoriesContext = createContext(null);
 
@@ -11,6 +12,8 @@ export const CategoriesProvider = ({ children }) => {
   const [message, setMessage] = useState("");
   const [error, setError] = useState(null);
   const [isConfirmation, setIsConfirmation] = useState(false);
+  const [categoryNameEn, setCategoryNameEn] = useState("");
+  const [categoryNameLocal, setCategoryNameLocal] = useState("");
 
   const questionHandler = () => {
     setIsConfirmation(true);
@@ -34,6 +37,23 @@ export const CategoriesProvider = ({ children }) => {
       setIsLoading(null);
     }
   };
+
+  const getCategoryById = async (id) => {
+    setError(null);
+
+    try {
+      const response = await get(`categories/${id}/category`);
+      const { nameEn, nameLocal } = response.data.name;
+      setCategoryNameEn(nameEn)
+      setCategoryNameLocal(nameLocal)
+    } catch (err) {
+      console.error("Greška pri povlačenju kategorija:", err);
+      setError("Greška pri učitavanju kategorija.");
+    } finally {
+      setIsLoading(null);
+    }
+
+  }
   const deleteHandler = async (id) => {
     setIsConfirmation(false);
     setIsLoading("delete");
@@ -53,8 +73,30 @@ export const CategoriesProvider = ({ children }) => {
     }
   };
 
+  const addCategoryToServiceHandler = async (id, category) => {
+    setIsLoading("put");
+    setError(null);
+
+    console.log("id", id)
+    console.log("category", category)
+    try {
+      const response = await put(`admin/services/${id}/category`, { category: category?._id });
+      console.log("addCategoryToServiceHandler", response);
+      if (response.status === 201) {
+        setIsMessage(true);
+        setMessage(localization.CATEGORY.addCategoryToService)
+      }
+      // setCategories(response.data);
+    } catch (err) {
+      console.error("Greška pri povlačenju kategorija:", err);
+      setError("Greška pri učitavanju kategorija.");
+    } finally {
+      setIsLoading(null);
+    }
+  }
+
   // 2. Dodavanje nove kategorije
-  const submitHandler = async (id, name) => {
+  const submitHandler = async (id) => {
     const isEdit = Boolean(id);
 
     // Postavljamo indikator učitavanja zavisno od akcije
@@ -65,8 +107,8 @@ export const CategoriesProvider = ({ children }) => {
       // Određujemo endpoint i API metodu
       const endpoint = isEdit ? `categories/${id}` : "categories";
       const apiCall = isEdit
-        ? put(endpoint, { name })
-        : post(endpoint, { name });
+        ? put(endpoint, { name: { nameEn: categoryNameEn, nameLocal: categoryNameLocal } })
+        : post(endpoint, { name: { nameEn: categoryNameEn, nameLocal: categoryNameLocal } })
 
       const response = await apiCall;
 
@@ -94,6 +136,8 @@ export const CategoriesProvider = ({ children }) => {
       return false;
     } finally {
       setIsLoading(null);
+      setCategoryNameEn("")
+      setCategoryNameLocal("")
     }
   };
   // 3. Confirm handler za zatvaranje poruka
@@ -101,6 +145,8 @@ export const CategoriesProvider = ({ children }) => {
     setIsMessage(false);
     setMessage("");
     setError(null);
+    router.dismiss(1);
+    router.back();
   };
 
   return (
@@ -122,6 +168,13 @@ export const CategoriesProvider = ({ children }) => {
         isConfirmation,
         setIsConfirmation,
         questionHandler,
+        addCategoryToServiceHandler,
+        categoryNameEn,
+        setCategoryNameEn,
+        categoryNameLocal,
+        setCategoryNameLocal,
+        getCategoryById,
+        setIsLoading
       }}
     >
       {children}

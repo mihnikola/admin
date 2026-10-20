@@ -7,14 +7,17 @@ import { SharedMessage } from "@/shared-components/SharedMessage";
 import { FontAwesome } from "@expo/vector-icons";
 import { router, useLocalSearchParams } from "expo-router";
 import { ColorsBarber } from "@/constants/Colors";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import WrapperAuth from "@/wrapper/WrapperAuth";
 import { useCategories } from "@/contexts/CategoriesContext";
 import SharedButtonRejected from "@/shared-components/SharedButtonRejected";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
+import { SharedLoader } from "@/shared-components/SharedLoader";
+import Loader from "@/shared-components/Loader";
 
 const AddCategory = () => {
   const { localization } = useLocalization();
+
   const {
     submitHandler,
     deleteHandler,
@@ -27,15 +30,40 @@ const AddCategory = () => {
     setIsConfirmation,
     error,
     questionHandler,
+    getCategoryById,
+    categoryNameEn,
+    setCategoryNameEn,
+    categoryNameLocal,
+    setCategoryNameLocal,
+    setIsLoading
+
   } = useCategories();
 
-  const { categoryValue, id } = useLocalSearchParams();
-  const [category, setCategory] = useState(categoryValue || "");
 
+
+  const { id } = useLocalSearchParams();
+  // const [category, setCategory] = useState("");
+  // console.log("getCategoryData", getCategoryData)
+
+  console.log("id", id)
   const confirmHandler2 = async () => {
     setIsMessage(false);
     router.back();
   };
+
+  useEffect(() => {
+    if (id) {
+      setIsLoading('get');
+
+      setTimeout(async () => {
+
+        await getCategoryById(id);
+      }, 1000);
+    }
+  }, [id]);
+
+
+
 
   return (
     <WrapperAuth>
@@ -45,42 +73,56 @@ const AddCategory = () => {
         styleBtn={{ marginBottom: 30 }}
       />
 
-      <View style={{ flex: 1, backgroundColor: ColorsBarber.dark.background }}>
-        <View>
-          <Text style={styles.mainTitle}>
-            {id
-              ? localization.CATEGORY.edit
-              : localization.CATEGORY.createLabel}{" "}
-          </Text>
+      {isLoading === 'get' && <Loader />}
+      {isLoading !== 'get' &&
+        <View style={{ flex: 1, backgroundColor: ColorsBarber.dark.background }}>
+          <View>
+            <Text style={styles.mainTitle}>
+              {id
+                ? localization.CATEGORY.edit
+                : localization.CATEGORY.createLabel}{" "}
+            </Text>
+          </View>
+          <View style={{ marginTop: 20 }}>
+            <SharedInput
+              label={localization.CATEGORY.titleEn}
+              value={categoryNameLocal}
+              onChangeText={setCategoryNameLocal}
+              placeholder={localization.CATEGORY.enterEn}
+              style={styles.input}
+            />
+          </View>
+          <View style={{ marginTop: 20 }}>
+            <SharedInput
+              label={localization.CATEGORY.titleLocal}
+              value={categoryNameEn}
+              onChangeText={setCategoryNameEn}
+              placeholder={localization.CATEGORY.enterLocal}
+              style={styles.input}
+            />
+          </View>
         </View>
-        <View style={{ marginTop: 20 }}>
-          <SharedInput
-            label={localization.CATEGORY.title}
-            value={category}
-            onChangeText={setCategory}
-            placeholder={localization.CATEGORY.enter}
-            style={styles.input}
+      }
+      {isLoading !== 'get' &&
+        <View style={{ gap: 20 }}>
+          <SharedButton
+            disabled={categoryNameEn?.length === 0 && categoryNameLocal?.length === 0}
+            onPress={() => submitHandler(id)}
+            loading={isLoading === "post" || isLoading === "patch"}
+            text={
+              id ? localization.CATEGORY.save : localization.CATEGORY.createBtn
+            }
           />
+          {id && (
+            <SharedButtonRejected
+              onPress={questionHandler}
+              loading={isLoading === "delete"}
+              text={localization.CATEGORY.deleteBtn}
+            />
+          )}
         </View>
-      </View>
+      }
 
-      <View>
-        <SharedButton
-          disabled={category?.length === 0}
-          onPress={() => submitHandler(id, category)}
-          loading={isLoading === "post" || isLoading === "patch"}
-          text={
-            id ? localization.CATEGORY.save : localization.CATEGORY.createBtn
-          }
-        />
-        {id && (
-          <SharedButtonRejected
-            onPress={questionHandler}
-            loading={isLoading === "delete"}
-            text={localization.CATEGORY.deleteBtn}
-          />
-        )}
-      </View>
       {isConfirmation && (
         <SharedQuestion
           isOpen={isConfirmation}
@@ -98,7 +140,7 @@ const AddCategory = () => {
           title={message}
         />
       )}
-     
+
       {isMessage && (
         <SharedMessage
           isOpen={isMessage}

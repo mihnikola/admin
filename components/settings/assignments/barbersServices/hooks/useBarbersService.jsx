@@ -106,6 +106,7 @@ const useBarbersService = () => {
   };
 
   const confirmHandler = async () => {
+    router.dismiss(1);
     router.back();
 
     setIsMessage(false);

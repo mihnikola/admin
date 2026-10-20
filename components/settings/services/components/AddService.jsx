@@ -1,27 +1,22 @@
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import React, { useEffect, useRef, useState } from "react";
-import { ActivityIndicator, ScrollView, StyleSheet, View } from "react-native";
+import { ActivityIndicator, StyleSheet, TouchableOpacity, View } from "react-native";
 import ImageCompress from "../../ImageCompress";
 import useServices from "../hooks/useServices";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
-import { SharedLoader } from "@/shared-components/SharedLoader";
 import { router, useLocalSearchParams } from "expo-router";
 import ServiceInput from "./ServiceInput";
 import SharedButtonRejected from "@/shared-components/SharedButtonRejected";
 import SharedButtonApproved from "@/shared-components/SharedButtonApproved";
 import { ColorsBarber } from "@/constants/Colors";
 import SharedBackButton from "@/shared-components/SharedBackButton";
-import Loader from "@/shared-components/Loader";
-import BarberSeniorityComponent from "../../barbers/components/BarbersSeniorityInput";
-import { useServicesStore } from "@/contexts/ServiceContext";
 
 export default function AddService() {
   const { localization } = useLocalization();
   const params = useLocalSearchParams();
   const { id } = params;
-  const { serviceCategory, setServiceCategory } = useServicesStore();
   const {
     isLoading,
     error,
@@ -35,6 +30,7 @@ export default function AddService() {
     getServiceHandler,
     getServiceData,
     removeService,
+    navigateToCategory
   } = useServices();
 
   useEffect(() => {
@@ -74,7 +70,6 @@ export default function AddService() {
       setDuration(getServiceData.duration?.toString() || "");
       selectedImgHandler(getServiceData?.image);
       setEditingId(getServiceData?.id);
-      setServiceCategory(getServiceData?.category);
     }
   }, [getServiceData]);
 
@@ -85,7 +80,6 @@ export default function AddService() {
       getServiceData?.name?.nameLocal === nameLocal &&
       getServiceData.price?.toString() === price &&
       getServiceData.duration?.toString() === duration &&
-      getServiceData.category?._id === serviceCategory?._id &&
       getServiceData?.image === changedImg
     ) {
       return true;
@@ -127,7 +121,6 @@ export default function AddService() {
         price: parseFloat(price),
         duration: parseInt(duration),
         image: changedImg === imageValue ? null : changedImg,
-        category: serviceCategory?._id,
       };
       if (updateService) {
         addEditService(updateService);
@@ -139,7 +132,6 @@ export default function AddService() {
         price: parseFloat(price),
         duration: parseInt(duration),
         image: changedImg === imageValue ? null : changedImg,
-        category: serviceCategory?._id,
       };
 
       addEditService(newService);
@@ -154,42 +146,40 @@ export default function AddService() {
   };
   const handleNumberInput =
     (setValue, maxLength = 4) =>
-    (text) => {
-      const cleaned = text.replace(/\D/g, "").slice(0, maxLength);
-      setValue(cleaned);
-    };
+      (text) => {
+        const cleaned = text.replace(/\D/g, "").slice(0, maxLength);
+        setValue(cleaned);
+      };
 
-  // if (isLoading === "getService") {
-  //   return <SharedLoader isOpen={isLoading === "getService"} />;
-  // }
-  const modalHandler = () => {
-    
 
-    router.push({
-      pathname: "/(tabs)/(03_settings)/getCategories",
-      params: { categoryId: serviceCategory?._id || null },
-    });
-  };
 
   return (
     <View style={styles.container}>
-      {/* <ScrollView
-        ref={scrollRef}
-        keyboardDismissMode="interactive"
-        style={styles.safeArea}
-        contentContainerStyle={{
-          flexGrow: 1,
-          paddingBottom: 20,
-          marginHorizontal: 12,
-        }}
-        keyboardShouldPersistTaps="always"
-      > */}
-      <SharedBackButton
-        onPress={router.back}
-        absolutePosition={false}
-        styleBtn={{ marginTop: 20 }}
-      />
 
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          marginTop: 30,
+          marginHorizontal: 15,
+        }}
+      >
+        <View>
+          <SharedBackButton
+            onPress={router.back}
+            absolutePosition={false}
+          />
+        </View>
+        {id && (
+          <TouchableOpacity onPress={() => navigateToCategory(getServiceData)}>
+            <MaterialCommunityIcons
+              name="playlist-plus"
+              size={32}
+              color={ColorsBarber.dark.textColor}
+            />
+          </TouchableOpacity>
+        )}
+      </View>
       {isLoading !== "getService" ? (
         <>
           <View style={{ flex: 1 }}>
@@ -200,7 +190,6 @@ export default function AddService() {
                 setImageValue={setChangedImg}
               />
             </View>
-            {/* ovo ti je za lokalni jezik - srpski nameLocal */}
             <ServiceInput
               icon="scissors"
               label={localization.SERVICES.serviceNameSr}
@@ -268,12 +257,7 @@ export default function AddService() {
                 ref={refDuration}
               />
             </View>
-            <BarberSeniorityComponent
-              modalHandler={modalHandler}
-              label={localization.SERVICES.chooseCategory}
-              selected={serviceCategory?.name}
-              // selected={selected?.title}
-            />
+
           </View>
           <View style={[styles.btnContainer, id && styles.btnGap]}>
             <SharedButtonApproved
@@ -300,7 +284,6 @@ export default function AddService() {
           <ActivityIndicator size={72} color={ColorsBarber.dark.textColor} />
         </View>
       )}
-      {/* </ScrollView> */}
 
       {isMessage && (
         <SharedMessage

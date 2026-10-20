@@ -83,6 +83,11 @@ const Barbers = () => {
       }, 100);
     }
   }, [id]);
+  const skipHandler = () => {
+    router.dismiss(1);
+    router.back();
+    return;
+  }
   const filteredBarbers = locationBarbersData.filter((barber) =>
     barber.name.toLowerCase().includes(search.toLowerCase()),
   );
@@ -110,7 +115,7 @@ const Barbers = () => {
         </View>
       </View>
 
-      <View style={{ flex: 1, paddingHorizontal: 12, paddingBottom: 24 }}>
+      <View style={{ flex: 1, paddingHorizontal: 12 }}>
         <View style={styles.searchInputContainer}>
           <SearchInputComponent search={search} setSearch={setSearch} />
         </View>
@@ -122,12 +127,12 @@ const Barbers = () => {
           )}
         />
       </View>
-      <View style={{ paddingHorizontal: 16, paddingBottom: 24 }}>
+      <View style={{ paddingHorizontal: 16 }}>
         <SharedButtonApproved
-          onPress={() => submitChanges(id)}
+          onPress={disabledBtn ? skipHandler : () => submitChanges(id)}
           loading={isLoading === "post"}
           text={localization.SERVICES.saveChanges}
-          disabled={disabledBtn}
+          skip={disabledBtn ? localization.CATEGORY.skip : null}
         />
       </View>
 
@@ -190,7 +195,7 @@ const styles = StyleSheet.create({
   },
   pageTitleHeader: {
     fontSize: 20,
-    fontFamily:"OldStandard-Bold",
+    fontFamily: "OldStandard-Bold",
     color: ColorsBarber.dark.textColor,
     letterSpacing: 0.5,
   },
@@ -198,7 +203,7 @@ const styles = StyleSheet.create({
     color: ColorsBarber.dark.inActiveTextColor,
     fontSize: 16,
     marginTop: 2,
-    fontFamily:"OldStandard-Bold"
+    fontFamily: "OldStandard-Bold"
   },
 
   loadingContainer: {

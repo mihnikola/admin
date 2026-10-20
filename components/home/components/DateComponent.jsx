@@ -180,7 +180,7 @@ const DateComponent = () => {
 
               <FontAwesome
                 name="plus-circle"
-                size={32}
+                size={22}
                 color={ColorsBarber.dark.textColor}
               />
             </TouchableOpacity>

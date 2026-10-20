@@ -16,6 +16,7 @@ const useServices = () => {
   const { localization } = useLocalization();
   const [isMessage, setIsMessage] = useState(false);
   const [message, setMessage] = useState(null);
+  const [responseAdd, setResponseAdd] = useState(null);
   const fetchAllServices = async () => {
     setIsLoading("get");
     setError(null);
@@ -41,6 +42,14 @@ const useServices = () => {
       setIsLoading(null);
     }
   };
+
+  const navigateToCategory = (data) => {
+    router.push({
+      pathname: "/(tabs)/(03_settings)/getCategories",
+      params: { categoryId: data?.category?._id || null, name: localization.code === 'en' ? data?.name?.nameEn : data?.name?.nameLocal, serviceId: data?._id || data?.id },
+    });
+
+  }
 
   const removeService = async (id) => {
     setIsLoading("remove");
@@ -138,7 +147,7 @@ const useServices = () => {
     }
     formData.append("duration", userData?.duration);
     formData.append("price", userData?.price);
-    formData.append("category", userData?.category);
+    // formData.append("category", userData?.category);
 
     if (userData?.image) {
       const filename = userData?.image.split("/").pop();
@@ -171,6 +180,8 @@ const useServices = () => {
         if (response.status === 200) {
           setIsMessage(true);
           setMessage(localization.SERVICES.editService);
+          setResponseAdd(response.data);
+
         }
         setTimeout(async () => {
           await fetchAllServices();
@@ -196,6 +207,7 @@ const useServices = () => {
         if (response.status === 201) {
           setIsMessage(true);
           setMessage(localization.SERVICES.addService);
+          setResponseAdd(response.data);
         }
         setTimeout(async () => {
           await fetchAllServices();
@@ -235,7 +247,17 @@ const useServices = () => {
 
   const confirmHandler = async () => {
     setIsMessage(false);
-    router.back();
+    // router.back();
+    console.log("responseAdd data", responseAdd);
+
+    router.push({
+      pathname: "/(tabs)/(03_settings)/getCategories",
+      params: {
+        categoryId: responseAdd?.data?.category || responseAdd?.data?.categoryId,
+        serviceId: responseAdd?.data?._id || responseAdd?.data?.id,
+        name: localization.code === 'en' ? responseAdd?.data?.name?.nameEn : responseAdd?.data?.name?.nameLocal
+      }
+    })
   };
 
   return {
@@ -261,6 +283,7 @@ const useServices = () => {
     timesData,
     serviceCategory,
     chooseOne,
+    navigateToCategory
   };
 };
 
