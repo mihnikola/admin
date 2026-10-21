@@ -13,7 +13,7 @@ import { router, useLocalSearchParams } from "expo-router";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { ColorsBarber } from "@/constants/Colors";
 import Loader from "@/shared-components/Loader";
-import SearchInputComponent from "../settings/SearchInputComponent";
+import SearchInputComponent from "../settings/sharedComponents/SearchInputComponent";
 import { useCategories } from "@/contexts/CategoriesContext";
 import { SharedButton } from "@/shared-components/SharedButton";
 // import { useServicesStore } from "@/contexts/ServiceContext";

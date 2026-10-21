@@ -1,4 +1,4 @@
-import AbsentManagementList from "@/components/settings/AbsentManagementList";
+import AbsentManagementList from "@/components/settings/absence/components/AbsentManagementList";
 
 function absenceManagerList() {
     return <AbsentManagementList />;

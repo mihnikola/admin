@@ -3,7 +3,7 @@ import SharedBackButton from "@/shared-components/SharedBackButton";
 import { router, useLocalSearchParams } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import SearchInputComponent from "../settings/SearchInputComponent";
+import SearchInputComponent from "../settings/sharedComponents/SearchInputComponent";
 import { SharedButton } from "@/shared-components/SharedButton";
 import useServices from "../settings/services/hooks/useServices";
 import { useLocalization } from "@/contexts/LocalizationContext";

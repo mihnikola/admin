@@ -19,7 +19,7 @@ import useBarbersService from "../hooks/useBarbersService";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import SharedButtonApproved from "@/shared-components/SharedButtonApproved";
 import withKeyboardAvoid from "@/wrapper/WrapperKeyboard";
-import SearchInputComponent from "@/components/settings/SearchInputComponent";
+import SearchInputComponent from "@/components/settings/sharedComponents/SearchInputComponent";
 import { ColorsBarber } from "@/constants/Colors";
 
 const Services = () => {
@@ -32,20 +32,7 @@ const Services = () => {
     image,
     phoneNumber: phoneNumber || "",
   };
-  // const itemData = {
-  //   id,
-  //   address,
-  // };
-  // const {
-  //   isLoading,
-  //   isMessage,
-  //   message,
-  //   locationBarbersData,
-  //   confirmSubmit,
-  //   getBarbersById,
-  //   toggleBarber,
-  //   submitChanges,
-  // } = useLocationBarber();
+
   const {
     isLoading,
     error,

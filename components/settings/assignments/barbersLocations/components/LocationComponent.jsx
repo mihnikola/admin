@@ -8,12 +8,12 @@ import {
   View,
   Image,
 } from "react-native";
-import useLocationBarber from "./hooks/useLocationBarber";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { SharedButton } from "@/shared-components/SharedButton";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import Loader from "@/shared-components/Loader";
 import { ColorsBarber } from "@/constants/Colors";
+import useLocationBarber from "../hooks/useLocationBarber";
 
 const LocationComponent = () => {
   const { localization } = useLocalization();

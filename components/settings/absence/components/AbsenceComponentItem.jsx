@@ -1,20 +1,8 @@
 import { ColorsBarber } from "@/constants/Colors";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import AbsenceDateFormatComponent from "./../../components/home/components/AbsenceDateFormatComponent";
+import AbsenceDateFormatComponent from "./AbsenceDateFormatComponent";
 
 const AbsenceComponentItem = ({ item }) => {
-  // const goToScreen = (item) => {
-  //     router.push({
-  //         pathname: "/(reservation_notification)/",
-  //         params: {
-  //             itemId: item?.id,
-  //             user: item?.user?.name,
-  //             note: item?.description,
-  //             requirement: true,
-  //         },
-  //     });
-  // };
-
   return (
     <TouchableOpacity key={item._id} style={styles.eventItem}>
       <View style={styles.timeBlock}>

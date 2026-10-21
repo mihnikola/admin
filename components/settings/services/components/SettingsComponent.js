@@ -15,7 +15,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
-import SettingsItem from "../../SettingsItem";
+import SettingsItem from "./SettingsItem";
 import { getInitialsName } from "@/helpers";
 import { ColorsBarber } from "@/constants/Colors";
 

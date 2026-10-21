@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import useStatusNotification from "./hooks/useStatusNotification";
+import useStatusNotification from "../hooks/useStatusNotification";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { router } from "expo-router";
 import { SharedLoader } from "@/shared-components/SharedLoader";

@@ -16,7 +16,7 @@ import { SharedMessage } from "@/shared-components/SharedMessage";
 import { router, useFocusEffect } from "expo-router";
 import BarberItem from "./BarberItem";
 import SharedBackButton from "@/shared-components/SharedBackButton";
-import SearchInputComponent from "@/components/settings/SearchInputComponent";
+import SearchInputComponent from "@/components/settings/sharedComponents/SearchInputComponent";
 import withKeyboardAvoid from "@/wrapper/WrapperKeyboard";
 
 const Barbers = () => {

@@ -12,7 +12,7 @@ import {
 import useGetClients from "./hooks/useGetClients";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { getInitialsName } from "@/helpers";
-import SearchInputComponent from "../settings/SearchInputComponent";
+import SearchInputComponent from "../settings/sharedComponents/SearchInputComponent";
 import { ColorsBarber } from "@/constants/Colors";
 import Loader from "@/shared-components/Loader";
 

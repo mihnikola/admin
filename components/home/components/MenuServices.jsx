@@ -14,7 +14,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import SearchInputComponent from "@/components/settings/SearchInputComponent";
+import SearchInputComponent from "@/components/settings/sharedComponents/SearchInputComponent";
 import { ColorsBarber } from "@/constants/Colors";
 
 const locations = [

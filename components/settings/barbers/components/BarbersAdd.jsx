@@ -23,7 +23,7 @@ import { SharedLoader } from "@/shared-components/SharedLoader";
 import { useCompany } from "@/contexts/CompanyContext";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import { router, useLocalSearchParams } from "expo-router";
-import ImageCompress from "../../ImageCompress";
+import ImageCompress from "../../sharedComponents/ImageCompress";
 import BarbersSeniority from "./BarbersSeniority";
 import BarbersInput from "./BarbersInput";
 import BarberChangePassword from "./BarberChangePassword";

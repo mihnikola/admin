@@ -1,7 +1,7 @@
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import React, { useEffect, useRef, useState } from "react";
 import { ActivityIndicator, StyleSheet, TouchableOpacity, View } from "react-native";
-import ImageCompress from "../../ImageCompress";
+import ImageCompress from "../../sharedComponents/ImageCompress";
 import useServices from "../hooks/useServices";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { SharedMessage } from "@/shared-components/SharedMessage";

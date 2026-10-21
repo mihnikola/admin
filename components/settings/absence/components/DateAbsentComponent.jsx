@@ -1,9 +1,9 @@
-import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Platform, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { ColorsBarber } from "@/constants/Colors";
-
+import DatePickerModal from './DatePickerModal';
 function DateAbsentComponent({
   setShowDate,
   date,
@@ -13,18 +13,39 @@ function DateAbsentComponent({
 }) {
   const { localization } = useLocalization();
   const locale = localization.code === "sr" ? "sr-Latn-RS" : "en-GB";
+  const [tempDate, setTempDate] = useState(date || new Date());
 
-  const datePart = new Intl.DateTimeFormat(locale, {
+  const datePart = date ? new Intl.DateTimeFormat(locale, {
     day: "numeric",
     month: "long",
     year: "numeric",
-  }).format(date);
+  }).format(new Date(date)) : "";
 
-  const formatted = `${datePart}`;
-  const handleChange = (event, selectedDate) => {
+
+  useEffect(() => {
+    if (showDate) {
+      setTempDate(date || new Date());
+    }
+  }, [showDate]);
+
+  const handleConfirmIOS = () => {
+    const fakeEvent = { type: "set" };
+    onDateChange(fakeEvent, tempDate);
     setShowDate(false);
-    if (event.type === "set" && selectedDate) {
-      onDateChange(event, selectedDate);
+    // onDateChange(null, tempDate);
+    // setShowDate(false);
+  };
+
+  const handleChange = (event, selectedDate) => {
+    if (Platform.OS === "android") {
+      setShowDate(false);
+      if (event.type === "set" && selectedDate) {
+        onDateChange(event, selectedDate);
+      }
+    } else {
+      if (selectedDate) {
+        setTempDate(selectedDate);
+      }
     }
   };
 
@@ -36,11 +57,11 @@ function DateAbsentComponent({
           onPress={() => setShowDate(true)}
           activeOpacity={0.7}
         >
-          <Text style={styles.dateText}>{formatted || placeholder}</Text>
+          <Text style={styles.dateText}>{datePart || placeholder}</Text>
         </TouchableOpacity>
       </View>
 
-      {showDate && (
+      {showDate && Platform.OS === "android" && (
         <DateTimePicker
           value={date || new Date()}
           mode="date"
@@ -49,17 +70,15 @@ function DateAbsentComponent({
           minimumDate={new Date()}
         />
       )}
+      {showDate && Platform.OS === "ios" && (
+        <DatePickerModal tempDate={tempDate} handleConfirmIOS={handleConfirmIOS} handleChange={handleChange} setShowDate={setShowDate} showDate={showDate} />
+      )}
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  row: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    marginBottom: 15,
-  },
+
   dateButton: {
     flexDirection: "row",
     alignItems: "center",

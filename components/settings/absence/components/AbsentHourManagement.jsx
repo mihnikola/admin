@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import DateAbsentComponent from "./DateAbsentComponent";
 import { useLocalization } from "@/contexts/LocalizationContext";
-import useAbsentHours from "./hooks/useAbsentHours";
+import useAbsentHours from "../hooks/useAbsentHours";
 import { useAuth } from "@/contexts/AuthContext";
 import { FontAwesome } from "@expo/vector-icons";
 import { SharedMessage } from "@/shared-components/SharedMessage";

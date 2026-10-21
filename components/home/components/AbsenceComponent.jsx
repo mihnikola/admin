@@ -5,7 +5,7 @@ import { useCallback } from "react";
 import { router, useFocusEffect } from "expo-router";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import useAbsence from "../hooks/useAbscence";
-import AbsenceComponentItem from "@/components/settings/AbsenceComponentItem";
+import AbsenceComponentItem from "@/components/settings/absence/components/AbsenceComponentItem";
 import { ColorsBarber } from "@/constants/Colors";
 export default function AbsenceComponent() {
   const { isLoading, absenceData, fetchAbsence } = useAbsence();

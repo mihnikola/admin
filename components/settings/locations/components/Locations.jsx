@@ -10,12 +10,12 @@ import { useLocalization } from "@/contexts/LocalizationContext";
 import Loader from "@/shared-components/Loader";
 import LocationItem from "./LocationItem";
 import useLocation from "../hooks/useLocations";
-import FloatingButton from "../../FloatingButton";
+import FloatingButton from "../../sharedComponents/FloatingButton";
 import { useCallback, useState } from "react";
 import { router, useFocusEffect } from "expo-router";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { Ionicons } from "@expo/vector-icons";
-import SearchInputComponent from "../../SearchInputComponent";
+import SearchInputComponent from "../../sharedComponents/SearchInputComponent";
 import withKeyboardAvoid from "@/wrapper/WrapperKeyboard";
 import { ColorsBarber } from "@/constants/Colors";
 

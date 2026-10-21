@@ -12,8 +12,8 @@ import {
 import CustomDropDownPicker from "./CustomDropDownPicker";
 import { FontAwesome } from "@expo/vector-icons";
 import { useLocalization } from "@/contexts/LocalizationContext";
-import { SharedQuestion } from "../../shared-components/SharedQuestion";
-import TimePickerModal from "./TimePickerModal";
+import { SharedQuestion } from "../../../../shared-components/SharedQuestion";
+import TimePickerModal from "../../absence/components/TimePickerModal";
 import SharedButtonRejected from "@/shared-components/SharedButtonRejected";
 import SharedButtonDeactivate from "@/shared-components/SharedButtonDeactivate";
 import SharedButtonActivate from "@/shared-components/SharedButtonActivate";

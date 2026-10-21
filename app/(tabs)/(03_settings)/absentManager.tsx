@@ -1,4 +1,4 @@
-import AbsentHourManagement from "@/components/settings/AbsentHourManagement";
+import AbsentHourManagement from "@/components/settings/absence/components/AbsentHourManagement";
 
 function absentManager() {
   return <AbsentHourManagement />;

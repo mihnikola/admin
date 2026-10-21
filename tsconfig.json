@@ -14,7 +14,7 @@
     "expo-env.d.ts",
     "shared-hooks/useFetchLocations.jsx",
     "shared-components/SharedCoverImage.jsx",
-    "components/settings/AbsentHourManagement.jsx",
+    "components/settings/absence/components/AbsentHourManagement.jsx",
     "components/settings/AssignLocationScree.jsx",
     "components/settings/AssignServicesScreen.jsx",
     "components/home/components/UpcomingAppointmentCard.jsx",
@@ -24,7 +24,7 @@
     "components/home/components/HomeImage.jsx",
     "components/home/components/HomeScreen.jsx",
     "components/home/components/MenuServices.jsx",
-    "components/settings/WorkHourManagement.jsx"
-, "components/EventTimeLineList.jsx", "components/settings/DateAbsentComponent.jsx", "components/settings/TimeAbsentComponent.jsx", "wrapper/WrapperKeyboard.jsx"  ],
+    "components/settings/locations/components/WorkHourManagement.jsx"
+, "components/EventTimeLineList.jsx", "components/settings/absence/components/DateAbsentComponent.jsx", "components/settings/absence/components/TimeAbsentComponent.jsx", "wrapper/WrapperKeyboard.jsx"  ],
   "extends": "expo/tsconfig.base"
 }

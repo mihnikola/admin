@@ -19,10 +19,12 @@ const BarberTheme = {
 
 export default function RootLayout() {
   const isConnected = useInternetGuard();
-  const [loaded, error] = useFonts({
-    "OldStandard-Regular": require("@/assets/fonts/OldStandardTT-Regular.ttf"),
-    "OldStandard-Bold": require("@/assets/fonts/OldStandardTT-Bold.ttf"),
-    "OldStandard-Italic": require("@/assets/fonts/OldStandardTT-Italic.ttf"),
+
+
+   const [loaded, error] = useFonts({
+    "OldStandard-Regular": require("@/assets/fonts/BarlowCondensed-Regular.ttf"),
+    "OldStandard-Bold": require("@/assets/fonts/BarlowCondensed-Bold.ttf"),
+    "OldStandard-Italic": require("@/assets/fonts/BarlowCondensed-Italic.ttf"),
   });
 
   if (!loaded && !error) {

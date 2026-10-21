@@ -6,7 +6,7 @@ import LocationItem from "./LocationItem";
 import { useEffect, useState } from "react";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { router } from "expo-router";
-import SearchInputComponent from "@/components/settings/SearchInputComponent";
+import SearchInputComponent from "@/components/settings/sharedComponents/SearchInputComponent";
 import withKeyboardAvoid from "@/wrapper/WrapperKeyboard";
 import { ColorsBarber } from "@/constants/Colors";
 

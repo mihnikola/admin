@@ -12,10 +12,10 @@ import useServices from "../hooks/useServices";
 import Loader from "../../../../shared-components/Loader";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { SharedMessage } from "@/shared-components/SharedMessage";
-import FloatingButton from "../../FloatingButton";
+import FloatingButton from "../../sharedComponents/FloatingButton";
 import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
 import SharedBackButton from "@/shared-components/SharedBackButton";
-import SearchInputComponent from "../../SearchInputComponent";
+import SearchInputComponent from "../../sharedComponents/SearchInputComponent";
 import withKeyboardAvoid from "@/wrapper/WrapperKeyboard";
 import { ColorsBarber } from "@/constants/Colors";
 

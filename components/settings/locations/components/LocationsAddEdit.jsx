@@ -8,7 +8,7 @@ import useLocation from "../hooks/useLocations";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import GooglePlace from "./GooglePlace";
 import LocationInput from "./LocationInput";
-import TimeSettingsScreen from "../../WorkHourManagement";
+import TimeSettingsScreen from "./WorkHourManagement";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { ColorsBarber } from "@/constants/Colors";
 

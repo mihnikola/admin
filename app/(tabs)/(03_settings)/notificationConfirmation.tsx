@@ -1,4 +1,4 @@
-import StatusReservationConfirmation from '@/components/settings/StatusReservationConfirmation';
+import StatusReservationConfirmation from '@/components/settings/typeConfirmationReservation/components/StatusReservationConfirmation';
 
 const notificationConfirmation = () => {
     return <StatusReservationConfirmation />;

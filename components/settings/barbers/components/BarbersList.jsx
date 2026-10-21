@@ -10,18 +10,18 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import ImageCompress from "../../ImageCompress";
+import ImageCompress from "../../sharedComponents/ImageCompress";
 import useBarbers from "../hooks/useBarbers";
 import Loader from "../../../../shared-components/Loader";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import { ColorsBarber } from "@/constants/Colors";
-import FloatingButton from "../../FloatingButton";
+import FloatingButton from "../../sharedComponents/FloatingButton";
 import { router } from "expo-router";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { getInitialsName } from "@/helpers";
-import SearchInputComponent from "../../SearchInputComponent";
+import SearchInputComponent from "../../sharedComponents/SearchInputComponent";
 import withKeyboardAvoid from "@/wrapper/WrapperKeyboard";
 
 const BarbersList = () => {

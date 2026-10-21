@@ -12,7 +12,7 @@ import Constants from "expo-constants";
 import { useLocalization } from "./../../../../contexts/LocalizationContext";
 import { Keyboard } from "react-native";
 import { useCompany } from "@/contexts/CompanyContext";
-import SearchInputComponent from "../../SearchInputComponent";
+import SearchInputComponent from "../../sharedComponents/SearchInputComponent";
 import { ColorsBarber } from "@/constants/Colors";
 
 const apiKey = Constants.expoConfig.extra.API_KEY_MAP;

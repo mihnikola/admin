@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
-import usePickImage from "./hooks/usePickImage";
+import usePickImage from "../../../shared-hooks/usePickImage";
 import { ColorsBarber } from "@/constants/Colors";
 
 export default function ImageCompress({

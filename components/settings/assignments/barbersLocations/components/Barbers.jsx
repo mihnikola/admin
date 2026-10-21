@@ -15,7 +15,7 @@ import BarberItem from "./BarberItem";
 import SharedButtonApproved from "@/shared-components/SharedButtonApproved";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import withKeyboardAvoid from "@/wrapper/WrapperKeyboard";
-import SearchInputComponent from "@/components/settings/SearchInputComponent";
+import SearchInputComponent from "@/components/settings/sharedComponents/SearchInputComponent";
 import { ColorsBarber } from "@/constants/Colors";
 
 const Barbers = () => {

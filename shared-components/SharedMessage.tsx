@@ -17,7 +17,6 @@ export const SharedMessage = ({
   onConfirm,
   isLoading,
 }) => {
-  console.log("title",title)
   return (
     <Modal
       animationType="fade"

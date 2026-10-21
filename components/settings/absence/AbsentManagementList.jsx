@@ -5,7 +5,7 @@ import SharedBackButton from "@/shared-components/SharedBackButton";
 import { router, useFocusEffect } from "expo-router";
 import { useCallback, useEffect } from "react";
 import useAbsentHours from "./hooks/useAbsentHours";
-import AbsenceComponentItem from './AbsenceComponentItem';
+import AbsenceComponentItem from './components/AbsenceComponentItem';
 
 
 const AbsentManagementList = () => {
