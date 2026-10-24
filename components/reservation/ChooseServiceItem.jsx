@@ -3,21 +3,21 @@ import SharedBackButton from "@/shared-components/SharedBackButton";
 import { router, useLocalSearchParams } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
 import { FlatList, ScrollView, StyleSheet, Text, View } from "react-native";
-import useServices from "../settings/services/hooks/useServices";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import ServiceItem from "../settings/assignments/barbersServices/components/ServiceItem";
 import Loader from "@/shared-components/Loader";
+import { useServiceCategory } from "@/contexts/ServiceCategoryContext";
 
 function ChooseServiceItem() {
   const { localization } = useLocalization();
-  const { getServices, getServiceData, isLoading } = useServices();
+  const { getServices, getServiceData, isLoading } = useServiceCategory();
   
   const { date, name, phoneNumber, email } = useLocalSearchParams();
   const submitHandler = async (item) => {
     const { id, price, name: nameValue, duration, image } = item;
     router.push({
-      pathname: "/(add_reservation)/confirmReservation",
+      pathname: "confirmReservation",
       params: {
         name,
         email,
@@ -34,9 +34,12 @@ function ChooseServiceItem() {
   };
   useEffect(() => {
     if (date) {
+      console.log("date",date);
+
       getServices(date);
     }
   }, []);
+      console.log("getServiceData",getServiceData);
 
   return (
     <View

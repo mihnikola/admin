@@ -17,6 +17,7 @@ import { SharedLoader } from "@/shared-components/SharedLoader";
 import withKeyboardAvoid from "@/wrapper/WrapperKeyboard";
 import SearchInputComponent from "@/components/settings/sharedComponents/SearchInputComponent";
 import { ColorsBarber } from "@/constants/Colors";
+import { SharedQuestion } from "@/shared-components/SharedQuestion";
 
 const Barbers = () => {
   const { localization } = useLocalization();
@@ -40,6 +41,7 @@ const Barbers = () => {
   const [search, setSearch] = useState("");
 
   const [disabledBtn, setDisabledBtn] = useState(true);
+
   const initialNumber = initialBarbers?.filter((item) => {
     if (item.flag === "T") {
       return item;
@@ -61,7 +63,6 @@ const Barbers = () => {
   };
 
   const filterResult = locationBarbersData.filter((item) => item.flag === "T");
-
   useEffect(() => {
     if (areListsEqual(initialNumber, filterResult)) {
       setDisabledBtn(true);
@@ -71,6 +72,8 @@ const Barbers = () => {
   }, [locationBarbersData]);
 
   const [isError, setIsError] = useState(null);
+  const [notification, setNotification] = useState(null);
+  const [notificationQuestion, setNotificationQuestion] = useState(null);
 
   const cancelHandler = () => {
     setIsError(null);
@@ -84,6 +87,23 @@ const Barbers = () => {
     }
   }, [id]);
   const skipHandler = () => {
+    if (filterResult?.length > 0) {
+      router.dismiss(1);
+      router.back();
+      return;
+    }
+    setNotificationQuestion(localization.SETTINGS.LOCATIONSBARBERS.question);
+
+  }
+  const cancelQuestionHandler = () => {
+    setNotificationQuestion(null)
+
+  }
+  const nextQuestionHandler = () => {
+    setNotification(localization.SETTINGS.LOCATIONSBARBERS.info);
+  }
+  const confirmHandler = () => {
+    setNotification(null);
     router.dismiss(1);
     router.back();
     return;
@@ -91,6 +111,8 @@ const Barbers = () => {
   const filteredBarbers = locationBarbersData.filter((barber) =>
     barber.name.toLowerCase().includes(search.toLowerCase()),
   );
+
+
   if (isLoading === "getBarbers") {
     return <SharedLoader isOpen={isLoading === "getBarbers"} />;
   }
@@ -131,11 +153,42 @@ const Barbers = () => {
         <SharedButtonApproved
           onPress={disabledBtn ? skipHandler : () => submitChanges(id)}
           loading={isLoading === "post"}
-          text={localization.SERVICES.saveChanges}
-          skip={disabledBtn ? localization.CATEGORY.skip : null}
+          text={disabledBtn ? localization.CATEGORY.skip : localization.SERVICES.saveChanges}
+          disabled={initialNumber?.length > 0 && filterResult?.length === 0}
         />
       </View>
-
+      {notificationQuestion?.length > 0 &&
+        <SharedQuestion
+          isOpen={notificationQuestion?.length > 0}
+          icon={
+            <FontAwesome
+              name="question-circle-o"
+              size={64}
+              color={ColorsBarber.dark.textColor}
+            />
+          }
+          onClose={cancelQuestionHandler}
+          onLogOut={nextQuestionHandler}
+          buttonTextYes={localization.SETTINGS.LOCATIONSBARBERS.yes}
+          buttonTextNo={localization.SETTINGS.LOCATIONSBARBERS.no}
+          title={notificationQuestion}
+        />}
+      {notification?.length > 0 && (
+        <SharedMessage
+          isOpen={notification?.length > 0}
+          icon={
+            <FontAwesome
+              name="info"
+              size={64}
+              color={ColorsBarber.dark.textColor}
+            />
+          }
+          onClose={confirmHandler}
+          onConfirm={confirmHandler}
+          buttonText="Ok"
+          title={notification}
+        />
+      )}
       {isMessage && (
         <SharedMessage
           isOpen={isMessage}

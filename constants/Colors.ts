@@ -43,6 +43,7 @@ export const ColorsBarber = {
     starColor: "#FFD700",
     personIcon: "#FFD700",
     locationIcon: "#ff0000",
+    dangerIcon: "#ff0000",
     arrowIcon: "#8a8888",
     borderColor: "#fff",
     borderColorDisabeld: "#5e5c5a",

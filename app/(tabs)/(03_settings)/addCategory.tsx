@@ -1,4 +1,4 @@
-import AddCategory from "../../../components/category/AddCategory";
+import AddCategory from "../../../components/settings/services/components/AddCategory";
 
 const addCategory = () => {
   return <AddCategory />;

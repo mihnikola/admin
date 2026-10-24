@@ -2,6 +2,7 @@ import { createContext, useContext, useState } from "react";
 import { useLocalization } from "./LocalizationContext";
 import { get, post, put, delete as deleteRequest } from "@/api/apiService";
 import { router } from "expo-router";
+import useServices from "@/components/settings/services/hooks/useServices";
 
 const CategoriesContext = createContext(null);
 
@@ -14,6 +15,7 @@ export const CategoriesProvider = ({ children }) => {
   const [isConfirmation, setIsConfirmation] = useState(false);
   const [categoryNameEn, setCategoryNameEn] = useState("");
   const [categoryNameLocal, setCategoryNameLocal] = useState("");
+
 
   const questionHandler = () => {
     setIsConfirmation(true);
@@ -64,7 +66,7 @@ export const CategoriesProvider = ({ children }) => {
         setIsMessage(true);
         setMessage(localization.CATEGORY.deleteMsg);
         await getAllCategories();
-        return true;
+        return;
       }
     } catch (err) {
       setError(localization.SERVICES.errorFetch);
@@ -74,25 +76,26 @@ export const CategoriesProvider = ({ children }) => {
   };
 
   const addCategoryToServiceHandler = async (id, category) => {
-    setIsLoading("put");
-    setError(null);
+    await addEditService(id, category);
+    // setIsLoading("put");
+    // setError(null);
 
-    console.log("id", id)
-    console.log("category", category)
-    try {
-      const response = await put(`admin/services/${id}/category`, { category: category?._id });
-      console.log("addCategoryToServiceHandler", response);
-      if (response.status === 201) {
-        setIsMessage(true);
-        setMessage(localization.CATEGORY.addCategoryToService)
-      }
-      // setCategories(response.data);
-    } catch (err) {
-      console.error("Greška pri povlačenju kategorija:", err);
-      setError("Greška pri učitavanju kategorija.");
-    } finally {
-      setIsLoading(null);
-    }
+    // console.log("id", id)
+    // console.log("category", category)
+    // try {
+    //   const response = await put(`admin/services/${id}/category`, { category: category?._id });
+    //   console.log("addCategoryToServiceHandler", response);
+    //   if (response.status === 201) {
+    //     setIsMessage(true);
+    //     setMessage(localization.CATEGORY.addCategoryToService)
+    //   }
+    //   // setCategories(response.data);
+    // } catch (err) {
+    //   console.error("Greška pri povlačenju kategorija:", err);
+    //   setError("Greška pri učitavanju kategorija.");
+    // } finally {
+    //   setIsLoading(null);
+    // }
   }
 
   // 2. Dodavanje nove kategorije
@@ -116,6 +119,7 @@ export const CategoriesProvider = ({ children }) => {
       const isSuccess = response?.status >= 200 && response?.status < 300;
 
       if (isSuccess) {
+        await getAllCategories();
         setIsMessage(true);
         setMessage(
           isEdit
@@ -124,8 +128,7 @@ export const CategoriesProvider = ({ children }) => {
         );
 
         // Osvežavamo globalnu listu
-        await getAllCategories();
-        return true;
+        return;
       }
 
       throw new Error("Neočekivan status sa servera.");

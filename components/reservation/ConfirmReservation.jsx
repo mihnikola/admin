@@ -17,11 +17,11 @@ import { FontAwesome } from "@expo/vector-icons";
 import { useAppointment } from "@/contexts/AppointmentContext";
 import Loader from "@/shared-components/Loader";
 import ServiceItem from "../settings/assignments/barbersServices/components/ServiceItem";
-import useServices from "../settings/services/hooks/useServices";
 import Summary from "./Summary";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import SharedDetailsServiceCard from "@/shared-components/SharedDetailsServiceCard";
+import { useServiceCategory } from "@/contexts/ServiceCategoryContext";
 
 function ConfirmReservation() {
   const [description, setDescription] = useState("");
@@ -30,18 +30,15 @@ function ConfirmReservation() {
   const [error, setError] = useState("");
   const { getReservations, setCheckDates } = useAppointment();
   const [selectedItem, setSelectedItem] = useState(null);
-  // const [focused, setFocused] = useState(false)
   const { localization } = useLocalization();
 
   const {
-    getServices,
-    getServiceData,
     isLoading,
-    chooseService,
     timesData,
     fetchTimes,
     setIsLoading,
-  } = useServices();
+  } = useServiceCategory();
+
   const params = useLocalSearchParams();
   const {
     name,
@@ -108,7 +105,6 @@ function ConfirmReservation() {
       endDate,
       description,
     };
-    const startDateValue = getDateFromString(startDate);
 
     try {
       const response = await post(
@@ -133,9 +129,7 @@ function ConfirmReservation() {
             dotColor: "white",
           },
         }));
-        // console.log("object",startDateValue);
-        // await getDates(startDateValue, true);
-        // await handleDayPress(startDateValue);
+
       }
     } catch (err) {
       console.log("error", err);

@@ -3,9 +3,7 @@ import SharedBackButton from "@/shared-components/SharedBackButton";
 import { router, useLocalSearchParams } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import SearchInputComponent from "../settings/sharedComponents/SearchInputComponent";
 import { SharedButton } from "@/shared-components/SharedButton";
-import useServices from "../settings/services/hooks/useServices";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import SharedCoverImage from "@/shared-components/SharedCoverImage";
 import useEmail from "../login/hooks/useEmail";
@@ -15,61 +13,33 @@ import usePhoneNumber from "../login/hooks/usePhoneNumber";
 function AddReservation() {
   const { localization } = useLocalization();
   const [reservationName, setReservationName] = useState("");
-  // const [reservationEmail, setReservationEmail] = useState("");
-  const { getServices, getServiceData, isLoading, chooseService, timesData } =
-    useServices();
+
 
   const { email, emailError, handleEmailChange, emailInputRef } = useEmail();
   const { date } = useLocalSearchParams();
-  const emailLayoutRef = useRef();
   const passwordLayout = useRef(0);
   const phoneNumberRef = useRef();
   const phoneNumberLayout = useRef();
   const {
     phoneNumber,
-    isValid,
     handlePhoneNumberChange,
     errorPhoneNumber,
-    phoneNumberRefInput,
   } = usePhoneNumber();
 
-  // const generateStartDate = (date, selectedItem) => {
-  //   const startDate = `${date}T${selectedItem.value}:00.000`;
-  //   return new Date(startDate);
-  // };
-  // const generateEndDate = (date, selectedItem, serviceDuration) => {
-  //   const startDate = new Date(`${date}T${selectedItem.value}:00.000`);
 
-  //   return new Date(startDate.getTime() + serviceDuration * 60 * 1000);
-  // };
   const submitHandler = async () => {
-    // const startDate = generateStartDate(date, selectedItem);
-    // const serviceData = getServiceData.find((item) => item.assigned);
-    // const endDate = generateEndDate(date, selectedItem, serviceData.duration);
-    // console.log("serviceName", serviceData);
+
     router.push({
-      pathname: "/(add_reservation)/addServiceItem",
+      pathname: "addServiceItem",
       params: {
         name: reservationName,
         email,
         phoneNumber,
         date,
-        // servicePrice: serviceData?.price,
-        // serviceName:
-        //   localization.code === "en"
-        //     ? serviceData?.name?.nameEn
-        //     : serviceData?.name?.nameLocal,
-        // serviceId: serviceData?.id,
-        // startDate,
-        // endDate,
       },
     });
   };
-  useEffect(() => {
-    if (date) {
-      getServices(date);
-    }
-  }, []);
+
 
   return (
     <View
@@ -167,7 +137,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     borderWidth: 2,
     borderColor: ColorsBarber.dark.item,
-    fontFamily: "OldStandard-Bold", // Ključ iz useFonts
+    fontFamily: "OldStandard-Bold",
   },
   textInput: {
     marginTop: 10,

@@ -1,0 +1,76 @@
+import React from "react";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { Feather, FontAwesome } from "@expo/vector-icons";
+import { ColorsBarber } from "@/constants/Colors";
+
+export default function CategoryComponent({
+  selected,
+  modalHandler,
+  label = "Senioritet",
+}) {
+  return (
+    <TouchableOpacity onPress={modalHandler} style={styles.container}>
+      <View style={styles.icon}>
+        <FontAwesome
+          name="scissors"
+          size={20}
+          color={ColorsBarber.dark.textColorInput}
+        />
+      </View>
+
+      <View style={styles.textContainer}>
+        <Text style={styles.label}>{label}</Text>
+
+        <Text
+          style={[
+            styles.value,
+            {
+              color: selected
+                ? ColorsBarber.dark.textColorInput
+                : ColorsBarber.dark.inActiveTextColor,
+            },
+          ]}
+        >
+          {selected || ""}
+        </Text>
+      </View>
+
+      <Feather
+        name="chevron-right"
+        size={20}
+        color={ColorsBarber.dark.textColorInput}
+      />
+    </TouchableOpacity>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: ColorsBarber.dark.inputField,
+    borderRadius: 16,
+    padding: 16,
+    marginBottom: 14,
+  },
+
+  icon: {
+    marginRight: 14,
+  },
+
+  textContainer: {
+    flex: 1,
+  },
+
+  label: {
+    color: ColorsBarber.dark.textColorInput,
+    fontFamily: "OldStandard-Regular",
+    fontSize: 14,
+    marginBottom: 2,
+  },
+
+  value: {
+    fontSize: 16,
+    fontFamily: "OldStandard-Regular",
+  },
+});

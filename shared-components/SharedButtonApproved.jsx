@@ -7,6 +7,7 @@ import {
 } from "react-native";
 
 const SharedButtonApproved = (props) => {
+  // console.log("props.disabled",props.disabled)
   return (
     <TouchableOpacity
       style={[styles.btn, props.disabled && styles.btnDisabled]}

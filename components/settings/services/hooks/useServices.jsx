@@ -17,6 +17,7 @@ const useServices = () => {
   const [isMessage, setIsMessage] = useState(false);
   const [message, setMessage] = useState(null);
   const [responseAdd, setResponseAdd] = useState(null);
+  const [requestData, setRequestData] = useState(null);
   const fetchAllServices = async () => {
     setIsLoading("get");
     setError(null);
@@ -128,8 +129,9 @@ const useServices = () => {
     }
   };
 
-  const addEditService = async (userData) => {
-    const validationErrors = validationServicesErrors(userData, localization);
+  const addEditService = async (id, category) => {
+    console.log("addEditService",requestData)
+    const validationErrors = validationServicesErrors(requestData, localization);
     if (validationErrors && validationErrors?.length > 0) {
       setError(validationErrors);
       return;
@@ -137,19 +139,19 @@ const useServices = () => {
     setIsLoading("addEdit");
     setError(null);
     const formData = new FormData();
-    if (userData?.nameLocal) {
-      formData.append("nameLocal", userData?.nameLocal);
+    if (requestData?.nameLocal) {
+      formData.append("nameLocal", requestData?.nameLocal);
     }
     if (userData?.nameEn) {
-      formData.append("nameEn", userData?.nameEn);
+      formData.append("nameEn", requestData?.nameEn);
     } else {
-      formData.append("nameEn", userData?.nameLocal);
+      formData.append("nameEn", requestData?.nameLocal);
     }
-    formData.append("duration", userData?.duration);
-    formData.append("price", userData?.price);
-    // formData.append("category", userData?.category);
+    formData.append("duration", requestData?.duration);
+    formData.append("price", requestData?.price);
+    formData.append("category", category);
 
-    if (userData?.image) {
+    if (requestData?.image) {
       const filename = userData?.image.split("/").pop();
       const fileType =
         filename.split(".").pop() === "png"
@@ -158,7 +160,7 @@ const useServices = () => {
             ? "image/jpg"
             : "image/jpeg";
       formData.append("image", {
-        uri: userData?.image,
+        uri: requestData?.image,
         name: filename,
         type: fileType,
       });
@@ -166,10 +168,10 @@ const useServices = () => {
     Object.fromEntries(formData._parts);
     const baseUrl = process.env.EXPO_PUBLIC_API_URL.replace(/\/$/, "");
 
-    if (userData?.id) {
+    if (requestData?.id) {
       try {
         const response = await axios.put(
-          `${baseUrl}/admin/services/${userData?.id}`,
+          `${baseUrl}/admin/services/${requestData?.id}`,
           formData,
           {
             headers: {
@@ -283,7 +285,9 @@ const useServices = () => {
     timesData,
     serviceCategory,
     chooseOne,
-    navigateToCategory
+    navigateToCategory,
+    setRequestData,
+    requestData
   };
 };
 

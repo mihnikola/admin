@@ -127,6 +127,7 @@ export const SRB_LOCALIZATION = {
     addCategoryToService: "Uspešno ste dodelili kategoriju",
     edit: "Promenite naziv kategorije",
     skip: "Preskoči",
+    changeCategory: "Promeni kategoriju",
     editSuccess: "Kategorija je uspešno promenjena",
     list: "Lista kategorija",
     title: "Kategorija",
@@ -140,9 +141,14 @@ export const SRB_LOCALIZATION = {
     remove: "Obriši kategoriju",
     deleteBtn: "Obriši kategoriju",
     deleteMsg: "Kategorija je uspešno obrisana",
-    question: "Da li ste sigurni da želite da obrišete kategoriju?",
+    question: "Pažnja! Ova kategorija sadrži aktivne usluge. Brisanjem ove kategorije, povezane usluge više neće biti vidljive mušterijama prilikom zakazivanja i izbora usluga. Da li ste sigurni da želite da obrišete kategoriju?",
+    questionTitle: "Brisanje kategorije:",
+    questionYes: "Potvrdi",
+    questionNo: "Odustani",
+    questionRegular: "Da li ste sigurni da želite da obrišete ovu kategoriju?"
   },
   SERVICES: {
+    continue: "Nastavi",
     plus: "Dodatno",
     totalDuration: "Ukupno trajanje",
     totalPrice: "Ukupna cena",
@@ -159,12 +165,12 @@ export const SRB_LOCALIZATION = {
     serviceNameEn: "Unesi naziv na engleskom",
     servicePrice: "Unesi cenu",
     serviceDuration: "Unesi trajanje u minutima",
-    submitAdd: "Dodaj uslugu",
+    submitAdd: "Kreiraj uslugu",
     cancel: "Odustani",
     saveChanges: "Sačuvaj promenu",
     listServices: "Lista usluga",
     delete: "Servis je uspešno obrisan",
-    addService: "Servis je uspešno dodat",
+    addService: "Servis je uspešno kreiran",
     editService: "Servis je uspešno ažuriran",
     errorFields: "Popuni sva polja",
     question: "Da li ste sigurni da želite da izbrišete uslugu?",
@@ -379,11 +385,19 @@ export const SRB_LOCALIZATION = {
       barber: "Barber",
       servicesLength: "Trenutne usluge",
       availableServices: "Sve dostupne usluge",
+      info: "Dodelite usluge ovom barberu",
+
     },
 
     LOCATIONSBARBERS: {
+      yes: "Da",
+      no: "Ne",
       title: "Lokacije i barberi",
       footerBottom: "All rights reserved ©",
+      info: "Dodelite barbere ovoj lokaciji",
+      question: "Da li ste sigurni da ne želite da dodelite nijednog barbera?",
+      category: "Kategorija"
+
     },
     NOTIFICATIONSTATUS: {
       title: "Status odobravanja rezervacija",

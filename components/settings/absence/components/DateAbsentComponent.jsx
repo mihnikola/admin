@@ -82,10 +82,10 @@ const styles = StyleSheet.create({
   dateButton: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
-    paddingVertical: 10,
-    paddingHorizontal: 30,
-    marginHorizontal: 10,
+    justifyContent: "center", // Centriramo sadržaj (ili 'space-between' ako imaš ikonicu)
+    height: 40,               // Fiksna visina (prilagodi po želji, npr. 45, 50, 55)
+    width: "100%",            // Ili fiksna širina u pikselima, npr. 250, ali width: "100%" uz marginHorizontal lepo popunjava kolonu
+    paddingHorizontal: 10,
     backgroundColor: ColorsBarber.dark.item,
     borderWidth: 1,
     borderColor: ColorsBarber.dark.inActiveTextColor,
@@ -95,6 +95,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Regular",
+    textAlign: "center",     
   },
 });
 

@@ -4,7 +4,7 @@ import SharedBackButton from "@/shared-components/SharedBackButton";
 import { SharedInput } from "@/shared-components/SharedInput";
 import { SharedButton } from "@/shared-components/SharedButton";
 import { SharedMessage } from "@/shared-components/SharedMessage";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, FontAwesome6 } from "@expo/vector-icons";
 import { router, useLocalSearchParams } from "expo-router";
 import { ColorsBarber } from "@/constants/Colors";
 import { useEffect, useState } from "react";
@@ -14,6 +14,7 @@ import SharedButtonRejected from "@/shared-components/SharedButtonRejected";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import Loader from "@/shared-components/Loader";
+import { useServiceCategory } from "@/contexts/ServiceCategoryContext";
 
 const AddCategory = () => {
   const { localization } = useLocalization();
@@ -35,17 +36,13 @@ const AddCategory = () => {
     setCategoryNameEn,
     categoryNameLocal,
     setCategoryNameLocal,
-    setIsLoading
-
-  } = useCategories();
+    setIsLoading,
+    confirmDeleteHandler
+  } = useServiceCategory();
 
 
 
   const { id } = useLocalSearchParams();
-  // const [category, setCategory] = useState("");
-  // console.log("getCategoryData", getCategoryData)
-
-  console.log("id", id)
   const confirmHandler2 = async () => {
     setIsMessage(false);
     router.back();
@@ -83,7 +80,7 @@ const AddCategory = () => {
             <Text style={styles.mainTitle}>
               {id
                 ? localization.CATEGORY.edit
-                : localization.CATEGORY.createLabel}{" "}
+                : localization.CATEGORY.createLabel}
             </Text>
           </View>
           <View style={{ marginTop: 20 }}>
@@ -118,8 +115,8 @@ const AddCategory = () => {
           />
           {id && (
             <SharedButtonRejected
-              onPress={questionHandler}
-              loading={isLoading === "delete"}
+              onPress={() => questionHandler(id)}
+              loading={isLoading === "delete" || isLoading === 'getCategory'}
               text={localization.CATEGORY.deleteBtn}
             />
           )}
@@ -130,17 +127,18 @@ const AddCategory = () => {
         <SharedQuestion
           isOpen={isConfirmation}
           onClose={() => setIsConfirmation(false)}
-          onLogOut={() => deleteHandler(id)}
-          buttonTextNo={localization.CLIENTS.cancel}
-          buttonTextYes="OK"
+          onLogOut={() => confirmDeleteHandler(id)}
+          buttonTextNo={localization.CATEGORY.questionNo}
+          buttonTextYes={localization.CATEGORY.questionYes}
+          danger
           icon={
-            <FontAwesome
-              name="question"
+            <FontAwesome6
+              name="triangle-exclamation"
               size={64}
               color={ColorsBarber.dark.textColor}
             />
           }
-          title={message}
+          question={message.question}
         />
       )}
 
@@ -180,10 +178,6 @@ const styles = StyleSheet.create({
     color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
   },
-  subtitle: {
-    fontSize: 16,
-    color: ColorsBarber.dark.textColor,
-    fontFamily: "OldStandard-Regular",
-  },
+
 });
 export default AddCategory;

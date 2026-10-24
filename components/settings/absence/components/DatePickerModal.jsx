@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
         padding: 16,
     },
     modalContent: {
-        backgroundColor: ColorsBarber.dark.backgroundModal, // Corresponds to bg-gray-800
+        backgroundColor: ColorsBarber.dark.backgroundModal,
         borderRadius: 12,
         shadowColor: "#000",
         shadowOffset: { width: 0, height: 10 },

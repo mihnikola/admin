@@ -53,6 +53,7 @@ export const ENG_LOCALIZATION = {
     deleteBarberQuestion: `Are you sure you want to delete this barber? This will also cancel all of the barber's active appointments.`,
     question: "Are you sure you want to delete this barber?",
     submitAdd: "Add barber",
+    changeCategory: "Change category",
     saveChanges: "Save",
     confirmButton: "Ok",
     title: "Manage barbers",
@@ -189,9 +190,15 @@ export const ENG_LOCALIZATION = {
     createBtn: "Create",
     deleteBtn: "Delete category",
     deleteMsg: "Category is successfully deleted",
-    question: "Are you sure you want to delete the category?",
+    question: "Warning! This category contains active services. Deleting it will make related services invisible to customers during booking. Are you sure?",
+    questionTitle: "Delete category:",
+    questionYes: "Delete category",
+    questionNo: "Cancel",
+    questionRegular: "Are you sure you want to delete this category?"
+
   },
   SERVICES: {
+    continue: "Continue",
     plus: "Additional",
     totalDuration: "Total duration",
     totalPrice: "Total price",
@@ -207,12 +214,12 @@ export const ENG_LOCALIZATION = {
     serviceNameEn: "Enter title in English",
     servicePrice: "Enter price",
     serviceDuration: "Enter duration in minutes",
-    submitAdd: "Add service",
+    submitAdd: "Create service",
     cancel: "Cancel",
     saveChanges: "Save",
     listServices: "List services",
     delete: "Service is successfully removed",
-    addService: "Service is successfully added",
+    addService: "Service is successfully created",
     editService: "Service is successfully edited",
     errorFields: "Fill in all input fields",
     question: "Do you want to delete this service?",
@@ -371,10 +378,17 @@ export const ENG_LOCALIZATION = {
       barber: "Barber",
       servicesLength: "Current services",
       availableServices: "All available services",
+      info: "Assign services to barber",
     },
     LOCATIONSBARBERS: {
+      yes: "Yes",
+      no: "No",
       title: "Locations & Barbers",
       footerBottom: "All rights reserved ©",
+      info: "Assign barbers to location",
+      question: "Are you sure you don't want to assign any barbers?",
+      category: "Category"
+
     },
     NOTIFICATIONSTATUS: {
       title: "Status reservation confirmation",

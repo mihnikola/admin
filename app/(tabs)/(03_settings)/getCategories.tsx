@@ -1,4 +1,4 @@
-import Categories from "../../../components/category/Categories";
+import Categories from "../../../components/settings/services/components/Categories";
 
 const getCategories = () => {
   return <Categories />;

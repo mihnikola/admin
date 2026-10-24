@@ -1,4 +1,4 @@
-import SettingsComponent from "@/components/settings/services/components/SettingsComponent";
+import SettingsComponent from "@/components/settings/components/SettingsComponent";
 const Settings = () => {
   return <SettingsComponent />
 };

@@ -10,6 +10,7 @@ import { HomeDataProvider } from "@/contexts/HomeDataContext";
 import { ServicesProvider } from "@/contexts/ServiceContext";
 import { BarbersProvider } from "@/contexts/BarberContext";
 import { CategoriesProvider } from "@/contexts/CategoriesContext";
+import { ServiceCategoryProvider } from "@/contexts/ServiceCategoryContext";
 import { InternetProvider } from "@/contexts/InternetContext";
 import { GlobalErrorProvider } from "@/contexts/GlobalErrorContext";
 import GlobalErrorHandler from "@/shared-components/GlobalErrorHandler";
@@ -37,13 +38,16 @@ export default function AppInitialized(props) {
                   <HomeDataProvider>
                     <ReservationProvider>
                       <AppointmentProvider>
-                        <ServicesProvider>
-                          <BarbersProvider>
-                            <CategoriesProvider>
-                              {props.children}
-                            </CategoriesProvider>
-                          </BarbersProvider>
-                        </ServicesProvider>
+                        <ServiceCategoryProvider>
+                          <ServicesProvider>
+                            <BarbersProvider>
+                              <CategoriesProvider>
+                                {props.children}
+                              </CategoriesProvider>
+                            </BarbersProvider>
+                          </ServicesProvider>
+                        </ServiceCategoryProvider>
+
                       </AppointmentProvider>
                     </ReservationProvider>
                   </HomeDataProvider>

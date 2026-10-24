@@ -98,19 +98,7 @@ const AbsentHourManagement = () => {
     }
     return true;
   };
-  const isValidTimeRange = (startTime, endTime) => {
-    const [startH, startM] = startTime.split(":").map(Number);
-    const [endH, endM] = endTime.split(":").map(Number);
 
-    const startTotal = startH * 60 + startM;
-    const endTotal = endH * 60 + endM;
-
-    if (startTotal >= endTotal) {
-      return false;
-    }
-
-    return true;
-  };
   const submitChanges = () => {
     setIsConfirmation(false);
 

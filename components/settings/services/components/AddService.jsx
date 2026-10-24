@@ -1,8 +1,7 @@
-import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
-import React, { useEffect, useRef, useState } from "react";
-import { ActivityIndicator, StyleSheet, TouchableOpacity, View } from "react-native";
+import { FontAwesome } from "@expo/vector-icons";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { ActivityIndicator, StyleSheet, View } from "react-native";
 import ImageCompress from "../../sharedComponents/ImageCompress";
-import useServices from "../hooks/useServices";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
@@ -12,43 +11,28 @@ import SharedButtonRejected from "@/shared-components/SharedButtonRejected";
 import SharedButtonApproved from "@/shared-components/SharedButtonApproved";
 import { ColorsBarber } from "@/constants/Colors";
 import SharedBackButton from "@/shared-components/SharedBackButton";
-
+import { useServiceCategory } from "@/contexts/ServiceCategoryContext";
+import CategoryComponent from './CategoryComponent';
+import { SharedLoader } from "@/shared-components/SharedLoader";
+import Loader from "@/shared-components/Loader";
 export default function AddService() {
   const { localization } = useLocalization();
   const params = useLocalSearchParams();
   const { id } = params;
-  const {
-    isLoading,
-    error,
-    setError,
-    isMessage,
-    setIsMessage,
-    message,
-    setMessage,
-    addEditService,
-    confirmHandler,
-    getServiceHandler,
-    getServiceData,
-    removeService,
-    navigateToCategory
-  } = useServices();
-
-  useEffect(() => {
-    if (id) {
-      setTimeout(async () => {
-        await getServiceHandler(id);
-      }, 100);
-    }
-  }, [id]);
-
-  const [nameLocal, setNameLocal] = useState(""); //ovo ti je za lokalni jezik - srpski nameLocal
-  const [nameEn, setNameEn] = useState(""); //ovo ti je za jezik koji dodajes - engleski nameEn
+  const { isLoading, error, setError, addEditService, isMessage, message, confirmHandler, getServiceHandler, getServiceData, removeService,
+    requestData, setRequestData, setCategoryName,
+    categoryName,
+    setCategoryId,
+    categoryId } = useServiceCategory();
+  const [nameLocal, setNameLocal] = useState("");
+  const [nameEn, setNameEn] = useState("");
 
   const [price, setPrice] = useState("");
   const [duration, setDuration] = useState("");
   const [imageValue, setImageValue] = useState("");
   const [editingId, setEditingId] = useState(null);
   const [changedImg, setChangedImg] = useState(null);
+
   const scrollRef = useRef(null);
   const refNameLocal = useRef(null);
   const refNameEng = useRef(0);
@@ -57,37 +41,119 @@ export default function AddService() {
   const nameLocalLayout = useRef(0);
   const priceLayout = useRef(0);
   const durationLayout = useRef(0);
+
+
+
+
+
+
+
+
+
+
   const selectedImgHandler = (imgData) => {
     if (imgData) {
       setChangedImg(imgData);
     }
   };
+
   useEffect(() => {
-    if (getServiceData) {
-      setNameEn(getServiceData?.name?.nameEn);
-      setNameLocal(getServiceData?.name?.nameLocal);
-      setPrice(getServiceData.price?.toString() || "");
-      setDuration(getServiceData.duration?.toString() || "");
-      selectedImgHandler(getServiceData?.image);
-      setEditingId(getServiceData?.id);
-    }
-  }, [getServiceData]);
+    if (id) {
+      getServiceHandler(id).then((data) => {
+        if (data) {
+          setNameEn(data?.name?.nameEn || "");
+          setNameLocal(data?.name?.nameLocal || "");
+          setPrice(data?.price?.toString() || "");
+          setDuration(data?.duration?.toString() || "");
+          selectedImgHandler(data?.image);
+          setEditingId(data?._id || data?.id);
 
-  const validationData = () => {
-    if (
-      getServiceData?.id === editingId &&
-      getServiceData?.name?.nameEn === nameEn &&
-      getServiceData?.name?.nameLocal === nameLocal &&
-      getServiceData.price?.toString() === price &&
-      getServiceData.duration?.toString() === duration &&
-      getServiceData?.image === changedImg
-    ) {
-      return true;
-    } else {
-      return false;
-    }
-  };
+          const catName = localization.code === 'en'
+            ? data?.category?.name?.nameEn
+            : data?.category?.name?.nameLocal;
 
+          setCategoryName(catName || null);
+          setCategoryId(data?.category?._id || null);
+        }
+      });
+    }
+  }, [id]);
+
+  useEffect(() => {
+    if (requestData) {
+      const catNameRequest = localization.code === 'en'
+        ? requestData?.name?.nameEn
+        : requestData?.name?.nameLocal;
+
+      setCategoryName(catNameRequest || null);
+      setCategoryId(requestData?._id || null);
+    }
+  }, [requestData])
+
+  const isValid = (() => {
+    // Ako je u pitanju kreiranje novog servisa
+    if (!editingId) {
+      return Boolean(
+        nameEn?.trim() &&
+        nameLocal?.trim() &&
+        price?.toString().trim() &&
+        duration?.toString().trim() &&
+        changedImg
+      );
+    }
+
+    // Ako je u pitanju izmena postojećeg servisa (poređenje sa originalnim podacima)
+    const originalPrice = getServiceData?.price?.toString() ?? "";
+    const originalDuration = getServiceData?.duration?.toString() ?? "";
+    const originalNameEn = getServiceData?.name?.nameEn ?? "";
+    const originalNameLocal = getServiceData?.name?.nameLocal ?? "";
+    const originalImage = getServiceData?.image ?? null;
+    const originalCategoryId = getServiceData?.category?._id ?? null;
+
+    // Proveravamo da li se BILO KOJE polje razlikuje od originalnog
+    const hasChanges = (
+      originalNameEn !== nameEn ||
+      originalNameLocal !== nameLocal ||
+      originalPrice !== price.toString() ||
+      originalDuration !== duration.toString() ||
+      originalImage !== changedImg ||
+      originalCategoryId !== categoryId
+    );
+
+    // Dodatno osiguranje: dugme je aktivno samo ako ima izmena I ako su obavezna polja popunjena
+    const areFieldsValid = Boolean(
+      nameEn?.trim() &&
+      nameLocal?.trim() &&
+      price?.toString().trim() &&
+      duration?.toString().trim()
+    );
+
+    return hasChanges && areFieldsValid;
+  })();
+
+
+
+  // const validationData = (id) => {
+  //   if (!id) {
+  //     if (nameEn?.length > 0 && nameLocal?.length > 0 && price?.length > 0 && duration?.length > 0 && changedImg) {
+  //       return true;
+  //     }
+  //   } else if (
+  //     getServiceData?.id === editingId &&
+  //     getServiceData?.name?.nameEn === nameEn &&
+  //     getServiceData?.name?.nameLocal === nameLocal &&
+  //     getServiceData.price?.toString() === price &&
+  //     getServiceData.duration?.toString() === duration &&
+  //     getServiceData?.image === changedImg &&
+  //     getServiceData?.category?._id === categoryId
+  //   ) {
+  //     return false;
+
+  //   } else {
+  //     return true;
+
+  //   }
+  // };
   const resetForm = () => {
     setNameEn("");
     setNameLocal("");
@@ -121,6 +187,7 @@ export default function AddService() {
         price: parseFloat(price),
         duration: parseInt(duration),
         image: changedImg === imageValue ? null : changedImg,
+        categoryId: categoryId || null,
       };
       if (updateService) {
         addEditService(updateService);
@@ -134,12 +201,15 @@ export default function AddService() {
         image: changedImg === imageValue ? null : changedImg,
       };
 
-      addEditService(newService);
+      setRequestData(newService);
+      router.push({ pathname: "/(tabs)/(03_settings)/getCategories", params: { name: localization.code === 'en' ? nameEn : nameLocal } })
     }
+
+
   };
   const confirmMessageHandler = async () => {
     resetForm();
-    confirmHandler();
+    confirmHandler(id);
   };
   const confirmErrorMessageHandler = () => {
     setError(null);
@@ -151,6 +221,17 @@ export default function AddService() {
         setValue(cleaned);
       };
 
+  const redirectHandler = () => {
+    router.push({
+      pathname: "/(tabs)/(03_settings)/getCategories",
+      params:
+      {
+        name: localization.code === 'en' ? nameEn : nameLocal,
+        categoryId: categoryId || null,
+        serviceId: editingId || null
+      }
+    })
+  }
 
 
   return (
@@ -170,120 +251,118 @@ export default function AddService() {
             absolutePosition={false}
           />
         </View>
-        {id && (
-          <TouchableOpacity onPress={() => navigateToCategory(getServiceData)}>
-            <MaterialCommunityIcons
-              name="playlist-plus"
-              size={32}
-              color={ColorsBarber.dark.textColor}
-            />
-          </TouchableOpacity>
-        )}
       </View>
-      {isLoading !== "getService" ? (
-        <>
-          <View style={{ flex: 1 }}>
-            <View style={styles.containerImage}>
-              <ImageCompress
-                handlePickImage={selectedImgHandler}
-                imageValue={changedImg}
-                setImageValue={setChangedImg}
-              />
-            </View>
+      {isLoading === "getServiceData" && <Loader />}
+      {isLoading !== "getServiceData" &&
+        <View style={{ flex: 1 }}>
+          <View style={styles.containerImage}>
+            <ImageCompress
+              handlePickImage={selectedImgHandler}
+              imageValue={changedImg}
+              setImageValue={setChangedImg}
+            />
+          </View>
+          <ServiceInput
+            icon="scissors"
+            label={localization.SERVICES.serviceNameSr}
+            value={nameLocal}
+            onChangeText={setNameLocal}
+            onSubmitEditing={() => refNameEng.current.focus()}
+            ref={refNameLocal}
+            returnKeyType="next"
+          />
+          <View
+            onLayout={(e) => {
+              nameLocalLayout.current = e.nativeEvent.layout.y;
+            }}
+          >
             <ServiceInput
               icon="scissors"
-              label={localization.SERVICES.serviceNameSr}
-              value={nameLocal}
-              onChangeText={setNameLocal}
-              onSubmitEditing={() => refNameEng.current.focus()}
-              ref={refNameLocal}
+              label={localization.SERVICES.serviceNameEn}
+              value={nameEn}
+              onChangeText={setNameEn}
+              ref={refNameEng}
               returnKeyType="next"
+              onSubmitEditing={() => {
+                refPrice.current?.focus();
+                scrollRef.current?.scrollTo({
+                  y: nameLocalLayout.current - 20,
+                  animated: true,
+                });
+              }}
             />
-            <View
-              onLayout={(e) => {
-                nameLocalLayout.current = e.nativeEvent.layout.y;
+          </View>
+          <View
+            onLayout={(e) => {
+              priceLayout.current = e.nativeEvent.layout.y;
+            }}
+          >
+            <ServiceInput
+              icon="money"
+              label={localization.SERVICES.servicePrice}
+              value={price}
+              onChangeText={handleNumberInput}
+              keyboardType="numeric"
+              onSubmitEditing={() => {
+                refDuration.current?.focus();
+                scrollRef.current?.scrollTo({
+                  y: nameLocalLayout.current - 20,
+                  animated: true,
+                });
               }}
-            >
-              <ServiceInput
-                icon="scissors"
-                label={localization.SERVICES.serviceNameEn}
-                value={nameEn}
-                onChangeText={setNameEn}
-                ref={refNameEng}
-                returnKeyType="next"
-                onSubmitEditing={() => {
-                  refPrice.current?.focus();
-                  scrollRef.current?.scrollTo({
-                    y: nameLocalLayout.current - 20,
-                    animated: true,
-                  });
-                }}
-              />
-            </View>
-            <View
-              onLayout={(e) => {
-                priceLayout.current = e.nativeEvent.layout.y;
-              }}
-            >
-              <ServiceInput
-                icon="money"
-                label={localization.SERVICES.servicePrice}
-                value={price}
-                onChangeText={handleNumberInput}
-                keyboardType="numeric"
-                onSubmitEditing={() => {
-                  refDuration.current?.focus();
-                  scrollRef.current?.scrollTo({
-                    y: nameLocalLayout.current - 20,
-                    animated: true,
-                  });
-                }}
-                setValue={setPrice}
-                ref={refPrice}
-              />
-            </View>
-            <View
-              onLayout={(e) => {
-                durationLayout.current = e.nativeEvent.layout.y;
-              }}
-            >
-              <ServiceInput
-                icon="history"
-                label={localization.SERVICES.serviceDuration}
-                value={duration}
-                keyboardType="numeric"
-                onChangeText={handleNumberInput}
-                setValue={setDuration}
-                ref={refDuration}
-              />
-            </View>
+              setValue={setPrice}
+              ref={refPrice}
+            />
+          </View>
+          <View
+            onLayout={(e) => {
+              durationLayout.current = e.nativeEvent.layout.y;
+            }}
+          >
+            <ServiceInput
+              icon="history"
+              label={localization.SERVICES.serviceDuration}
+              value={duration}
+              keyboardType="numeric"
+              onChangeText={handleNumberInput}
+              setValue={setDuration}
+              ref={refDuration}
+            />
+          </View>
 
-          </View>
-          <View style={[styles.btnContainer, id && styles.btnGap]}>
-            <SharedButtonApproved
-              onPress={addService}
-              loading={isLoading === "addEdit"}
-              disabled={validationData()}
-              text={
-                editingId
-                  ? localization.SERVICES.saveChanges
-                  : localization.SERVICES.submitAdd
-              }
-            />
-            {id && (
-              <SharedButtonRejected
-                onPress={() => removeQuestion(id)}
-                loading={isLoading === "remove"}
-                text={localization.SERVICES.removeBtn}
-              />
-            )}
-          </View>
-        </>
-      ) : (
-        <View style={styles.errorLoading}>
-          <ActivityIndicator size={72} color={ColorsBarber.dark.textColor} />
+          {id && <CategoryComponent
+            modalHandler={redirectHandler}
+            label={localization.SETTINGS.LOCATIONSBARBERS.category}
+            selected={categoryName}
+          />}
+
         </View>
-      )}
+
+      }
+      {isLoading !== 'getServiceData' &&
+        <View style={[styles.btnContainer, id && styles.btnGap]}>
+          <SharedButtonApproved
+            onPress={addService}
+            loading={isLoading === "addEdit"}
+            // disabled={!validationData(id)}
+            disabled={!isValid}
+            text={
+              editingId
+                ? localization.SERVICES.saveChanges
+                : localization.SERVICES.continue
+            }
+          />
+          {id && (
+            <SharedButtonRejected
+              onPress={() => removeQuestion(id)}
+              loading={isLoading === "remove"}
+              text={localization.SERVICES.removeBtn}
+            />
+          )}
+        </View>
+      }
+
+
 
       {isMessage && (
         <SharedMessage

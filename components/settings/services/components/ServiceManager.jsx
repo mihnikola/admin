@@ -8,32 +8,29 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import useServices from "../hooks/useServices";
 import Loader from "../../../../shared-components/Loader";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import FloatingButton from "../../sharedComponents/FloatingButton";
-import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
+import { router } from "expo-router";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import SearchInputComponent from "../../sharedComponents/SearchInputComponent";
 import withKeyboardAvoid from "@/wrapper/WrapperKeyboard";
 import { ColorsBarber } from "@/constants/Colors";
-
+import { useServiceCategory } from "@/contexts/ServiceCategoryContext";
+import ServiceManagerItem from './ServiceManagerItem';
 const ServiceManager = () => {
   const { localization } = useLocalization();
   const {
     isLoading,
     error,
     isMessage,
-    setIsMessage,
-    setMessage,
     message,
     serviceData,
-    removeService,
     confirmHandler,
     fetchAllServices,
     startEditing,
-  } = useServices();
+  } = useServiceCategory();
 
   const [isError, setIsError] = useState(null);
   const [search, setSearch] = useState("");
@@ -79,37 +76,7 @@ const ServiceManager = () => {
           data={filterServices}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <TouchableOpacity
-              style={styles.serviceItem}
-              onPress={() => startEditing(item)}
-            >
-              <View style={{ flexDirection: "row" }}>
-                <Image source={{ uri: item.image }} style={styles.image} />
-                <View style={{ marginLeft: 10 }}>
-                  <View>
-                    <Text style={styles.serviceTextName}>{item.name}</Text>
-                  </View>
-                  <View>
-                    <Text style={styles.serviceText}>{item.price} RSD</Text>
-                  </View>
-                  <View>
-                    <Text style={styles.serviceText}>{item.duration} min</Text>
-                  </View>
-                </View>
-              </View>
-
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <View>
-                  <Text style={styles.editHint}>
-                    <FontAwesome
-                      name="edit"
-                      size={24}
-                      color={ColorsBarber.dark.textColor}
-                    />
-                  </Text>
-                </View>
-              </View>
-            </TouchableOpacity>
+            <ServiceManagerItem item={item} startEditing={startEditing} />
           )}
         />
       )}

@@ -9,6 +9,8 @@ export const SharedQuestion = ({
   buttonTextYes,
   onLogOut,
   buttonTextNo,
+  danger,
+  question
 }) => {
   return (
     <Modal
@@ -19,9 +21,9 @@ export const SharedQuestion = ({
     >
       <View style={styles.overlay}>
         <View style={styles.modalContent}>
-          <View style={styles.iconContainer}>{icon}</View>
+          <View style={[styles.iconContainer, danger && styles.danger]}>{icon}</View>
 
-          <Text style={styles.modalTitle}>{title}</Text>
+          <Text style={styles.modalTitle}>{question || title}</Text>
 
           <View style={styles.buttons}>
             <TouchableOpacity onPress={onLogOut} style={styles.actionButtonNo}>
@@ -43,6 +45,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 20,
   },
+
   container: {
     flex: 1, // Takes up the whole screen
     backgroundColor: ColorsBarber.dark.background, // Corresponds to bg-gray-900
@@ -75,6 +78,15 @@ const styles = StyleSheet.create({
     width: 96, // Corresponds to w-24
     height: 96, // Corresponds to h-24
     backgroundColor: ColorsBarber.dark.item, // Corresponds to bg-blue-900 bg-opacity-30
+    borderRadius: 9999, // Corresponds to rounded-full
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 24, // Corresponds to mb-6
+  },
+  danger: {
+    width: 96, // Corresponds to w-24
+    height: 96, // Corresponds to h-24
+    backgroundColor: "transparent", // Corresponds to bg-blue-900 bg-opacity-30
     borderRadius: 9999, // Corresponds to rounded-full
     justifyContent: "center",
     alignItems: "center",

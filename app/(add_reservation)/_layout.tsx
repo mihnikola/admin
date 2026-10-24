@@ -9,6 +9,18 @@ export default function RootLayoutAddReservation() {
           title: "",
         }}
       />
+      <Stack.Screen
+        name="addServiceItem"
+        options={{
+          title: "",
+        }}
+      />
+      <Stack.Screen
+        name="confirmReservation"
+        options={{
+          title: "",
+        }}
+      />
     </Stack>
   );
 }

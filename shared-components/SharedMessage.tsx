@@ -49,7 +49,7 @@ export const SharedMessage = ({
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: "rgba(0, 0, 0, 0.88)",
+    backgroundColor: "rgba(0, 0, 0, 0.75)", // Corresponds to bg-black bg-opacity-75
     alignItems: "center",
     justifyContent: "center",
     padding: 16,
