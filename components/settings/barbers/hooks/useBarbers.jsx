@@ -78,7 +78,7 @@ const useBarbers = () => {
   };
 
   const fetchAllSeniority = async () => {
-    setIsLoading("get");
+    // setIsLoading("get");
     setError(null);
     try {
       const response = await get("/seniority");
@@ -88,12 +88,12 @@ const useBarbers = () => {
     } catch (err) {
       setError(localization.BARBERS.errorFetch);
     } finally {
-      setIsLoading(null);
+      // setIsLoading(null);
     }
   };
 
   const fetchAllStatusChecking = async () => {
-    setIsLoading("getStatuses");
+    // setIsLoading("getStatuses");
     setError(null);
     try {
       const response = await get("/statusNotification");
@@ -187,8 +187,7 @@ const useBarbers = () => {
         (isEdit && response.status === 200) ||
         (!isEdit && response.status === 201)
       ) {
-        console.log("response edit ",response)
-        setParamsData({ id: response?.data?.user?._id || response?.data?.barberId, name: userData?.name })
+        setParamsData({ id: response?.data?.user?._id || response?.data?.barberId, name: userData?.name, isEdit })
         if (isEdit) {
           setIsMessage(true);
           setMessage(localization.BARBERS.edit);
@@ -218,7 +217,9 @@ const useBarbers = () => {
       const response = await get(`/admin/users/employer/${id}`, { profile });
 
       if (response.status === 200) {
-        setBarberData(response.data);
+        const barberData = response.data;
+        setBarberData(barberData);
+        return barberData;
       }
     } catch (err) {
       setError(localization.BARBERS.errorFetch);
@@ -237,7 +238,9 @@ const useBarbers = () => {
   const confirmHandler = async () => {
     setIsMessage(false);
 
-    const { id, name } = paramsData;
+    const { id, name, isEdit } = paramsData;
+    if(!isEdit){
+
     router.push({
       pathname: "/(tabs)/(03_settings)/servicesBarbers",
       params: {
@@ -245,8 +248,11 @@ const useBarbers = () => {
         name,
       },
     });
-    // router.dismiss(1);
-    // router.back();
+  }else{
+        // router.dismiss(1);
+    router.back();
+  }
+
   };
 
   useEffect(() => {

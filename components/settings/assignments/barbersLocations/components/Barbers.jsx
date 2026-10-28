@@ -1,4 +1,4 @@
-import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
+import { FontAwesome, FontAwesome6, MaterialIcons } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
 import {
   FlatList,
@@ -72,7 +72,6 @@ const Barbers = () => {
   }, [locationBarbersData]);
 
   const [isError, setIsError] = useState(null);
-  const [notification, setNotification] = useState(null);
   const [notificationQuestion, setNotificationQuestion] = useState(null);
 
   const cancelHandler = () => {
@@ -100,14 +99,12 @@ const Barbers = () => {
 
   }
   const nextQuestionHandler = () => {
-    setNotification(localization.SETTINGS.LOCATIONSBARBERS.info);
-  }
-  const confirmHandler = () => {
-    setNotification(null);
+    setNotificationQuestion(null);
     router.dismiss(1);
     router.back();
     return;
   }
+
   const filteredBarbers = locationBarbersData.filter((barber) =>
     barber.name.toLowerCase().includes(search.toLowerCase()),
   );
@@ -160,9 +157,10 @@ const Barbers = () => {
       {notificationQuestion?.length > 0 &&
         <SharedQuestion
           isOpen={notificationQuestion?.length > 0}
+          danger
           icon={
-            <FontAwesome
-              name="question-circle-o"
+            <FontAwesome6
+              name="triangle-exclamation"
               size={64}
               color={ColorsBarber.dark.textColor}
             />
@@ -173,22 +171,7 @@ const Barbers = () => {
           buttonTextNo={localization.SETTINGS.LOCATIONSBARBERS.no}
           title={notificationQuestion}
         />}
-      {notification?.length > 0 && (
-        <SharedMessage
-          isOpen={notification?.length > 0}
-          icon={
-            <FontAwesome
-              name="info"
-              size={64}
-              color={ColorsBarber.dark.textColor}
-            />
-          }
-          onClose={confirmHandler}
-          onConfirm={confirmHandler}
-          buttonText="Ok"
-          title={notification}
-        />
-      )}
+     
       {isMessage && (
         <SharedMessage
           isOpen={isMessage}

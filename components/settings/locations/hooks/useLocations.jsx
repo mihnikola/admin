@@ -15,7 +15,6 @@ function useLocation() {
 
   const confirmHandler = async () => {
     setIsMessage(false);
-    // router.back();
     await getLocations();
     const { id, address } = paramsData;
     router.push({
@@ -23,6 +22,13 @@ function useLocation() {
       params: { id, address },
     });
   };
+    const refreshHandler = async () => {
+    setIsMessage(false);
+    router.back();
+    await getLocations();
+  };
+
+  
 
   const deleteLocation = async (id) => {
     setIsLoading("remove");
@@ -72,7 +78,6 @@ function useLocation() {
     }
   };
   const deactivateLocation = async (id) => {
-    console.log("objexxxxxxct", id);
     setIsLoading("deactivate");
     setError(null);
     try {
@@ -82,7 +87,6 @@ function useLocation() {
         setMessage(localization.PLACES.deactivatedSuccess);
       }
     } catch (errorData) {
-      console.log("object", errorData);
       setIsMessage(true);
       setError(errorData);
     } finally {
@@ -95,7 +99,6 @@ function useLocation() {
     setError(null);
     try {
       const response = await get(`/admin/places/${id}/checkReservation`);
-      console.log("checkReservation", response);
       return response.status;
     } catch (errorData) {
       return errorData;
@@ -165,8 +168,11 @@ function useLocation() {
         setError(localization.PLACES.notChange);
       }
       if (response.status === 200 || response.status === 201) {
-        console.log("resssss",response.data);
-        setParamsData({ id: response.data._id, address: response.data.address })
+        console.log("resssss", response.data);
+        setParamsData({
+          id: response.data._id,
+          address: response.data.address
+        })
 
         if (id) {
           setIsMessage(true);
@@ -178,6 +184,7 @@ function useLocation() {
         }
       }
     } catch (err) {
+      console.log("err", err)
       setError(localization.PLACES.errorFetch);
       setIsMessage(true);
     } finally {
@@ -238,6 +245,8 @@ function useLocation() {
     error,
     setError,
     navigateToBarbers,
+    paramsData,
+    refreshHandler
   };
 }
 

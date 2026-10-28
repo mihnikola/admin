@@ -379,6 +379,7 @@ export const ENG_LOCALIZATION = {
       servicesLength: "Current services",
       availableServices: "All available services",
       info: "Assign services to barber",
+      question:"Without assigned services, this barber will not be visible to customers during booking. Are you sure you want to proceed?"
     },
     LOCATIONSBARBERS: {
       yes: "Yes",
@@ -386,7 +387,7 @@ export const ENG_LOCALIZATION = {
       title: "Locations & Barbers",
       footerBottom: "All rights reserved ©",
       info: "Assign barbers to location",
-      question: "Are you sure you don't want to assign any barbers?",
+      question: "Without an assigned barber, this location won't be available for customer bookings. Are you sure you want to continue?",
       category: "Category"
 
     },

@@ -39,9 +39,12 @@ export default function LocationsAddEdit() {
     deleteLocation,
     error,
     setError,
-    navigateToBarbers
+    navigateToBarbers,
+    paramsData,
+    refreshHandler
   } = useLocation();
 
+  
   const confirmErrorMessageHandler = () => {
     setError(null);
   };
@@ -164,8 +167,8 @@ export default function LocationsAddEdit() {
         <SharedMessage
           isOpen={isMessage}
           icon={<FontAwesome name="check-circle-o" size={64} color={ColorsBarber.dark.textColor} />}
-          onClose={confirmHandler}
-          onConfirm={confirmHandler}
+          onClose={paramsData ? confirmHandler : refreshHandler}
+          onConfirm={paramsData ? confirmHandler : refreshHandler}
           buttonText="Ok"
           title={message}
         />
@@ -200,7 +203,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 22,
-    color:  ColorsBarber.dark.textColor,
+    color: ColorsBarber.dark.textColor,
     marginBottom: 10,
     fontFamily: "OldStandard-Bold",
 
@@ -212,7 +215,7 @@ const styles = StyleSheet.create({
   subTitle: {
     fontSize: 18,
     fontFamily: "OldStandard-Bold",
-    color:  ColorsBarber.dark.textColor,
+    color: ColorsBarber.dark.textColor,
     marginTop: 20,
     marginBottom: 10,
   },
@@ -244,7 +247,7 @@ const styles = StyleSheet.create({
   },
 
   serviceItem: {
-    backgroundColor:  ColorsBarber.dark.item,
+    backgroundColor: ColorsBarber.dark.item,
     flexDirection: "row",
     justifyContent: "space-between",
     padding: 20,

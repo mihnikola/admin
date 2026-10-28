@@ -93,29 +93,26 @@ export default function BarbersAdd() {
     setChangedImg(imgData);
     // }
   };
+
+
   useEffect(() => {
-    setTimeout(async () => {
-      await fetchAllSeniority();
-      await fetchAllStatusChecking();
-    }, 1000);
+    fetchAllSeniority();
+    fetchAllStatusChecking();
     if (id) {
-      setTimeout(async () => {
-        await getBarberHandler(id, changeProfile || "");
-      }, 50);
+      getBarberHandler(id, changeProfile || "").then((data) => {
+        if (data) {
+          setName(data?.name);
+          handleEmailChange(data?.email);
+          setSelected(data?.seniority);
+          setSelectedStatus(data?.statusCheck);
+          handlePhoneNumberChange(data?.phoneNumber);
+          selectedImgHandler(data?.image);
+          setEditingId(data?.id);
+        }
+      });
     }
   }, [id]);
 
-  useEffect(() => {
-    if (barberData) {
-      setName(barberData?.name);
-      handleEmailChange(barberData?.email);
-      setSelected(barberData?.seniority);
-      setSelectedStatus(barberData?.statusCheck);
-      handlePhoneNumberChange(barberData?.phoneNumber);
-      selectedImgHandler(barberData?.image);
-      setEditingId(barberData?.id);
-    }
-  }, [barberData]);
 
   const resetForm = () => {
     setName("");
@@ -227,9 +224,6 @@ export default function BarbersAdd() {
     setStatusChecking(true);
   };
 
-  if (isLoading === "getBarber") {
-    return <SharedLoader isOpen={isLoading === "getBarber"} />;
-  }
   if (modalVisible && !isLoading) {
     return (
       <BarbersSeniority
@@ -253,211 +247,219 @@ export default function BarbersAdd() {
     );
   }
 
-  if (isLoading !== "getBarber") {
-    return (
-      <View style={styles.container}>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            marginTop: 30,
-            marginHorizontal: 15,
-          }}
-        >
-          <View>
-            <SharedBackButton onPress={router.back} absolutePosition={false} />
-          </View>
-          {id && (
-            <TouchableOpacity onPress={() => navigateToService(barberData)}>
-              <MaterialCommunityIcons
-                name="playlist-plus"
-                size={32}
-                color={ColorsBarber.dark.textColor}
-              />
-            </TouchableOpacity>
-          )}
+  return (
+    <View style={styles.container}>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          marginTop: 30,
+          marginHorizontal: 15,
+        }}
+      >
+        <View>
+          <SharedBackButton onPress={router.back} absolutePosition={false} />
         </View>
-        <ScrollView
-          ref={scrollRef}
-          keyboardDismissMode="interactive"
-          style={styles.safeArea}
-          contentContainerStyle={{
-            flexGrow: 1,
-            paddingBottom: 20,
-            marginHorizontal: 12,
-          }}
-          keyboardShouldPersistTaps="always"
-        >
-          {changedImg !== undefined && isLoading !== "getBarber" && (
-            <View style={styles.containerImage}>
-              <ImageCompress
-                handlePickImage={selectedImgHandler}
-                imageValue={changedImg}
-                setImageValue={setChangedImg}
-              />
-            </View>
-          )}
-
-          <View style={{ flex: 3, marginTop: 20 }}>
-            <BarbersInput
-              autoFocus
-              icon="user"
-              label={localization.BARBERS.name}
-              value={name}
-              onChangeText={setName}
-              onSubmitEditing={() => emailInputRef.current.focus()}
-              ref={refName}
-              returnKeyType="next"
+        {id && (
+          <TouchableOpacity onPress={() => navigateToService(barberData)}>
+            <MaterialCommunityIcons
+              name="playlist-plus"
+              size={32}
+              color={ColorsBarber.dark.textColor}
             />
+          </TouchableOpacity>
+        )}
+      </View>
+      <ScrollView
+        ref={scrollRef}
+        keyboardDismissMode="interactive"
+        style={styles.safeArea}
+        contentContainerStyle={{
+          flexGrow: 1,
+          paddingBottom: 20,
+          marginHorizontal: 12,
+        }}
+        keyboardShouldPersistTaps="always"
+      >
 
-            <View
-              onLayout={(e) => {
-                emailLayoutY.current = e.nativeEvent.layout.y;
-              }}
-            >
-              <BarbersInput
-                icon="at"
-                label={localization.BARBERS.email}
-                value={email}
-                autoCapitalize="none"
-                onChangeText={handleEmailChange}
-                keyboardType="email-address"
-                error={emailError}
-                returnKeyType="next"
-                ref={emailInputRef}
-                onSubmitEditing={() => {
-                  phoneNumberInputRef.current?.focus();
-                  scrollRef.current?.scrollTo({
-                    y: emailLayoutY.current - 20,
-                    animated: true,
-                  });
-                }}
-              />
-            </View>
-            {emailError?.length > 0 ? (
-              <View style={{ paddingBottom: 10 }}>
-                <Text style={styles.errorText}>{emailError}</Text>
-              </View>
-            ) : null}
+        {isLoading === "getBarber" && <Loader />}
 
-            <View
-              onLayout={(e) => {
-                phoneNumberLayoutY.current = e.nativeEvent.layout.y;
-              }}
-            >
-              <BarbersInput
-                icon="phone"
-                label={localization.BARBERS.phoneNumber}
-                value={phoneNumber}
-                onChangeText={handlePhoneNumberChange}
-                keyboardType="phone-pad"
-                ref={phoneNumberInputRef}
-                error={errorPhoneNumber}
-                dataDetectorTypes="phoneNumber"
-                placeholder="6x xxx xxxx"
-              />
-            </View>
-            {errorPhoneNumber?.length > 0 ? (
-              <View style={{ paddingBottom: 10 }}>
-                <Text style={styles.errorText}>{errorPhoneNumber}</Text>
-              </View>
-            ) : null}
-            <BarbersStatusCheck
-              modalHandler={modalStatusHandler}
-              label={localization.BARBERS.status}
-              selected={
-                localization.code === "sr"
-                  ? selectedStatus?.name?.nameLocal
-                  : selectedStatus?.name?.nameEn
-              }
-            />
-            <BarberSeniorityComponent
-              modalHandler={modalHandler}
-              label={localization.BARBERS.seniority}
-              selected={selected?.title}
-            />
-            {changeProfile === "1" && (
-              <View
-               
-              >
-                <BarberChangePassword
-                  icon="lock"
-                  lock={localization.BARBERS.changePassword}
-                  // label={localization.BARBERS.password}
-                  value={password}
-                  autoCapitalize="none"
-                  onChangeText={handlePasswordChange}
-                  keyboardType="password"
-                  error={passwordError}
-                  returnKeyType="next"
-                  ref={passwordInputRef}
-                  onPress={changePasswordHandler}
+        {isLoading !== "getBarber" && (
+          <View style={{ flex: 1 }}>
+            {changedImg !== undefined && (
+              <View style={styles.containerImage}>
+                <ImageCompress
+                  handlePickImage={selectedImgHandler}
+                  imageValue={changedImg}
+                  setImageValue={setChangedImg}
                 />
               </View>
             )}
-          </View>
-          <View style={[styles.btnContainer, editingId && styles.btnGap]}>
-            <SharedButtonApproved
-              onPress={addBarber}
-              loading={isLoading === "addEdit"}
-              text={
-                editingId
-                  ? localization.BARBERS.saveChanges
-                  : localization.BARBERS.submitAdd
-              }
-              disabled={
-                emailError?.length > 0 ||
-                errorPhoneNumber?.length > 0 ||
-                passwordError?.length > 0 ||
-                validationData()
-              }
-            />
-            {editingId && changeProfile !== "1" && (
-              <SharedButtonRejected
-                onPress={() => removeQuestion(id)}
-                loading={isLoading === "remove"}
-                text={localization.BARBERS.removeBtn}
+            <View style={{ flex: 3, marginTop: 20 }}>
+              <BarbersInput
+                autoFocus
+                icon="user"
+                label={localization.BARBERS.name}
+                value={name}
+                onChangeText={setName}
+                onSubmitEditing={() => emailInputRef.current.focus()}
+                ref={refName}
+                returnKeyType="next"
               />
-            )}
-          </View>
-        </ScrollView>
 
-        {isMessage && (
-          <SharedMessage
-            isOpen={isMessage}
-            icon={
-              <FontAwesome
-                name="check-circle-o"
-                size={64}
-                color={ColorsBarber.dark.textColor}
+              <View
+                onLayout={(e) => {
+                  emailLayoutY.current = e.nativeEvent.layout.y;
+                }}
+              >
+                <BarbersInput
+                  icon="at"
+                  label={localization.BARBERS.email}
+                  value={email}
+                  autoCapitalize="none"
+                  onChangeText={handleEmailChange}
+                  keyboardType="email-address"
+                  error={emailError}
+                  returnKeyType="next"
+                  ref={emailInputRef}
+                  onSubmitEditing={() => {
+                    phoneNumberInputRef.current?.focus();
+                    scrollRef.current?.scrollTo({
+                      y: emailLayoutY.current - 20,
+                      animated: true,
+                    });
+                  }}
+                />
+              </View>
+              {emailError?.length > 0 ? (
+                <View style={{ paddingBottom: 10 }}>
+                  <Text style={styles.errorText}>{emailError}</Text>
+                </View>
+              ) : null}
+
+              <View
+                onLayout={(e) => {
+                  phoneNumberLayoutY.current = e.nativeEvent.layout.y;
+                }}
+              >
+                <BarbersInput
+                  icon="phone"
+                  label={localization.BARBERS.phoneNumber}
+                  value={phoneNumber}
+                  onChangeText={handlePhoneNumberChange}
+                  keyboardType="phone-pad"
+                  ref={phoneNumberInputRef}
+                  error={errorPhoneNumber}
+                  dataDetectorTypes="phoneNumber"
+                  placeholder="6x xxx xxxx"
+                />
+              </View>
+              {errorPhoneNumber?.length > 0 ? (
+                <View style={{ paddingBottom: 10 }}>
+                  <Text style={styles.errorText}>{errorPhoneNumber}</Text>
+                </View>
+              ) : null}
+              <BarbersStatusCheck
+                modalHandler={modalStatusHandler}
+                label={localization.BARBERS.status}
+                selected={
+                  localization.code === "sr"
+                    ? selectedStatus?.name?.nameLocal
+                    : selectedStatus?.name?.nameEn
+                }
               />
-            }
-            onClose={confirmMessageHandler}
-            onConfirm={confirmMessageHandler}
-            buttonText="Ok"
-            title={message}
-          />
-        )}
-        {error?.length > 0 && (
-          <SharedMessage
-            isOpen={error?.length > 0}
-            icon={
-              <FontAwesome
-                name="close"
-                size={64}
-                color={ColorsBarber.dark.textColor}
+              <BarberSeniorityComponent
+                modalHandler={modalHandler}
+                label={localization.BARBERS.seniority}
+                selected={selected?.title}
               />
-            }
-            onClose={confirmErrorMessageHandler}
-            onConfirm={confirmErrorMessageHandler}
-            buttonText="Ok"
-            title={error}
-          />
+              {changeProfile === "1" && (
+                <View
+
+                >
+                  <BarberChangePassword
+                    icon="lock"
+                    lock={localization.BARBERS.changePassword}
+                    // label={localization.BARBERS.password}
+                    value={password}
+                    autoCapitalize="none"
+                    onChangeText={handlePasswordChange}
+                    keyboardType="password"
+                    error={passwordError}
+                    returnKeyType="next"
+                    ref={passwordInputRef}
+                    onPress={changePasswordHandler}
+                  />
+                </View>
+              )}
+            </View>
+            <View style={[styles.btnContainer, editingId && styles.btnGap]}>
+              <SharedButtonApproved
+                onPress={addBarber}
+                loading={isLoading === "addEdit"}
+                text={
+                  editingId
+                    ? localization.BARBERS.saveChanges
+                    : localization.BARBERS.submitAdd
+                }
+                disabled={
+                  emailError?.length > 0 ||
+                  errorPhoneNumber?.length > 0 ||
+                  passwordError?.length > 0 ||
+                  validationData()
+                }
+              />
+              {editingId && changeProfile !== "1" && (
+                <SharedButtonRejected
+                  onPress={() => removeQuestion(id)}
+                  loading={isLoading === "remove"}
+                  text={localization.BARBERS.removeBtn}
+                />
+              )}
+            </View>
+          </View>
         )}
-      </View>
-    );
-  }
+
+
+
+      </ScrollView>
+
+      {isMessage && (
+        <SharedMessage
+          isOpen={isMessage}
+          icon={
+            <FontAwesome
+              name="check-circle-o"
+              size={64}
+              color={ColorsBarber.dark.textColor}
+            />
+          }
+          onClose={confirmMessageHandler}
+          onConfirm={confirmMessageHandler}
+          buttonText="Ok"
+          title={message}
+        />
+      )}
+      {error?.length > 0 && (
+        <SharedMessage
+          isOpen={error?.length > 0}
+          icon={
+            <FontAwesome
+              name="close"
+              size={64}
+              color={ColorsBarber.dark.textColor}
+            />
+          }
+          onClose={confirmErrorMessageHandler}
+          onConfirm={confirmErrorMessageHandler}
+          buttonText="Ok"
+          title={error}
+        />
+      )}
+    </View>
+  );
 }
+
 
 const styles = StyleSheet.create({
   containerPicker: {

@@ -44,6 +44,7 @@ const Barbers = () => {
     setIsError(null);
   };
 
+
   useFocusEffect(
     useCallback(() => {
       fetchAllBarbers();

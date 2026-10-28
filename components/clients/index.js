@@ -33,7 +33,6 @@ export default function ClientsScreen() {
   );
 
   const getClient = (item) => {
-    console.log("getClient", item);
     router.push({
       pathname: "/(tabs)/(02_clients)/client",
       params: { ...item, color: item?.color?.name },

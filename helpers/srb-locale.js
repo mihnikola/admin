@@ -386,7 +386,7 @@ export const SRB_LOCALIZATION = {
       servicesLength: "Trenutne usluge",
       availableServices: "Sve dostupne usluge",
       info: "Dodelite usluge ovom barberu",
-
+      question:"Bez dodeljenih usluga, ovaj barber neće biti vidljiv mušterijama prilikom zakazivanja. Da li ste sigurni da želite da nastavite?"
     },
 
     LOCATIONSBARBERS: {
@@ -395,7 +395,7 @@ export const SRB_LOCALIZATION = {
       title: "Lokacije i barberi",
       footerBottom: "All rights reserved ©",
       info: "Dodelite barbere ovoj lokaciji",
-      question: "Da li ste sigurni da ne želite da dodelite nijednog barbera?",
+      question: "Bez dodeljenog berbera, ova lokacija neće biti vidljiva mušterijama prilikom zakazivanja. Da li ste sigurni da želite da nastavite?",
       category: "Kategorija"
 
     },

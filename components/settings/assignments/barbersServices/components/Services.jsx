@@ -1,4 +1,4 @@
-import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
+import { FontAwesome, FontAwesome6, MaterialIcons } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -21,6 +21,7 @@ import SharedButtonApproved from "@/shared-components/SharedButtonApproved";
 import withKeyboardAvoid from "@/wrapper/WrapperKeyboard";
 import SearchInputComponent from "@/components/settings/sharedComponents/SearchInputComponent";
 import { ColorsBarber } from "@/constants/Colors";
+import { SharedQuestion } from "@/shared-components/SharedQuestion";
 
 const Services = () => {
   const { localization } = useLocalization();
@@ -54,6 +55,7 @@ const Services = () => {
   const [search, setSearch] = useState("");
   const [isFocused, setIsFocused] = useState(false);
   const filterResult = servicesByBarbers.filter((item) => item.assigned);
+  const [notificationQuestion, setNotificationQuestion] = useState(null);
 
   const [disabledBtn, setDisabledBtn] = useState(true);
 
@@ -91,6 +93,7 @@ const Services = () => {
     setIsError(null);
   };
 
+
   useEffect(() => {
     if (id) {
       setTimeout(async () => {
@@ -106,13 +109,24 @@ const Services = () => {
   );
 
   const skipHandler = () => {
+    if (filterResult?.length > 0) {
+      router.dismiss(1);
+      router.back();
+      return;
+    }
+    setNotificationQuestion(localization.SETTINGS.SERVICESBARBERS.question);
+
+  }
+
+  const cancelQuestionHandler = () => {
+    setNotificationQuestion(null)
+
+  }
+  const nextQuestionHandler = () => {
+    setNotificationQuestion(null);
     router.dismiss(1);
     router.back();
     return;
-  }
-
-  if (isLoading === "getServices") {
-    return <SharedLoader isOpen={isLoading === "getServices"} />;
   }
 
   return (
@@ -142,23 +156,47 @@ const Services = () => {
           />
         </View>
 
-        <FlatList
-          data={servicesByBarbersFiltered}
-          keyExtractor={(item) => item._id}
-          renderItem={({ item }) => (
-            <ServiceItem item={item} toggleService={toggleService} />
-          )}
-        />
-      </View>
-      <View style={{ paddingHorizontal: 12 }}>
-        <SharedButtonApproved
-          onPress={disabledBtn ? skipHandler : () => submitChangesServiceToBarber(id)}
-          loading={isLoading === "patch"}
-          text={localization.SERVICES.saveChanges}
-          skip={disabledBtn ? localization.CATEGORY.skip : null}
-        />
+        {isLoading === "get" || servicesByBarbersFiltered?.length === 0 && <Loader />}
+        {isLoading !== "get" &&
+          <FlatList
+            data={servicesByBarbersFiltered}
+            keyExtractor={(item) => item._id}
+            renderItem={({ item }) => (
+              <ServiceItem item={item} toggleService={toggleService} />
+            )}
+          />
+        }
+
       </View>
 
+      <View style={{ paddingHorizontal: 12 }}>
+        {isLoading !== "get" &&
+          <SharedButtonApproved
+            onPress={disabledBtn ? skipHandler : () => submitChangesServiceToBarber(id)}
+            loading={isLoading === "patch"}
+            text={disabledBtn ? localization.CATEGORY.skip : localization.SERVICES.saveChanges}
+            disabled={initialNumber?.length > 0 && filterResult?.length === 0}
+          />
+        }
+
+      </View>
+      {notificationQuestion?.length > 0 &&
+        <SharedQuestion
+          isOpen={notificationQuestion?.length > 0}
+          danger
+          icon={
+            <FontAwesome6
+              name="triangle-exclamation"
+              size={64}
+              color={ColorsBarber.dark.textColor}
+            />
+          }
+          onClose={cancelQuestionHandler}
+          onLogOut={nextQuestionHandler}
+          buttonTextYes={localization.SETTINGS.LOCATIONSBARBERS.yes}
+          buttonTextNo={localization.SETTINGS.LOCATIONSBARBERS.no}
+          title={notificationQuestion}
+        />}
       {isMessage && (
         <SharedMessage
           isOpen={isMessage}
