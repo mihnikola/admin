@@ -18,6 +18,10 @@ instance.interceptors.request.use(
     const token = await getStorage();
     const languageValue = await getLanguageValue();
     const timeZoneValue = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+        // const tenantId = "salon_jasar";
+    // const tenantId = "salon_test";
+
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -29,6 +33,12 @@ instance.interceptors.request.use(
     } else {
       config.headers["Language"] = "sr";
     }
+    //  if (tenantId) {
+    //   config.headers["x-tenant-id"] = tenantId;
+    // } else {
+    //   // Možeš staviti i neki podrazumevani test tenant ako želiš dok se korisnik ne uloguje
+    //   config.headers["x-tenant-id"] = "salon_test";
+    // }
 
     return config;
   },
@@ -48,7 +58,6 @@ instance.interceptors.response.use(
           type: "UNAUTHORIZED_TOKEN",
         });
       }
-      console.log("ACCOUNT_DELETED data",error.response.data)
       if (error.response?.data?.code === "ACCOUNT_DELETED") {
         showGlobalMessage({
           type: "ACCOUNT_DELETED",
