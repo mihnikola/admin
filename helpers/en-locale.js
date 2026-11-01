@@ -55,6 +55,7 @@ export const ENG_LOCALIZATION = {
     submitAdd: "Add barber",
     changeCategory: "Change category",
     saveChanges: "Save",
+    addServices:"Add services",
     confirmButton: "Ok",
     title: "Manage barbers",
     listBarbers: "List barbers",

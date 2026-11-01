@@ -292,6 +292,8 @@ export const SRB_LOCALIZATION = {
       "Da li ste sigurni da želite da obrišete ovog barbera? Time će biti otkazane sve njegove aktivne rezervacije.",
     confirmButton: "Ok",
     submitAdd: "Dodaj frizera",
+    addServices: "Dodaj usluge",
+
     question: "Da li stvarno želite da obrišete ovog barbera?",
     title: "Upravljanje frizerima",
     listBarbers: "Lista frizera",
@@ -386,7 +388,7 @@ export const SRB_LOCALIZATION = {
       servicesLength: "Trenutne usluge",
       availableServices: "Sve dostupne usluge",
       info: "Dodelite usluge ovom barberu",
-      question:"Bez dodeljenih usluga, ovaj barber neće biti vidljiv mušterijama prilikom zakazivanja. Da li ste sigurni da želite da nastavite?"
+      question: "Bez dodeljenih usluga, ovaj barber neće biti vidljiv mušterijama prilikom zakazivanja. Da li ste sigurni da želite da nastavite?"
     },
 
     LOCATIONSBARBERS: {

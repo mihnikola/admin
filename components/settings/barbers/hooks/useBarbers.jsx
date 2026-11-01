@@ -260,7 +260,6 @@ const useBarbers = () => {
   }, []);
 
   const navigateToService = (barber) => {
-    console.log("barber", barber);
     router.push({
       pathname: "/(tabs)/(03_settings)/servicesBarbers",
       params: {
@@ -268,6 +267,7 @@ const useBarbers = () => {
         name: barber.name,
         image: barber.image,
         phoneNumber: barber?.phoneNumber,
+        isEdit: true
       },
     });
   };

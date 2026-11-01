@@ -21,7 +21,7 @@ import { SharedQuestion } from "@/shared-components/SharedQuestion";
 
 const Barbers = () => {
   const { localization } = useLocalization();
-  const { id, address } = useLocalSearchParams();
+  const { id, address, isEdit } = useLocalSearchParams();
 
   const itemData = {
     id,
@@ -147,13 +147,27 @@ const Barbers = () => {
         />
       </View>
       <View style={{ paddingHorizontal: 16 }}>
-        <SharedButtonApproved
-          onPress={disabledBtn ? skipHandler : () => submitChanges(id)}
-          loading={isLoading === "post"}
-          text={disabledBtn ? localization.CATEGORY.skip : localization.SERVICES.saveChanges}
-          disabled={initialNumber?.length > 0 && filterResult?.length === 0}
-        />
+        {!isEdit &&
+          <SharedButtonApproved
+            onPress={disabledBtn ? skipHandler : () => submitChanges(id)}
+            loading={isLoading === "post"}
+            text={disabledBtn ? localization.CATEGORY.skip : localization.SERVICES.saveChanges}
+            disabled={initialNumber?.length > 0 && filterResult?.length === 0}
+          />
+        }
+        {isEdit &&
+          <SharedButtonApproved
+            onPress={() => submitChanges(id)}
+            loading={isLoading === "post"}
+            text={localization.SERVICES.saveChanges}
+            disabled={disabledBtn || filterResult?.length === 0}
+          />
+        }
       </View>
+
+
+
+
       {notificationQuestion?.length > 0 &&
         <SharedQuestion
           isOpen={notificationQuestion?.length > 0}
@@ -171,7 +185,7 @@ const Barbers = () => {
           buttonTextNo={localization.SETTINGS.LOCATIONSBARBERS.no}
           title={notificationQuestion}
         />}
-     
+
       {isMessage && (
         <SharedMessage
           isOpen={isMessage}

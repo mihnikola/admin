@@ -42,7 +42,7 @@ const BarbersInput = forwardRef((props, ref) => {
           {!props.lock && (
             <TextInput
               {...props}
-              style={styles.input}
+              style={[styles.input, props.dataDetectorTypes && styles.inputPhone]}
               value={props.value}
               ref={ref}
               onFocus={() => setIsFocused(true)}
@@ -53,7 +53,7 @@ const BarbersInput = forwardRef((props, ref) => {
               keyboardType={props.keyboardType}
             />
           )}
-         
+
           {props.lock && (
             <TouchableOpacity style={styles.lockRow} onPress={props.onPress}>
               <Text style={styles.lock}>{props.lock}</Text>
@@ -65,7 +65,7 @@ const BarbersInput = forwardRef((props, ref) => {
             </TouchableOpacity>
           )}
         </View>
-       
+
       </View>
       {props.lock && (
         <TouchableOpacity
@@ -74,7 +74,7 @@ const BarbersInput = forwardRef((props, ref) => {
           activeOpacity={0.7}
         />
       )}
-      
+
     </View>
   );
 });
@@ -83,6 +83,13 @@ const styles = StyleSheet.create({
   lockRow: {
     flexDirection: "row",
     justifyContent: "space-between",
+  },
+  inputPhone: {
+    color: ColorsBarber.dark.textColorInput,
+    fontFamily: "OldStandard-Regular",
+    fontSize: 16,
+    paddingBottom: 2,
+    width: "100%",
   },
 
   overlay: {
@@ -114,13 +121,13 @@ const styles = StyleSheet.create({
   },
   flagIcon: {
     width: 24, // Adjust size as needed
-    height: 18, // Adjust size as needed, maintain aspect ratio
+    height: 24, // Adjust size as needed, maintain aspect ratio
     borderRadius: 2, // Slightly rounded corners for the flag
   },
   prefixText: {
     color: ColorsBarber.dark.textColorInput,
-    fontSize: 18,
-    marginRight: 8,
+    fontSize: 16,
+    marginHorizontal: 4,
     fontFamily: "OldStandard-Regular",
   },
   error: {
@@ -143,7 +150,6 @@ const styles = StyleSheet.create({
   input: {
     color: ColorsBarber.dark.textColorInput,
     fontFamily: "OldStandard-Regular",
-
     fontSize: 16,
     padding: 0,
     width: "100%",

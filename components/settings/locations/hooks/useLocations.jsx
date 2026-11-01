@@ -217,7 +217,7 @@ function useLocation() {
   const navigateToBarbers = (item) => {
     router.push({
       pathname: "/(tabs)/(03_settings)/barbersLocations",
-      params: { id: item._id, address: item.address },
+      params: { id: item._id, address: item.address, isEdit: true },
     });
   };
 

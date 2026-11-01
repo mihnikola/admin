@@ -28,6 +28,7 @@ import BarbersSeniority from "./BarbersSeniority";
 import BarbersInput from "./BarbersInput";
 import BarberChangePassword from "./BarberChangePassword";
 import BarberSeniorityComponent from "./BarbersSeniorityInput";
+import BarberServicesListInput from "./BarberServicesListInput";
 import BarbersStatusCheck from "./BarbersStatusCheck";
 import BarbersStatuses from "./BarbersStatuses";
 import SharedButtonApproved from "@/shared-components/SharedButtonApproved";
@@ -260,15 +261,7 @@ export default function BarbersAdd() {
         <View>
           <SharedBackButton onPress={router.back} absolutePosition={false} />
         </View>
-        {id && (
-          <TouchableOpacity onPress={() => navigateToService(barberData)}>
-            <MaterialCommunityIcons
-              name="playlist-plus"
-              size={32}
-              color={ColorsBarber.dark.textColor}
-            />
-          </TouchableOpacity>
-        )}
+      
       </View>
       <ScrollView
         ref={scrollRef}
@@ -373,6 +366,8 @@ export default function BarbersAdd() {
                 label={localization.BARBERS.seniority}
                 selected={selected?.title}
               />
+              {id && <BarberServicesListInput onPress={() => navigateToService(barberData)} label={localization.BARBERS.addServices} />}
+
               {changeProfile === "1" && (
                 <View
 

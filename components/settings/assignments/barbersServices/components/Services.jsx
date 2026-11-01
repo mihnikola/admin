@@ -25,8 +25,7 @@ import { SharedQuestion } from "@/shared-components/SharedQuestion";
 
 const Services = () => {
   const { localization } = useLocalization();
-  const { id, name, image, phoneNumber } = useLocalSearchParams();
-  console.log("xxxxxxxxxx", id, name, image, phoneNumber);
+  const { id, name, image, phoneNumber, isEdit } = useLocalSearchParams();
   const itemData = {
     id,
     name,
@@ -78,7 +77,6 @@ const Services = () => {
       return Object.keys(item).every((key) => item[key] === other[key]);
     });
   };
-  console.log("disabledBtn", disabledBtn)
   useEffect(() => {
     if (areListsEqual(initialNumber, filterResult)) {
       setDisabledBtn(true);
@@ -129,6 +127,9 @@ const Services = () => {
     return;
   }
 
+  console.log("initialNumber", initialNumber?.length)
+  console.log("filterResult", filterResult?.length)
+
   return (
     <View style={styles.container}>
       <View style={styles.headerComponent}>
@@ -170,12 +171,20 @@ const Services = () => {
       </View>
 
       <View style={{ paddingHorizontal: 12 }}>
-        {isLoading !== "get" &&
+        {isLoading !== "get" && !isEdit &&
           <SharedButtonApproved
             onPress={disabledBtn ? skipHandler : () => submitChangesServiceToBarber(id)}
             loading={isLoading === "patch"}
             text={disabledBtn ? localization.CATEGORY.skip : localization.SERVICES.saveChanges}
             disabled={initialNumber?.length > 0 && filterResult?.length === 0}
+          />
+        }
+        {isLoading !== "get" && isEdit &&
+          <SharedButtonApproved
+            onPress={() => submitChangesServiceToBarber(id)}
+            loading={isLoading === "patch"}
+            text={localization.SERVICES.saveChanges}
+            disabled={disabledBtn || filterResult.length === 0}
           />
         }
 

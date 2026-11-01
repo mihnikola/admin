@@ -1,17 +1,13 @@
 import {
   View,
   Text,
-  TextInput,
   StyleSheet,
-  Image,
   TouchableOpacity,
 } from "react-native";
 import { Feather, FontAwesome } from "@expo/vector-icons";
-import { forwardRef, useState } from "react";
 import { ColorsBarber } from "@/constants/Colors";
 
 const BarberChangePassword = (props) => {
-  const [isFocused, setIsFocused] = useState(false);
   return (
     <View style={styles.container}>
       <View style={styles.iconContainer}>
@@ -60,7 +56,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: ColorsBarber.dark.inputField,
     borderRadius: 20,
-    padding: 20,
+    paddingVertical: 20,
+    paddingHorizontal: 15,
+    marginTop: 7
   },
 
   iconContainer: {

@@ -45,10 +45,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: ColorsBarber.dark.inputField,
-
     borderRadius: 16,
-    padding: 16,
-    marginBottom: 14,
+    padding: 12,
+    marginBottom: 7,
   },
 
   icon: {
