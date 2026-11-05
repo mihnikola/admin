@@ -110,7 +110,7 @@ export default function TimeSettingsScreen({
   const verificationData = () => {
     if (
       checkValidationAddress(data?.address) ==
-        checkValidationAddress(streetName) &&
+      checkValidationAddress(streetName) &&
       data.workingHours.start == fromTime &&
       data.workingHours.end == toTime &&
       data.slotDuration == selected

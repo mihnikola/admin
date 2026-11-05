@@ -2,6 +2,7 @@ import useChangeUser from "@/components/clients/hooks/useChangeUser";
 import { ColorsBarber } from "@/constants/Colors";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { getInitialsName } from "@/helpers";
+import SharedBackButton from "@/shared-components/SharedBackButton";
 // import { SharedButton } from "@/shared-components/SharedButton";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import { SharedMessage } from "@/shared-components/SharedMessage";
@@ -57,13 +58,20 @@ const ClientReservation = () => {
   // console.log("colorData",colorData)
   const initials = getInitialsName(name);
 
-  if (isLoading === "delete") {
-    return <SharedLoader isOpen={isLoading === "delete"} />;
-  }
+
   const refreshHandler = () => {
     setIsMessage(false);
     router.back();
   };
+
+  const preDeleteClient = (id) => {
+    setDialog(false);
+    setTimeout(async () => {
+      await deleteClient(id);
+    }, 800);
+  }
+
+
 
   return (
     <View style={styles.container}>
@@ -73,6 +81,12 @@ const ClientReservation = () => {
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
       >
+        <SharedBackButton
+          onPress={router.back}
+          width
+          absolutePosition={false}
+          styleBtn={{ marginTop: 30, marginLeft: 15 }}
+        />
         {/* Zaglavlje profila */}
         <View style={styles.profileHeader}>
           {image ? (
@@ -85,7 +99,6 @@ const ClientReservation = () => {
           <Text style={styles.nameText}>{name}</Text>
         </View>
 
-        {/* Akciona dugmad */}
         <View style={styles.actionButtonsContainer}>
           {phoneNumber && (
             <TouchableOpacity
@@ -116,7 +129,6 @@ const ClientReservation = () => {
           </TouchableOpacity>
         </View>
 
-        {/* Statistički podaci */}
         <View style={styles.section}>
           <View style={styles.statItem}>
             <Text style={styles.statLabel}>{localization.CLIENTS.missed}</Text>
@@ -169,29 +181,7 @@ const ClientReservation = () => {
             </Text>
           </View>
 
-          {/* <View style={{ paddingVertical: 20 }}>
-            <Text style={styles.textValue}>Dodaj boju</Text>
-            <TextInput
-              value={colorData}
-              onChangeText={setColorData}
-              placeholder={ "Unesite boju"}
-              style={styles.input}
-              onFocus={() => {
-                setTimeout(() => {
-                  scrollViewRef.current?.scrollToEnd({ animated: true });
-                }, 100);
-              }}
-            />
-          </View>
 
-          <View style={{ paddingBottom: 20 }}>
-            <SharedButton
-              onPress={() => changeColorSubmit(id,colorData)}
-              text={localization.APPOINTMENTS.saveChanges}
-              disabled={colorData?.length === 0 || isLoading === "changeColor"}
-              loading={isLoading === "changeColor"}
-            />
-          </View> */}
         </View>
       </ScrollView>
       {dialog && (
@@ -205,7 +195,7 @@ const ClientReservation = () => {
             />
           }
           onClose={() => setDialog(false)}
-          onLogOut={() => deleteClient(id)}
+          onLogOut={() => preDeleteClient(id)}
           title={localization.CLIENTS.question}
           buttonTextNo={localization.CLIENTS.cancel}
           buttonTextYes="OK"
@@ -227,6 +217,7 @@ const ClientReservation = () => {
           title={message}
         />
       )}
+      <SharedLoader isOpen={isLoading === "delete"} />
     </View>
   );
 };
@@ -236,7 +227,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: ColorsBarber.dark.background,
   },
-  // KLJUČNO: Omogućava dinamičku visinu i prostor za podizanje pod tastaturom
   scrollContent: {
     flexGrow: 1,
   },

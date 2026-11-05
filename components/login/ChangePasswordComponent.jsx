@@ -74,7 +74,8 @@ const ChangePasswordComponent = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      <ScrollView automaticallyAdjustKeyboardInsets style={styles.container}>
+      <ScrollView automaticallyAdjustKeyboardInsets style={styles.container}
+      >
         {/* <WrapperAuth> */}
         <SharedBackButton
           onPress={router.back}

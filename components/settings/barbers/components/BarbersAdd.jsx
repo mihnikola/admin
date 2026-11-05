@@ -263,6 +263,7 @@ export default function BarbersAdd() {
         </View>
       
       </View>
+      
       <ScrollView
         ref={scrollRef}
         keyboardDismissMode="interactive"
@@ -272,7 +273,7 @@ export default function BarbersAdd() {
           paddingBottom: 20,
           marginHorizontal: 12,
         }}
-        keyboardShouldPersistTaps="always"
+        keyboardShouldPersistTaps="handled"
       >
 
         {isLoading === "getBarber" && <Loader />}

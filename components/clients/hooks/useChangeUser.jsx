@@ -27,18 +27,19 @@ export default function useChangeUser() {
     setError(null);
     try {
       const response = await del(`/admin/users/${clientId}`);
-      setIsMessage(true);
-
-      if (response.status === 200) {
-        setMessage(localization.CLIENTS.deactivate);
-      }
-    } catch (err) {
-      setIsMessage(true);
-      setError(err);
-    } finally {
       setIsLoading(null);
+      setTimeout(() => {
+        if (response.status === 200) {
+          setIsMessage(true);
 
-      setDialog(false);
+          setMessage(localization.CLIENTS.deactivate);
+        }
+      }, 800);
+    } catch (err) {
+      setIsLoading(null);
+      setIsMessage(true);
+
+      setError(err);
     }
   };
 
@@ -57,7 +58,7 @@ export default function useChangeUser() {
         setMessage(localization.CLIENTS.changeColor);
       }
     } catch (err) {
-      console.log("er",err)
+      console.log("er", err)
       setIsMessage(true);
       setError(err);
     } finally {

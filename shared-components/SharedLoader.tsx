@@ -21,7 +21,7 @@ export const SharedLoader = ({ isOpen, onConfirm }) => {
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: ColorsBarber.dark.background,
+    backgroundColor: "rgba(0, 0, 0, 0.88)",
     alignItems: "center",
     justifyContent: "center",
     padding: 16,

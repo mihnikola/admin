@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { SharedInput } from "@/shared-components/SharedInput";
@@ -66,99 +66,112 @@ const AddCategory = () => {
 
 
   return (
-    <WrapperAuth>
-      <SharedBackButton
-        onPress={router.back}
-        absolutePosition={false}
-        styleBtn={{ marginBottom: 30 }}
-      />
+    <View style={{ flex: 1 }}>
+      <ScrollView contentContainerStyle={{
+        flexGrow: 1,
+        justifyContent: "center",
+        flex: 1,
+        padding: 20,
+        backgroundColor: ColorsBarber.dark.background,
+      }}
+        keyboardShouldPersistTaps="always">
 
-      {isLoading === 'get' && <Loader />}
-      {isLoading !== 'get' &&
-        <View style={{ flex: 1, backgroundColor: ColorsBarber.dark.background }}>
-          <View>
-            <Text style={styles.mainTitle}>
-              {id
-                ? localization.CATEGORY.edit
-                : localization.CATEGORY.createLabel}
-            </Text>
+
+
+        <SharedBackButton
+          onPress={router.back}
+          absolutePosition={false}
+          width
+          styleBtn={{ marginBottom: 15, marginTop: 10 }}
+        />
+
+        {isLoading === 'get' && <Loader />}
+        {isLoading !== 'get' &&
+          <View style={{ flex: 1, backgroundColor: ColorsBarber.dark.background }}>
+            <View>
+              <Text style={styles.mainTitle}>
+                {id
+                  ? localization.CATEGORY.edit
+                  : localization.CATEGORY.createLabel}
+              </Text>
+            </View>
+            <View style={{ marginTop: 10 }}>
+              <SharedInput
+                label={localization.CATEGORY.titleEn}
+                value={categoryNameLocal}
+                onChangeText={setCategoryNameLocal}
+                placeholder={localization.CATEGORY.enterEn}
+                style={styles.input}
+              />
+            </View>
+            <View style={{ marginTop: 10 }}>
+              <SharedInput
+                label={localization.CATEGORY.titleLocal}
+                value={categoryNameEn}
+                onChangeText={setCategoryNameEn}
+                placeholder={localization.CATEGORY.enterLocal}
+                style={styles.input}
+              />
+            </View>
           </View>
-          <View style={{ marginTop: 20 }}>
-            <SharedInput
-              label={localization.CATEGORY.titleEn}
-              value={categoryNameLocal}
-              onChangeText={setCategoryNameLocal}
-              placeholder={localization.CATEGORY.enterEn}
-              style={styles.input}
+        }
+        {isLoading !== 'get' &&
+          <View style={{ gap: 20 }}>
+            <SharedButton
+              disabled={categoryNameEn?.length === 0 && categoryNameLocal?.length === 0}
+              onPress={() => submitHandler(id)}
+              loading={isLoading === "post" || isLoading === "patch"}
+              text={
+                id ? localization.CATEGORY.save : localization.CATEGORY.createBtn
+              }
             />
+            {id && (
+              <SharedButtonRejected
+                onPress={() => questionHandler(id)}
+                loading={isLoading === "delete" || isLoading === 'getCategory'}
+                text={localization.CATEGORY.deleteBtn}
+              />
+            )}
           </View>
-          <View style={{ marginTop: 20 }}>
-            <SharedInput
-              label={localization.CATEGORY.titleLocal}
-              value={categoryNameEn}
-              onChangeText={setCategoryNameEn}
-              placeholder={localization.CATEGORY.enterLocal}
-              style={styles.input}
-            />
-          </View>
-        </View>
-      }
-      {isLoading !== 'get' &&
-        <View style={{ gap: 20 }}>
-          <SharedButton
-            disabled={categoryNameEn?.length === 0 && categoryNameLocal?.length === 0}
-            onPress={() => submitHandler(id)}
-            loading={isLoading === "post" || isLoading === "patch"}
-            text={
-              id ? localization.CATEGORY.save : localization.CATEGORY.createBtn
+        }
+
+        {isConfirmation && (
+          <SharedQuestion
+            isOpen={isConfirmation}
+            onClose={() => setIsConfirmation(false)}
+            onLogOut={() => confirmDeleteHandler(id)}
+            buttonTextNo={localization.CATEGORY.questionNo}
+            buttonTextYes={localization.CATEGORY.questionYes}
+            danger
+            icon={
+              <FontAwesome6
+                name="triangle-exclamation"
+                size={64}
+                color={ColorsBarber.dark.textColor}
+              />
             }
+            question={message.question}
           />
-          {id && (
-            <SharedButtonRejected
-              onPress={() => questionHandler(id)}
-              loading={isLoading === "delete" || isLoading === 'getCategory'}
-              text={localization.CATEGORY.deleteBtn}
-            />
-          )}
-        </View>
-      }
+        )}
 
-      {isConfirmation && (
-        <SharedQuestion
-          isOpen={isConfirmation}
-          onClose={() => setIsConfirmation(false)}
-          onLogOut={() => confirmDeleteHandler(id)}
-          buttonTextNo={localization.CATEGORY.questionNo}
-          buttonTextYes={localization.CATEGORY.questionYes}
-          danger
-          icon={
-            <FontAwesome6
-              name="triangle-exclamation"
-              size={64}
-              color={ColorsBarber.dark.textColor}
-            />
-          }
-          question={message.question}
-        />
-      )}
-
-      {isMessage && (
-        <SharedMessage
-          isOpen={isMessage}
-          onClose={confirmHandler2}
-          onConfirm={confirmHandler2}
-          icon={
-            <FontAwesome
-              name={error ? "close" : "check-circle"}
-              size={64}
-              color={ColorsBarber.dark.textColor}
-            />
-          }
-          title={error || message}
-          buttonText={localization.OK.label}
-        />
-      )}
-    </WrapperAuth>
+        {isMessage && (
+          <SharedMessage
+            isOpen={isMessage}
+            onClose={confirmHandler2}
+            onConfirm={confirmHandler2}
+            icon={
+              <FontAwesome
+                name={error ? "close" : "check-circle"}
+                size={64}
+                color={ColorsBarber.dark.textColor}
+              />
+            }
+            title={error || message}
+            buttonText={localization.OK.label}
+          />
+        )}
+      </ScrollView>
+    </View>
   );
 };
 const styles = StyleSheet.create({
@@ -178,6 +191,13 @@ const styles = StyleSheet.create({
     color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
   },
+  container: {
+    flexGrow: 1,
+    justifyContent: "center",
+    flex: 1,
+    paddingVertical: 20,
+    backgroundColor: ColorsBarber.dark.background,
+  }
 
 });
 export default AddCategory;

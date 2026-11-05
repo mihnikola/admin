@@ -12,12 +12,8 @@ export default function RootLayoutBarbers() {
         name="client"
         options={{
           title: "",
-          headerShown: true,
-          headerStyle: {
-            backgroundColor: ColorsBarber.dark.background,
-          },
-          headerTintColor: ColorsBarber.dark.textColor,
-          headerLeft: () => <CustomBackButton />,
+          headerShown: false,
+
         }}
       />
     </Stack>

@@ -1,6 +1,6 @@
 import { FontAwesome } from "@expo/vector-icons";
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { ActivityIndicator, StyleSheet, View } from "react-native";
+import { ActivityIndicator, ScrollView, StyleSheet, View } from "react-native";
 import ImageCompress from "../../sharedComponents/ImageCompress";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { SharedMessage } from "@/shared-components/SharedMessage";
@@ -15,7 +15,8 @@ import { useServiceCategory } from "@/contexts/ServiceCategoryContext";
 import CategoryComponent from './CategoryComponent';
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import Loader from "@/shared-components/Loader";
-export default function AddService() {
+import withKeyboardAvoid from "@/wrapper/WrapperKeyboard";
+const AddService = () => {
   const { localization } = useLocalization();
   const params = useLocalSearchParams();
   const { id } = params;
@@ -41,15 +42,6 @@ export default function AddService() {
   const nameLocalLayout = useRef(0);
   const priceLayout = useRef(0);
   const durationLayout = useRef(0);
-
-
-
-
-
-
-
-
-
 
   const selectedImgHandler = (imgData) => {
     if (imgData) {
@@ -132,28 +124,6 @@ export default function AddService() {
   })();
 
 
-
-  // const validationData = (id) => {
-  //   if (!id) {
-  //     if (nameEn?.length > 0 && nameLocal?.length > 0 && price?.length > 0 && duration?.length > 0 && changedImg) {
-  //       return true;
-  //     }
-  //   } else if (
-  //     getServiceData?.id === editingId &&
-  //     getServiceData?.name?.nameEn === nameEn &&
-  //     getServiceData?.name?.nameLocal === nameLocal &&
-  //     getServiceData.price?.toString() === price &&
-  //     getServiceData.duration?.toString() === duration &&
-  //     getServiceData?.image === changedImg &&
-  //     getServiceData?.category?._id === categoryId
-  //   ) {
-  //     return false;
-
-  //   } else {
-  //     return true;
-
-  //   }
-  // };
   const resetForm = () => {
     setNameEn("");
     setNameLocal("");
@@ -235,8 +205,11 @@ export default function AddService() {
 
 
   return (
-    <View style={styles.container}>
-
+    <ScrollView
+      keyboardDismissMode="interactive"
+      style={styles.container}
+      keyboardShouldPersistTaps="handled"
+    >
       <View
         style={{
           flexDirection: "row",
@@ -314,6 +287,7 @@ export default function AddService() {
               ref={refPrice}
             />
           </View>
+
           <View
             onLayout={(e) => {
               durationLayout.current = e.nativeEvent.layout.y;
@@ -413,7 +387,7 @@ export default function AddService() {
           title={error}
         />
       )}
-    </View>
+    </ScrollView>
   );
 }
 
@@ -434,6 +408,7 @@ const styles = StyleSheet.create({
   },
   btnContainer: {
     flexDirection: "column",
+    marginBottom: 20
   },
   btnGap: { gap: 10 },
   container: {
@@ -499,3 +474,5 @@ const styles = StyleSheet.create({
     padding: 8,
   },
 });
+
+export default withKeyboardAvoid(AddService);
