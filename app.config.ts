@@ -50,8 +50,9 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       "expo-build-properties",
       {
         ios: {
-          useFrameworks: "static",
-          forceStaticLinking: ["RNFBApp", "RNFBMessaging"],
+          // Firebase Apple SDK is SPM-only. Static frameworks embed a copy of
+          // those packages in each RNFB pod and fail pod install with duplicate symbols.
+          useFrameworks: "dynamic",
         },
       },
     ],
