@@ -2,7 +2,6 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { CompanyProvider } from "@/contexts/CompanyContext";
 import { LocalizationProvider } from "@/contexts/LocalizationContext";
 import { ReservationProvider } from "@/contexts/ReservationContext";
-import { DarkTheme, ThemeProvider } from "@react-navigation/native";
 import { useColorScheme } from "react-native";
 import NotificationWrapper from "./NotificationWrapper";
 import { AppointmentProvider } from "@/contexts/AppointmentContext";
@@ -14,6 +13,7 @@ import { ServiceCategoryProvider } from "@/contexts/ServiceCategoryContext";
 import { InternetProvider } from "@/contexts/InternetContext";
 import { GlobalErrorProvider } from "@/contexts/GlobalErrorContext";
 import GlobalErrorHandler from "@/shared-components/GlobalErrorHandler";
+import { DarkTheme, ThemeProvider } from "expo-router";
 
 export default function AppInitialized(props) {
   const colorScheme = useColorScheme();

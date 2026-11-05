@@ -1,6 +1,5 @@
 import SharedCarousel from "@/shared-components/SharedCarousel";
-import { useIsFocused } from "@react-navigation/native";
-import { router, useFocusEffect } from "expo-router";
+import { router, useFocusEffect, useIsFocused } from "expo-router";
 import { useCallback, useState } from "react";
 import {
   FlatList,
