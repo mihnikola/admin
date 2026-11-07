@@ -217,7 +217,7 @@ export const AuthProvider = ({ children }) => {
         setSuccess(localization.LOGIN.success);
       }
     } catch (err) {
-      console.log("err", err);
+      console.log("errxxx", err);
       if (err.status === 304) {
         setIsMessage(true);
 
