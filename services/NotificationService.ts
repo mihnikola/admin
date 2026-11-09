@@ -23,7 +23,6 @@ export class NotificationService {
     Notifications.setNotificationHandler({
       handleNotification: async () => ({
         shouldShowBanner: true,
-        shouldShowAlert: true,
         shouldShowList: true,
         shouldPlaySound: true,
         shouldSetBadge: false,
@@ -79,6 +78,7 @@ export class NotificationService {
           },
           trigger: null, 
         });
+        this.hasReceivedForeground = true;
         console.log("✅ Lokalna foreground notifikacija uspešno prikazana!");
       } catch (error) {
         console.log("❌ Greška pri prikazivanju foreground notifikacije:", error);
@@ -144,6 +144,7 @@ export class NotificationService {
   }
 
   initializeListeners(onClick: (data?: any) => void) {
+    this.cleanup(); // Očisti prethodne pretplate pre dodavanja novih
     this.requestPermission();
     this.listenToTokenRefresh();
     this.getFCMToken();
@@ -156,12 +157,13 @@ export class NotificationService {
     // CLICK NA LOKALNU (FOREGROUND) NOTIFIKACIJU
     const clickListener = Notifications.addNotificationResponseReceivedListener(
       (response) => {
-        const data = response.notification.request.content.data;
-        console.log("👉 Foreground notification clicked:", data);
-        if (data) {
+        if(this.hasReceivedForeground) {
+          const data = response.notification.request.content.data;
+          console.log("👉 Foreground notification clicked:", data);
           onClick(data);
-
+          this.hasReceivedForeground = false; // Resetuj flagu nakon klika
         }
+        
       },
     );
 
