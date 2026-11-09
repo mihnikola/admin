@@ -214,6 +214,7 @@ const AbsentHourManagement = () => {
         <SharedBackButton
           onPress={router.back}
           absolutePosition={false}
+          width
           styleBtn={{ marginTop: 20, marginBottom: 0 }}
         />
 

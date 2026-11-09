@@ -3,7 +3,7 @@ import { SharedMessage } from "@/shared-components/SharedMessage";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
 import useLocation from "../hooks/useLocations";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import GooglePlace from "./GooglePlace";
@@ -103,7 +103,11 @@ export default function LocationsAddEdit() {
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView
+      style={styles.container}
+      keyboardShouldPersistTaps="handled"
+      keyboardDismissMode="interactive"
+    >
       <View
         style={{
           flexDirection: "row",
@@ -125,7 +129,7 @@ export default function LocationsAddEdit() {
           </TouchableOpacity>
         )}
       </View>
-      <View style={{ flex: 1, margin: 10, gap: 10 }}>
+      <View style={{  margin: 10, gap: 10 }}>
         <GooglePlace
           onSelect={({ city, street, lat, lng, place_id }) => {
             setCity(city);
@@ -183,90 +187,15 @@ export default function LocationsAddEdit() {
           title={error}
         />
       )}
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  containerImage: {
-    position: "absolute",
-    alignContent: "center",
-    alignItems: "center",
-    alignSelf: "center",
-    paddingTop: 20,
-  },
   container: {
     flex: 1,
     padding: 10,
-    // backgroundColor: "#000000",
     backgroundColor: ColorsBarber.dark.background,
   },
-  title: {
-    fontSize: 22,
-    color: ColorsBarber.dark.textColor,
-    marginBottom: 10,
-    fontFamily: "OldStandard-Bold",
 
-  },
-  image: {
-    width: 60,
-    height: 60,
-  },
-  subTitle: {
-    fontSize: 18,
-    fontFamily: "OldStandard-Bold",
-    color: ColorsBarber.dark.textColor,
-    marginTop: 20,
-    marginBottom: 10,
-  },
-  input: {
-    backgroundColor: ColorsBarber.dark.item,
-    color: "#fff",
-    padding: 10,
-    marginBottom: 10,
-    borderRadius: 8,
-    fontFamily: "OldStandard-Bold",
-
-  },
-  button: {
-    backgroundColor: ColorsBarber.dark.item,
-    padding: 12,
-    borderRadius: 8,
-    alignItems: "center",
-    borderColor: "white",
-    borderWidth: 1,
-    margin: 20,
-    fontFamily: "OldStandard-Bold",
-
-  },
-
-  cancelButton: {
-    backgroundColor: "#525252",
-    fontFamily: "OldStandard-Bold",
-
-  },
-
-  serviceItem: {
-    backgroundColor: ColorsBarber.dark.item,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    padding: 20,
-    borderRadius: 8,
-    marginBottom: 10,
-    fontFamily: "OldStandard-Bold",
-
-  },
-  serviceText: {
-    color: "#fff",
-    fontSize: 15,
-    fontFamily: "OldStandard-Bold",
-
-  },
-  editHint: {
-    fontSize: 12,
-    color: "#aaa",
-    padding: 8,
-    fontFamily: "OldStandard-Bold",
-
-  },
 });

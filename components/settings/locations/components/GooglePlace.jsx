@@ -2,15 +2,15 @@ import React, { useState, useEffect } from "react";
 import {
   View,
   TextInput,
-  FlatList,
+  ScrollView, // 👈 1. Import ScrollView
   Text,
   TouchableOpacity,
   StyleSheet,
   ActivityIndicator,
+  Keyboard,
 } from "react-native";
 import Constants from "expo-constants";
 import { useLocalization } from "./../../../../contexts/LocalizationContext";
-import { Keyboard } from "react-native";
 import { useCompany } from "@/contexts/CompanyContext";
 import SearchInputComponent from "../../sharedComponents/SearchInputComponent";
 import { ColorsBarber } from "@/constants/Colors";
@@ -23,11 +23,12 @@ export default function GooglePlace({ onSelect }) {
   const [loading, setLoading] = useState(false);
   const { company, getCompany } = useCompany();
 
-  const { localization } = useLocalization(); // Fetch autocomplete suggestions
+  const { localization } = useLocalization();
 
   useEffect(() => {
     getCompany();
   }, []);
+
   const searchPlaces = async (text) => {
     if (!text || text.length < 6) {
       setResults([]);
@@ -37,11 +38,6 @@ export default function GooglePlace({ onSelect }) {
     setLoading(true);
 
     try {
-      // const res = await fetch(
-      //   `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURIComponent(
-      //     text,
-      //   )}&key=${apiKey}&language=${localization.code}&components=country:${company?.country}`,
-      // );
       const url =
         `https://maps.googleapis.com/maps/api/place/autocomplete/json` +
         `?input=${encodeURIComponent(text)}` +
@@ -51,7 +47,6 @@ export default function GooglePlace({ onSelect }) {
         `&key=${apiKey}`;
 
       const res = await fetch(url);
-
       const data = await res.json();
 
       if (data.status === "OK") {
@@ -68,13 +63,8 @@ export default function GooglePlace({ onSelect }) {
     setLoading(false);
   };
 
-  // Fetch place details (lat/lng, address components)
   const getPlaceDetails = async (placeId) => {
     try {
-      // const fields = "place_id,geometry,vicinity,address_components,name";
-      // const res = await fetch(
-      //   `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=${fields}&key=${apiKey}`,
-      // );
       const fields =
         "place_id,geometry,vicinity,address_components,name,formatted_address";
 
@@ -86,11 +76,9 @@ export default function GooglePlace({ onSelect }) {
         `&key=${apiKey}`;
 
       const res = await fetch(url);
-
       const data = await res.json();
 
       if (data.status === "OK") {
-        //ovde ce da trpa niz lokacija
         return data.result;
       }
       console.log("Place details error:", data.status);
@@ -101,21 +89,18 @@ export default function GooglePlace({ onSelect }) {
     }
   };
 
-  // Handle selecting a suggestion
   const handleSelect = async (item) => {
     const addressValueData = item?.description.split(",")[0];
     const details = await getPlaceDetails(item.place_id);
 
     if (!details) return;
 
-    // const { city, street } = extractAddress(details);
     const [_, city] = details.vicinity.split(",");
     const location = details.geometry.location;
     const canonicalPlaceId = details.place_id;
 
-    // Pass data back to parent
     onSelect({
-      city,
+      city: city ? city.trim() : "",
       street: addressValueData,
       lat: location.lat,
       lng: location.lng,
@@ -123,13 +108,11 @@ export default function GooglePlace({ onSelect }) {
       fullDetails: details,
     });
 
-    // Clear query and results
     setQuery("");
     setResults([]);
     Keyboard.dismiss();
   };
 
-  // Debounce user input
   useEffect(() => {
     if (query !== "") {
       const delayDebounce = setTimeout(() => {
@@ -141,31 +124,34 @@ export default function GooglePlace({ onSelect }) {
 
   return (
     <View style={styles.container}>
-      {/* <TextInput
-        style={styles.input}
-        placeholder={localization.PLACES.search}
-        value={query}
-        onChangeText={setQuery}
-
-      /> */}
       <View style={styles.searchInputContainer}>
-        <SearchInputComponent search={query} setSearch={setQuery} placeholderText={localization.PLACES.search} />
+        <SearchInputComponent 
+          search={query} 
+          setSearch={setQuery} 
+          placeholderText={localization.PLACES.search} 
+        />
       </View>
+      
       {loading && <ActivityIndicator size="small" color={ColorsBarber.dark.textColor} />}
-      <FlatList
-        data={query?.length && results}
-        keyExtractor={(item) => item.place_id}
-        keyboardShouldPersistTaps="handled"
-        style={styles.list}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            style={styles.item}
-            onPress={() => handleSelect(item)}
-          >
-            <Text style={styles.itemText}>{item.description}</Text>
-          </TouchableOpacity>
-        )}
-      />
+      
+      {/* 2. Replaced FlatList with ScrollView + .map() */}
+      {results.length > 0 && (
+        <ScrollView
+          keyboardShouldPersistTaps="handled"
+          nestedScrollEnabled={true}
+          style={styles.list}
+        >
+          {results.map((item) => (
+            <TouchableOpacity
+              key={item.place_id}
+              style={styles.item}
+              onPress={() => handleSelect(item)}
+            >
+              <Text style={styles.itemText}>{item.description}</Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+      )}
     </View>
   );
 }
@@ -188,9 +174,14 @@ const styles = StyleSheet.create({
     backgroundColor: ColorsBarber.dark.item,
     borderRadius: 8,
     marginTop: 5,
-    fontFamily: "OldStandard-Bold",
   },
-  item: { padding: 10, borderBottomColor: "#444", borderBottomWidth: 1,fontFamily: "OldStandard-Bold", },
-    
-  itemText: { color:ColorsBarber.dark.textColor, fontFamily: "OldStandard-Bold",},
+  item: { 
+    padding: 10, 
+    borderBottomColor: "#444", 
+    borderBottomWidth: 1, 
+  },
+  itemText: { 
+    color: ColorsBarber.dark.textColor, 
+    fontFamily: "OldStandard-Bold", 
+  },
 });

@@ -23,13 +23,19 @@ export default function useChangeUser() {
   };
 
   const deleteClient = async (clientId) => {
-    setIsLoading("delete");
     setError(null);
+      setDialog(false);
+    setIsLoading("delete");
+
+    await new Promise((resolve) => requestAnimationFrame(resolve));
     try {
       const response = await del(`/admin/users/${clientId}`);
-      setIsMessage(true);
+
+
 
       if (response.status === 200) {
+      setIsMessage(true);
+
         setMessage(localization.CLIENTS.deactivate);
       }
     } catch (err) {
@@ -38,7 +44,6 @@ export default function useChangeUser() {
     } finally {
       setIsLoading(null);
 
-      setDialog(false);
     }
   };
 

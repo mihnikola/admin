@@ -15,19 +15,27 @@ export const useAppointment = () => {
 };
 export const AppointmentProvider = ({ children }) => {
   const [reservations, setReservations] = useState([]);
-  
   const [checkDates, setCheckDates] = useState(null);
-  // const [isLoading, setIsLoading] = useState(true);
-  // const [error, setError] = useState(null);
   const [selectedDate, setSelectedDate] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isModalQuestion, setIsModalQuestion] = useState(false);
+  const [error, setError] = useState(null);
+  const [IsError, setIsError] = useState(false);
+  const [isModal, setIsModal] = useState(false);
+  const [responseData, setResponseData] = useState(null);
+  const [message, setMessage] = useState(null);
 
-  //  const { isToken } = useAuth();
+  const [reservationData, setReservationData] = useState(null);
+  const [description, setDescription] = useState(null);
 
-  // const {
-  //   getReservations,
-  //   events,
-  //   isLoading: isLoadingAppointment,
-  // } = useAppointment();
+  const { isToken, getTokenData } = useAuth();
+  const { localization } = useLocalization();
+  const [events, setEvents] = useState([]);
+  const {
+    isLoading: isLoad,
+    requirements,
+    fetchRequirements,
+  } = useRequirements();
 
   const convertResult = (response) => {
     const marketDates = {};
@@ -124,7 +132,7 @@ export const AppointmentProvider = ({ children }) => {
   };
 
   const getDates = async (selectedMonth, initial) => {
-    console.log("selectedMonth",selectedMonth)
+    console.log("selectedMonth", selectedMonth)
     setIsLoading(true);
     setError(null);
     if (!selectedMonth) {
@@ -160,98 +168,9 @@ export const AppointmentProvider = ({ children }) => {
       setIsLoading(false);
     }
   };
-
-
-
-  const [isLoading, setIsLoading] = useState(false);
-  const [isModalQuestion, setIsModalQuestion] = useState(false);
-
-  const [error, setError] = useState(null);
-  const [IsError, setIsError] = useState(false);
-
-  const [responseData, setResponseData] = useState(null);
-  const [message, setMessage] = useState(null);
-
-  const [reservationData, setReservationData] = useState(null);
-  const [description, setDescription] = useState(null);
-
-  const { isToken, getTokenData } = useAuth();
-  const { localization } = useLocalization();
-  const [events, setEvents] = useState([]);
-  const {
-    isLoading: isLoad,
-    requirements,
-    fetchRequirements,
-  } = useRequirements();
-
-  const [isModal, setIsModal] = useState(false);
-
-
-  const missedReservation = async (id, criteriaDate) => {
-    setIsLoading(true);
-    setError(null);
-
-    if (!id) {
-      setIsError(true);
-      setError("Reservation ID is missing.");
-      return false;
-    }
-    try {
-      const response = await put(`admin/availabilities/${id}/missed`);
-      console.log("admin/availabilities/${id}/missed", response);
-      if (response.status === 202) {
-        setIsModal(true);
-        setMessage(localization.APPOINTMENTS.missedReservation.success);
-      }
-      await getReservations(criteriaDate);
-    } catch (err) {
-      console.log("ssssssssssssss", err);
-      setIsError(true);
-
-      setError(err);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   const getDateFromString = (val) => {
     return val.split("T")[0];
   };
-  const changeStatusReservation = async (id, status, criteriaDate) => {
-    setIsLoading(true);
-    setError(null);
-
-    if (!id) {
-      setIsError(true);
-      setError("Reservation ID is missing.");
-      return false;
-    }
-    try {
-      const response = await put(`admin/availabilities/${id}`, {
-        status,
-      });
-      if (response.status === 200) {
-        setIsModal(true);
-        setMessage(
-          status === "approved"
-            ? localization.APPOINTMENTS.approveReservation.confirmMessage
-            : localization.APPOINTMENTS.rejectReservation.confirmMessage,
-        );
-        const dateValue =
-          criteriaDate ?? getDateFromString(response?.data?.startDate);
-
-        await getReservations(dateValue);
-      }
-    } catch (err) {
-      console.error("changeStatusReservation Error fetching tasks:", err);
-
-      setIsError(true);
-      setError(localization.APPOINTMENTS.cancelReservation.errorMessage);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   const getReservations = async (criteria) => {
     setIsLoading(true);
     setError(null);
@@ -312,6 +231,76 @@ export const AppointmentProvider = ({ children }) => {
     }
   };
 
+  const missedReservation = async (id, criteriaDate) => {
+    setIsLoading(true);
+    setError(null);
+
+    if (!id) {
+      setIsError(true);
+      setError("Reservation ID is missing.");
+      return false;
+    }
+    try {
+      const response = await put(`admin/availabilities/${id}/missed`);
+      setIsLoading(false);
+
+      setTimeout(async () => {
+        if (response.status === 202) {
+          setIsModal(true);
+          setMessage(localization.APPOINTMENTS.missedReservation.success);
+        }
+      }, 400);
+
+      setTimeout(async () => {
+        await getReservations(criteriaDate);
+      }, 1000);
+    } catch (err) {
+      setIsLoading(false);
+      setIsError(true);
+      setError(err);
+    }
+  };
+
+
+  const changeStatusReservation = async (id, status, criteriaDate) => {
+    setIsLoading(true);
+    setError(null);
+
+    if (!id) {
+      setIsError(true);
+      setError("Reservation ID is missing.");
+      return false;
+    }
+    try {
+      const response = await put(`admin/availabilities/${id}`, {
+        status,
+      });
+      setIsLoading(false);
+      setTimeout(async () => {
+        if (response.status === 200) {
+
+          setMessage(
+            status === "approved"
+              ? localization.APPOINTMENTS.approveReservation.confirmMessage
+              : localization.APPOINTMENTS.rejectReservation.confirmMessage,
+          );
+          setIsModal(true);
+
+        }
+      }, 250);
+
+      const dateValue =
+        criteriaDate ?? getDateFromString(response?.data?.startDate);
+      await getReservations(dateValue);
+    } catch (err) {
+      setIsLoading(false);
+      setIsError(true);
+      setError(localization.APPOINTMENTS.cancelReservation.errorMessage);
+    }
+  };
+
+
+
   return (
     <AppointmentContext.Provider
       value={{
@@ -340,13 +329,13 @@ export const AppointmentProvider = ({ children }) => {
         events,
         getReservations,
 
-        isLoading,
-        setIsLoading,
-        error,
+        //isLoading,
+        //setIsLoading,
+        //error,
         handleDayPress,
         getDates,
         checkDates,
-        events,
+       // events,
         selectedDate,
         setSelectedDate,
         setCheckDates,

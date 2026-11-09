@@ -256,7 +256,7 @@ export default function TimeSettingsScreen({
         placeholder={selected || localization.SETTINGS.WORKHOURS.gap}
       />
 
-      <View style={{ flex: !id ? 0.4 : 1.8, gap: 10 }}>
+      <View style={{ marginTop: 20,flex: !id ? 0.4 : 1.8, gap: 10 }}>
         {/* <SharedButton
           loading={isLoading === "addEdit"}
           disabled={disabledBtn}

@@ -117,8 +117,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
-    letterSpacing: 0.5,
-    paddingRight: 50,
+    letterSpacing: 1,
+    //paddingRight: 30,
+    width: 100,
   },
 
   stepperButtons: {
