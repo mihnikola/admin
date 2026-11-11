@@ -23,7 +23,6 @@ export class NotificationService {
     Notifications.setNotificationHandler({
       handleNotification: async () => ({
         shouldShowBanner: true,
-        shouldShowAlert: true,
         shouldShowList: true,
         shouldPlaySound: true,
         shouldSetBadge: false,
@@ -74,11 +73,13 @@ export class NotificationService {
           content: {
             title: title,
             body: body,
-            data: remoteMessage.data, 
-            sound: "default",
+            data: remoteMessage.data,
+            // sound: "default",
           },
-          trigger: null, 
+          trigger: null,
         });
+        this.hasReceivedForeground = true;
+
         console.log("✅ Lokalna foreground notifikacija uspešno prikazana!");
       } catch (error) {
         console.log("❌ Greška pri prikazivanju foreground notifikacije:", error);
@@ -143,12 +144,13 @@ export class NotificationService {
     this.subscriptions.push(unsub);
   }
 
-  initializeListeners(onClick: (data?: any) => void) {
-    this.requestPermission();
-    this.listenToTokenRefresh();
-    this.getFCMToken();
+  async initializeListeners(onClick: (data?: any) => void) {
+    // this.requestPermission();
+    const permissionGranted = await this.requestPermission();
+    if (!permissionGranted) return;
+    await this.getFCMToken();
+    // this.listenToTokenRefresh();
 
-    // Registracija klikova sa bezbednom proverom callback-a
     this.handleKilledState(onClick);
     this.listenToBackgroundOpens(onClick);
     this.listenToForegroundMessages();
@@ -156,12 +158,13 @@ export class NotificationService {
     // CLICK NA LOKALNU (FOREGROUND) NOTIFIKACIJU
     const clickListener = Notifications.addNotificationResponseReceivedListener(
       (response) => {
+        if (!this.hasReceivedForeground) return;
+
         const data = response.notification.request.content.data;
         console.log("👉 Foreground notification clicked:", data);
-        if (data) {
-          onClick(data);
+        onClick(data);
+        this.hasReceivedForeground = false;
 
-        }
       },
     );
 

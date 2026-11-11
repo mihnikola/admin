@@ -74,12 +74,12 @@ export default function useNotifications() {
       }, 1000);
     };
 
-    if (isToken) {
+    // if (isToken) {
       NotificationService.initializeListeners(onClick);
 
       return () => {
         NotificationService.cleanup();
       };
-    }
-  }, [isRouterReady, isToken]);
+    // }
+  }, [isRouterReady]);
 }

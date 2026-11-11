@@ -1,5 +1,5 @@
 import SharedCarousel from "@/shared-components/SharedCarousel";
-import { router, useFocusEffect } from "expo-router";
+import { router, useFocusEffect, useIsFocused } from "expo-router";
 import { useCallback, useState } from "react";
 import {
   FlatList,
@@ -14,7 +14,7 @@ import { getInitialsName } from "@/helpers";
 import SearchInputComponent from "../settings/sharedComponents/SearchInputComponent";
 import { ColorsBarber } from "@/constants/Colors";
 import Loader from "@/shared-components/Loader";
-import { useIsFocused } from "@react-navigation/native";
+// import { useIsFocused } from "@react-navigation/native";
 
 export default function ClientsScreen() {
   const [search, setSearch] = useState("");
