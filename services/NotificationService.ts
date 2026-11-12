@@ -391,7 +391,6 @@ export class NotificationService {
         this.hasReceivedForeground = true;
         return;
       }
-<<<<<<< HEAD
 
       await Notifications.scheduleNotificationAsync({
         content: {
@@ -407,23 +406,10 @@ export class NotificationService {
       });
 
       this.hasReceivedForeground = true;
-=======
-      try {
-        await Notifications.scheduleNotificationAsync({
-          content: {
-            title: title,
-            body: body,
-            data: remoteMessage.data, 
-            sound: "default",
-          },
-          trigger: null, 
-        });
-        this.hasReceivedForeground = true;
         console.log("✅ Lokalna foreground notifikacija uspešno prikazana!");
       } catch (error) {
         console.log("❌ Greška pri prikazivanju foreground notifikacije:", error);
       }
->>>>>>> 8409d2eeaa4639611b5871a0a02bda3aa83ffe03
     });
 
     this.subscriptions.push(unsub);
@@ -456,31 +442,10 @@ export class NotificationService {
     this.subscriptions.push(unsub);
   }
 
-<<<<<<< HEAD
   async initializeListeners(onClick: (data?: any) => void) {
     // 0) Token-rotation listener FIRST so no refresh is ever missed
-=======
-  listenToTokenRefresh() {
-    const messaging = getMessaging();
-
-    const unsub = onTokenRefresh(messaging, async (token) => {
-      console.log("🔄 Novi FCM token:", token);
-      this.deviceToken = token;
-
-      try {
-        await put("/admin/users/upgradeToken", { tokenData: token });
-      } catch (err) {
-        console.log("Greška pri čuvanju novog tokena:", err);
-      }
-    });
-
-    this.subscriptions.push(unsub);
-  }
-
-  initializeListeners(onClick: (data?: any) => void) {
     this.cleanup(); // Očisti prethodne pretplate pre dodavanja novih
     this.requestPermission();
->>>>>>> 8409d2eeaa4639611b5871a0a02bda3aa83ffe03
     this.listenToTokenRefresh();
 
     // 1) Permission
@@ -503,6 +468,7 @@ export class NotificationService {
     await this.handleKilledState(onClick);
 
     // 4) BACKGROUND state (never mixed with killed!)
+
     this.listenToBackgroundOpens(onClick);
 
     // 5) FOREGROUND FCM → local notifications
@@ -511,7 +477,6 @@ export class NotificationService {
     // 6) CLICK on LOCAL notification
     const clickListener = Notifications.addNotificationResponseReceivedListener(
       (response) => {
-<<<<<<< HEAD
         if (!this.hasReceivedForeground) return;
 
         const data = response.notification.request.content.data;
@@ -519,15 +484,7 @@ export class NotificationService {
 
         onClick(data);
         this.hasReceivedForeground = false;
-=======
-        if(this.hasReceivedForeground) {
-          const data = response.notification.request.content.data;
-          console.log("👉 Foreground notification clicked:", data);
-          onClick(data);
-          this.hasReceivedForeground = false; // Resetuj flagu nakon klika
-        }
-        
->>>>>>> 8409d2eeaa4639611b5871a0a02bda3aa83ffe03
+
       },
     );
 

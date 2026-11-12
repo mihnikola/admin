@@ -76,9 +76,9 @@ export default function useChangeUser() {
     } finally {
       setIsLoading(null);
 
-      setDialog(false);
-    }
-  };
+  //     setDialog(false);
+  //   }
+  // };
 
   return {
     makePhoneCall,
@@ -91,6 +91,6 @@ export default function useChangeUser() {
     setMessage,
     setIsMessage,
     isMessage,
-    changeColorSubmit,
+    // changeColorSubmit,
   };
 }
