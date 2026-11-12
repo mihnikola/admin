@@ -135,22 +135,19 @@ export default function GooglePlace({ onSelect }) {
 
       {loading && <ActivityIndicator size="small" color={ColorsBarber.dark.textColor} />}
 
+     
       {results.length > 0 && (
-        <FlatList
-          data={results}
-          keyExtractor={(item) => item.place_id}
-          keyboardShouldPersistTaps="handled"
-          nestedScrollEnabled={true} // 👈 KLJUČNO ZA RAD U SCROLLVIEW-U
-          style={styles.list}
-          renderItem={({ item }) => (
+        <View style={styles.list}>
+          {results.map((item) => (
             <TouchableOpacity
+              key={item.place_id}
               style={styles.item}
               onPress={() => handleSelect(item)}
             >
               <Text style={styles.itemText}>{item.description}</Text>
             </TouchableOpacity>
-          )}
-        />
+          ))}
+        </View>
       )}
     </View>
   );

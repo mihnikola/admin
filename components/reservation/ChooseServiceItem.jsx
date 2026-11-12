@@ -34,12 +34,10 @@ function ChooseServiceItem() {
   };
   useEffect(() => {
     if (date) {
-      console.log("date",date);
 
       getServices(date);
     }
   }, []);
-      console.log("getServiceData",getServiceData);
 
   return (
     <View

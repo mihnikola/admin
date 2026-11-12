@@ -16,19 +16,23 @@ function useLocation() {
   const confirmHandler = async () => {
     setIsMessage(false);
     await getLocations();
-    const { id, address } = paramsData;
+    const { id, address, isEdit } = paramsData;
+    if (isEdit) {
+      router.back();
+      return;
+    }
     router.push({
       pathname: "/(tabs)/(03_settings)/barbersLocations",
       params: { id, address },
     });
   };
-    const refreshHandler = async () => {
+  const refreshHandler = async () => {
     setIsMessage(false);
     router.back();
     await getLocations();
   };
 
-  
+
 
   const deleteLocation = async (id) => {
     setIsLoading("remove");
@@ -168,16 +172,19 @@ function useLocation() {
         setError(localization.PLACES.notChange);
       }
       if (response.status === 200 || response.status === 201) {
-        console.log("resssss", response.data);
-        setParamsData({
-          id: response.data._id,
-          address: response.data.address
-        })
-
         if (id) {
+          setParamsData({
+            id: response.data._id,
+            address: response.data.address,
+            isEdit: true
+          })
           setIsMessage(true);
           setMessage(localization.PLACES.edit);
         } else {
+          setParamsData({
+            id: response.data._id,
+            address: response.data.address
+          })
           setIsMessage(true);
           setMessage(localization.PLACES.add);
 
