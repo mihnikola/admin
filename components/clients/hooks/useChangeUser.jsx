@@ -11,6 +11,7 @@ export default function useChangeUser() {
   const [dialog, setDialog] = useState(false);
 
   const { localization } = useLocalization();
+  
   const makePhoneCall = async (phoneNumber) => {
     const url = `tel:${phoneNumber}`;
     try {
@@ -23,49 +24,61 @@ export default function useChangeUser() {
   };
 
   const deleteClient = async (clientId) => {
-    setIsLoading("delete");
     setError(null);
+    setDialog(false);
+    setIsLoading("delete");
+
+    await new Promise((resolve) => requestAnimationFrame(resolve));
     try {
       const response = await del(`/admin/users/${clientId}`);
-      setIsMessage(true);
 
       if (response.status === 200) {
+        setIsMessage(true);
         setMessage(localization.CLIENTS.deactivate);
       }
+      //  setIsLoading(null);
+      // setTimeout(() => {
+      //   if (response.status === 200) {
+      //     setIsMessage(true);
+
+      //     setMessage(localization.CLIENTS.deactivate);
+      //   }
+      // }, 800);
     } catch (err) {
+      setIsLoading(null);
+
       setIsMessage(true);
       setError(err);
     } finally {
       setIsLoading(null);
 
-      setDialog(false);
     }
   };
 
-  // const changeColorSubmit = async (userId, color) => {
-  //   setIsLoading("changeColor");
-  //   setError(null);
-  //   try {
-  //     const response = await put(`/admin/users/${userId}/changeColor`, {
-  //       color,
-  //     });
-  //     setIsMessage(true);
-  //     if (response.status === 200) {
-  //       setMessage(localization.CLIENTS.addColor);
-  //     }
-  //     if (response.status === 201) {
-  //       setMessage(localization.CLIENTS.changeColor);
-  //     }
-  //   } catch (err) {
-  //     console.log("er",err)
-  //     setIsMessage(true);
-  //     setError(err);
-  //   } finally {
-  //     setIsLoading(null);
+  const changeColorSubmit = async (userId, color) => {
+    setIsLoading("changeColor");
+    setError(null);
+    try {
+      const response = await put(`/admin/users/${userId}/changeColor`, {
+        color,
+      });
+      setIsMessage(true);
+      if (response.status === 200) {
+        setMessage(localization.CLIENTS.addColor);
+      }
+      if (response.status === 201) {
+        setMessage(localization.CLIENTS.changeColor);
+      }
+    } catch (err) {
+      console.log("er", err)
+      setIsMessage(true);
+      setError(err);
+    } finally {
+      setIsLoading(null);
 
   //     setDialog(false);
-  //   }
-  // };
+    }
+  };
 
   return {
     makePhoneCall,
@@ -78,6 +91,6 @@ export default function useChangeUser() {
     setMessage,
     setIsMessage,
     isMessage,
-    // changeColorSubmit,
+    changeColorSubmit,
   };
 }

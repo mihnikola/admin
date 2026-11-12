@@ -51,9 +51,9 @@ const changeLanguage = () => {
 
   return (
     <View style={styles.container}>
-      {/* <StatusBar backgroundColor="white" barStyle="light-content" /> */}
       <SharedBackButton
         onPress={router.back}
+        width
         styleBtn={{ marginTop: 10, marginLeft: 10 }}
       />
 

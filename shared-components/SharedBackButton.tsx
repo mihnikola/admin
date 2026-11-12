@@ -2,19 +2,22 @@ import { ColorsBarber } from "@/constants/Colors";
 import { MaterialIcons } from "@expo/vector-icons";
 import { StyleSheet, TouchableOpacity } from "react-native";
 
-const SharedBackButton = ({ onPress, styleBtn, absolutePosition = true }) => {
+const SharedBackButton = ({ onPress, styleBtn, width, absolutePosition = true }) => {
   return (
     <TouchableOpacity
-      style={[absolutePosition && styles.btnStyle, styleBtn]}
+      style={[absolutePosition && styles.btnStyle, styleBtn, width && styles.width]}
       hitSlop={20}
       onPress={onPress}
     >
-      <MaterialIcons name="arrow-back" size={25} color={ColorsBarber.dark.textColor}   />
+      <MaterialIcons name="arrow-back" size={25} color={ColorsBarber.dark.textColor} />
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
+  width:{
+    width: 30,
+  },
   btnStyle: {
     zIndex: 9999,
     position: "absolute",

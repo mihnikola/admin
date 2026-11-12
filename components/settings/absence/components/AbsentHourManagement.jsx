@@ -1,11 +1,9 @@
 import { SharedButton } from "@/shared-components/SharedButton";
 import React, { useEffect, useState } from "react";
 import {
-  Alert,
   StyleSheet,
   Text,
   TextInput,
-  TouchableOpacity,
   View,
 } from "react-native";
 import DateAbsentComponent from "./DateAbsentComponent";
@@ -214,6 +212,7 @@ const AbsentHourManagement = () => {
         <SharedBackButton
           onPress={router.back}
           absolutePosition={false}
+          width
           styleBtn={{ marginTop: 20, marginBottom: 0 }}
         />
 

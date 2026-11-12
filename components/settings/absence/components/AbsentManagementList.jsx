@@ -27,6 +27,7 @@ const AbsentManagementList = () => {
                 <View>
                     <SharedBackButton
                         onPress={router.back}
+                        width
                         styleBtn={{ marginTop: 20 }}
                     />
                 </View>

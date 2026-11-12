@@ -94,8 +94,8 @@ export default function HomeScreen() {
 
                 <View style={styles.locationContent}>
                   <Text style={styles.titleLocation}>
-                    {localization.HOME.requirements}
-                    {/* jhdaskjdhasdkjh */}
+                    {/* {localization.HOME.requirements} */}
+                    jhdaskjdhasdkjh
                   </Text>
                 </View>
                 {requirementsLength > 0 && (

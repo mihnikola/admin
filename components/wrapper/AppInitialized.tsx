@@ -13,7 +13,6 @@ import { InternetProvider } from "@/contexts/InternetContext";
 import { GlobalErrorProvider } from "@/contexts/GlobalErrorContext";
 import GlobalErrorHandler from "@/shared-components/GlobalErrorHandler";
 import { DarkTheme, ThemeProvider } from "expo-router";
-// import { DarkTheme, ThemeProvider } from "@react-navigation/native";
 
 export default function AppInitialized(props) {
 

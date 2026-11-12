@@ -39,19 +39,19 @@
 import { useRouter, useSegments } from "expo-router";
 import { useEffect, useRef } from "react";
 import NotificationService from "./NotificationService";
-import { useAuth } from "@/contexts/AuthContext";
+// import { useAuth } from "@/contexts/AuthContext";
 
 export default function useNotifications() {
   const router = useRouter();
   const segments = useSegments();
   const isRouterReady = segments.length > 0;
-  const { isToken } = useAuth();
+  // const { isToken } = useAuth();
 
   // Flag da sprečimo duplu navigaciju u kratkom roku
   const isNavigating = useRef(false);
 
   useEffect(() => {
-    if (!isRouterReady) return;
+    // if (!isRouterReady) return;
 
     const onClick = (data?: any) => {
       if (!data?.url) return;
@@ -81,5 +81,5 @@ export default function useNotifications() {
         NotificationService.cleanup();
       };
     // }
-  }, [isRouterReady]);
+  }, []);
 }

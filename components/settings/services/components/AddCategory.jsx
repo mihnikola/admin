@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { SharedInput } from "@/shared-components/SharedInput";
@@ -66,42 +66,56 @@ const AddCategory = () => {
 
 
   return (
-    <WrapperAuth>
-      <SharedBackButton
-        onPress={router.back}
-        absolutePosition={false}
-        styleBtn={{ marginBottom: 30 }}
-      />
+    <View style={{ flex: 1 }}>
+      <ScrollView contentContainerStyle={{
+        flexGrow: 1,
+        justifyContent: "center",
+        flex: 1,
+        padding: 20,
+        backgroundColor: ColorsBarber.dark.background,
+      }}
+        keyboardShouldPersistTaps="always"
+        >
 
-      {isLoading === 'get' && <Loader />}
-      {isLoading !== 'get' &&
-        <View style={{ flex: 1, backgroundColor: ColorsBarber.dark.background }}>
-          <View>
-            <Text style={styles.mainTitle}>
-              {id
-                ? localization.CATEGORY.edit
-                : localization.CATEGORY.createLabel}
-            </Text>
-          </View>
-          <View style={{ marginTop: 20 }}>
-            <SharedInput
-              label={localization.CATEGORY.titleEn}
-              value={categoryNameLocal}
-              onChangeText={setCategoryNameLocal}
-              placeholder={localization.CATEGORY.enterEn}
-              style={styles.input}
-            />
-          </View>
-          <View style={{ marginTop: 20 }}>
-            <SharedInput
-              label={localization.CATEGORY.titleLocal}
-              value={categoryNameEn}
-              onChangeText={setCategoryNameEn}
-              placeholder={localization.CATEGORY.enterLocal}
-              style={styles.input}
-            />
-          </View>
-        </View>
+
+
+        <SharedBackButton
+          onPress={router.back}
+          absolutePosition={false}
+          width
+          styleBtn={{ marginBottom: 15, marginTop: 10 }}
+        />
+      
+      
+        {isLoading === 'get' && <Loader />}
+        {isLoading !== 'get' &&
+          <View style={{ flex: 1, backgroundColor: ColorsBarber.dark.background }}>
+            <View>
+              <Text style={styles.mainTitle}>
+                {id
+                  ? localization.CATEGORY.edit
+                  : localization.CATEGORY.createLabel}
+              </Text>
+            </View>
+            <View style={{ marginTop: 10 }}>
+              <SharedInput
+                label={localization.CATEGORY.titleEn}
+                value={categoryNameLocal}
+                onChangeText={setCategoryNameLocal}
+                placeholder={localization.CATEGORY.enterEn}
+                style={styles.input}
+              />
+            </View>
+            <View style={{ marginTop: 10 }}>
+              <SharedInput
+                label={localization.CATEGORY.titleLocal}
+                value={categoryNameEn}
+                onChangeText={setCategoryNameEn}
+                placeholder={localization.CATEGORY.enterLocal}
+                style={styles.input}
+              />
+            </View>
+            </View>
       }
       {isLoading !== 'get' &&
         <View style={{ gap: 20 }}>
@@ -158,7 +172,8 @@ const AddCategory = () => {
           buttonText={localization.OK.label}
         />
       )}
-    </WrapperAuth>
+    </ScrollView>
+    </View>
   );
 };
 const styles = StyleSheet.create({
@@ -178,6 +193,7 @@ const styles = StyleSheet.create({
     color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
   },
+
 
 });
 export default AddCategory;

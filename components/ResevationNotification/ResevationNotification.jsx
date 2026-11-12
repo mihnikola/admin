@@ -21,6 +21,7 @@ import { useCompany } from "@/contexts/CompanyContext";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import SharedDetailsReservation from "@/shared-components/SharedDetailsReservation";
 import HeaderReservationTime from "@/components/reservation/HeaderReservationTime";
+import MissedButton from './MissedButton';
 
 import { useAppointment } from "@/contexts/AppointmentContext";
 import { convertNowDateTimestamp } from "@/helpers";
@@ -55,41 +56,29 @@ function ResevationNotificationScreen() {
   const [actionValue, setActionValue] = useState(null);
 
   const confirmHandler = async () => {
-    router.back();
     setIsModal(false);
+    router.back();
   };
 
-  const sharedApprovedQuestionHandler = () => {
+  const sharedApprovedQuestionHandler = async () => {
     setIsModalQuestion(false);
-
-    setTimeout(async () => {
-      console.log(
-        "changeStatusReservation++++",
-        itemId,
-        actionValue,
-        criteriaDate,
-      );
-      await changeStatusReservation(itemId, actionValue, criteriaDate);
-    }, 500);
+    await changeStatusReservation(itemId, actionValue, criteriaDate);
   };
 
   const sharedMissedQuestionHandler = () => {
     setIsModalQuestion(false);
-
     setTimeout(async () => {
       await missedReservation(itemId, criteriaDate);
-    }, 500);
+    }, 800);
   };
 
-  const sharedRejectQuestionHandler = () => {
+  const sharedRejectQuestionHandler = async () => {
     setIsModalQuestion(false);
-    setTimeout(async () => {
-      await changeStatusReservation(itemId, actionValue, criteriaDate);
-    }, 500);
+    await changeStatusReservation(itemId, actionValue, criteriaDate);
   };
   const modalReservationHandler = (title) => {
-    setActionValue(title);
     setIsModalQuestion(true);
+    setActionValue(title);
   };
 
   const renderQuestion = () => {
@@ -203,18 +192,11 @@ function ResevationNotificationScreen() {
         reservationData?.status === 0 &&
         arrived === "arrived" &&
         startEndDate() === "missed" && (
-          <TouchableOpacity
-            style={styles.missed}
+          <MissedButton
             onPress={() => modalReservationHandler("missed")}
-          >
-            <Text style={styles.textBold}>{localization.HOME.missed}</Text>
-            <FontAwesome5
-              name="calendar-times"
-              size={60}
-              color={ColorsBarber.dark.textColor}
-              solid
-            />
-          </TouchableOpacity>
+            text={localization.HOME.missed}
+          />
+
         )}
 
       {!isLoading && reservationData && arrived === "missed" && (
@@ -270,9 +252,9 @@ function ResevationNotificationScreen() {
 
       {isModalQuestion && renderQuestion()}
 
-      {isModal && (
+      {isModal && !isModalQuestion && !isLoading && (
         <SharedMessage
-          isOpen={isModal}
+          isOpen={isModal && !isModalQuestion && !isLoading}
           onClose={confirmHandler}
           onConfirm={confirmHandler}
           icon={
@@ -321,6 +303,7 @@ const styles = StyleSheet.create({
     alignContent: "center",
     alignItems: "center",
   },
+
   screenContainer: {
     flex: 1,
     backgroundColor: ColorsBarber.dark.background,
