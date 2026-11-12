@@ -1,6 +1,6 @@
 import { ExpoConfig, ConfigContext } from "@expo/config";
 
-const APP_VERSION = '1.1.4';
+const APP_VERSION = '1.1.6';
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
@@ -11,11 +11,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   icon: "./assets/images/admin.png",
   scheme: "adminbarberdemo",
   userInterfaceStyle: "automatic",
-  splash: {
-    image: "./assets/images/admin.png",
-    backgroundColor: "#000000",
-  },
-  newArchEnabled: true,
   ios: {
     supportsTablet: true,
     bundleIdentifier: "fta.admin.app",
@@ -37,13 +32,15 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     [
       "expo-splash-screen",
       {
-        image: "./assets/images/admin.png",
-        imageWidth: 200,
-        resizeMode: "contain",
-        backgroundColor: "#ffffff",
-        dark: {
-          backgroundColor: "#000000",
+        "image": "./assets/images/admin.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#000000",
+        "dark": {
+          "backgroundColor": "#000000",
+          "image": "./assets/images/admin.png",
         },
+        "imageWidth": 200,
+
       },
     ],
     [

@@ -153,7 +153,6 @@ export const AuthProvider = ({ children }) => {
   };
 
   const getFcmToken = async () => {
-    await NotificationService.initializeListeners();
 
     const fcmToken = await NotificationService.getFCMToken();
 
