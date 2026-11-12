@@ -193,13 +193,7 @@ const styles = StyleSheet.create({
     color: ColorsBarber.dark.textColor,
     fontFamily: "OldStandard-Bold",
   },
-  container: {
-    flexGrow: 1,
-    justifyContent: "center",
-    flex: 1,
-    paddingVertical: 20,
-    backgroundColor: ColorsBarber.dark.background,
-  }
+
 
 });
 export default AddCategory;

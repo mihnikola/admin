@@ -8,6 +8,7 @@ import {
   StyleSheet,
   ActivityIndicator,
   Keyboard,
+  FlatList,
 } from "react-native";
 import Constants from "expo-constants";
 import { useLocalization } from "./../../../../contexts/LocalizationContext";
@@ -125,32 +126,31 @@ export default function GooglePlace({ onSelect }) {
   return (
     <View style={styles.container}>
       <View style={styles.searchInputContainer}>
-        <SearchInputComponent 
-          search={query} 
-          setSearch={setQuery} 
-          placeholderText={localization.PLACES.search} 
+        <SearchInputComponent
+          search={query}
+          setSearch={setQuery}
+          placeholderText={localization.PLACES.search}
         />
       </View>
-      
+
       {loading && <ActivityIndicator size="small" color={ColorsBarber.dark.textColor} />}
-      
-      {/* 2. Replaced FlatList with ScrollView + .map() */}
+
       {results.length > 0 && (
-        <ScrollView
+        <FlatList
+          data={results}
+          keyExtractor={(item) => item.place_id}
           keyboardShouldPersistTaps="handled"
-          nestedScrollEnabled={true}
+          nestedScrollEnabled={true} // 👈 KLJUČNO ZA RAD U SCROLLVIEW-U
           style={styles.list}
-        >
-          {results.map((item) => (
+          renderItem={({ item }) => (
             <TouchableOpacity
-              key={item.place_id}
               style={styles.item}
               onPress={() => handleSelect(item)}
             >
               <Text style={styles.itemText}>{item.description}</Text>
             </TouchableOpacity>
-          ))}
-        </ScrollView>
+          )}
+        />
       )}
     </View>
   );
@@ -175,13 +175,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginTop: 5,
   },
-  item: { 
-    padding: 10, 
-    borderBottomColor: "#444", 
-    borderBottomWidth: 1, 
-  },
-  itemText: { 
-    color: ColorsBarber.dark.textColor, 
-    fontFamily: "OldStandard-Bold", 
-  },
+  item: { padding: 10, borderBottomColor: "#444", borderBottomWidth: 1, fontFamily: "OldStandard-Bold", },
+  itemText: { color: ColorsBarber.dark.textColor, fontFamily: "OldStandard-Bold", },
 });

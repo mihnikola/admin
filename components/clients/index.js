@@ -14,7 +14,6 @@ import { getInitialsName } from "@/helpers";
 import SearchInputComponent from "../settings/sharedComponents/SearchInputComponent";
 import { ColorsBarber } from "@/constants/Colors";
 import Loader from "@/shared-components/Loader";
-// import { useIsFocused } from "@react-navigation/native";
 
 export default function ClientsScreen() {
   const [search, setSearch] = useState("");

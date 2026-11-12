@@ -1,13 +1,9 @@
 import AppInitialized from "@/components/wrapper/AppInitialized";
 import NoInternetModal from "@/shared-components/InternetModal";
 import useInternetGuard from "@/services/useInternetGuard";
-// import { DefaultTheme, SplashScreen, Stack, ThemeProvider } from "expo-router";
 import { useFonts } from "expo-font";
-import { useEffect } from "react";
 import { ColorsBarber } from "@/constants/Colors";
-// import { DefaultTheme, ThemeProvider } from "@react-navigation/native";
 import { DefaultTheme, Stack, ThemeProvider } from "expo-router";
-// import { DefaultTheme, ThemeProvider } from "@react-navigation/native";
 
 // SplashScreen.preventAutoHideAsync();
 

@@ -1,11 +1,9 @@
 import { SharedButton } from "@/shared-components/SharedButton";
 import React, { useEffect, useState } from "react";
 import {
-  Alert,
   StyleSheet,
   Text,
   TextInput,
-  TouchableOpacity,
   View,
 } from "react-native";
 import DateAbsentComponent from "./DateAbsentComponent";

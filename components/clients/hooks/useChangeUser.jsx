@@ -11,6 +11,7 @@ export default function useChangeUser() {
   const [dialog, setDialog] = useState(false);
 
   const { localization } = useLocalization();
+  
   const makePhoneCall = async (phoneNumber) => {
     const url = `tel:${phoneNumber}`;
     try {
@@ -24,21 +25,28 @@ export default function useChangeUser() {
 
   const deleteClient = async (clientId) => {
     setError(null);
-      setDialog(false);
+    setDialog(false);
     setIsLoading("delete");
 
     await new Promise((resolve) => requestAnimationFrame(resolve));
     try {
       const response = await del(`/admin/users/${clientId}`);
 
-
-
       if (response.status === 200) {
-      setIsMessage(true);
-
+        setIsMessage(true);
         setMessage(localization.CLIENTS.deactivate);
       }
+      //  setIsLoading(null);
+      // setTimeout(() => {
+      //   if (response.status === 200) {
+      //     setIsMessage(true);
+
+      //     setMessage(localization.CLIENTS.deactivate);
+      //   }
+      // }, 800);
     } catch (err) {
+      setIsLoading(null);
+
       setIsMessage(true);
       setError(err);
     } finally {
@@ -62,7 +70,7 @@ export default function useChangeUser() {
         setMessage(localization.CLIENTS.changeColor);
       }
     } catch (err) {
-      console.log("er",err)
+      console.log("er", err)
       setIsMessage(true);
       setError(err);
     } finally {

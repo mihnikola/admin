@@ -12,14 +12,12 @@ import usePassword from "./hooks/usePassword";
 import useConfirmPassword from "./hooks/useConfirmPassword";
 import useChangePasswordHandler from "./hooks/useChangePasswordHandler";
 import { removeOtpParamsStorage } from "@/helpers/verificationOtpParams";
-import WrapperAuth from "@/wrapper/WrapperAuth";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { SharedPassword } from "@/shared-components/SharedPassword";
 import SharedConfirmPassword from "@/shared-components/SharedConfirmPassword";
 import { SharedButton } from "@/shared-components/SharedButton";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { FontAwesome } from "@expo/vector-icons";
-import withKeyboardAvoid from "@/wrapper/WrapperKeyboard";
 import { useRef } from "react";
 import { ColorsBarber } from "@/constants/Colors";
 
@@ -75,7 +73,6 @@ const ChangePasswordComponent = () => {
   return (
     <View style={{ flex: 1 }}>
       <ScrollView automaticallyAdjustKeyboardInsets style={styles.container}>
-        {/* <WrapperAuth> */}
         <SharedBackButton
           onPress={router.back}
           absolutePosition={false}

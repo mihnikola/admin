@@ -3,7 +3,6 @@ import { ColorsBarber } from "@/constants/Colors";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { getInitialsName } from "@/helpers";
 import SharedBackButton from "@/shared-components/SharedBackButton";
-// import { SharedButton } from "@/shared-components/SharedButton";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
@@ -19,7 +18,6 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  // TextInput,
   TouchableOpacity,
   View,
 } from "react-native";

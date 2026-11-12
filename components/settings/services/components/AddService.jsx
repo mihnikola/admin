@@ -1,5 +1,5 @@
 import { FontAwesome } from "@expo/vector-icons";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, {  useEffect, useRef, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import ImageCompress from "../../sharedComponents/ImageCompress";
 import { useLocalization } from "@/contexts/LocalizationContext";
@@ -13,9 +13,9 @@ import { ColorsBarber } from "@/constants/Colors";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { useServiceCategory } from "@/contexts/ServiceCategoryContext";
 import CategoryComponent from './CategoryComponent';
-import { SharedLoader } from "@/shared-components/SharedLoader";
 import Loader from "@/shared-components/Loader";
 import withKeyboardAvoid from "@/wrapper/WrapperKeyboard";
+
 const AddService = () => {
   const { localization } = useLocalization();
   const params = useLocalSearchParams();
@@ -42,15 +42,6 @@ const AddService = () => {
   const nameLocalLayout = useRef(0);
   const priceLayout = useRef(0);
   const durationLayout = useRef(0);
-
-
-
-
-
-
-
-
-
 
   const selectedImgHandler = (imgData) => {
     if (imgData) {
@@ -133,28 +124,6 @@ const AddService = () => {
   })();
 
 
-
-  // const validationData = (id) => {
-  //   if (!id) {
-  //     if (nameEn?.length > 0 && nameLocal?.length > 0 && price?.length > 0 && duration?.length > 0 && changedImg) {
-  //       return true;
-  //     }
-  //   } else if (
-  //     getServiceData?.id === editingId &&
-  //     getServiceData?.name?.nameEn === nameEn &&
-  //     getServiceData?.name?.nameLocal === nameLocal &&
-  //     getServiceData.price?.toString() === price &&
-  //     getServiceData.duration?.toString() === duration &&
-  //     getServiceData?.image === changedImg &&
-  //     getServiceData?.category?._id === categoryId
-  //   ) {
-  //     return false;
-
-  //   } else {
-  //     return true;
-
-  //   }
-  // };
   const resetForm = () => {
     setNameEn("");
     setNameLocal("");
