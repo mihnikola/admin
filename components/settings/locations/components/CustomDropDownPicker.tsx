@@ -58,6 +58,8 @@ const CustomDropDownPicker = ({
             <FlatList
               data={options}
               keyExtractor={(item) => item.value}
+               keyboardShouldPersistTaps="handled"
+          nestedScrollEnabled={true} // 👈 KLJUČNO ZA RAD U SCROLLVIEW-U
               renderItem={({ item }) => (
                 <TouchableOpacity
                   style={styles.optionButton}

@@ -272,7 +272,7 @@ export default function BarbersAdd() {
           paddingBottom: 20,
           marginHorizontal: 12,
         }}
-        keyboardShouldPersistTaps="always"
+        keyboardShouldPersistTaps="handled"
       >
 
         {isLoading === "getBarber" && <Loader />}
@@ -467,7 +467,7 @@ const styles = StyleSheet.create({
     color: "red",
     fontFamily: "OldStandard-Regular",
   },
-  btnContainer: {},
+  btnContainer: {marginTop: 20},
   btnGap: { gap: 10 },
   buttonRmv: {
     backgroundColor: "rgb(129, 29, 29)",

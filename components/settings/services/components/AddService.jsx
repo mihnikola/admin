@@ -1,6 +1,6 @@
 import { FontAwesome } from "@expo/vector-icons";
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { ActivityIndicator, StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import ImageCompress from "../../sharedComponents/ImageCompress";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { SharedMessage } from "@/shared-components/SharedMessage";
@@ -15,7 +15,8 @@ import { useServiceCategory } from "@/contexts/ServiceCategoryContext";
 import CategoryComponent from './CategoryComponent';
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import Loader from "@/shared-components/Loader";
-export default function AddService() {
+import withKeyboardAvoid from "@/wrapper/WrapperKeyboard";
+const AddService = () => {
   const { localization } = useLocalization();
   const params = useLocalSearchParams();
   const { id } = params;
@@ -235,8 +236,12 @@ export default function AddService() {
 
 
   return (
-    <View style={styles.container}>
 
+ <ScrollView
+      keyboardDismissMode="interactive"
+      style={styles.container}
+      keyboardShouldPersistTaps="handled"
+    >
       <View
         style={{
           flexDirection: "row",
@@ -413,7 +418,7 @@ export default function AddService() {
           title={error}
         />
       )}
-    </View>
+      </ScrollView>
   );
 }
 
@@ -434,6 +439,7 @@ const styles = StyleSheet.create({
   },
   btnContainer: {
     flexDirection: "column",
+    marginBottom: 20
   },
   btnGap: { gap: 10 },
   container: {
@@ -499,3 +505,4 @@ const styles = StyleSheet.create({
     padding: 8,
   },
 });
+export default withKeyboardAvoid(AddService);

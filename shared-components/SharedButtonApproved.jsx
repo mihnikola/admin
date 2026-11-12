@@ -55,8 +55,8 @@ const styles = StyleSheet.create({
     borderColor: ColorsBarber.dark.inActiveTextColor,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 20,
-    minHeight: 50,
+    // marginTop: 20,
+    // minHeight: 50,
   },
 });
 export default SharedButtonApproved;

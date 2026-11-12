@@ -26,6 +26,7 @@ export default function AbsenceComponent() {
       <SharedBackButton
         onPress={router.back}
         styleBtn={{ marginTop: 20, marginLeft: 10 }}
+        width
       />
       <View style={styles.header}>
         <Text style={styles.subTitle}>{localization.HOME.listAbsence}</Text>

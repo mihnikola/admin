@@ -59,6 +59,7 @@ export default function ManagerReservation() {
       <SharedBackButton
           onPress={router.back}
           absolutePosition={false}
+          width
           styleBtn={{ marginTop: 40, marginHorizontal: 15 }}
         />
       <ScrollView contentContainerStyle={styles.container}>
