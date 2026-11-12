@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { View, Text, Modal, TouchableOpacity, StyleSheet } from "react-native";
 import WheelPicker from "@quidone/react-native-wheel-picker";
 import { useLocalization } from "@/contexts/LocalizationContext";
@@ -50,19 +50,27 @@ const TimePickerModal = ({
   activeTab,
   title,
 }) => {
+  const selectedTimeRef = useRef(value); // Dodato da pamti u hodu
+
   const [selectedTime, setSelectedTime] = useState(value);
   const { localization } = useLocalization();
   const times = generateTimes(startValue, endValue, interval);
+  // useEffect(() => {
+  //   setSelectedTime(value);
+  // }, [activeTab]);
 
   useEffect(() => {
     setSelectedTime(value);
-  }, [activeTab]);
+    selectedTimeRef.current = value;
+  }, [activeTab, value]);
 
   const onDone = () => {
-    setVisible(false);
-    onConfirm(selectedTime);
+    requestAnimationFrame(() => {
+      setVisible(false);
+      // Šaljemo vrednost iz ref-a koja je 100% sinhronizovana sa poslednjim pokretom
+      onConfirm(selectedTimeRef.current);
+    });
   };
-  console.log("title",title)
 
   return (
     <Modal
@@ -78,7 +86,10 @@ const TimePickerModal = ({
           <WheelPicker
             data={times}
             value={selectedTime}
-            onValueChanged={({ item }) => setSelectedTime(item.value)}
+            onValueChanged={({ item }) => {
+              setSelectedTime(item.value);
+              selectedTimeRef.current = item.value; // Ažuriramo odmah i ref
+            }}
             itemTextStyle={styles.itemText}
             selectedItemTextStyle={styles.selectedItemText}
           />
@@ -119,7 +130,7 @@ const styles = StyleSheet.create({
     color: ColorsBarber.dark.textColor, // Corresponds to text-white
     fontSize: 20, // Corresponds to text-3xl
     fontFamily: "OldStandard-Bold",
-   
+
     marginBottom: 16, // Corresponds to mb-4
     textAlign: "center",
     lineHeight: 36, // Corresponds to leading-tight
@@ -192,7 +203,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontFamily: "OldStandard-Bold",
     color: ColorsBarber.dark.textColor,
-    
+
   },
 
   selectedItemText: {
