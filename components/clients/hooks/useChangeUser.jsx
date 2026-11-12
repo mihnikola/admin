@@ -76,7 +76,7 @@ export default function useChangeUser() {
     } finally {
       setIsLoading(null);
 
-      setDialog(false);
+  //     setDialog(false);
     }
   };
 
