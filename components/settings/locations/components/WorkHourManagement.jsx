@@ -1,4 +1,3 @@
-import { SharedButton } from "@/shared-components/SharedButton";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import React, { useEffect, useState } from "react";
@@ -6,7 +5,6 @@ import {
   Platform,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from "react-native";
 import CustomDropDownPicker from "./CustomDropDownPicker";
@@ -19,6 +17,7 @@ import SharedButtonDeactivate from "@/shared-components/SharedButtonDeactivate";
 import SharedButtonActivate from "@/shared-components/SharedButtonActivate";
 import { ColorsBarber } from "@/constants/Colors";
 import SharedButtonApproved from "@/shared-components/SharedButtonApproved";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
 export default function TimeSettingsScreen({
   checkReservation,

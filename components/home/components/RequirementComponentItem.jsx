@@ -1,9 +1,11 @@
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { FontAwesome } from "@expo/vector-icons";
 import { router } from "expo-router";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import DateFormatComponent from "./DateFormatComponent";
 import { ColorsBarber } from "@/constants/Colors";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
+
 const RequirementComponentItem = ({ item }) => {
   const { localization } = useLocalization();
 

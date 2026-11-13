@@ -1,8 +1,8 @@
 import { ColorsBarber } from "@/constants/Colors";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { FontAwesome5 } from "@expo/vector-icons";
 import {
     Text,
-    TouchableOpacity,
     StyleSheet,
 } from "react-native";
 

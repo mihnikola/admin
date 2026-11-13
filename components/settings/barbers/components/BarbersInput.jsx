@@ -4,11 +4,11 @@ import {
   TextInput,
   StyleSheet,
   Image,
-  TouchableOpacity,
 } from "react-native";
 import { Feather, FontAwesome } from "@expo/vector-icons";
 import { forwardRef, useState } from "react";
 import { ColorsBarber } from "@/constants/Colors";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
 const BarbersInput = forwardRef((props, ref) => {
   const [isFocused, setIsFocused] = useState(false);

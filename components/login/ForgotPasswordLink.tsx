@@ -1,6 +1,7 @@
 import { ColorsBarber } from "@/constants/Colors";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, Text } from "react-native";
 
 function ForgotPasswordLink({ onPress, title }) {
   return (

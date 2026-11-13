@@ -1,7 +1,8 @@
 import { getInitialsName } from "@/helpers";
 import { FontAwesome } from "@expo/vector-icons";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import { ColorsBarber } from "@/constants/Colors";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
 export default function BarberItem({ item, toggleBarber }) {
   const initials = getInitialsName(item.name);

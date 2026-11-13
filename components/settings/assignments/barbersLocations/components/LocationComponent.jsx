@@ -1,12 +1,9 @@
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
-import React, { useState } from "react";
 import {
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
-  Image,
 } from "react-native";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { SharedButton } from "@/shared-components/SharedButton";
@@ -14,6 +11,7 @@ import { useLocalization } from "@/contexts/LocalizationContext";
 import Loader from "@/shared-components/Loader";
 import { ColorsBarber } from "@/constants/Colors";
 import useLocationBarber from "../hooks/useLocationBarber";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
 const LocationComponent = () => {
   const { localization } = useLocalization();

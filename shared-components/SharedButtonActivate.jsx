@@ -1,10 +1,10 @@
 import { ColorsBarber } from "@/constants/Colors";
 import {
   Text,
-  TouchableOpacity,
   StyleSheet,
   ActivityIndicator,
 } from "react-native";
+import { TouchableOpacity } from "./TouchableOpacity";
 
 const SharedButtonActivate = (props) => {
   return (

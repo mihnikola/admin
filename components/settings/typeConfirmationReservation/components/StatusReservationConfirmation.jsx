@@ -6,7 +6,6 @@ import {
   FlatList,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from "react-native";
 import useStatusNotification from "../hooks/useStatusNotification";
@@ -17,6 +16,7 @@ import { SharedMessage } from "@/shared-components/SharedMessage";
 import { useEffect } from "react";
 import SharedButtonApproved from "@/shared-components/SharedButtonApproved";
 import { ColorsBarber } from "@/constants/Colors";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
 const StatusReservationConfirmation = () => {
   const { localization } = useLocalization();

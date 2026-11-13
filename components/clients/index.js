@@ -5,7 +5,6 @@ import {
   FlatList,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from "react-native";
 import useGetClients from "./hooks/useGetClients";
@@ -14,6 +13,7 @@ import { getInitialsName } from "@/helpers";
 import SearchInputComponent from "../settings/sharedComponents/SearchInputComponent";
 import { ColorsBarber } from "@/constants/Colors";
 import Loader from "@/shared-components/Loader";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
 export default function ClientsScreen() {
   const [search, setSearch] = useState("");

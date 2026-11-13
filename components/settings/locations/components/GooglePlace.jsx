@@ -1,20 +1,17 @@
 import React, { useState, useEffect } from "react";
 import {
   View,
-  TextInput,
-  ScrollView, // 👈 1. Import ScrollView
   Text,
-  TouchableOpacity,
   StyleSheet,
   ActivityIndicator,
   Keyboard,
-  FlatList,
 } from "react-native";
 import Constants from "expo-constants";
 import { useLocalization } from "./../../../../contexts/LocalizationContext";
 import { useCompany } from "@/contexts/CompanyContext";
 import SearchInputComponent from "../../sharedComponents/SearchInputComponent";
 import { ColorsBarber } from "@/constants/Colors";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
 const apiKey = Constants.expoConfig.extra.API_KEY_MAP;
 

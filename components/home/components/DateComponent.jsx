@@ -5,7 +5,6 @@ import {
   StatusBar,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from "react-native";
 import { CalendarList } from "react-native-calendars";
@@ -17,6 +16,7 @@ import { calendarLocales } from "@/helpers/calendarLocales";
 import { ColorsBarber } from "@/constants/Colors";
 import { FontAwesome } from "@expo/vector-icons";
 import { useAppointment } from "@/contexts/AppointmentContext";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
 const DateComponent = () => {
   const today = new Date();

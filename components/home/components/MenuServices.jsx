@@ -2,7 +2,6 @@ import SharedCarousel from "@/shared-components/SharedCarousel";
 import { FontAwesome } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useState } from "react";
-// import useFetchLocations from "../..";
 
 import useFetchPlaces from "@/components/home/hooks/useFetchPlaces";
 import {
@@ -10,12 +9,11 @@ import {
   Image,
   StyleSheet,
   Text,
-  TextInput,
-  TouchableOpacity,
   View,
 } from "react-native";
 import SearchInputComponent from "@/components/settings/sharedComponents/SearchInputComponent";
 import { ColorsBarber } from "@/constants/Colors";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
 const locations = [
   {

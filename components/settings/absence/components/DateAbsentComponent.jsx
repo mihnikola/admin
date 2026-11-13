@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Platform, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Platform, StyleSheet, Text, View } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { ColorsBarber } from "@/constants/Colors";
 import DatePickerModal from './DatePickerModal';
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 function DateAbsentComponent({
   setShowDate,
   date,

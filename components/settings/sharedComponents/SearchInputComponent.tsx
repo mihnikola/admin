@@ -1,8 +1,9 @@
 import { ColorsBarber } from "@/constants/Colors";
 import { useLocalization } from "@/contexts/LocalizationContext";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
-import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
+import { StyleSheet, TextInput, View } from "react-native";
 
 function SearchInputComponent({
   search,
@@ -20,8 +21,8 @@ function SearchInputComponent({
         value={search}
         onChangeText={setSearch}
         placeholderTextColor={ColorsBarber.dark.inActiveTextColor}
-        onFocus={onFocus} // <-- prosleđeno
-        onBlur={onBlur} // <-- prosleđeno
+        onFocus={onFocus}
+        onBlur={onBlur}
       />
 
       {search.length > 0 && (
@@ -38,7 +39,7 @@ function SearchInputComponent({
 const styles = StyleSheet.create({
   searchContainer: {
     justifyContent: "center",
-    
+
   },
 
   searchInput: {

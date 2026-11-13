@@ -4,8 +4,8 @@ import {
   ActivityIndicator,
   StyleSheet,
   Text,
-  TouchableOpacity,
 } from "react-native";
+import { TouchableOpacity } from "./TouchableOpacity";
 
 export function SharedButton(props: any) {
   return (

@@ -1,12 +1,9 @@
 import { FontAwesome, FontAwesome6, MaterialIcons } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
 import {
-  ActivityIndicator,
   FlatList,
   StyleSheet,
   Text,
-  TextInput,
-  TouchableOpacity,
   View,
 } from "react-native";
 import { useLocalization } from "@/contexts/LocalizationContext";
@@ -14,14 +11,13 @@ import { SharedMessage } from "@/shared-components/SharedMessage";
 import { router, useLocalSearchParams } from "expo-router";
 import Loader from "@/shared-components/Loader";
 import ServiceItem from "./ServiceItem";
-import SharedBackButton from "@/shared-components/SharedBackButton";
 import useBarbersService from "../hooks/useBarbersService";
-import { SharedLoader } from "@/shared-components/SharedLoader";
 import SharedButtonApproved from "@/shared-components/SharedButtonApproved";
 import withKeyboardAvoid from "@/wrapper/WrapperKeyboard";
 import SearchInputComponent from "@/components/settings/sharedComponents/SearchInputComponent";
 import { ColorsBarber } from "@/constants/Colors";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
 const Services = () => {
   const { localization } = useLocalization();
@@ -127,9 +123,6 @@ const Services = () => {
     return;
   }
 
-  console.log("initialNumber", initialNumber?.length)
-  console.log("filterResult", filterResult?.length)
-
   return (
     <View style={styles.container}>
       <View style={styles.headerComponent}>
@@ -138,7 +131,6 @@ const Services = () => {
             <MaterialIcons name="arrow-back" size={25} color={ColorsBarber.dark.textColor} />
           </TouchableOpacity>
 
-          {/* Kolona sa Naslovom i Adresom desno od strelice */}
           <View style={styles.headerTextContainer}>
             <Text style={styles.pageTitleHeader}>
               {localization.SERVICES.listServices}

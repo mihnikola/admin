@@ -1,8 +1,8 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { StyleSheet, View } from "react-native";
 import { Image } from "react-native";
-import { TouchableOpacity } from "react-native";
 import { ColorsBarber } from "@/constants/Colors";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
 const SettingsImageComponent = ({ setIsImageLoading, image, editProfileBarber }) => {
     return (

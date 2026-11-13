@@ -1,9 +1,9 @@
 import { ColorsBarber } from "@/constants/Colors";
 import {
   Text,
-  TouchableOpacity,
   StyleSheet,
 } from "react-native";
+import { TouchableOpacity } from "./TouchableOpacity";
 
 const SharedButtonCancel = (props) => {
   return (

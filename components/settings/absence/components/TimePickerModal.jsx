@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import { View, Text, Modal, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, Modal, StyleSheet } from "react-native";
 import WheelPicker from "@quidone/react-native-wheel-picker";
 import { useLocalization } from "@/contexts/LocalizationContext";
-import { Colors } from "@/constants/theme";
 import { ColorsBarber } from "@/constants/Colors";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
 const generateTimes = (startValue, endValue, step = 10) => {
   const times = [];

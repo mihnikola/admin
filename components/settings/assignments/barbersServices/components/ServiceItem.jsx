@@ -1,7 +1,8 @@
 import { ColorsBarber } from "@/constants/Colors";
 import { useLocalization } from "@/contexts/LocalizationContext";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { FontAwesome } from "@expo/vector-icons";
-import { TouchableOpacity, View, Image, Text } from "react-native";
+import { View, Image, Text } from "react-native";
 import { StyleSheet } from "react-native";
 
 const ServiceItem = ({ item, toggleService }) => {

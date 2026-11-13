@@ -1,7 +1,8 @@
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { Feather, FontAwesome } from "@expo/vector-icons";
 import { ColorsBarber } from "@/constants/Colors";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
 export default function BarberSeniorityComponent({
   selected,

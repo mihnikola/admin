@@ -2,7 +2,7 @@ import { useLocalization } from "@/contexts/LocalizationContext";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { router, useFocusEffect } from "expo-router";
 import { useCallback } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import HomeCoverImage from "./HomeCoverImage";
 import UpcomingAppointmentCard from "./UpcomingAppointmentCard";
 import InProgressAppointmentCard from "./InProgressAppointmentCard";
@@ -10,6 +10,7 @@ import InProgressAppointmentCard from "./InProgressAppointmentCard";
 import { useHomeData } from "@/contexts/HomeDataContext";
 import HomeLoader from "@/shared-components/HomeLoader";
 import { ColorsBarber } from "@/constants/Colors";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
 export default function HomeScreen() {
   const {
@@ -28,7 +29,7 @@ export default function HomeScreen() {
       fetchHomeInfo();
     }, []),
   );
- 
+
 
   const { localization } = useLocalization();
 
@@ -47,96 +48,96 @@ export default function HomeScreen() {
   };
 
 
-    return (
-      <View style={styles.container}>
-        <HomeCoverImage />
-        {isLoadingHome === "getHomeInfo" && <HomeLoader />}
-        {isLoadingHome !== "getHomeInfo" && (
-          <View style={styles.boxBook}>
-            {upcomingData && <UpcomingAppointmentCard data={upcomingData} />}
-            {inProgressData && (
-              <InProgressAppointmentCard data={inProgressData} />
-            )}
+  return (
+    <View style={styles.container}>
+      <HomeCoverImage />
+      {isLoadingHome === "getHomeInfo" && <HomeLoader />}
+      {isLoadingHome !== "getHomeInfo" && (
+        <View style={styles.boxBook}>
+          {upcomingData && <UpcomingAppointmentCard data={upcomingData} />}
+          {inProgressData && (
+            <InProgressAppointmentCard data={inProgressData} />
+          )}
 
-            <View style={styles.containerData}>
-              <TouchableOpacity
-                onPress={calendarHandler}
-                style={styles.btnLocationContent}
-              >
-                <FontAwesome
-                  name="calendar"
-                  size={20}
-                  color={ColorsBarber.dark.textColor}
-                />
+          <View style={styles.containerData}>
+            <TouchableOpacity
+              onPress={calendarHandler}
+              style={styles.btnLocationContent}
+            >
+              <FontAwesome
+                name="calendar"
+                size={20}
+                color={ColorsBarber.dark.textColor}
+              />
 
-                <View style={styles.locationContent}>
-                  <Text style={styles.titleLocation}>
-                    {localization.HOME.calendar}
-                  </Text>
+              <View style={styles.locationContent}>
+                <Text style={styles.titleLocation}>
+                  {localization.HOME.calendar}
+                </Text>
+              </View>
+
+              <FontAwesome
+                name="chevron-right"
+                size={28}
+                color={ColorsBarber.dark.textColor}
+              />
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={requirementsHandler}
+              style={styles.btnLocationContent}
+            >
+              <FontAwesome
+                name="paper-plane"
+                size={22}
+                color={ColorsBarber.dark.textColor}
+              />
+
+              <View style={styles.locationContent}>
+                <Text style={styles.titleLocation}>
+                  {localization.HOME.requirements}
+                  {/* jhdaskjdhasdkjh */}
+                </Text>
+              </View>
+              {requirementsLength > 0 && (
+                <View style={styles.badge}>
+                  <Text style={styles.badgeText}>{requirementsLength}</Text>
                 </View>
-
-                <FontAwesome
-                  name="chevron-right"
-                  size={28}
-                  color={ColorsBarber.dark.textColor}
-                />
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                onPress={requirementsHandler}
-                style={styles.btnLocationContent}
-              >
-                <FontAwesome
-                  name="paper-plane"
-                  size={22}
-                  color={ColorsBarber.dark.textColor}
-                />
-
-                <View style={styles.locationContent}>
-                  <Text style={styles.titleLocation}>
-                    {localization.HOME.requirements}
-                    {/* jhdaskjdhasdkjh */}
-                  </Text>
-                </View>
-                {requirementsLength > 0 && (
-                  <View style={styles.badge}>
-                    <Text style={styles.badgeText}>{requirementsLength}</Text>
-                  </View>
-                )}
-                <FontAwesome
-                  name="chevron-right"
-                  size={28}
-                  color={ColorsBarber.dark.textColor}
-                />
-              </TouchableOpacity>
-              {absenceData?.length > 0 && (
-                <TouchableOpacity
-                  onPress={absenceHandler}
-                  style={styles.btnLocationContent}
-                >
-                  <Ionicons
-                    name="swap-vertical"
-                    size={24}
-                    color={ColorsBarber.dark.textColor}
-                  />
-                  <View style={styles.locationContent}>
-                    <Text style={styles.titleLocation}>
-                      {localization.HOME.absenceManager}
-                    </Text>
-                  </View>
-
-                  <FontAwesome
-                    name="chevron-right"
-                    size={28}
-                    color={ColorsBarber.dark.textColor}
-                  />
-                </TouchableOpacity>
               )}
-            </View>
+              <FontAwesome
+                name="chevron-right"
+                size={28}
+                color={ColorsBarber.dark.textColor}
+              />
+            </TouchableOpacity>
+            {absenceData?.length > 0 && (
+              <TouchableOpacity
+                onPress={absenceHandler}
+                style={styles.btnLocationContent}
+              >
+                <Ionicons
+                  name="swap-vertical"
+                  size={24}
+                  color={ColorsBarber.dark.textColor}
+                />
+                <View style={styles.locationContent}>
+                  <Text style={styles.titleLocation}>
+                    {localization.HOME.absenceManager}
+                  </Text>
+                </View>
+
+                <FontAwesome
+                  name="chevron-right"
+                  size={28}
+                  color={ColorsBarber.dark.textColor}
+                />
+              </TouchableOpacity>
+            )}
           </View>
-        )}
-      </View>
-    );
+        </View>
+      )}
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({

@@ -1,4 +1,5 @@
 import { ColorsBarber } from "@/constants/Colors";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import {
@@ -8,7 +9,6 @@ import {
   View,
   Platform,
   StatusBar,
-  TouchableOpacity,
 } from "react-native";
 const THEME = {
   background: "#121212", // Charcoal

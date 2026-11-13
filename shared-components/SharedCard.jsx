@@ -1,9 +1,10 @@
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { FontAwesome } from "@expo/vector-icons";
 import { router } from "expo-router";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { convertTimeHandler } from "../helpers";
 import { ColorsBarber } from "@/constants/Colors";
+import { TouchableOpacity } from "./TouchableOpacity";
 
 const SharedCard = ({ item, criteriaDate }) => {
   const { localization } = useLocalization();

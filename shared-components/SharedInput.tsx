@@ -4,9 +4,9 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  TouchableOpacity,
   View,
 } from "react-native";
+import { TouchableOpacity } from "./TouchableOpacity";
 
 export function SharedInput(props: any) {
   const [isFocused, setIsFocused] = useState(false);

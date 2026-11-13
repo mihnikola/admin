@@ -1,7 +1,7 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { StyleSheet, Text, View } from "react-native";
-import { TouchableOpacity } from "react-native";
 import { ColorsBarber } from "@/constants/Colors";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
 const SettingsAvatarComponent = ({ editProfileBarber, initials }) => {
     return (

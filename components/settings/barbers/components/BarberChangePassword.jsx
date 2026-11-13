@@ -2,10 +2,10 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableOpacity,
 } from "react-native";
 import { Feather, FontAwesome } from "@expo/vector-icons";
 import { ColorsBarber } from "@/constants/Colors";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
 const BarberChangePassword = (props) => {
   return (

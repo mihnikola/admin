@@ -1,8 +1,8 @@
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons"
 import { StyleSheet, Text } from "react-native"
-import { TouchableOpacity } from "react-native"
 import { View } from "react-native"
 import { ColorsBarber } from "@/constants/Colors";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
 const CategoryHeaderComponent = ({ onPress, addServiceRouter, name, title }) => {
     return (

@@ -2,15 +2,12 @@ import { useCompany } from "@/contexts/CompanyContext";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import SharedTabHeader from "@/shared-components/SharedTabHeader";
 import {
-  ActivityIndicator,
   Platform,
   StatusBar,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from "react-native";
-import DateTimePicker from "@react-native-community/datetimepicker";
 import { useState } from "react";
 import { SharedButton } from "@/shared-components/SharedButton";
 import SharedBackButton from "@/shared-components/SharedBackButton";
@@ -49,51 +46,6 @@ function LocationRemove() {
         <Text style={styles.info}>
           {type === 'delete' ? localization.SETTINGS.infoSecondaryLocation :  ""}
         </Text>
-
-        {/* <View>
-          <Text style={styles.dateLabel}>
-            {localization.SETTINGS.dateLabel}
-          </Text>
-          <TouchableOpacity
-            style={styles.dateButton}
-            onPress={() => setShowToPicker(true)}
-          >
-            <Text style={styles.dateText}>
-              {toTime || new Date().toISOString().split("T")[0]}
-            </Text>
-          </TouchableOpacity>
-          {showToPicker && (
-            <DateTimePicker
-              value={toTime || new Date()}
-              mode="date"
-              display="spinner"
-              onChange={onChangeTo}
-            />
-          )}
-        </View> */}
-        {/* {type === "deactivate" && (
-          <View>
-            <Text style={styles.dateLabel}>
-              {localization.SETTINGS.dateLabelStart}
-            </Text>
-            <TouchableOpacity
-              style={styles.dateButton}
-              onPress={() => setShowToPicker(true)}
-            >
-              <Text style={styles.dateText}>
-                {toTime || new Date().toISOString().split("T")[0]}
-              </Text>
-            </TouchableOpacity>
-            {showToPicker && (
-              <DateTimePicker
-                value={toTime || new Date()}
-                mode="date"
-                display="spinner"
-                onChange={onChangeTo}
-              />
-            )}
-          </View>
-        )} */}
       </View>
       <View style={[styles.btnContainer, type==="deactivate" && styles.deactivate]}>
         <SharedButton text={type==="deactivate" ? localization.PLACES.deactivateBtn : localization.PLACES.deleteBtn} onPress={removeLocationHandler} />

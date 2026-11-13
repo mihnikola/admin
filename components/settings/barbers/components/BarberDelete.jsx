@@ -2,17 +2,14 @@ import { useCompany } from "@/contexts/CompanyContext";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import SharedTabHeader from "@/shared-components/SharedTabHeader";
 import {
-  ActivityIndicator,
   Platform,
   StatusBar,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useState } from "react";
-import { SharedButton } from "@/shared-components/SharedButton";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { router, useLocalSearchParams } from "expo-router";
 import useBarbers from "../hooks/useBarbers";
@@ -21,6 +18,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import SharedButtonRejected from "@/shared-components/SharedButtonRejected";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import { ColorsBarber } from "@/constants/Colors";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
 function BarberDelete() {
   const { company } = useCompany();
