@@ -1,5 +1,6 @@
 import { ColorsBarber } from "@/constants/Colors";
-import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Modal, StyleSheet, Text, View } from "react-native";
+import { TouchableOpacity } from "./TouchableOpacity";
 
 export const SharedQuestion = ({
   isOpen,

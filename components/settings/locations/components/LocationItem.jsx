@@ -1,6 +1,7 @@
 import { ColorsBarber } from "@/constants/Colors";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { FontAwesome } from "@expo/vector-icons";
-import { TouchableOpacity, Text, StyleSheet, View } from "react-native";
+import { Text, StyleSheet, View } from "react-native";
 
 const LocationItem = ({ item, startEditing }) => {
   const displayValue =

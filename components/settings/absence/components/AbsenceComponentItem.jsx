@@ -1,6 +1,7 @@
 import { ColorsBarber } from "@/constants/Colors";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import AbsenceDateFormatComponent from "./AbsenceDateFormatComponent";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
 const AbsenceComponentItem = ({ item }) => {
   return (

@@ -1,7 +1,8 @@
 import { ColorsBarber } from "@/constants/Colors";
 import { FontAwesome } from "@expo/vector-icons";
 import React from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
+import { TouchableOpacity } from "./TouchableOpacity";
 
 const SharedItem = (props: any) => {
   const { data, onPressHandler } = props;

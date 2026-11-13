@@ -1,8 +1,9 @@
 import { router } from "expo-router";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { convertReadDateTime } from "../../../helpers";
 import { ColorsBarber } from "@/constants/Colors";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
 export default function InProgressAppointmentCard({ data }) {
   const { user, service, place, startDate, endDate, arrived } = data;

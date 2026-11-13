@@ -3,7 +3,7 @@ import { SharedMessage } from "@/shared-components/SharedMessage";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import useLocation from "../hooks/useLocations";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import GooglePlace from "./GooglePlace";
@@ -11,6 +11,7 @@ import LocationInput from "./LocationInput";
 import TimeSettingsScreen from "./WorkHourManagement";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import { ColorsBarber } from "@/constants/Colors";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
 export default function LocationsAddEdit() {
   const [city, setCity] = useState("");

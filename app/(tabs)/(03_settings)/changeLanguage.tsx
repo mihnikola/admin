@@ -3,6 +3,7 @@ import { useCompany } from "@/contexts/CompanyContext";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import SharedBackButton from "@/shared-components/SharedBackButton";
 import SharedTabHeader from "@/shared-components/SharedTabHeader";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import { FontAwesome } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
@@ -12,7 +13,6 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  TouchableOpacity,
   View,
 } from "react-native";
 

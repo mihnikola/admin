@@ -1,11 +1,12 @@
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { FontAwesome } from "@expo/vector-icons";
 import { router } from "expo-router";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text,  View } from "react-native";
 import DateFormatComponent from "./DateFormatComponent";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
+
 const AbsenceComponentItem = ({ item }) => {
   const { localization } = useLocalization();
-    console.log("item",item)
   return (
     <TouchableOpacity
       key={item.id}

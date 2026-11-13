@@ -2,10 +2,10 @@ import {
     View,
     Text,
     StyleSheet,
-    TouchableOpacity,
 } from "react-native";
 import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import { ColorsBarber } from "@/constants/Colors";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
 const BarberServicesListInput = (props) => {
     return (

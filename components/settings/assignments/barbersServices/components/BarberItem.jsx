@@ -1,5 +1,6 @@
 import { getInitialsName } from "@/helpers";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
+import { Image, StyleSheet, Text, View } from "react-native";
 
 export default function BarberItem({ id, item, assignmentHandler }) {
   const checkHandler = (item, id) => {

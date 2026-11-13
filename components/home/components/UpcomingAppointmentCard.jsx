@@ -1,9 +1,10 @@
 import { convertReadDateTime } from "@/helpers";
 import { router } from "expo-router";
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { ColorsBarber } from "@/constants/Colors";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
 export default function UpcomingAppointmentCard({ data }) {
   const { user, service, place, startDate, endDate, arrived } = data;

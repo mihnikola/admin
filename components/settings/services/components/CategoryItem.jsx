@@ -1,9 +1,9 @@
 import { FontAwesome } from "@expo/vector-icons";
 import { StyleSheet, Text } from "react-native";
-import { TouchableOpacity } from "react-native";
 import { View } from "react-native";
 import { ColorsBarber } from "@/constants/Colors";
 import { useLocalization } from "@/contexts/LocalizationContext";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
 const CategoryItem = ({ item, checkHandler, startEditing, selectedItem }) => {
     const { localization } = useLocalization();

@@ -1,8 +1,9 @@
 import { convertReadDateTime } from "@/helpers";
 import { router } from "expo-router";
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { useLocalization } from "@/contexts/LocalizationContext";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
 export default function UpcomingAbsenceCard({ data }) {
     const {  startDate, endDate, arrived } = data;

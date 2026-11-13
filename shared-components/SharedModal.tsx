@@ -1,8 +1,8 @@
 import { ColorsBarber } from "@/constants/Colors";
-import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Modal, StyleSheet, Text,  View } from "react-native";
+import { TouchableOpacity } from "./TouchableOpacity";
 
 export const SharedModal = ({ modalVisible, setModalVisible, item }) => {
-  console.log("item", item);
   return (
     <Modal
       animationType="fade"

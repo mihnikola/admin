@@ -1,13 +1,12 @@
 import { ColorsBarber } from "@/constants/Colors";
 import {
   Text,
-  TouchableOpacity,
   StyleSheet,
   ActivityIndicator,
 } from "react-native";
+import { TouchableOpacity } from "./TouchableOpacity";
 
 const SharedButtonApproved = (props) => {
-  // console.log("props.disabled",props.disabled)
   return (
     <TouchableOpacity
       style={[styles.btn, props.disabled && styles.btnDisabled]}

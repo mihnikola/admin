@@ -1,21 +1,16 @@
 import { FontAwesome } from "@expo/vector-icons";
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import {
-  ActivityIndicator,
   FlatList,
   Image,
   StyleSheet,
   Text,
-  TextInput,
-  TouchableOpacity,
   View,
 } from "react-native";
-import ImageCompress from "../../sharedComponents/ImageCompress";
 import useBarbers from "../hooks/useBarbers";
 import Loader from "../../../../shared-components/Loader";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { SharedMessage } from "@/shared-components/SharedMessage";
-import { SharedQuestion } from "@/shared-components/SharedQuestion";
 import { ColorsBarber } from "@/constants/Colors";
 import FloatingButton from "../../sharedComponents/FloatingButton";
 import { router } from "expo-router";
@@ -23,6 +18,7 @@ import SharedBackButton from "@/shared-components/SharedBackButton";
 import { getInitialsName } from "@/helpers";
 import SearchInputComponent from "../../sharedComponents/SearchInputComponent";
 import withKeyboardAvoid from "@/wrapper/WrapperKeyboard";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
 const BarbersList = () => {
   const { localization } = useLocalization();

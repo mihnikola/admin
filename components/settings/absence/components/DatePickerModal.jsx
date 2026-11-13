@@ -1,9 +1,9 @@
 import { StyleSheet, View } from "react-native"
 import { Modal } from "react-native"
 import DateTimePicker from "@react-native-community/datetimepicker";
-import { TouchableOpacity } from "react-native";
 import { Text } from "react-native";
 import { ColorsBarber } from "@/constants/Colors";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
 const DatePickerModal = ({ setShowDate, showDate, handleChange, tempDate, handleConfirmIOS }) => {
     return (

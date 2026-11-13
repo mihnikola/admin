@@ -6,6 +6,7 @@ import SharedBackButton from "@/shared-components/SharedBackButton";
 import { SharedLoader } from "@/shared-components/SharedLoader";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 import {
   Feather,
   FontAwesome,
@@ -18,7 +19,6 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from "react-native";
 

@@ -2,13 +2,12 @@ import { ColorsBarber } from "@/constants/Colors";
 import { FontAwesome } from "@expo/vector-icons";
 import { forwardRef, useState } from "react";
 import {
-  Image,
   StyleSheet,
   Text,
   TextInput,
-  TouchableOpacity,
   View,
 } from "react-native";
+import { TouchableOpacity } from "./TouchableOpacity";
 
 const SharedConfirmPassword = forwardRef((props: any, ref) => {
   const [isFocused, setIsFocused] = useState(false);

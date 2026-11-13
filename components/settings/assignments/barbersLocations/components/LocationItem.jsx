@@ -1,5 +1,6 @@
 import { ColorsBarber } from "@/constants/Colors";
-import { TouchableOpacity, Text, StyleSheet } from "react-native";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
+import { Text, StyleSheet } from "react-native";
 
 const LocationItem = ({ item, onSelectedLocation }) => {
   const onSelectedHandler = (item) => {

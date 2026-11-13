@@ -1,14 +1,12 @@
 import { ColorsBarber } from "@/constants/Colors";
 import { FontAwesome, FontAwesome6 } from "@expo/vector-icons";
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-// import { useLocalization } from "@/context/LocalizationContext";
+import { StyleSheet, Text, View } from "react-native";
+import { TouchableOpacity } from "./TouchableOpacity";
 
 const SharedItemLocation = (props: any) => {
   const { redirectHandler, data } = props;
   const { id, address } = data;
-  //   const { localization } = useLocalization();
-
   return (
     <TouchableOpacity
       key={id}

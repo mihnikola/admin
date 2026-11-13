@@ -4,7 +4,6 @@ import {
   FlatList,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from "react-native";
 import useLocationBarber from "./../hooks/useLocationBarber";
@@ -18,6 +17,7 @@ import withKeyboardAvoid from "@/wrapper/WrapperKeyboard";
 import SearchInputComponent from "@/components/settings/sharedComponents/SearchInputComponent";
 import { ColorsBarber } from "@/constants/Colors";
 import { SharedQuestion } from "@/shared-components/SharedQuestion";
+import { TouchableOpacity } from "@/shared-components/TouchableOpacity";
 
 const Barbers = () => {
   const { localization } = useLocalization();
