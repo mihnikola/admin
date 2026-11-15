@@ -78,6 +78,11 @@ const ServiceManager = () => {
           renderItem={({ item }) => (
             <ServiceManagerItem item={item} startEditing={startEditing} />
           )}
+          ListEmptyComponent={
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20 }}>
+              <Text style={{ color: ColorsBarber.dark.textColor, fontSize: 20, fontFamily: "OldStandard-Regular" }}>{localization.SERVICES.notFound}</Text>
+            </View>
+          }
         />
       )}
       <FloatingButton onPress={addServiceRouter} />

@@ -239,6 +239,10 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+    const logoutUnAuthorizedUser = async () => {
+    await removeStorage();
+  }
+
   const removeInitialTokenData = async () => {
     await AsyncStorage.removeItem("initialToken");
   };
@@ -266,6 +270,7 @@ export const AuthProvider = ({ children }) => {
         loadingLogin,
         confirmHandler,
         setIsLoading,
+        logoutUnAuthorizedUser
       }}
 
     >

@@ -1,6 +1,6 @@
 import { FontAwesome } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
-import { FlatList, StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { SharedMessage } from "@/shared-components/SharedMessage";
 import { router, useLocalSearchParams } from "expo-router";
@@ -93,6 +93,11 @@ const Categories = () => {
           renderItem={({ item }) => (
             <CategoryItem selectedItem={selectedItem} checkHandler={checkHandler} item={item} startEditing={startEditing} />
           )}
+          ListEmptyComponent={
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20 }}>
+              <Text style={{ color: ColorsBarber.dark.textColor, fontSize: 20, fontFamily: "OldStandard-Regular" }}>{localization.SERVICES.notFoundCategory}</Text>
+            </View>
+          }
         />
       )}
       <View style={{ paddingHorizontal: 10 }}>
