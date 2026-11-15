@@ -1,6 +1,6 @@
 import { ExpoConfig, ConfigContext } from "@expo/config";
 
-const APP_VERSION = '1.1.7';
+const APP_VERSION = '1.1.8';
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
@@ -42,6 +42,15 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         "imageWidth": 200,
 
       },
+    ],
+    [
+      "expo-notifications",
+      {
+        icon: "./assets/images/notification-icon.png",
+        color: "#0a0a0a",
+        // Ovde možeš dodati i sound ako želiš defaultni zvuk:
+        // "sounds": ["./assets/notification-sound.wav"]
+      }
     ],
     [
       "expo-build-properties",
