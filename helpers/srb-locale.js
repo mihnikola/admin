@@ -175,6 +175,8 @@ export const SRB_LOCALIZATION = {
     errorFields: "Popuni sva polja",
     question: "Da li ste sigurni da želite da izbrišete uslugu?",
     confirmButton: "Ok",
+    notFound:"Usluge nisu dostupne",
+    notFoundCategory:"Kategorije nisu dostupne"
   },
   DATE: {
     title: "Odaberi termin",

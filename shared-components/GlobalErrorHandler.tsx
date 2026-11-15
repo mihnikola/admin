@@ -8,30 +8,31 @@ import { ColorsBarber } from "@/constants/Colors";
 
 const GlobalErrorHandler = () => {
   const { error, hideError } = useGlobalError();
-  const { logoutFirebase, logoutHandler } = useAuth();
+  const { logoutHandler, logoutUnAuthorizedUser } = useAuth();
   const [loading, setLoading] = useState(false);
 
   const logoutConfirm = async () => {
     setLoading("logout");
-    // await logoutFirebase();
-    try {
-      // 2. Čekamo da se završi kompletan API poziv i brisanje storage-a
-      await logoutFirebase();
 
-      console.log("logoutFirebase je završen, sada gasim loader...");
-    } catch (error) {
-      console.log("Greška tokom logout procesa:", error);
-    } finally {
-      // 3. TEK OVDE gasimo loader (unutar finally bloka, što garantuje
-      // da će se izvršiti čak i ako server baci grešku)
-      setLoading(null);
-      hideError();
+    setTimeout(async () => {
+      try {
+        // 2. Čekamo da se završi kompletan API poziv i brisanje storage-a
+        await logoutUnAuthorizedUser();
 
-      // setTimeout(() => {
-      //   logoutHandler();
-      // }, 100);
-    }
+      } catch {
+      } finally {
+        // 3. TEK OVDE gasimo loader (unutar finally bloka, što garantuje
+        // da će se izvršiti čak i ako server baci grešku)
+        setLoading(null);
+
+        setTimeout(() => {
+          logoutHandler();
+        }, 100);
+      }
+    }, 1000);
+    hideError();
   };
+  
   if (!error) return null;
 
   if (loading === "logout") {

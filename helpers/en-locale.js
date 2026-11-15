@@ -55,7 +55,7 @@ export const ENG_LOCALIZATION = {
     submitAdd: "Add barber",
     changeCategory: "Change category",
     saveChanges: "Save",
-    addServices:"Add services",
+    addServices: "Add services",
     confirmButton: "Ok",
     title: "Manage barbers",
     listBarbers: "List barbers",
@@ -225,6 +225,8 @@ export const ENG_LOCALIZATION = {
     errorFields: "Fill in all input fields",
     question: "Do you want to delete this service?",
     confirmButton: "Ok",
+    notFound: "Services are not available",
+    notFoundCategory: "Categories are not available"
   },
   DETAILS: {
     price: "Price",
@@ -380,7 +382,7 @@ export const ENG_LOCALIZATION = {
       servicesLength: "Current services",
       availableServices: "All available services",
       info: "Assign services to barber",
-      question:"Without assigned services, this barber will not be visible to customers during booking. Are you sure you want to proceed?"
+      question: "Without assigned services, this barber will not be visible to customers during booking. Are you sure you want to proceed?"
     },
     LOCATIONSBARBERS: {
       yes: "Yes",
